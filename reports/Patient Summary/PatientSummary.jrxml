@@ -380,7 +380,7 @@ FROM
 		<band height="78">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<subreport>
-				<reportElement style="SectionHeading" x="0" y="0" width="481" height="52" uuid="4e856d77-9c4d-4d8c-97df-81f286283921">
+				<reportElement x="0" y="0" width="481" height="52" uuid="4e856d77-9c4d-4d8c-97df-81f286283921">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<subreportParameter name="BH_Visit_UU">
@@ -440,7 +440,7 @@ FROM
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement markup="html"/>
-				<textFieldExpression><![CDATA["<b>Visit Date:</b> " + new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm").format($F{bh_visitdate})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>Visit Date:</b> " + new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm").format($F{bh_visitdate})]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="120">
@@ -503,9 +503,9 @@ FROM
 						"   SpO2: " + ($F{spo2} != null ? $F{spo2} : "") +
 						"   LMP: " + (($F{lmp} != null && !$F{lmp}.trim().isEmpty())
 						? ($F{lmp}.matches("^\\d{13}$")
-							? new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(Long.parseLong($F{lmp})))
+							? new java.text.SimpleDateFormat("yyyy/MM/dd").format(new java.util.Date(Long.parseLong($F{lmp})))
 							: ($F{lmp}.matches("^\\d{10}$")
-								? new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date(Long.parseLong($F{lmp}) * 1000L))
+								? new java.text.SimpleDateFormat("yyyy/MM/dd").format(new java.util.Date(Long.parseLong($F{lmp}) * 1000L))
 								: $F{lmp}.replaceFirst("\\s.*$", "")))
 						: "")]]></textFieldExpression>
 			</textField>
@@ -620,7 +620,7 @@ FROM
 				</reportElement>
 				<textElement markup="html"/>
 				<textFieldExpression><![CDATA["<b>Follow-up Appointment Date:</b> " +
-($F{next_appointment_date} != null ? new java.text.SimpleDateFormat("dd / MM / yyyy").format($F{next_appointment_date}) : "____ / ____ / ____")]]></textFieldExpression>
+($F{next_appointment_date} != null ? new java.text.SimpleDateFormat("yyyy / MM / dd").format($F{next_appointment_date}) : "____ / ____ / ____")]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="81">
@@ -663,7 +663,7 @@ FROM
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA["Report Generated at " + new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm").format(new java.util.Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Report Generated at " + new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm").format(new java.util.Date())]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont">
 				<reportElement style="PageNumber" x="340" y="6" width="141" height="14" uuid="ccddeeff-1122-4a5b-8c9d-0e1f2a3b4c5e">

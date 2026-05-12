@@ -774,7 +774,7 @@ FROM
 				<textElement>
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-YYYY hh:mm").format($F{date})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy-MM-dd hh:mm").format($F{date})]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="70" splitType="Stretch">
@@ -1333,7 +1333,7 @@ FROM
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Invoice Generated at " + new SimpleDateFormat("dd-MM-YYYY HH:mm").format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Invoice Generated at " + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="367" y="0" width="90" height="20" uuid="03c55b05-88e6-4659-8967-cf404c94249a">

@@ -233,7 +233,7 @@ ORDER BY
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Report Generated at " + new SimpleDateFormat("yyyy-dd-MM HH:mm").format(new Date())]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Report Generated at " + new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date())]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="810" y="1" width="80" height="16" uuid="7f7700b6-ab52-4721-a36b-7a82ee5477eb">
@@ -402,7 +402,7 @@ ORDER BY
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="15">
-							<textField textAdjust="StretchHeight" pattern="d/M/yyyy h:mm a" isBlankWhenNull="true">
+							<textField textAdjust="StretchHeight" pattern="yyyy/M/d h:mm a" isBlankWhenNull="true">
 								<reportElement stretchType="ContainerHeight" x="0" y="0" width="130" height="15" uuid="82029608-d29f-4d90-b151-95bf38f45547"/>
 								<box leftPadding="2"/>
 								<textElement>

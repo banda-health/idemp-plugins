@@ -79,7 +79,7 @@ LIMIT 1]]>
 					<printWhenExpression><![CDATA[$F{header} != null && !$F{header}.trim().isEmpty()]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
-					<font isBold="true"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{header} != null ? $F{header} : (($F{client_name} != null ? $F{client_name}.toUpperCase()  + "<br />" : "") + ($F{address} != null ? $F{address} + "<br/>" : "") + ($F{phone} != null ? $F{phone} : ""))]]></textFieldExpression>
 			</textField>
