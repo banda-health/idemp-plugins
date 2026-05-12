@@ -74,17 +74,17 @@ LIMIT 1]]>
 	</field>
 	<title>
 		<band height="52" splitType="Stretch">
-			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
-				<reportElement x="210" y="0" width="270" height="52" isPrintInFirstWholeBand="true" uuid="f58bd9c1-c4dc-4b63-8f85-2f921f8a7b0b">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="105" y="0" width="270" height="52" isPrintInFirstWholeBand="true" uuid="f58bd9c1-c4dc-4b63-8f85-2f921f8a7b0b">
 					<printWhenExpression><![CDATA[$F{header} != null && !$F{header}.trim().isEmpty()]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
-					<font size="11" isBold="true"/>
+					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{header} != null ? $F{header} : (($F{client_name} != null ? $F{client_name}.toUpperCase()  + "<br />" : "") + ($F{address} != null ? $F{address} + "<br/>" : "") + ($F{phone} != null ? $F{phone} : ""))]]></textFieldExpression>
 			</textField>
 			<image scaleImage="RetainShape" hAlign="Left" vAlign="Middle" onErrorType="Blank">
-				<reportElement mode="Transparent" x="0" y="0" width="210" height="52" uuid="bc227f3b-fe3c-41e4-a1cf-1d87a72499f4">
+				<reportElement stretchType="ContainerHeight" mode="Transparent" x="0" y="0" width="105" height="52" uuid="bc227f3b-fe3c-41e4-a1cf-1d87a72499f4">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<printWhenExpression><![CDATA[$F{image} != null]]></printWhenExpression>
 				</reportElement>

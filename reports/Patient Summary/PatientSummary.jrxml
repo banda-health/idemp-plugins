@@ -77,228 +77,244 @@ ORDER BY
 	<queryString>
 		<![CDATA[WITH visit_base AS (
 	SELECT
-		v.bh_visit_id,
-		v.documentno,
-		v.bh_visitdate,
-		v.patient_id,
-		v.ad_org_id,
-		v.bh_clinician_user_id,
-		v.bh_referral,
-		v.bh_referredfromto
+		bh_visit_id
 	FROM
-		bh_visit v
+		bh_visit
 	WHERE
-		v.bh_visit_uu = $P{BH_Visit_UU}
-	LIMIT 1
+		bh_visit_uu = $P{BH_Visit_UU}
 ),
-obs AS (
-	SELECT DISTINCT ON (obs_label)
-		obs_label,
-		bh_value
-	FROM (
+	obs AS (
+		SELECT DISTINCT ON (obs_label)
+			obs_label,
+			bh_value
+		FROM
+			(
+				SELECT
+					CASE
+						WHEN f.ad_field_uu = 'e1d01fe4-16b6-4125-a385-34cf4531c06f' THEN 'chief_complaint'
+						WHEN c.ad_column_uu = '9bcfded3-3af9-41d3-94ae-319d1859bb30' THEN 'clinical_notes'
+						WHEN f.ad_field_uu = 'cd376ad7-d03b-4970-ab2b-34ef000b93f9' THEN 'bp_systolic'
+						WHEN f.ad_field_uu = '769b6475-1e35-4618-ad36-09fa0111affb' THEN 'bp_diastolic'
+						WHEN f.ad_field_uu = 'd3dc091f-ee3d-4607-91d1-4e766cfe5528' THEN 'temperature'
+						WHEN f.ad_field_uu = 'c0f0f904-4977-4360-8065-a0e91d4f3a71' THEN 'pulse'
+						WHEN f.ad_field_uu = '7bb73318-f6cc-4540-85d7-69672a18cc5f' THEN 'spo2'
+						WHEN f.ad_field_uu = '87183dfb-1b7d-4c18-b350-593e576bb49b' THEN 'rr'
+						WHEN f.ad_field_uu = 'da211453-46c6-44a6-8ee2-ded8f8630b23' THEN 'lmp'
+						END AS obs_label,
+					o.bh_value,
+					o.created
+				FROM
+					visit_base vb
+						JOIN bh_encounter e
+							ON e.bh_visit_id = vb.bh_visit_id
+						JOIN bh_observation o
+							ON o.bh_encounter_id = e.bh_encounter_id
+						JOIN ad_field f
+							ON o.ad_field_id = f.ad_field_id
+						LEFT JOIN ad_column c
+							ON f.ad_column_id = c.ad_column_id
+				WHERE
+					(e.bh_encounter_type = 'C' AND f.ad_field_uu = 'e1d01fe4-16b6-4125-a385-34cf4531c06f')
+					OR (e.bh_encounter_type = 'D' AND c.ad_column_uu = '9bcfded3-3af9-41d3-94ae-319d1859bb30')
+					OR (e.bh_encounter_type = 'V' AND f.ad_field_uu IN (
+					                                                    'cd376ad7-d03b-4970-ab2b-34ef000b93f9',
+					                                                    '769b6475-1e35-4618-ad36-09fa0111affb',
+					                                                    'd3dc091f-ee3d-4607-91d1-4e766cfe5528',
+					                                                    'c0f0f904-4977-4360-8065-a0e91d4f3a71',
+					                                                    '7bb73318-f6cc-4540-85d7-69672a18cc5f',
+					                                                    '87183dfb-1b7d-4c18-b350-593e576bb49b',
+					                                                    'da211453-46c6-44a6-8ee2-ded8f8630b23'
+						))
+			) labeled
+		ORDER BY obs_label, created DESC
+	),
+	vitals AS (
 		SELECT
-			CASE
-				WHEN f.ad_field_uu = 'e1d01fe4-16b6-4125-a385-34cf4531c06f' THEN 'chief_complaint'
-				WHEN c.ad_column_uu = '9bcfded3-3af9-41d3-94ae-319d1859bb30' THEN 'clinical_notes'
-				WHEN f.ad_field_uu = 'cd376ad7-d03b-4970-ab2b-34ef000b93f9' THEN 'bp_systolic'
-				WHEN f.ad_field_uu = '769b6475-1e35-4618-ad36-09fa0111affb' THEN 'bp_diastolic'
-				WHEN f.ad_field_uu = 'd3dc091f-ee3d-4607-91d1-4e766cfe5528' THEN 'temperature'
-				WHEN f.ad_field_uu = 'c0f0f904-4977-4360-8065-a0e91d4f3a71' THEN 'pulse'
-				WHEN f.ad_field_uu = '7bb73318-f6cc-4540-85d7-69672a18cc5f' THEN 'spo2'
-				WHEN f.ad_field_uu = '87183dfb-1b7d-4c18-b350-593e576bb49b' THEN 'rr'
-				WHEN f.ad_field_uu = 'da211453-46c6-44a6-8ee2-ded8f8630b23' THEN 'lmp'
-			END AS obs_label,
-			o.bh_value,
-			o.created
+			vb.bh_visit_id,
+			MAX(CASE WHEN obs_label = 'chief_complaint' THEN bh_value END) AS chief_complaint,
+			MAX(CASE WHEN obs_label = 'clinical_notes' THEN bh_value END)  AS clinical_notes,
+			NULLIF(
+					COALESCE(MAX(CASE WHEN obs_label = 'bp_systolic' THEN bh_value END), '')
+						|| CASE
+							   WHEN MAX(CASE WHEN obs_label = 'bp_systolic' THEN bh_value END) IS NOT NULL
+								   AND MAX(CASE WHEN obs_label = 'bp_diastolic' THEN bh_value END) IS NOT NULL
+								   THEN '/'
+							   ELSE ''
+						END
+						|| COALESCE(MAX(CASE WHEN obs_label = 'bp_diastolic' THEN bh_value END), ''),
+					''
+			)                                                              AS blood_pressure,
+			MAX(CASE WHEN obs_label = 'temperature' THEN bh_value END)     AS temperature,
+			MAX(CASE WHEN obs_label = 'pulse' THEN bh_value END)           AS pulse,
+			MAX(CASE WHEN obs_label = 'spo2' THEN bh_value END)            AS spo2,
+			MAX(CASE WHEN obs_label = 'rr' THEN bh_value END)              AS rr,
+			MAX(CASE WHEN obs_label = 'lmp' THEN bh_value END)             AS lmp
 		FROM
 			visit_base vb
-				JOIN bh_encounter e ON e.bh_visit_id = vb.bh_visit_id
-				JOIN bh_observation o ON o.bh_encounter_id = e.bh_encounter_id
-				JOIN ad_field f ON o.ad_field_id = f.ad_field_id
-				LEFT JOIN ad_column c ON f.ad_column_id = c.ad_column_id
-		WHERE
-			(e.bh_encounter_type = 'C' AND f.ad_field_uu = 'e1d01fe4-16b6-4125-a385-34cf4531c06f')
-			OR (e.bh_encounter_type = 'D' AND c.ad_column_uu = '9bcfded3-3af9-41d3-94ae-319d1859bb30')
-			OR (e.bh_encounter_type = 'V' AND f.ad_field_uu IN (
-				'cd376ad7-d03b-4970-ab2b-34ef000b93f9',
-				'769b6475-1e35-4618-ad36-09fa0111affb',
-				'd3dc091f-ee3d-4607-91d1-4e766cfe5528',
-				'c0f0f904-4977-4360-8065-a0e91d4f3a71',
-				'7bb73318-f6cc-4540-85d7-69672a18cc5f',
-				'87183dfb-1b7d-4c18-b350-593e576bb49b',
-				'da211453-46c6-44a6-8ee2-ded8f8630b23'
-			))
-	) labeled
-	ORDER BY obs_label, created DESC
-),
-visit AS (
-	SELECT
-		vb.bh_visit_id,
-		vb.documentno                                          AS ip_op_number,
-		vb.bh_visitdate                                        AS visit_date,
-		vb.patient_id,
-		vb.ad_org_id,
-		vb.bh_clinician_user_id,
-		vb.bh_referral                                         AS referral_reason,
-		vb.bh_referredfromto                                   AS referred_to,
-		MAX(CASE WHEN obs_label = 'chief_complaint' THEN bh_value END) AS chief_complaint,
-		MAX(CASE WHEN obs_label = 'clinical_notes' THEN bh_value END) AS clinical_notes,
-		NULLIF(
-			COALESCE(MAX(CASE WHEN obs_label = 'bp_systolic' THEN bh_value END), '')
-			|| CASE
-				WHEN MAX(CASE WHEN obs_label = 'bp_systolic' THEN bh_value END) IS NOT NULL
-					AND MAX(CASE WHEN obs_label = 'bp_diastolic' THEN bh_value END) IS NOT NULL
-				THEN '/'
-				ELSE ''
-			END
-			|| COALESCE(MAX(CASE WHEN obs_label = 'bp_diastolic' THEN bh_value END), ''),
-			''
-		) AS blood_pressure,
-		MAX(CASE WHEN obs_label = 'temperature' THEN bh_value END) AS temperature,
-		MAX(CASE WHEN obs_label = 'pulse' THEN bh_value END) AS pulse,
-		MAX(CASE WHEN obs_label = 'spo2' THEN bh_value END) AS spo2,
-		MAX(CASE WHEN obs_label = 'rr' THEN bh_value END) AS rr,
-		MAX(CASE WHEN obs_label = 'lmp' THEN bh_value END) AS lmp,
-		(
-			SELECT
-				MIN(v2.bh_visitdate)
-			FROM
-				bh_visit v2
-			WHERE
-				v2.patient_id = vb.patient_id
-				AND v2.bh_visit_id != vb.bh_visit_id
-				AND v2.bh_visitdate > vb.bh_visitdate
-				AND v2.scheduled = 'Y'
-		) AS next_appointment_date
-	FROM
-		visit_base vb
-			LEFT JOIN obs ON TRUE
-	GROUP BY
-		vb.bh_visit_id, vb.documentno, vb.bh_visitdate, vb.patient_id,
-		vb.ad_org_id, vb.bh_clinician_user_id, vb.bh_referral, vb.bh_referredfromto
-),
-patient AS (
-	SELECT
-		bp.c_bpartner_id,
-		bp.name                                     AS full_name,
-		bp.bh_patientid                             AS id_passport_number,
-		bp.bh_phone                                 AS contact_number,
-		bp.bh_gender                                AS gender_display,
-		CASE
-			WHEN bp.bh_birthday IS NULL THEN ''
-			WHEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, bp.bh_birthday::date)) >= 2
-				THEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, bp.bh_birthday::date))::int || ' years'
-			WHEN (EXTRACT(YEAR FROM AGE(CURRENT_DATE, bp.bh_birthday::date)) * 12
-				+ EXTRACT(MONTH FROM AGE(CURRENT_DATE, bp.bh_birthday::date)))::int >= 2
-				THEN (EXTRACT(YEAR FROM AGE(CURRENT_DATE, bp.bh_birthday::date)) * 12
+				LEFT JOIN obs
+					ON TRUE
+		GROUP BY
+			vb.bh_visit_id
+	),
+	patient AS (
+		SELECT
+			bp.c_bpartner_id,
+			bp.name,
+			bp.bh_patientid,
+			bp.bh_phone,
+			bp.bh_gender,
+			CASE
+				WHEN bp.bh_birthday IS NULL THEN ''
+				WHEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, bp.bh_birthday::date)) >= 2
+					THEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, bp.bh_birthday::date))::int || ' years'
+				WHEN (EXTRACT(YEAR FROM AGE(CURRENT_DATE, bp.bh_birthday::date)) * 12
+					+ EXTRACT(MONTH FROM AGE(CURRENT_DATE, bp.bh_birthday::date)))::int >= 2
+					THEN (EXTRACT(YEAR FROM AGE(CURRENT_DATE, bp.bh_birthday::date)) * 12
 					+ EXTRACT(MONTH FROM AGE(CURRENT_DATE, bp.bh_birthday::date)))::int || ' months'
-			WHEN (CURRENT_DATE - bp.bh_birthday::date) >= 15
-				THEN (CURRENT_DATE - bp.bh_birthday::date) / 7 || ' weeks'
+				WHEN (CURRENT_DATE - bp.bh_birthday::date) >= 15
+					THEN (CURRENT_DATE - bp.bh_birthday::date) / 7 || ' weeks'
 					|| CASE
-						WHEN (CURRENT_DATE - bp.bh_birthday::date) % 7 = 0 THEN ''
-						WHEN (CURRENT_DATE - bp.bh_birthday::date) % 7 = 1 THEN ', 1 day'
-						ELSE ', ' || (CURRENT_DATE - bp.bh_birthday::date) % 7 || ' days'
-					END
-			WHEN (CURRENT_DATE - bp.bh_birthday::date) = 1 THEN '1 day'
-			ELSE (CURRENT_DATE - bp.bh_birthday::date) || ' days'
-		END AS age_display
-	FROM
-		visit v
-		JOIN c_bpartner bp
-			ON v.patient_id = bp.c_bpartner_id
-),
-diagnoses AS (
-	SELECT
-		e.bh_visit_id,
-		ev.bh_concept_id,
-		ev.bh_uncoded_diagnosis,
-		ROW_NUMBER() OVER (PARTITION BY e.bh_visit_id ORDER BY ev.lineno) AS diagnosis_rank
-	FROM
-		bh_visit v
-		JOIN bh_encounter e
-			ON v.bh_visit_id = e.bh_visit_id
-		LEFT JOIN bh_encounter_diagnosis ev
-			ON e.bh_encounter_id = ev.bh_encounter_id
-	WHERE
-		v.bh_visit_uu = $P{BH_Visit_UU}
-),
-primary_d AS (
-	SELECT * FROM diagnoses WHERE diagnosis_rank = 1
-),
-secondary_d AS (
-	SELECT
-		d.bh_visit_id,
-		STRING_AGG(COALESCE(c.bh_display_name, d.bh_uncoded_diagnosis), ', ' ORDER BY d.diagnosis_rank) AS secondary_diagnosis_text
-	FROM diagnoses d
-		LEFT JOIN bh_concept c
-			ON c.bh_concept_id = d.bh_concept_id
-	WHERE d.diagnosis_rank >= 2
-	GROUP BY d.bh_visit_id
-)
+						   WHEN (CURRENT_DATE - bp.bh_birthday::date) % 7 = 0 THEN ''
+						   WHEN (CURRENT_DATE - bp.bh_birthday::date) % 7 = 1 THEN ', 1 day'
+						   ELSE ', ' || (CURRENT_DATE - bp.bh_birthday::date) % 7 || ' days'
+						     END
+				WHEN (CURRENT_DATE - bp.bh_birthday::date) = 1 THEN '1 day'
+				ELSE (CURRENT_DATE - bp.bh_birthday::date) || ' days'
+				END AS age_display
+		FROM
+			visit_base vb
+				JOIN bh_visit v
+					ON vb.bh_visit_id = v.bh_visit_id
+				JOIN c_bpartner bp
+					ON v.patient_id = bp.c_bpartner_id
+	),
+	diagnoses AS (
+		SELECT
+			e.bh_visit_id,
+			ev.bh_concept_id,
+			ev.bh_uncoded_diagnosis,
+			ROW_NUMBER() OVER (PARTITION BY e.bh_visit_id ORDER BY ev.lineno) AS diagnosis_rank
+		FROM
+			visit_base vb
+				JOIN bh_encounter e
+					ON vb.bh_visit_id = e.bh_visit_id
+				LEFT JOIN bh_encounter_diagnosis ev
+					ON e.bh_encounter_id = ev.bh_encounter_id
+	),
+	primary_d AS (
+		SELECT *
+		FROM
+			diagnoses
+		WHERE
+			diagnosis_rank = 1
+	),
+	secondary_d AS (
+		SELECT
+			d.bh_visit_id,
+			STRING_AGG(COALESCE(c.bh_display_name, d.bh_uncoded_diagnosis), ', '
+			           ORDER BY d.diagnosis_rank) AS secondary_diagnosis_text
+		FROM
+			diagnoses d
+				LEFT JOIN bh_concept c
+					ON c.bh_concept_id = d.bh_concept_id
+		WHERE
+			d.diagnosis_rank >= 2
+		GROUP BY d.bh_visit_id
+	)
 SELECT
-	p.full_name,
-	v.ip_op_number,
-	p.age_display,
-	p.gender_display,
-	p.id_passport_number,
-	p.contact_number,
-	v.chief_complaint,
-	v.clinical_notes,
-	v.blood_pressure,
-	v.temperature,
-	v.pulse,
-	v.spo2,
-	v.rr,
-	v.lmp,
-	v.next_appointment_date,
-	v.referral_reason,
-	v.referred_to,
+	bp.name                                               AS patient_name,
+	v.documentno                                          AS visit_number,
+	v.bh_visitdate,
+	CASE
+		WHEN bp.bh_birthday IS NULL THEN ''
+		WHEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, bp.bh_birthday::date)) >= 2
+			THEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, bp.bh_birthday::date))::int || ' years'
+		WHEN (EXTRACT(YEAR FROM AGE(CURRENT_DATE, bp.bh_birthday::date)) * 12
+			+ EXTRACT(MONTH FROM AGE(CURRENT_DATE, bp.bh_birthday::date)))::int >= 2
+			THEN (EXTRACT(YEAR FROM AGE(CURRENT_DATE, bp.bh_birthday::date)) * 12
+			+ EXTRACT(MONTH FROM AGE(CURRENT_DATE, bp.bh_birthday::date)))::int || ' months'
+		WHEN (CURRENT_DATE - bp.bh_birthday::date) >= 15
+			THEN (CURRENT_DATE - bp.bh_birthday::date) / 7 || ' weeks'
+			|| CASE
+				   WHEN (CURRENT_DATE - bp.bh_birthday::date) % 7 = 0 THEN ''
+				   WHEN (CURRENT_DATE - bp.bh_birthday::date) % 7 = 1 THEN ', 1 day'
+				   ELSE ', ' || (CURRENT_DATE - bp.bh_birthday::date) % 7 || ' days'
+				     END
+		WHEN (CURRENT_DATE - bp.bh_birthday::date) = 1 THEN '1 day'
+		ELSE (CURRENT_DATE - bp.bh_birthday::date) || ' days'
+		END                                                 AS age_display,
+	bp.bh_gender,
+	bp.bh_patientid,
+	vit.chief_complaint,
+	vit.clinical_notes,
+	vit.blood_pressure,
+	vit.temperature,
+	vit.pulse,
+	vit.spo2,
+	vit.rr,
+	vit.lmp,
+	(
+		SELECT
+			MIN(v2.bh_visitdate)
+		FROM
+			bh_visit v2
+		WHERE
+			v2.patient_id = v.patient_id
+			AND v2.bh_visit_id != vb.bh_visit_id
+			AND v2.bh_visitdate > v.bh_visitdate
+			AND v2.scheduled = 'Y'
+	)                                                     AS next_appointment_date,
+	v.bh_referredfromto,
 	COALESCE(pc.bh_display_name, pd.bh_uncoded_diagnosis) AS primary_diagnosis,
-	COALESCE(sd.secondary_diagnosis_text, '') AS secondary_diagnosis,
+	COALESCE(sd.secondary_diagnosis_text, '')             AS secondary_diagnosis,
 	o.name                                                AS clinic_name,
 	u.name                                                AS clinician_name
 FROM
-	visit v
-	JOIN patient p
-		ON 1 = 1
-	LEFT JOIN primary_d pd
-		ON v.bh_visit_id = pd.bh_visit_id
-	LEFT JOIN secondary_d sd
-		ON v.bh_visit_id = sd.bh_visit_id
-	LEFT JOIN bh_concept pc
-		ON pc.bh_concept_id = pd.bh_concept_id
-	JOIN ad_org o
-		ON v.ad_org_id = o.ad_org_id
-	LEFT JOIN ad_user u
-		ON v.bh_clinician_user_id = u.ad_user_id;]]>
+	visit_base vb
+		JOIN bh_visit v
+			ON vb.bh_visit_id = v.bh_visit_id
+		JOIN vitals vit
+			ON v.bh_visit_id = vit.bh_visit_id
+		JOIN c_bpartner bp
+			ON v.patient_id = bp.c_bpartner_id
+		LEFT JOIN primary_d pd
+			ON v.bh_visit_id = pd.bh_visit_id
+		LEFT JOIN secondary_d sd
+			ON v.bh_visit_id = sd.bh_visit_id
+		LEFT JOIN bh_concept pc
+			ON pc.bh_concept_id = pd.bh_concept_id
+		JOIN ad_org o
+			ON v.ad_org_id = o.ad_org_id
+		LEFT JOIN ad_user u
+			ON v.bh_clinician_user_id = u.ad_user_id;]]>
 	</queryString>
-	<field name="full_name" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="full_name"/>
-		<property name="com.jaspersoft.studio.field.label" value="full_name"/>
+	<field name="patient_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="patient_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="patient_name"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 	</field>
-	<field name="ip_op_number" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="ip_op_number"/>
-		<property name="com.jaspersoft.studio.field.label" value="ip_op_number"/>
+	<field name="visit_number" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="visit_number"/>
+		<property name="com.jaspersoft.studio.field.label" value="visit_number"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="bh_visit"/>
+	</field>
+	<field name="bh_visitdate" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="bh_visitdate"/>
+		<property name="com.jaspersoft.studio.field.label" value="bh_visitdate"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="bh_visit"/>
 	</field>
 	<field name="age_display" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="age_display"/>
 		<property name="com.jaspersoft.studio.field.label" value="age_display"/>
 	</field>
-	<field name="gender_display" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="gender_display"/>
-		<property name="com.jaspersoft.studio.field.label" value="gender_display"/>
+	<field name="bh_gender" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="bh_gender"/>
+		<property name="com.jaspersoft.studio.field.label" value="bh_gender"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 	</field>
-	<field name="id_passport_number" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="id_passport_number"/>
-		<property name="com.jaspersoft.studio.field.label" value="id_passport_number"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
-	</field>
-	<field name="contact_number" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="contact_number"/>
-		<property name="com.jaspersoft.studio.field.label" value="contact_number"/>
+	<field name="bh_patientid" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="bh_patientid"/>
+		<property name="com.jaspersoft.studio.field.label" value="bh_patientid"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 	</field>
 	<field name="chief_complaint" class="java.lang.String">
@@ -337,14 +353,9 @@ FROM
 		<property name="com.jaspersoft.studio.field.name" value="next_appointment_date"/>
 		<property name="com.jaspersoft.studio.field.label" value="next_appointment_date"/>
 	</field>
-	<field name="referral_reason" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="referral_reason"/>
-		<property name="com.jaspersoft.studio.field.label" value="referral_reason"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="bh_visit"/>
-	</field>
-	<field name="referred_to" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="referred_to"/>
-		<property name="com.jaspersoft.studio.field.label" value="referred_to"/>
+	<field name="bh_referredfromto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="bh_referredfromto"/>
+		<property name="com.jaspersoft.studio.field.label" value="bh_referredfromto"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="bh_visit"/>
 	</field>
 	<field name="primary_diagnosis" class="java.lang.String">
@@ -369,7 +380,7 @@ FROM
 		<band height="78">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<subreport>
-				<reportElement x="0" y="0" width="481" height="52" uuid="4e856d77-9c4d-4d8c-97df-81f286283921">
+				<reportElement style="SectionHeading" x="0" y="0" width="481" height="52" uuid="4e856d77-9c4d-4d8c-97df-81f286283921">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<subreportParameter name="BH_Visit_UU">
@@ -404,9 +415,9 @@ FROM
 				</reportElement>
 				<box rightPadding="3"/>
 				<textElement markup="html"/>
-				<textFieldExpression><![CDATA["<b>Full Name:</b> " + ($F{full_name} != null ? $F{full_name} : "") + "     <b>Age:</b> " + $F{age_display}+ "     <b>Gender:</b> " +
-					($F{gender_display} != null && !$F{gender_display}.trim().isEmpty()
-						? $F{gender_display}.substring(0,1).toUpperCase() + $F{gender_display}.substring(1).toLowerCase()
+				<textFieldExpression><![CDATA["<b>Full Name:</b> " + ($F{patient_name} != null ? $F{patient_name} : "") + "     <b>Age:</b> " + $F{age_display}+ "     <b>Gender:</b> " +
+					($F{bh_gender} != null && !$F{bh_gender}.trim().isEmpty()
+						? $F{bh_gender}.substring(0,1).toUpperCase() + $F{bh_gender}.substring(1).toLowerCase()
 						: "")]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
@@ -414,7 +425,7 @@ FROM
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement markup="html"/>
-				<textFieldExpression><![CDATA["<b>IP / OP Number:</b> " + ($F{ip_op_number} != null ? $F{ip_op_number} : "")]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>Patient Number:</b> " + ($F{bh_patientid} != null ? $F{bh_patientid} : "")]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
 				<reportElement x="0" y="64" width="240" height="16" uuid="c6c6a6a8-3c5c-4b0a-8d6e-1c2b3d4e5f6c">
@@ -422,14 +433,14 @@ FROM
 				</reportElement>
 				<box rightPadding="3"/>
 				<textElement markup="html"/>
-				<textFieldExpression><![CDATA["<b>ID/Passport No:</b> " + ($F{id_passport_number} != null ? $F{id_passport_number} : "")]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>Visit Number:</b> " + ($F{visit_number} != null ? $F{visit_number} : "")]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
 				<reportElement x="240" y="64" width="241" height="16" uuid="c6c6a6a8-3c5c-4b0a-8d6e-1c2b3d4e5f6d">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement markup="html"/>
-				<textFieldExpression><![CDATA["<b>Contact Number:</b> " + ($F{contact_number} != null ? $F{contact_number} : "")]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>Visit Date:</b> " + new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm").format($F{bh_visitdate})]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="120">
@@ -601,7 +612,7 @@ FROM
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement markup="html"/>
-				<textFieldExpression><![CDATA["<b>Referred To:</b> " + (($F{referred_to} != null && !$F{referred_to}.trim().isEmpty()) ? $F{referred_to} : "_________________________________________________________")]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>Referred To:</b> " + (($F{bh_referredfromto} != null && !$F{bh_referredfromto}.trim().isEmpty()) ? $F{bh_referredfromto} : "_________________________________________________________")]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
 				<reportElement positionType="Float" x="0" y="48" width="481" height="16" uuid="4a737e96-6f9b-4e0d-b8ee-c2b36594f227">
@@ -644,17 +655,20 @@ FROM
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="30">
+		<band height="26">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField textAdjust="ScaleFont">
-				<reportElement style="Footer" x="0" y="8" width="330" height="15" uuid="aabbccdd-eeff-4a5b-8c9d-0e1f2a3b4c5d">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<reportElement style="Footer" x="0" y="6" width="330" height="14" uuid="aabbccdd-eeff-4a5b-8c9d-0e1f2a3b4c5d">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA["Report Generated at " + new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm").format(new java.util.Date())]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont">
-				<reportElement style="PageNumber" x="340" y="8" width="141" height="15" uuid="ccddeeff-1122-4a5b-8c9d-0e1f2a3b4c5e"/>
+				<reportElement style="PageNumber" x="340" y="6" width="141" height="14" uuid="ccddeeff-1122-4a5b-8c9d-0e1f2a3b4c5e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER} + " of " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
