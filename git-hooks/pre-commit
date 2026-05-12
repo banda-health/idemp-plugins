@@ -4,4 +4,24 @@
 REGEX='.*\.classpath'
 git diff --name-only --cached | grep -qxE "$REGEX" && { echo "❌ Excluded file included in the commit:"; git diff --name-only --cached | grep -E "$REGEX"; exit 1; }
 
+# Verify all .jrxml reports have a default style with fontName="Arial".
+# A valid line must contain both isDefault="true" and fontName="Arial".
+bad_files=$(find reports -name '*.jrxml' -not -path '*/bin/*' -not -path '*/target/*' 2>/dev/null \
+    | while IFS= read -r file; do
+        if ! grep -q 'isDefault="true"' "$file" 2>/dev/null \
+           || ! grep 'isDefault="true"' "$file" 2>/dev/null | grep -q 'fontName="Arial"'; then
+            echo "  $file"
+        fi
+    done)
+
+if [ -n "$bad_files" ]; then
+    count=$(echo "$bad_files" | wc -l | tr -d ' ')
+    echo "❌ $count .jrxml file(s) missing default Arial font style:"
+    echo "$bad_files"
+    echo ""
+    echo "Each .jrxml must contain a style like:"
+    echo '  <style name="Default" isDefault="true" fontName="Arial"/>'
+    exit 1
+fi
+
 exit 0
