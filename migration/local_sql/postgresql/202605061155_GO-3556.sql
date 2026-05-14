@@ -52,11 +52,6 @@ UPDATE c_order
 SET
 	totallines = ROUND(totallines, 2),
 	grandtotal = ROUND(grandtotal, 2)
-SELECT
-	totallines,
-	grandtotal
-FROM
-	c_order
 WHERE
 	dateordered > '2026-04-10'
 	AND (
