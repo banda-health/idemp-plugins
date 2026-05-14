@@ -8,6 +8,7 @@
 	<property name="net.sf.jasperreports.export.xls.removeEmptySpaceBetweenColumns" value="true"/>
 	<property name="net.sf.jasperreports.export.xls.fontSizeFixEnabled" value="true"/>
 	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<style name="Default" isDefault="true" fontName="Arial"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>

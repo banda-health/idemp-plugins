@@ -17,6 +17,7 @@
 	<property name="net.sf.jasperreports.export.xls.removeEmptySpaceBetweenRows" value="true"/>
 	<property name="net.sf.jasperreports.export.xls.removeEmptySpaceBetweenColumns" value="true"/>
 	<property name="net.sf.jasperreports.export.xls.fontSizeFixEnabled" value="true"/>
+	<style name="Default" isDefault="true" fontName="Arial"/>
 	<style name="Table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>

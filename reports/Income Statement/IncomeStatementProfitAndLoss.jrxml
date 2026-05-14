@@ -4,6 +4,7 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 12"/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<style name="Default" isDefault="true" fontName="Arial"/>
 	<subDataset name="Dataset1" uuid="1249eb05-7d8a-44b8-b5d9-d03f7babd9eb">
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 		<queryString>

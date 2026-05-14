@@ -6,6 +6,7 @@
 	<property name="com.jaspersoft.studio.report.description" value="Diagnoses Count under 5yrs"/>
 	<property name="net.sf.jasperreports.crosstab.ignore.width" value="true"/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<style name="Default" isDefault="true" fontName="Arial"/>
 	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
