@@ -13,6 +13,9 @@ import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHEncounterDiagnosis;
 import org.bandahealth.idempiere.base.model.MBHObservation;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MOrderLine_BH;
+import org.bandahealth.idempiere.base.model.MProduct_BH;
+import org.compiere.util.Env;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.model.Query;
 import org.compiere.process.DocumentEngine;
@@ -55,7 +58,6 @@ public class PatientSummaryReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create business partner");
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
 		String uniqueToken = String.valueOf(valueObject.getRandomNumber());
-		valueObject.getBusinessPartner().setName("PatientSummary " + uniqueToken);
 		valueObject.getBusinessPartner().setBH_PatientID("PID-" + uniqueToken);
 		valueObject.getBusinessPartner().setBH_Phone("0700" + uniqueToken.substring(0, Math.min(6, uniqueToken.length())));
 		valueObject.getBusinessPartner().saveEx();
@@ -64,8 +66,6 @@ public class PatientSummaryReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create product");
 		ChuBoeCreateEntity.createProduct(valueObject);
-		valueObject.getProduct().setName("Service " + uniqueToken);
-		valueObject.getProduct().saveEx();
 		commitEx();
 
 		valueObject.setStepName("Create purchase order");
@@ -203,8 +203,8 @@ public class PatientSummaryReportTest extends ChuBoePopulateFactoryVO {
 					is(true));
 			assertThat("Visit number is shown with label",
 					hasCellContaining(sheet, "Visit Number:", valueObject.getVisit().getDocumentNo()), is(true));
-			assertThat("Visit date is shown with label",
-					hasCellContaining(sheet, "Visit Date:"), is(true));
+			assertThat("Admission date is shown with label",
+					hasCellContaining(sheet, "Admission Date:"), is(true));
 
 			assertThat("Blood pressure is shown with label",
 					hasCellContaining(sheet, "BP:", "120/80"), is(true));
@@ -231,13 +231,110 @@ public class PatientSummaryReportTest extends ChuBoePopulateFactoryVO {
 			assertThat("Secondary diagnosis is shown with label",
 					hasCellContaining(sheet, "Secondary Diagnosis:", uncodedDiagnosis), is(true));
 
-			assertThat("Products/services section is shown",
+			assertThat("Products section is shown",
 					hasCellContaining(sheet, "Medication / Management Provided"), is(true));
-			assertThat("Products/services on visit are shown",
-					hasCellContaining(sheet, "Service " + uniqueToken), is(true));
+			assertThat("Products on visit are shown",
+					hasCellContaining(sheet, valueObject.getProduct().getName()), is(true));
 
 			assertThat("Clinician name is shown with label",
 					hasCellContaining(sheet, "Clinician Name:", valueObject.getUser().getName()), is(true));
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void servicesAreNotShownOnPatientSummary() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		String uniqueToken = String.valueOf(valueObject.getRandomNumber());
+		commitEx();
+
+		valueObject.setStepName("Create item product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		String itemProductName = "ItemProduct " + uniqueToken;
+		valueObject.getProduct().setName(itemProductName);
+		valueObject.getProduct().saveEx();
+		MProduct_BH itemProduct = valueObject.getProduct();
+		commitEx();
+
+		valueObject.setStepName("Create purchase order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		valueObject.setQuantity(new BigDecimal(10));
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create service");
+		valueObject.clearProduct();
+		valueObject.setSalesStandardPrice(new BigDecimal(50));
+		ChuBoeCreateEntity.createProduct(valueObject);
+		String serviceName = "VisitService " + uniqueToken;
+		valueObject.getProduct().setName(serviceName);
+		valueObject.getProduct().setProductType(MProduct_BH.PRODUCTTYPE_Service);
+		valueObject.getProduct().saveEx();
+		MProduct_BH serviceProduct = valueObject.getProduct();
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create sales order with item product");
+		valueObject.setProduct(itemProduct);
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setQuantity(new BigDecimal(1));
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true, false,
+				false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Add service to sales order");
+		MOrderLine_BH serviceOrderLine = new MOrderLine_BH(valueObject.getContext(), 0, valueObject.getTransactionName());
+		serviceOrderLine.setAD_Org_ID(valueObject.getOrg().get_ID());
+		serviceOrderLine.setDescription(valueObject.getStepMessageLong());
+		serviceOrderLine.setC_Order_ID(valueObject.getOrder().get_ID());
+		serviceOrderLine.setM_Product_ID(serviceProduct.get_ID());
+		serviceOrderLine.setC_UOM_ID(serviceProduct.getC_UOM_ID());
+		serviceOrderLine.setQty(Env.ONE);
+		serviceOrderLine.setHeaderInfo(valueObject.getOrder());
+		serviceOrderLine.setPrice();
+		serviceOrderLine.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Complete sales order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.getOrder().setDocAction(valueObject.getDocumentAction());
+		valueObject.getOrder().processIt(valueObject.getDocumentAction());
+		valueObject.getOrder().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Generate the patient summary report");
+		valueObject.setProcessUuid(patientSummaryReportUU);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				List.of(new ProcessInfoParameter("BH_Visit_UU", valueObject.getVisit().getBH_Visit_UU(), null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
+
+		try (Workbook workbook = new XSSFWorkbook(new FileInputStream(valueObject.getReport()))) {
+			Sheet sheet = workbook.getSheetAt(0);
+			assertThat("Medication section is shown",
+					hasCellContaining(sheet, "Medication / Management Provided"), is(true));
+			assertThat("Item product is shown on summary",
+					hasCellContaining(sheet, itemProductName), is(true));
+			assertThat("Service is not shown on summary",
+					hasCellContaining(sheet, serviceName), is(false));
 		}
 	}
 
