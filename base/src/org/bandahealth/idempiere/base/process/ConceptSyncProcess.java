@@ -64,9 +64,14 @@ public class ConceptSyncProcess extends SvrProcess {
 	private String sourceIDFilter = "";
 
 	private final int LIMIT = 100;
+	private static final String DEFAULT_OCL_BASE_URL = "https://api.openconceptlab.org";
 	private final String OCL_BASE_URL = StringUtil.isNullOrEmpty(System.getenv("OCL_BASE_URL"))
-			? "https://api.openconceptlab.org"
+			? DEFAULT_OCL_BASE_URL
 			: System.getenv("OCL_BASE_URL");
+	private static final String DEFAULT_OCL_API_TOKEN = "";
+	private final String OCL_API_TOKEN = StringUtil.isNullOrEmpty(System.getenv("OCL_API_TOKEN"))
+			? DEFAULT_OCL_API_TOKEN
+			: System.getenv("OCL_API_TOKEN");
 	private String URI_OPTIONS = "?includeRetired=true&verbose=true";
 	private String BHGO_URI = "/orgs/bandahealth/sources/";
 	private final String CONCEPTS_URI = "/concepts/";
@@ -117,6 +122,10 @@ public class ConceptSyncProcess extends SvrProcess {
 	@Override
 	protected String doIt() throws Exception {
 		log.log(Level.INFO, "ConceptSyncProcess OCL sync");
+		if (StringUtil.isNullOrEmpty(OCL_API_TOKEN) && DEFAULT_OCL_BASE_URL.equals(OCL_BASE_URL)) {
+			throw new IllegalStateException(
+					"OCL_API_TOKEN environment variable is required. Open Concept Lab has disabled anonymous API access.");
+		}
 		long start = System.currentTimeMillis();
 		newRecords = new AtomicInteger(0);
 		updatedRecords = new AtomicInteger(0);
@@ -575,10 +584,23 @@ public class ConceptSyncProcess extends SvrProcess {
 	private CompletableFuture<HttpResponse<String>> makeRequest(String source, int page, int limit,
 			boolean includeSort) {
 		String url = constructUrl(source, page, limit, includeSort);
-		HttpRequest request = HttpRequest.newBuilder(URI.create(url)).header("Content-Type", "application/json")
-				.build();
+		HttpRequest.Builder requestBuilder =
+				HttpRequest.newBuilder(URI.create(url)).header("Content-Type", "application/json");
+		if (!StringUtil.isNullOrEmpty(OCL_API_TOKEN)) {
+			requestBuilder.header("Authorization", "Token " + OCL_API_TOKEN);
+		}
+		return client.sendAsync(requestBuilder.build(), BodyHandlers.ofString());
+	}
 
-		return client.sendAsync(request, BodyHandlers.ofString());
+	private void ensureSuccessfulOclResponse(HttpResponse<String> response, String operation) throws IOException {
+		if (response.statusCode() >= 200 && response.statusCode() < 300) {
+			return;
+		}
+		String message = "OCL API " + operation + " failed with status " + response.statusCode() + ": " + response.body();
+		if (response.statusCode() == 401 || response.statusCode() == 403) {
+			message += ". Verify the OCL_API_TOKEN environment variable is set correctly.";
+		}
+		throw new IOException(message);
 	}
 
 	/**
@@ -588,14 +610,14 @@ public class ConceptSyncProcess extends SvrProcess {
 		CompletableFuture<HttpResponse<String>> response = makeRequest(null, page, LIMIT, true);
 		List<OCLConcept> oclConcepts;
 		try {
-			oclConcepts = JsonUtils.convertFromJsonToList(response.get().body(), new TypeReference<>() {
+			HttpResponse<String> httpResponse = response.get();
+			ensureSuccessfulOclResponse(httpResponse, "concept list fetch");
+			oclConcepts = JsonUtils.convertFromJsonToList(httpResponse.body(), new TypeReference<>() {
 			});
 		} catch (InterruptedException | ExecutionException | IOException e) {
 			log.log(Level.SEVERE, "Error getting concepts: ", e);
 			return null;
 		}
-
-		response.join();
 
 		return oclConcepts;
 	}
@@ -609,14 +631,14 @@ public class ConceptSyncProcess extends SvrProcess {
 		CompletableFuture<HttpResponse<String>> response = makeRequest(source + "versions/", 0, 1, false);
 		OCLConcept oclConcept;
 		try {
-			oclConcept = JsonUtils.convertFromJsonToList(response.get().body(), new TypeReference<List<OCLConcept>>() {
+			HttpResponse<String> httpResponse = response.get();
+			ensureSuccessfulOclResponse(httpResponse, "concept fetch");
+			oclConcept = JsonUtils.convertFromJsonToList(httpResponse.body(), new TypeReference<List<OCLConcept>>() {
 			}).get(0);
 		} catch (InterruptedException | ExecutionException | IOException | IndexOutOfBoundsException e) {
 			log.log(Level.SEVERE, "Error getting concept: ", e);
 			return null;
 		}
-
-		response.join();
 
 		return oclConcept;
 	}
@@ -631,12 +653,14 @@ public class ConceptSyncProcess extends SvrProcess {
 		int count = 0;
 		CompletableFuture<HttpResponse<String>> response = makeRequest(null, 1, 1, true);
 		try {
-			HttpHeaders headers = response.get().headers();
+			HttpResponse<String> httpResponse = response.get();
+			ensureSuccessfulOclResponse(httpResponse, "concept count fetch");
+			HttpHeaders headers = httpResponse.headers();
 			Optional<String> numFound = headers.firstValue("num_found");
 			if (numFound.isPresent()) {
 				count = Integer.parseInt(numFound.get());
 			}
-		} catch (InterruptedException | ExecutionException e) {
+		} catch (InterruptedException | ExecutionException | IOException e) {
 			log.log(Level.SEVERE, "Error fetching count: ", e);
 		}
 
