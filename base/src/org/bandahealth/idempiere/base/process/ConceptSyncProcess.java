@@ -68,10 +68,7 @@ public class ConceptSyncProcess extends SvrProcess {
 	private final String OCL_BASE_URL = StringUtil.isNullOrEmpty(System.getenv("OCL_BASE_URL"))
 			? DEFAULT_OCL_BASE_URL
 			: System.getenv("OCL_BASE_URL");
-	private static final String DEFAULT_OCL_API_TOKEN = "";
-	private final String OCL_API_TOKEN = StringUtil.isNullOrEmpty(System.getenv("OCL_API_TOKEN"))
-			? DEFAULT_OCL_API_TOKEN
-			: System.getenv("OCL_API_TOKEN");
+	private final String OCL_API_TOKEN = System.getenv("OCL_API_TOKEN");
 	private String URI_OPTIONS = "?includeRetired=true&verbose=true";
 	private String BHGO_URI = "/orgs/bandahealth/sources/";
 	private final String CONCEPTS_URI = "/concepts/";
@@ -122,7 +119,7 @@ public class ConceptSyncProcess extends SvrProcess {
 	@Override
 	protected String doIt() throws Exception {
 		log.log(Level.INFO, "ConceptSyncProcess OCL sync");
-		if (StringUtil.isNullOrEmpty(OCL_API_TOKEN) && DEFAULT_OCL_BASE_URL.equals(OCL_BASE_URL)) {
+		if (StringUtil.isNullOrEmpty(OCL_API_TOKEN)) {
 			throw new IllegalStateException(
 					"OCL_API_TOKEN environment variable is required. Open Concept Lab has disabled anonymous API access.");
 		}
