@@ -42,7 +42,7 @@ CREATE TABLE BH_Feature_Flag_Rule
 	CreatedBy               NUMERIC(10) NOT NULL,
 	Description             VARCHAR(255)                                            DEFAULT NULL,
 	IsActive                CHAR(1)     NOT NULL CHECK (IsActive IN ('Y', 'N'))     DEFAULT 'Y',
-	Name                    VARCHAR(60) NOT NULL,
+	Name                    VARCHAR(60)                                             DEFAULT NULL,
 	SeqNo                   NUMERIC(10) NOT NULL                                    DEFAULT 0,
 	Updated                 TIMESTAMP   NOT NULL                                    DEFAULT getDate(),
 	UpdatedBy               NUMERIC(10) NOT NULL,
@@ -683,7 +683,7 @@ VALUES
 	 'The name of an entity (record) is used as an default search option in addition to the search key. The name is up to 60 characters in length.',
 	 1, 'U', 'Name', (
 		 SELECT ad_table_id FROM ad_table WHERE ad_table_uu = '853c931e-1b31-46b9-a283-211b0cc91a36'
-	 ), 10, NULL, NULL, 60, NULL, 'N', 'N', 'Y', 'Y', NULL, 'Y', 1, 'N', 'N', NULL, NULL, NULL, NULL, 'Y', 469, NULL, 'N',
+	 ), 10, NULL, NULL, 60, NULL, 'N', 'N', 'N', 'Y', NULL, 'Y', 1, 'N', 'N', NULL, NULL, NULL, NULL, 'Y', 469, NULL, 'N',
 	 'N', NULL, NULL, NULL, 'N', 'Y', NULL, '7cf4da4c-a58b-43f8-87ab-1b7543d0bd99', 'Y', 20, 'N', 'N', NULL, NULL, 'N',
 	 NULL, NULL, 'N', NULL, NULL, NULL, NULL, NULL, 'N', NULL, NULL);
 INSERT INTO
@@ -1691,6 +1691,21 @@ SET
 WHERE
 	bh_graphqlgeneratortemplate_uu = '0b9c9d6a-6e59-4ba4-995a-6762c9effe03'
 	AND tablename NOT ILIKE '%BH_Feature_Flag%';
+
+-- Name is optional on rules (matching uses flag, client, role, user, environment, etc.)
+ALTER TABLE BH_Feature_Flag_Rule
+	ALTER COLUMN Name DROP NOT NULL;
+
+UPDATE ad_column
+SET
+	ismandatory = 'N',
+	updated = getDate(),
+	updatedby = 100
+WHERE
+	columnname = 'Name'
+	AND ad_table_id = (
+		SELECT ad_table_id FROM ad_table WHERE tablename = 'BH_Feature_Flag_Rule'
+	);
 
 SELECT
 	register_migration_script('202605221123_GO-3580.sql')
