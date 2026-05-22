@@ -19,8 +19,7 @@ VALUES
 			 ad_role
 	 ),
 	 0, 0, 'Y', NOW(), 100, NOW(), 'Cashier Lite',
-	 100, 'Cashier/Registration Basic Plus Sales Price Editing on Visits Without Add Service',
-	 'S  ', NULL, 0, NULL, 'Y',
+	 100, 'Cashier role with minimal access', 'S  ', NULL, 0, NULL, 'Y',
 	 'N', 'N', 'N', 'Y', 'Y', NULL,
 	 'N', 'N', 'N', 'O', 'N',
 	 'N', NULL, 0, 0, NULL,
@@ -30,119 +29,58 @@ VALUES
 	 0, 0, '3665260a-9448-4816-8af7-5e3f93a16ab7',
 	 'N', 'Y', 'Y', NULL, 'N', NULL);
 
-WITH target_role AS (
-	SELECT
-		ad_role_id
-	FROM
-		ad_role
-	WHERE
-		ad_role_uu = '3665260a-9448-4816-8af7-5e3f93a16ab7'
-),
-	window_whitelist(ad_window_uu, isreadwrite, bh_candeactivate) AS (
-		VALUES
-			('fd93da00-871d-4996-a3f7-4528bed8b758',
-			 'N', 'Y'),
-			('c63b9972-1b23-4140-8bbb-0ea2b0b81024',
-			 'N', 'N'),
-			('a1f3e45c-4a6f-4c05-af26-517b8e9cbb77',
-			 'Y', 'Y'),
-			('37df7931-7d07-4812-b9d4-dec7a53bb70f',
-			 'Y', 'N'),
-			('ba697729-5ec8-44f7-b534-446310bb5782',
-			 'Y', 'Y'),
-			('4497b5f7-758d-4e82-8e2b-01c4364ce609',
-			 'Y', 'Y'),
-			('44c02ddc-ef83-4020-8e4c-709d8cbeadc2',
-			 'Y', 'N'),
-			('d91768c8-5c5b-4d7c-9a6f-15b06d45908b',
-			 'Y', 'N'),
-			('3c865615-4f7e-4b19-a64b-740485d99e83',
-			 'N', 'N'),
-			('02235082-ebb7-47d3-ba31-9654de1f32c1',
-			 'Y', 'Y'),
-			('be24b4d5-987f-4aa5-ae14-38375b0d6bf2',
-			 'Y', 'Y'),
-			('d4d1767a-1a6f-45ef-8b72-48ff004f1b4e',
-			 'Y', 'Y')
-	),
-	process_whitelist(ad_process_uu, isreadwrite) AS (
-		VALUES
-			('4cf22d3f-1fc8-4bdd-83e1-fc5d79537269', 'Y'),
-			('30dd7243-11c1-4584-af26-5d977d117c84', 'Y'),
-			('1211e173-6f12-4e2f-bfcc-d43d48af51c3', 'Y'),
-			('a7ac9f65-45d7-4ae0-80f3-72019de35a4a', 'Y'),
-			('173a691b-ba89-4987-9216-9b3f0a60c864', 'Y'),
-			('9e2e2707-7b3e-4b0b-aa93-3a1a64d523b2', 'Y'),
-			('b4f11e14-b9d8-4f6c-aa46-adfd77c4f773', 'Y'),
-			('477cdda4-82ff-4bac-834f-08de384df412', 'Y'),
-			('199f56a6-8e1f-47b4-8f22-e2bdb8da7505', 'Y'),
-			('226cdf47-9cde-43e8-b7ef-87b28d7ef2e2', 'Y'),
-			('b09d9a23-ad0f-4eff-a7c6-4c1e2309c3d1', 'Y'),
-			('b8508f0a-c66f-4030-a88c-3ae383322ceb', 'Y'),
-			('bbffd5e1-973a-4d17-9ddf-9ca78a4e140d', 'Y')
-	)
-
--- Windows
+-- Windows: same as Cashier/Registration Basic, except excluded windows below
 INSERT
 INTO
 	ad_window_access (ad_window_id, ad_role_id, ad_client_id, ad_org_id, isactive,
 	                  created, createdby, updated, updatedby, isreadwrite,
 	                  ad_window_access_uu, bh_candeactivate)
 SELECT
-	w.ad_window_id,
-	tr.ad_role_id,
-	0,
-	0,
-	'Y',
+	wa.ad_window_id,
+	r_lite.ad_role_id,
+	wa.ad_client_id,
+	wa.ad_org_id,
+	wa.isactive,
 	NOW(),
-	100,
+	wa.createdby,
 	NOW(),
-	100,
-	ww.isreadwrite,
-	gen_random_uuid()::text,
-	ww.bh_candeactivate
+	wa.updatedby,
+	wa.isreadwrite,
+	uuid_generate_v4(),
+	wa.bh_candeactivate
 FROM
-	window_whitelist ww
+	ad_window_access wa
 		JOIN ad_window w
-			ON w.ad_window_uu = ww.ad_window_uu
-		CROSS JOIN target_role tr
+			ON wa.ad_window_id = w.ad_window_id
+		JOIN ad_role r_basic
+			ON wa.ad_role_id = r_basic.ad_role_id
+			AND r_basic.ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
+		JOIN ad_role r_lite
+			ON r_lite.ad_role_uu = '3665260a-9448-4816-8af7-5e3f93a16ab7'
 WHERE
-	NOT EXISTS (
+	w.ad_window_uu NOT IN (
+		'3c865615-4f7e-4b19-a64b-740485d99e83', -- Patient Tags
+		'be24b4d5-987f-4aa5-ae14-38375b0d6bf2', -- Supplier Payments
+		'c63b9972-1b23-4140-8bbb-0ea2b0b81024', -- Products
+		'e1ba0b91-cb26-4ab0-bcc6-2ee762ad1a84', -- Price Lists
+		'fd93da00-871d-4996-a3f7-4528bed8b758', -- Services
+		'37df7931-7d07-4812-b9d4-dec7a53bb70f', -- Track Expenses
+		'44c02ddc-ef83-4020-8e4c-709d8cbeadc2', -- Track Income
+		'd91768c8-5c5b-4d7c-9a6f-15b06d45908b', -- Dashboard
+		'3a4ac3cd-9e1b-4a2c-82d3-78f698ec9e1f', -- OTC Pharmacy Sales
+		'd4d1767a-1a6f-45ef-8b72-48ff004f1b4e' -- Products and Services Catalogue
+	)
+	AND NOT EXISTS (
 		SELECT
 			1
 		FROM
 			ad_window_access x
 		WHERE
-			x.ad_window_id = w.ad_window_id
-			AND x.ad_role_id = tr.ad_role_id
+			x.ad_window_id = wa.ad_window_id
+			AND x.ad_role_id = r_lite.ad_role_id
 	);
 
-
--- Processes
-WITH target_role AS (
-	SELECT
-		ad_role_id
-	FROM
-		ad_role
-	WHERE
-		ad_role_uu = '3665260a-9448-4816-8af7-5e3f93a16ab7'
-),
-	process_whitelist(ad_process_uu, isreadwrite) AS (
-		VALUES
-			('4cf22d3f-1fc8-4bdd-83e1-fc5d79537269', 'Y'),
-			('30dd7243-11c1-4584-af26-5d977d117c84', 'Y'),
-			('1211e173-6f12-4e2f-bfcc-d43d48af51c3', 'Y'),
-			('a7ac9f65-45d7-4ae0-80f3-72019de35a4a', 'Y'),
-			('173a691b-ba89-4987-9216-9b3f0a60c864', 'Y'),
-			('9e2e2707-7b3e-4b0b-aa93-3a1a64d523b2', 'Y'),
-			('b4f11e14-b9d8-4f6c-aa46-adfd77c4f773', 'Y'),
-			('477cdda4-82ff-4bac-834f-08de384df412', 'Y'),
-			('199f56a6-8e1f-47b4-8f22-e2bdb8da7505', 'Y'),
-			('226cdf47-9cde-43e8-b7ef-87b28d7ef2e2', 'Y'),
-			('b09d9a23-ad0f-4eff-a7c6-4c1e2309c3d1', 'Y'),
-			('b8508f0a-c66f-4030-a88c-3ae383322ceb', 'Y'),
-			('bbffd5e1-973a-4d17-9ddf-9ca78a4e140d', 'Y')
-	)
+-- Processes: visit receipt and visit insurance/invoice reports only
 INSERT
 INTO
 	ad_process_access (ad_process_id, ad_role_id, ad_client_id, ad_org_id, isactive,
@@ -150,7 +88,7 @@ INTO
 	                   ad_process_access_uu)
 SELECT
 	p.ad_process_id,
-	tr.ad_role_id,
+	r_lite.ad_role_id,
 	0,
 	0,
 	'Y',
@@ -158,33 +96,48 @@ SELECT
 	100,
 	NOW(),
 	100,
-	pw.isreadwrite,
-	gen_random_uuid()::text
+	'Y',
+	uuid_generate_v4()
 FROM
-	process_whitelist pw
-		JOIN ad_process p
-			ON p.ad_process_uu = pw.ad_process_uu
-		CROSS JOIN target_role tr
+	ad_process p
+		CROSS JOIN (
+			SELECT
+				ad_role_id
+			FROM
+				ad_role
+			WHERE
+				ad_role_uu = '3665260a-9448-4816-8af7-5e3f93a16ab7'
+		) r_lite
 WHERE
-	NOT EXISTS (
+	p.ad_process_uu IN (
+		'30dd7243-11c1-4584-af26-5d977d117c84', -- Visit Receipt
+		'477cdda4-82ff-4bac-834f-08de384df412' -- Visit Invoice (Insurance)
+	)
+	AND NOT EXISTS (
 		SELECT
 			1
 		FROM
 			ad_process_access x
 		WHERE
 			x.ad_process_id = p.ad_process_id
-			AND x.ad_role_id = tr.ad_role_id
+			AND x.ad_role_id = r_lite.ad_role_id
 	);
 
---- Move old role to new one
+-- Migrate Galmi client users from Cashier/Registration Basic or Basic+ to Cashier Lite
 WITH roles AS (
 	SELECT
 		(
+			SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
+		) AS basic_role_id,
+		(
 			SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'c0e72e44-9cc9-4a0a-b5cd-6cc923678c1a'
-		) AS old_role_id,
+		) AS basic_plus_role_id,
 		(
 			SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '3665260a-9448-4816-8af7-5e3f93a16ab7'
-		) AS new_role_id
+		) AS lite_role_id,
+		(
+			SELECT ad_client_id FROM ad_client WHERE ad_client_uu = '8f5dd4ad-de55-4edf-86c2-1cbce4ff6512'
+		) AS galmi_client_id
 )
 INSERT
 INTO
@@ -192,7 +145,7 @@ INTO
 	               created, createdby, updated, updatedby, ad_user_roles_uu)
 SELECT
 	ur.ad_user_id,
-	r.new_role_id,
+	r.lite_role_id,
 	ur.ad_client_id,
 	ur.ad_org_id,
 	'Y',
@@ -200,12 +153,13 @@ SELECT
 	ur.createdby,
 	NOW(),
 	ur.updatedby,
-	gen_random_uuid()::text
+	uuid_generate_v4()
 FROM
 	ad_user_roles ur
 		CROSS JOIN roles r
 WHERE
-	ur.ad_role_id = r.old_role_id
+	ur.ad_client_id = r.galmi_client_id
+	AND ur.ad_role_id IN (r.basic_role_id, r.basic_plus_role_id)
 	AND NOT EXISTS (
 		SELECT
 			1
@@ -213,11 +167,32 @@ WHERE
 			ad_user_roles x
 		WHERE
 			x.ad_user_id = ur.ad_user_id
-			AND x.ad_role_id = r.new_role_id
+			AND x.ad_role_id = r.lite_role_id
+			AND x.ad_client_id = ur.ad_client_id
+	);
+
+-- Use Cashier Lite as the included role below admin roles for the Galmi client
+UPDATE ad_role_included ri
+SET
+	included_role_id = (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '3665260a-9448-4816-8af7-5e3f93a16ab7'
+	)
+FROM
+	ad_role r
+WHERE
+	ri.ad_role_id = r.ad_role_id
+	AND r.ad_client_id = (
+		SELECT ad_client_id FROM ad_client WHERE ad_client_uu = '8f5dd4ad-de55-4edf-86c2-1cbce4ff6512'
+	)
+	AND ri.included_role_id IN (
+		SELECT ad_role_id FROM ad_role WHERE ad_role_uu IN (
+			'09eb7fc8-9cc5-44b0-9d14-15258a066038',
+			'c0e72e44-9cc9-4a0a-b5cd-6cc923678c1a'
+		)
 	);
 
 SELECT
-	bh_add_roles_to_clients('3665260a-9448-4816-8af7-5e3f93a16ab7', 'Z');
+	bh_add_roles_to_clients('3665260a-9448-4816-8af7-5e3f93a16ab7', 'F');
 
 SELECT
 	register_migration_script('202605211616_GO-3549.sql')

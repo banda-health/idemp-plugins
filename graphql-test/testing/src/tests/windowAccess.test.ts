@@ -2363,14 +2363,14 @@ test('cashier lite role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.suppliers)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.suppliers]).toBeUndefined();
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.products)).not.toBeUndefined();
-	expect(windowAccess?.[windowUuid.products]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.products)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.products]).toBeUndefined();
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.services)).toBeDefined();
-	expect(windowAccess?.[windowUuid.services]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.services)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.services]).toBeUndefined();
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.visitsBills)).not.toBeUndefined();
-	expect(windowAccess?.[windowUuid.visitsBills]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
+	expect(windowAccess?.[windowUuid.visitsBills]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
 	expect(
 		documentStatusActionMap[documentBaseType.SalesOrder]?.[documentStatus.Completed]?.includes(documentAction.Void),
 	).toBe(false);
@@ -2413,25 +2413,11 @@ test('cashier lite role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.expenseCategories)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.expenseCategories]).toBeUndefined();
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.trackExpenses)).not.toBeUndefined();
-	expect(windowAccess?.[windowUuid.trackExpenses]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
-	expect(
-		documentStatusActionMap[documentBaseType.APInvoice]?.[documentStatus.Completed]?.some(
-			(availableDocumentAction) =>
-				availableDocumentAction === documentAction.ReverseAccrual ||
-				availableDocumentAction === documentAction.ReverseCorrect,
-		),
-	).toBe(false);
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.trackExpenses)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.trackExpenses]).toBeUndefined();
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.trackIncome)).not.toBeUndefined();
-	expect(windowAccess?.[windowUuid.trackIncome]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
-	expect(
-		documentStatusActionMap[documentBaseType.ARInvoice]?.[documentStatus.Completed]?.some(
-			(availableDocumentAction) =>
-				availableDocumentAction === documentAction.ReverseAccrual ||
-				availableDocumentAction === documentAction.ReverseCorrect,
-		),
-	).toBe(false);
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.trackIncome)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.trackIncome]).toBeUndefined();
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.nonPatientPayments)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.nonPatientPayments]).toBeUndefined();
@@ -2449,8 +2435,8 @@ test('cashier lite role has correct access', async () => {
 		),
 	).toBe(false);
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.dashboard)).toBeDefined();
-	expect(windowAccess?.[windowUuid.dashboard]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.dashboard)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.dashboard]).toBeUndefined();
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.otcPharmacySales)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.otcPharmacySales]).toBeUndefined();
@@ -2464,12 +2450,18 @@ test('cashier lite role has correct access', async () => {
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.allergies)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.allergies]).toBeUndefined();
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeDefined();
-	expect(windowAccess?.[windowUuid.patientTags]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.patientTags)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.patientTags]).toBeUndefined();
 
-	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeDefined();
-	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toMatchObject({
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.productsAndServicesCatalogue)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.productsAndServicesCatalogue]).toBeUndefined();
+
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.billingHistoryManageDebt)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.billingHistoryManageDebt]).toMatchObject({
 		IsReadWrite: true,
 		BH_CanDeactivate: true,
-	})
+	});
+
+	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.supplierPayments)).toBeUndefined();
+	expect(windowAccess?.[windowUuid.supplierPayments]).toBeUndefined();
 });
