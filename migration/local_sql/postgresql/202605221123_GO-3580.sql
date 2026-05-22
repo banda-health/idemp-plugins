@@ -201,7 +201,7 @@ VALUES
 		 FROM ad_element
 	 ), 0, 0, 'Y', '2026-05-21 16:36:25.371000', 100, '2026-05-21 16:36:25.371000', 100, 'BH_SystemAdmin', 'U',
 	 'System Admin', 'System Admin',
-	 'When enabled, this rule only applies to system administrator users', NULL, NULL, NULL, NULL, NULL, NULL,
+	 'When enabled, this rule only applies to system administrator users', NULL, NULL, NULL, NULL, NULL,
 	 'c4d8f1e2-6a3b-4c5d-9e0f-1a2b3c4d5e6f', NULL);
 
 -- Insert the tables
@@ -231,6 +231,32 @@ VALUES
 	 ), 0, 0, 'Y', '2026-05-21 16:29:46.297000', 100, '2026-05-21 16:29:46.297000', 100, 'Feature Flag Rule', NULL, NULL,
 	 'BH_Feature_Flag_Rule', 'N', '4', 'U', NULL, NULL, 0, 'N', 'Y', 'N', 'N', 'Y', 'L', NULL, 'N', 'Y',
 	 '853c931e-1b31-46b9-a283-211b0cc91a36', 'N', 'N', 'N', 'N', 'N', 'N', 'N');
+
+-- Insert the sequences
+INSERT INTO
+	ad_sequence (ad_sequence_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name,
+	             description, vformat, isautosequence, incrementno, startno, currentnext, currentnextsys, isaudited,
+	             istableid, prefix, suffix, startnewyear, datecolumn, decimalpattern, ad_sequence_uu, startnewmonth,
+	             isorglevelsequence, orgcolumn)
+VALUES
+	((
+		 SELECT MAX(ad_sequence_id) + 1
+		 FROM ad_sequence
+	 ), 0, 0, 'Y', '2026-05-21 16:24:51.052000', 100, '2026-05-21 16:24:51.052000', 100, 'BH_Feature_Flag',
+	 'Table BH_Feature_Flag', NULL, 'Y', 1, 1000000, 1000000, 200000, 'N', 'Y', NULL, NULL, 'N', NULL, NULL,
+	 'f8a2b3c4-d5e6-4f7a-8b9c-0d1e2f3a4b5c', 'N', 'N', NULL);
+INSERT INTO
+	ad_sequence (ad_sequence_id, ad_client_id, ad_org_id, isactive, created, createdby, updated, updatedby, name,
+	             description, vformat, isautosequence, incrementno, startno, currentnext, currentnextsys, isaudited,
+	             istableid, prefix, suffix, startnewyear, datecolumn, decimalpattern, ad_sequence_uu, startnewmonth,
+	             isorglevelsequence, orgcolumn)
+VALUES
+	((
+		 SELECT MAX(ad_sequence_id) + 1
+		 FROM ad_sequence
+	 ), 0, 0, 'Y', '2026-05-21 16:29:46.297000', 100, '2026-05-21 16:29:46.297000', 100, 'BH_Feature_Flag_Rule',
+	 'Table BH_Feature_Flag_Rule', NULL, 'Y', 1, 1000000, 1000000, 200000, 'N', 'Y', NULL, NULL, 'N', NULL, NULL,
+	 'e9b4c5d6-a7f8-4e9a-bc0d-1e2f3a4b5c6d', 'N', 'N', NULL);
 
 -- Insert the columns
 INSERT INTO
@@ -1652,6 +1678,19 @@ VALUES
 		SELECT ad_menu_id FROM ad_menu WHERE ad_menu_uu = '82a17761-9255-4328-a62d-abb2cb57232f'
 	), 0, 0, 'Y', '2026-05-21 16:44:33.845055', 100, '2026-05-21 16:44:49.555000', 100, 161, 24,
 	 'a00df918-8b3a-4795-a34e-ae265fdacbf5');
+
+-- Update the GraphQL generator template table list
+UPDATE bh_graphqlgeneratortemplate
+SET
+	tablename = REGEXP_REPLACE(
+		tablename,
+		'''BH_Encounter_Type_Window''',
+		'''BH_Encounter_Type_Window'',''BH_Feature_Flag'',''BH_Feature_Flag_Rule''',
+		'i'
+	)
+WHERE
+	bh_graphqlgeneratortemplate_uu = '0b9c9d6a-6e59-4ba4-995a-6762c9effe03'
+	AND tablename NOT ILIKE '%BH_Feature_Flag%';
 
 SELECT
 	register_migration_script('202605221123_GO-3580.sql')

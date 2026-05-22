@@ -223,6 +223,15 @@ function buildFeatureFlagEntity(valueObject: ValueObject, flagKey: string) {
 	};
 }
 
+function buildFeatureFlagRuleBase(valueObject: ValueObject, seqNo = 10) {
+	return {
+		BH_SystemAdmin: false,
+		IsActive: true,
+		Name: valueObject.getStepMessageLong(),
+		SeqNo: seqNo,
+	};
+}
+
 async function expectForbiddenMutation(
 	valueObject: ValueObject,
 	mutation: Parameters<ReturnType<typeof mutate>>[0],
@@ -276,11 +285,9 @@ test('only system administrators can save or delete feature flags', async () => 
 			mutation: Bh_Feature_Flag_RuleSaveDocument,
 			variables: {
 				Entity: {
+					...buildFeatureFlagRuleBase(valueObject),
 					BH_Feature_Flag: { UU: flagUU },
 					BH_IsEnabled: true,
-					IsActive: true,
-					Name: valueObject.getStepMessageLong(),
-					SeqNo: 10,
 				},
 			},
 		});
@@ -312,11 +319,9 @@ test('system administrators can save and delete feature flags', async () => {
 			mutation: Bh_Feature_Flag_RuleSaveDocument,
 			variables: {
 				Entity: {
+					...buildFeatureFlagRuleBase(valueObject),
 					BH_Feature_Flag: { UU: flagUU },
 					BH_IsEnabled: true,
-					IsActive: true,
-					Name: valueObject.getStepMessageLong(),
-					SeqNo: 10,
 				},
 			},
 		})
@@ -390,12 +395,10 @@ test('feature flag rule can enable a flag for the current client', async () => {
 				mutation: Bh_Feature_Flag_RuleSaveDocument,
 				variables: {
 					Entity: {
+						...buildFeatureFlagRuleBase(valueObject),
 						BH_Feature_Flag: { UU: flagUU },
 						BH_IsEnabled: true,
 						BH_Rule_Client: { UU: testContext.client.UU },
-						IsActive: true,
-						Name: valueObject.getStepMessageLong(),
-						SeqNo: 10,
 					},
 				},
 			})
@@ -442,11 +445,9 @@ test('more specific rule overrides a general client rule', async () => {
 			mutation: Bh_Feature_Flag_RuleSaveDocument,
 			variables: {
 				Entity: {
+					...buildFeatureFlagRuleBase(valueObject),
 					BH_Feature_Flag: { UU: flagUU },
 					BH_IsEnabled: true,
-					IsActive: true,
-					Name: valueObject.getStepMessageLong(),
-					SeqNo: 10,
 				},
 			},
 		})
@@ -457,12 +458,10 @@ test('more specific rule overrides a general client rule', async () => {
 			mutation: Bh_Feature_Flag_RuleSaveDocument,
 			variables: {
 				Entity: {
+					...buildFeatureFlagRuleBase(valueObject, 20),
 					BH_Feature_Flag: { UU: flagUU },
 					BH_IsEnabled: false,
 					BH_Rule_Role: { UU: testContext.role.UU },
-					IsActive: true,
-					Name: valueObject.getStepMessageLong(),
-					SeqNo: 20,
 				},
 			},
 		})
@@ -512,12 +511,10 @@ test('environment rule does not apply when rule environment does not match serve
 			mutation: Bh_Feature_Flag_RuleSaveDocument,
 			variables: {
 				Entity: {
+					...buildFeatureFlagRuleBase(valueObject),
 					BH_Environment: { UU: mismatchedEnvironmentUuid },
 					BH_Feature_Flag: { UU: flagUU },
 					BH_IsEnabled: true,
-					IsActive: true,
-					Name: valueObject.getStepMessageLong(),
-					SeqNo: 10,
 				},
 			},
 		})
@@ -564,13 +561,11 @@ test('feature flag is disabled for a different role when a role-specific rule ex
 			mutation: Bh_Feature_Flag_RuleSaveDocument,
 			variables: {
 				Entity: {
+					...buildFeatureFlagRuleBase(valueObject),
 					BH_Feature_Flag: { UU: flagUU },
 					BH_IsEnabled: true,
 					BH_Rule_Client: { UU: testContext.client.UU },
 					BH_Rule_Role: { UU: testContext.role.UU },
-					IsActive: true,
-					Name: valueObject.getStepMessageLong(),
-					SeqNo: 10,
 				},
 			},
 		})
@@ -619,13 +614,11 @@ test('feature flag is disabled for a different user when a user-specific rule ex
 			mutation: Bh_Feature_Flag_RuleSaveDocument,
 			variables: {
 				Entity: {
+					...buildFeatureFlagRuleBase(valueObject),
 					BH_Feature_Flag: { UU: flagUU },
 					BH_IsEnabled: true,
 					BH_Rule_Client: { UU: testContext.client.UU },
 					BH_Rule_User: { UU: targetedUser.UU },
-					IsActive: true,
-					Name: valueObject.getStepMessageLong(),
-					SeqNo: 10,
 				},
 			},
 		})
@@ -673,13 +666,11 @@ test('feature flag system admin rule only applies to system administrators on te
 			mutation: Bh_Feature_Flag_RuleSaveDocument,
 			variables: {
 				Entity: {
+					...buildFeatureFlagRuleBase(valueObject),
 					BH_Feature_Flag: { UU: flagUU },
 					BH_IsEnabled: true,
 					BH_Rule_Client: { UU: testContext.client.UU },
 					BH_SystemAdmin: true,
-					IsActive: true,
-					Name: valueObject.getStepMessageLong(),
-					SeqNo: 10,
 				},
 			},
 		})
@@ -727,13 +718,10 @@ test('feature flag rule with system admin off applies to non-administrators on t
 			mutation: Bh_Feature_Flag_RuleSaveDocument,
 			variables: {
 				Entity: {
+					...buildFeatureFlagRuleBase(valueObject),
 					BH_Feature_Flag: { UU: flagUU },
 					BH_IsEnabled: true,
 					BH_Rule_Client: { UU: testContext.client.UU },
-					BH_SystemAdmin: false,
-					IsActive: true,
-					Name: valueObject.getStepMessageLong(),
-					SeqNo: 10,
 				},
 			},
 		})
