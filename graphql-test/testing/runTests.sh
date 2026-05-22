@@ -56,6 +56,8 @@ find ./src -type f -regex '.*\/\?.*\(spec\|test\)\.[tj]sx\?' | sed 's/\.\///' >>
 
 [ -f "full-test-results.txt" ] && full-test-results.txt
 touch full-test-results.txt
+export NODE_OPTIONS="--experimental-vm-modules${NODE_OPTIONS:+ $NODE_OPTIONS}"
+
 while IFS= read -r line; do
   [ -f "jestResults.json" ] && rm jestResults.json
   touch jestResults.json

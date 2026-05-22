@@ -26,7 +26,7 @@ input ChangeAccessInput {
 	AD_Client_UU: String!
 	AD_Role_UU: String!
 	AD_Org_UU: String!
-	M_Warehouse_UU: String!
+	M_Warehouse_UU: String
 }
 
 input ChangePasswordInput {

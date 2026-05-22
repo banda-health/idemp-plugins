@@ -1,0 +1,78 @@
+# Generated Schema for BH_Feature_Flag_Rule - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 12 - $Id$
+extend type Query {
+	BH_Feature_Flag_Rule(UU: String!): BH_Feature_Flag_Rule
+	BH_Feature_Flag_RuleGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): BH_Feature_Flag_RuleConnection!
+}
+
+extend type Mutation {
+	BH_Feature_Flag_RuleSave(Entity: BH_Feature_Flag_RuleInput!): BH_Feature_Flag_Rule!
+	BH_Feature_Flag_RuleSaveMany(Entities: [BH_Feature_Flag_RuleInput!]!): [BH_Feature_Flag_Rule!]!
+	BH_Feature_Flag_RuleDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Feature_Flag_RuleConnection {
+	Results: [BH_Feature_Flag_Rule!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Feature_Flag_Rule {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	BH_Environment: AD_Ref_List
+	BH_Feature_Flag: BH_Feature_Flag!
+	UU: ID!
+	BH_IsEnabled: Boolean!
+	BH_Rule_Client: AD_AllClients_V
+	BH_Rule_Role: AD_Role
+	BH_Rule_User: AD_AllUsers_V
+	BH_SystemAdmin: Boolean!
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: DateTime!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+}
+
+input BH_Feature_Flag_RuleInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	BH_Environment: ForeignEntityInput
+	BH_Feature_Flag: ForeignEntityInput
+	UU: ID
+	BH_IsEnabled: Boolean
+	BH_Rule_Client: ForeignEntityInput
+	BH_Rule_Role: ForeignEntityInput
+	BH_Rule_User: ForeignEntityInput
+	BH_SystemAdmin: Boolean
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+}
