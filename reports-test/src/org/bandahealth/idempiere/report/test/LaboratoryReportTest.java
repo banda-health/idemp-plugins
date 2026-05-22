@@ -30,6 +30,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -716,5 +717,162 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 									cell.getStringCellValue().equals("Are within range"))).findFirst();
 			assertTrue(notesRow.isPresent(), "Notes Appear");
 		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void reportShowsAgeInYearsForPatientOlderThanTwoYears() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setBH_Birthday(TimestampUtils.addToNow(Calendar.YEAR, -5));
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		try (Workbook workbook = generateLabReportForVisit(valueObject)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			assertThat("Age displays in years next to label", hasRowContaining(sheet, "Age:", "5 years"), is(true));
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void reportShowsAgeInMonthsForPatientYoungerThanTwoYears() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setBH_Birthday(TimestampUtils.addToNow(Calendar.MONTH, -6));
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		try (Workbook workbook = generateLabReportForVisit(valueObject)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			assertThat("Age displays in months next to label", hasRowContaining(sheet, "Age:", "6 months"), is(true));
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void reportShowsAgeInWeeksAndDaysForPatientYoungerThanTwoMonths() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setBH_Birthday(TimestampUtils.addToNow(Calendar.DAY_OF_YEAR, -20));
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		try (Workbook workbook = generateLabReportForVisit(valueObject)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			assertThat("Age displays in weeks and days next to label",
+					hasRowContaining(sheet, "Age:", "2 weeks, 6 days"), is(true));
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void reportShowsAgeInDaysForPatientYoungerThanFifteenDays() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		valueObject.getBusinessPartner().setBH_Birthday(TimestampUtils.addToNow(Calendar.DAY_OF_YEAR, -10));
+		valueObject.getBusinessPartner().saveEx();
+		commitEx();
+
+		try (Workbook workbook = generateLabReportForVisit(valueObject)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			assertThat("Age displays in days next to label", hasRowContaining(sheet, "Age:", "10 days"), is(true));
+		}
+	}
+
+	private Workbook generateLabReportForVisit(ChuBoePopulateVO valueObject) throws SQLException, IOException {
+		valueObject.setStepName("Create product");
+		ChuBoeCreateEntity.createProduct(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create order");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_PurchaseOrder, null, false, false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		valueObject.getOrderLine().setPrice(new BigDecimal(20));
+		valueObject.getOrderLine().setQty(new BigDecimal(10));
+		valueObject.getOrderLine().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create material receipt");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_MaterialReceipt, null, false, false, false);
+		ChuBoeCreateEntity.createInOutFromOrder(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create diagnostic concept");
+		valueObject.setRandom();
+		MBHConcept diagnostic = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+		diagnostic.setBH_Display_Name(String.valueOf(valueObject.getRandomNumber()));
+		diagnostic.setOcl_Uuid(String.valueOf(valueObject.getRandomNumber()));
+		diagnostic.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create visit");
+		ChuBoeCreateEntity.createVisit(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create diagnostics");
+		MBHEncounter encounter = new MBHEncounter(valueObject.getContext(), 0, valueObject.getTransactionName());
+		encounter.setBH_Encounter_Type(MBHEncounter.BH_ENCOUNTER_TYPE_ClinicalDetails);
+		encounter.setBH_Visit_ID(valueObject.getVisit().get_ID());
+		encounter.setBH_Encounter_Date(TimestampUtils.today());
+		encounter.saveEx();
+
+		MBHEncounterDiagnostic encounterDiagnostic = new MBHEncounterDiagnostic(valueObject.getContext(), 0,
+				valueObject.getTransactionName());
+		encounterDiagnostic.setBH_Encounter_ID(encounter.getBH_Encounter_ID());
+		encounterDiagnostic.setBH_Concept_ID(diagnostic.get_ID());
+		encounterDiagnostic.setBH_Value("positive");
+		encounterDiagnostic.setLineNo(10);
+		encounterDiagnostic.setGroup1(String.valueOf(valueObject.getRandomNumber()));
+		encounterDiagnostic.saveEx();
+
+		valueObject.setStepName("Create sales order");
+		valueObject.setRandom();
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_SalesOrder, MDocType_BH.DOCSUBTYPESO_OnCreditOrder, true,
+				false, false);
+		ChuBoeCreateEntity.createOrder(valueObject);
+		MOrder_BH order = valueObject.getOrder();
+		order.setSalesRep_ID(valueObject.getUser().get_ID());
+		order.saveEx();
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid("1a7175fe-2afe-4404-9c56-58d2fda9bc57");
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				List.of(new ProcessInfoParameter("BH_Visit_UU", valueObject.getVisit().get_UUID(), null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
+
+		return new XSSFWorkbook(new FileInputStream(valueObject.getReport()));
+	}
+
+	private boolean hasRowContaining(Sheet sheet, String label, String value) {
+		return StreamSupport.stream(sheet.spliterator(), false).anyMatch(row -> {
+			boolean hasLabel = StreamSupport.stream(row.spliterator(), false).anyMatch(
+					cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+							cell.getStringCellValue().contains(label));
+			boolean hasValue = StreamSupport.stream(row.spliterator(), false).anyMatch(
+					cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+							cell.getStringCellValue().contains(value));
+			return hasLabel && hasValue;
+		});
 	}
 }

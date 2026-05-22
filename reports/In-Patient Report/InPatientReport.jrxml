@@ -6,6 +6,7 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UAT DB"/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<style name="Default" isDefault="true" fontName="Arial"/>
 	<style name="Table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
