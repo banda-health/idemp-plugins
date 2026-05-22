@@ -13,6 +13,7 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 12"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<style name="Default" isDefault="true" fontName="Arial"/>
 	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF" isBold="true">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>

@@ -7,6 +7,7 @@
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 12"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
+	<style name="Default" isDefault="true" fontName="Arial"/>
 	<style name="textBackground" mode="Opaque" backcolor="#E6E6FA" pattern=""/>
 	<style name="titleBackground" mode="Opaque" backcolor="#00008B"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>

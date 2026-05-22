@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 6.21.5  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient Summary" pageWidth="595" pageHeight="842" orientation="Landscape" columnWidth="481" leftMargin="57" rightMargin="57" topMargin="5" bottomMargin="0" uuid="f7f5f1f2-1e6c-4f4b-bf9b-0d6b2d8b6b11">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="UAT DB"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 12"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
@@ -39,7 +39,7 @@
 			<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 		</box>
 	</style>
-	<style name="Default" isDefault="true" fontSize="12"/>
+	<style name="Default" isDefault="true" fontName="Arial" fontSize="12"/>
 	<style name="SectionHeading" fontSize="14" isBold="true"/>
 	<style name="Declaration" fontSize="11"/>
 	<style name="Footer" fontSize="9" isBold="true"/>
@@ -62,6 +62,7 @@ FROM
 WHERE
 	o.issotrx = 'Y'
 	AND ol.included_orderline_id IS NULL
+	AND p.producttype = 'I'
 	AND v.bh_visit_uu = $P{BH_Visit_UU}
 ORDER BY
 	ol.created;]]>
@@ -436,11 +437,18 @@ FROM
 				<textFieldExpression><![CDATA["<b>Visit Number:</b> " + ($F{visit_number} != null ? $F{visit_number} : "")]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
-				<reportElement x="240" y="64" width="241" height="16" uuid="c6c6a6a8-3c5c-4b0a-8d6e-1c2b3d4e5f6d">
+				<reportElement x="240" y="46" width="240" height="16" uuid="c6c6a6a8-3c5c-4b0a-8d6e-1c2b3d4e5f6d">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement markup="html"/>
-				<textFieldExpression><![CDATA["<b>Visit Date:</b> " + new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm").format($F{bh_visitdate})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["<b>Admission Date:</b> " + new java.text.SimpleDateFormat("yyyy-MM-dd").format($F{bh_visitdate})]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="ScaleFont" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="240" y="64" width="241" height="16" uuid="1294fe4e-61d6-4d0f-82ab-6ff728d31915">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement markup="html"/>
+				<textFieldExpression><![CDATA["<b>Discharge Date:</b> ____ / ____ / ____"]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="120">
@@ -595,7 +603,7 @@ FROM
 				<textFieldExpression><![CDATA["<b>Secondary Diagnosis:</b> " + ($F{secondary_diagnosis} == null ? "" : $F{secondary_diagnosis})]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="72">
+		<band height="70">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<line>
 				<reportElement positionType="Float" x="0" y="0" width="481" height="1" uuid="3056bc37-9f4f-4b7e-babf-df240aa1f575"/>
