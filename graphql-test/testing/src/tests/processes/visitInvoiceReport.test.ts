@@ -1,5 +1,6 @@
 import { readFileSync } from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { PdfData } from 'pdfdataextract';
 import { v4 } from 'uuid';
 import { mutate, query } from '../../api';
@@ -21,6 +22,7 @@ import {
 	LogoAndAd_OrgInfoSaveDocument,
 } from '../../__generated__/graphql';
 
+const testDir = path.dirname(fileURLToPath(import.meta.url));
 const reportUuid = '477cdda4-82ff-4bac-834f-08de384df412';
 
 test('visit invoice report is runnable', async () => {
@@ -42,7 +44,7 @@ test('visit invoice report is runnable', async () => {
 				UU: logoUuid,
 				Name: 'logo.png',
 				ImageURL: 'logo.png',
-				BinaryData: readFileSync(path.join(__dirname, '../../assets/logo.png'), 'base64'),
+				BinaryData: readFileSync(path.join(testDir, '../../assets/logo.png'), 'base64'),
 			},
 			AD_OrgInfo: {
 				UU: organizationInformation.UU,
@@ -141,7 +143,7 @@ test(`uploaded PDFs don't stop the report from running`, async () => {
 				UU: logoUuid,
 				Name: 'logo.pdf',
 				ImageURL: 'logo.pdf',
-				BinaryData: readFileSync(path.join(__dirname, '../../assets/logo.pdf'), 'base64'),
+				BinaryData: readFileSync(path.join(testDir, '../../assets/logo.pdf'), 'base64'),
 			},
 			AD_OrgInfo: {
 				UU: organizationInformation.UU,

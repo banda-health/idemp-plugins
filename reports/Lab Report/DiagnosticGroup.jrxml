@@ -110,7 +110,7 @@ FROM
 							ON c.bh_concept_id = ce_high.bh_concept_id AND ce_high.bh_key = 'hi_normal'
 						LEFT JOIN bh_client_concept_extra cce_high
 							ON ce_high.bh_concept_extra_id = cce_high.bh_concept_extra_id AND cce_high.ad_client_id = ed.ad_client_id
-						LEFT JOIN LATERAL (SELECT
+						LEFT JOIN LATERAL (SELECT DISTINCT ON (cm.to_bh_concept_id)
 							                   cm.to_bh_concept_id                                                              AS bh_concept_id,
 							                   COALESCE(cm_cce_low.bh_client_concept_extra_id,
 							                            cm_ce_low.bh_concept_extra_id)                                          AS mapped_low_extra_id,
@@ -124,9 +124,6 @@ FROM
 								                   ELSE cm_ce_high.bh_value END                                                   AS mapped_high
 						                   FROM
 							                   bh_concept_mapping cm
-								                   JOIN bh_concept_extra ce
-									                   ON cm.bh_concept_mapping_id = ce.bh_concept_mapping_id AND
-									                      ce.bh_key IN ('low_normal', 'high_normal')
 								                   LEFT JOIN bh_concept_extra cm_ce_low
 									                   ON cm.bh_concept_mapping_id = cm_ce_low.bh_concept_mapping_id AND
 									                      cm_ce_low.bh_key = 'low_normal'
@@ -140,7 +137,12 @@ FROM
 									                   ON cm_ce_high.bh_concept_extra_id = cm_cce_high.bh_concept_extra_id AND
 									                      cm_cce_high.ad_client_id = ed.ad_client_id
 						                   WHERE
-							                   cm.to_bh_concept_id = c.bh_concept_id) cm_e_values
+							                   cm.to_bh_concept_id = c.bh_concept_id
+							                   AND (cm_ce_low.bh_concept_extra_id IS NOT NULL OR
+							                        cm_ce_high.bh_concept_extra_id IS NOT NULL)
+						                   ORDER BY
+							                   cm.to_bh_concept_id,
+							                   cm.bh_concept_mapping_id) cm_e_values
 							ON c.bh_concept_id = cm_e_values.bh_concept_id
 				WHERE
 					ed.group1 = $P{Group1}

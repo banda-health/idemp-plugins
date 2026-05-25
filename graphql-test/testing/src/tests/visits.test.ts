@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import { sortBy } from 'lodash';
+import sortBy from 'lodash/sortBy.js';
 import xlsx from 'node-xlsx';
 import { PdfData } from 'pdfdataextract';
 import { v4 } from 'uuid';

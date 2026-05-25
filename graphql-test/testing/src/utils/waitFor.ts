@@ -1,6 +1,8 @@
 // This is largely copied from https://github.com/testing-library/dom-testing-library so
 // we could use the ability to wait for a condition to pass
 
+import { jest } from '@jest/globals';
+
 function jestFakeTimersAreEnabled(): boolean {
 	/* istanbul ignore else */
 	if (typeof jest !== 'undefined' && jest !== null) {

@@ -236,6 +236,20 @@ mutation BH_TagDelete($UUs: [String!]!) {
 	BH_TagDelete(UUs: $UUs)
 }
 
+mutation BH_Feature_FlagDelete($UUs: [String!]!) {
+	BH_Feature_FlagDelete(UUs: $UUs)
+}
+
+mutation BH_Feature_Flag_RuleSave($Entity: BH_Feature_Flag_RuleInput!) {
+	BH_Feature_Flag_RuleSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation BH_Feature_Flag_RuleDelete($UUs: [String!]!) {
+	BH_Feature_Flag_RuleDelete(UUs: $UUs)
+}
+
 mutation BH_VisitDeleteAll(
 	$BH_Visit_UUs: [String!]!
 	$C_Order_UUs: [String!]!
@@ -770,6 +784,23 @@ mutation ChangeAccess($Access: ChangeAccessInput!) {
 
 mutation ChangePassword($PasswordInfo: ChangePasswordInput!) {
 	ChangePassword(PasswordInfo: $PasswordInfo)
+}
+
+mutation BH_Feature_FlagDelete($UUs: [String!]!) {
+	BH_Feature_FlagDelete(UUs: $UUs)
+}
+
+mutation BH_Feature_Flag_RuleSave($Entity: BH_Feature_Flag_RuleInput!) {
+	BH_Feature_Flag_RuleSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation BH_Feature_FlagSave($Entity: BH_Feature_FlagInput!) {
+	BH_Feature_FlagSave(Entity: $Entity) {
+		Name
+		UU
+	}
 }
 
 mutation LogoAndAD_OrgInfoSave($Logo: AD_ImageInput!, $AD_OrgInfo: AD_OrgInfoInput!) {
