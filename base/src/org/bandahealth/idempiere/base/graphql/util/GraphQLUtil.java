@@ -34,6 +34,40 @@ public class GraphQLUtil {
 	private static final CLogger log = CLogger.getCLogger(GraphQLUtil.class);
 	private static final Pattern tableNamePattern = Pattern.compile("Table_Name = \"(.*)\";");
 	private static final Pattern packagePattern = Pattern.compile("(?<!//)package (.*);");
+	public static final String BANDA_CUSTOM_MODEL_RELATIVE_PATH = "base/src/org/bandahealth/idempiere/base/model";
+	private static final String BANDA_CUSTOM_MODEL_MARKER_FILE = "I_BH_Visit.java";
+
+	/**
+	 * Resolve the custom model source directory. Uses the configured path when valid, otherwise walks up from the
+	 * current working directory looking for the Banda Health model sources.
+	 *
+	 * @param customModelDirectory The directory configured in the generator UI, if any
+	 * @return The resolved directory, or null if none could be found
+	 */
+	public static String resolveCustomModelDirectory(String customModelDirectory) {
+		if (customModelDirectory != null && !customModelDirectory.isEmpty()) {
+			File configuredDirectory = new File(customModelDirectory);
+			if (configuredDirectory.exists() && configuredDirectory.isDirectory() &&
+					new File(configuredDirectory, BANDA_CUSTOM_MODEL_MARKER_FILE).exists()) {
+				return configuredDirectory.getAbsolutePath();
+			}
+		}
+		Path current = Path.of("").toAbsolutePath();
+		for (int i = 0; i < 8 && current != null; i++) {
+			Path candidate = current.resolve(BANDA_CUSTOM_MODEL_RELATIVE_PATH);
+			if (Files.isDirectory(candidate) && Files.exists(candidate.resolve(BANDA_CUSTOM_MODEL_MARKER_FILE))) {
+				return candidate.toAbsolutePath().toString();
+			}
+			current = current.getParent();
+		}
+		if (customModelDirectory != null && !customModelDirectory.isEmpty()) {
+			File configuredDirectory = new File(customModelDirectory);
+			if (configuredDirectory.exists() && configuredDirectory.isDirectory()) {
+				return configuredDirectory.getAbsolutePath();
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * Search through the codebase and get the file names (both generated and/or created) and return a mapping so that
@@ -48,16 +82,16 @@ public class GraphQLUtil {
 		// Look through all files and find the generated class
 		String currentPath = Path.of("").toAbsolutePath().toString();
 		List<File> modelFiles = Stream.concat(Stream.concat(Arrays.stream(
-								Objects.requireNonNull(new File(currentPath + "/org.adempiere.base/src/org/compiere/model").listFiles())),
-						Arrays.stream(Objects.requireNonNull(
-								new File(currentPath + "/org.adempiere.base/src/org/compiere/report").listFiles()))), Arrays.stream(
-						Objects.requireNonNull(new File(currentPath + "/org.adempiere.base/src/org/eevolution/model").listFiles())))
+								listJavaModelFiles(currentPath + "/org.adempiere.base/src/org/compiere/model")),
+						Arrays.stream(listJavaModelFiles(currentPath + "/org.adempiere.base/src/org/compiere/report"))),
+				Arrays.stream(listJavaModelFiles(currentPath + "/org.adempiere.base/src/org/eevolution/model")))
 				.collect(Collectors.toList());
-		File file;
-		if (customModelDirectory != null && !customModelDirectory.isEmpty() &&
-				(file = new File(customModelDirectory)).exists() && file.isDirectory()) {
+		String resolvedCustomModelDirectory = resolveCustomModelDirectory(customModelDirectory);
+		if (resolvedCustomModelDirectory != null) {
 			modelFiles = Stream.concat(modelFiles.stream(),
-					Arrays.stream(Objects.requireNonNull(new File(customModelDirectory).listFiles()))).toList();
+					Arrays.stream(listJavaModelFiles(resolvedCustomModelDirectory))).toList();
+		} else if (customModelDirectory != null && !customModelDirectory.isEmpty()) {
+			log.warning("Custom model folder could not be resolved: " + customModelDirectory);
 		}
 
 		Map<String, ModelMap> modelsForTables = new HashMap<>();
@@ -142,6 +176,20 @@ public class GraphQLUtil {
 		return modelsForTables;
 	}
 
+	private static File[] listJavaModelFiles(String directoryPath) {
+		File directory = new File(directoryPath);
+		if (!directory.exists() || !directory.isDirectory()) {
+			return new File[0];
+		}
+		File[] files = directory.listFiles();
+		return files != null ? files : new File[0];
+	}
+
+	public static String getMissingModelDirectoryMessage(String tableName) {
+		return "Can't find file to match for table " + tableName + ". Set Custom Model Folder to your generated " +
+				"I_/X_ model sources (e.g. idemp-banda/" + BANDA_CUSTOM_MODEL_RELATIVE_PATH + ") and Custom Model " +
+				"Package to org.bandahealth.idempiere.base.model.";
+	}
 
 	/**
 	 * Write to file

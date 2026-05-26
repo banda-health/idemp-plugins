@@ -81,8 +81,8 @@ WHERE
 			gvd.bh_visitdate   AS bill_date,
 			gvd.patient_name,
 			gvd.bh_patientid,
-			gvd.bh_patienttype,
-			gvd.bh_patienttype_name,
+			gvd.bh_visittype,
+			gvd.bh_visittype_name,
 			SUM(ol.linenetamt) AS lineitemtotals
 		FROM
 			bh_get_visit_details($P{AD_CLIENT_ID}, $P{Begin Date}, $P{End Date}) gvd
@@ -108,8 +108,8 @@ WHERE
 					AND i.docstatus IN ('CO', 'CL')
 			))
 		GROUP BY
-			gvd.bh_visit_id, gvd.c_bpartner_id, gvd.bh_visitdate, gvd.patient_name, gvd.bh_patientid, gvd.bh_patienttype,
-			gvd.bh_patienttype_name
+			gvd.bh_visit_id, gvd.c_bpartner_id, gvd.bh_visitdate, gvd.patient_name, gvd.bh_patientid, gvd.bh_visittype,
+			gvd.bh_visittype_name
 	),
 	DirectPayments AS (
 		SELECT
@@ -144,7 +144,7 @@ SELECT
 	Visit_info.bh_visit_id,
 	Visit_info.bill_date                                                                                AS billdate,
 	patient_name,
-	bh_patienttype_name                                                                                 AS PatientType,
+	bh_visittype_name                                                                                 AS VisitType,
 	bh_patientid                                                                                        AS PatientNo,
 	insurance_info.member_id,
 	membername,
@@ -234,7 +234,7 @@ ORDER BY
 		<property name="com.jaspersoft.studio.field.tree.path" value="c_bpartner"/>
 	</field>
 	<field name="PatientNo" class="java.lang.String"/>
-	<field name="PatientType" class="java.lang.String"/>
+	<field name="VisitType" class="java.lang.String"/>
 	<field name="member_id" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="member_id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="member_id"/>
@@ -445,7 +445,7 @@ ORDER BY
 					<textElement textAlignment="Left" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
-					<text><![CDATA[Patient Type]]></text>
+					<text><![CDATA[Visit Type]]></text>
 				</staticText>
 				<staticText>
 					<reportElement mode="Opaque" x="361" y="0" width="71" height="30" backcolor="#BFE1FF" uuid="1a822816-fa99-4a94-92a2-a4b8433244f7">
@@ -575,7 +575,7 @@ ORDER BY
 					</reportElement>
 					<box leftPadding="2" rightPadding="0"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{PatientType}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{VisitType}]]></textFieldExpression>
 				</textField>
 				<textField pattern="#,##0.###;(#,##0.###-)" isBlankWhenNull="true">
 					<reportElement style="Table_TD" mode="Opaque" x="361" y="0" width="71" height="15" uuid="0a1acbc6-6fb2-4749-b400-63a4081d0606">

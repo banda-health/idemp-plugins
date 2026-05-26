@@ -25,13 +25,13 @@ type BH_Visit {
 	# BH_Clinician_User_ID
 	BH_Clinician_User: AD_User
 	BH_NewVisit: Boolean!
-	BH_PatientType: AD_Ref_List
 	# Drop down field in visits for users to define the process stage
 	BH_Process_Stage: AD_Ref_List
 	bh_referral: AD_Ref_List
 	BH_ReferredFromTo: String
-	UU: ID!
 	BH_VisitDate: DateTime
+	BH_VisitType: AD_Ref_List
+	UU: ID!
 	BH_Voided_Reason: BH_Voided_Reason
 	# The reason for changing this entity
 	Change_Reason: String
@@ -61,13 +61,13 @@ input BH_VisitInput {
 	# BH_Clinician_User_ID
 	BH_Clinician_User: ForeignEntityInput
 	BH_NewVisit: Boolean
-	BH_PatientType: ForeignEntityInput
 	# Drop down field in visits for users to define the process stage
 	BH_Process_Stage: ForeignEntityInput
 	bh_referral: ForeignEntityInput
 	BH_ReferredFromTo: String
-	UU: ID
 	BH_VisitDate: DateTime
+	BH_VisitType: ForeignEntityInput
+	UU: ID
 	BH_Voided_Reason: ForeignEntityInput
 	# The reason for changing this entity
 	Change_Reason: String

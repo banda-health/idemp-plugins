@@ -95,7 +95,7 @@
 					AND v.bh_visit_id IN (
 						SELECT bh_visit_id FROM c_order WHERE docstatus IN ('CO', 'CL') AND ad_client_id = $P{AD_CLIENT_ID}
 					)
-					AND COALESCE(v.bh_patienttype, '') != 'Im'
+					AND COALESCE(v.bh_visittype, '') != 'Im'
 				GROUP BY bh_referral, ce.bh_value, CAST(bh_visitdate AS date)
 			) c
 				ON rl.value = c.bh_referral

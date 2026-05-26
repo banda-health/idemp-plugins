@@ -149,7 +149,7 @@ FROM
 	) AS visit_info
 			ON visit_info.bh_visit_id = v.bh_visit_id
 WHERE
-	v.bh_patienttype = 'I'
+	v.bh_visittype = 'I'
 	AND (pif.name IS NULL OR pif.name = 'NHIF Number')
 	AND (ed.lineno IS NULL OR ed.lineno = 0)
 	AND visit_info.is_finished
