@@ -185,7 +185,10 @@ FROM
 		JOIN ad_role r_cl
 			ON r_cl.name = c.name || ' Cashier Lite'
 WHERE
-	C.ad_client_uu = '8f5dd4ad-de55-4edf-86c2-1cbce4ff6512';
+	c.ad_client_uu = '8f5dd4ad-de55-4edf-86c2-1cbce4ff6512'
+	AND NOT EXISTS(
+		SELECT 1 FROM ad_user_roles ur2 WHERE ur2.ad_user_id = ur.ad_user_id AND ur2.ad_role_id = r_cl.ad_role_id
+	);
 
 SELECT
 	register_migration_script('202605211616_GO-3549.sql')
