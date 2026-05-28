@@ -7,7 +7,7 @@ import graphql.kickstart.servlet.context.GraphQLServletContext;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.adempiere.exceptions.AdempiereException;
-import org.adempiere.util.LogAuthFailure;
+import org.bandahealth.idempiere.base.utils.BHLogAuthFailure;
 import org.bandahealth.idempiere.base.config.Transaction;
 import org.bandahealth.idempiere.base.model.MBHWarehouseAccess;
 import org.bandahealth.idempiere.base.model.MClient_BH;
@@ -56,7 +56,7 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 
 	private static final CLogger log = CLogger.getCLogger(AuthenticationMutation.class);
 
-	private static final LogAuthFailure logAuthFailure = new LogAuthFailure();
+	private static final BHLogAuthFailure logAuthFailure = BHLogAuthFailure.getInstance();
 
 	/**
 	 * The sign-in method to authentication a user
@@ -71,25 +71,20 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		// retrieve list of clients the user has access to.
 		KeyNamePair[] clients = login.getClients(credentials.getUsername(), credentials.getPassword());
 		if (clients == null || clients.length == 0) {
-			String remoteIp = getRemoteIp(environment);
-			logAuthFailure(login, remoteIp, credentials.getUsername(), idempiereContext,
-					"Invalid credentials - no clients found", environment);
+			logAuthFailure(credentials.getUsername(), "Invalid credentials - no clients found", environment, "SignIn");
 			throw new AdempiereException("Unauthorized");
 		}
 		PO.setCrossTenantSafe();
 		MUser user = MUser.get(idempiereContext, credentials.getUsername(), credentials.getPassword());
 		PO.clearCrossTenantSafe();
 		if (user == null) {
-			String remoteIp = getRemoteIp(environment);
-			logAuthFailure(login, remoteIp, credentials.getUsername(), idempiereContext,
-					"Invalid credentials - user not found", environment);
+			logAuthFailure(credentials.getUsername(), "Invalid credentials - user not found", environment, "SignIn");
 			throw new AdempiereException("Unauthorized");
 		}
 
 		if (user.isLocked()) {
-			String remoteIp = getRemoteIp(environment);
-			logAuthFailure(login, remoteIp, credentials.getUsername(), idempiereContext,
-					"Account locked - userId=" + user.getAD_User_ID(), environment);
+			logAuthFailure(credentials.getUsername(), "Account locked - userId=" + user.getAD_User_ID(), environment,
+					"SignIn");
 			throw new AdempiereException("Forbidden");
 		}
 
@@ -120,6 +115,7 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 					.addCookie(new AuthenticationCookie(builder.sign(Algorithm.HMAC256(TokenUtils.getTokenSecret()))));
 			return response;
 		} catch (Exception e) {
+			logAuthFailure(credentials.getUsername(), "Session creation failed - " + e.getMessage(), environment, "SignIn");
 			throw new AdempiereException("Bad request");
 		}
 	}
@@ -147,9 +143,8 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		// If we're here and they don't have access to clients, it means the
 		// username/password combo incorrect
 		if (clients == null || clients.length == 0) {
-			String remoteIp = getRemoteIp(environment);
-			logAuthFailure(login, remoteIp, changePasswordInput.getUsername(), idempiereContext,
-					"Wrong credentials during password change", environment);
+			logAuthFailure(changePasswordInput.getUsername(), "Wrong credentials during password change", environment,
+					"ChangePassword");
 			throw new AdempiereException(Msg.getMsg(idempiereContext, MMessage_BH.WRONG_CREDENTIALS));
 		}
 
@@ -167,6 +162,8 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		MUser user = MUser.get(idempiereContext, changePasswordInput.getUsername(), changePasswordInput.getPassword());
 		PO.clearCrossTenantSafe();
 		if (user == null) {
+			logAuthFailure(changePasswordInput.getUsername(), "User not found after client validation", environment,
+					"ChangePassword");
 			throw new AdempiereException("Unauthorized");
 		}
 
@@ -189,11 +186,18 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 			MUser user = MUser.get(idempiereContext, Env.getAD_User_ID(idempiereContext));
 			PO.clearCrossTenantSafe();
 			if (user == null) {
+				logAuthFailure("unknown", "User not found during access change", environment, "ChangeAccess");
 				throw new AdempiereException("Unauthorized");
 			}
 
 			JWTCreator.Builder builder = JWT.create();
-			handleAccessChange(changeAccessInput, user, builder, idempiereContext);
+			try {
+				handleAccessChange(changeAccessInput, user, builder, idempiereContext);
+			} catch (AdempiereException e) {
+				logAuthFailure(user.getName(), "Access change rejected - role, org or warehouse not permitted", environment,
+						"ChangeAccess");
+				throw e;
+			}
 
 			try {
 				// generate session cookie
@@ -201,6 +205,7 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 						.addCookie(new AuthenticationCookie(builder.sign(Algorithm.HMAC256(TokenUtils.getTokenSecret()))));
 				return true;
 			} catch (Exception e) {
+				logAuthFailure(user.getName(), "Session creation failed - " + e.getMessage(), environment, "ChangeAccess");
 				throw new AdempiereException("Bad request");
 			}
 
@@ -424,22 +429,23 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 	}
 
 	/**
-	 * Logs authentication failures to AuthFailure.log
+	 * Logs authentication failures to AuthFailure.log.
 	 *
-	 * @param remoteIp     The remote IP address (including forwarded IP if available)
 	 * @param username     The username that failed authentication
-	 * @param context      The iDempiere context
 	 * @param errorMessage The error message describing the failure
 	 * @param environment  The GraphQL environment to get additional context
+	 * @param area         The GraphQL mutation name where the failure occurred (e.g. "SignIn")
 	 */
-	private void logAuthFailure(Login login, String remoteIp, String username, Properties context, String errorMessage,
-			DataFetchingEnvironment environment) {
-		String loginErrMsg = login.getLoginErrMsg();
-		if (Util.isEmpty(loginErrMsg)) {
-			loginErrMsg = Msg.getMsg(context, "FailedLogin", true);
+	private void logAuthFailure(String username, String errorMessage, DataFetchingEnvironment environment, String area) {
+		try {
+			HttpServletRequest request = ((BandaGraphQLContext) environment.getContext()).getHttpServletRequest();
+			String ip = getRemoteIp(environment);
+			String userAgent = request.getHeader("User-Agent");
+			String acceptLanguage = request.getHeader("Accept-Language");
+			logAuthFailure.log(ip, userAgent, acceptLanguage, "/graphql", username, errorMessage, area);
+		} catch (Exception e) {
+			log.warning("Could not log auth failure: " + e.getMessage());
 		}
-
-		logAuthFailure.log(getRemoteIp(environment), "/graphql", username, loginErrMsg);
 	}
 
 	/**
