@@ -15,8 +15,8 @@ CREATE FUNCTION bh_get_visit_details(_ad_client_id numeric,
 		        createdby_user_uu            character varying,
 		        c_bpartner_id                numeric,
 		        patient_name                 character varying,
-		        bh_patienttype               character varying,
-		        bh_patienttype_name          character varying,
+		        bh_visittype               character varying,
+		        bh_visittype_name          character varying,
 		        bh_patientid                 character varying,
 		        bh_birthday                  timestamp WITHOUT TIME ZONE,
 		        bh_gender                    character varying,
@@ -63,8 +63,8 @@ SELECT
 	createdby_user.ad_user_uu                        AS createdby_user_uu,
 	v.patient_id                                     AS patient_id,
 	bp.name                                          AS patient_name,
-	v.bh_patienttype                                 AS patient_type,
-	rl.name                                          AS bh_patienttype_name,
+	v.bh_visittype                                 AS visit_type,
+	rl.name                                          AS bh_visittype_name,
 	COALESCE(bp.bh_local_patientid, bp.bh_patientid) AS bh_patientid,
 	bp.bh_birthday                                   AS patient_birthday,
 	bp.bh_gender                                     AS patient_gender,
@@ -87,7 +87,7 @@ FROM
 		JOIN ad_user createdby_user
 		ON v.createdby = createdby_user.ad_user_id
 		LEFT JOIN ad_ref_list rl
-		ON rl.value = v.bh_patienttype
+		ON rl.value = v.bh_visittype
 		LEFT JOIN ad_reference r
 		ON rl.ad_reference_id = r.ad_reference_id
 		LEFT JOIN visit_diagnoses pd

@@ -515,7 +515,7 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
-		valueObject.getVisit().setBH_PatientType(MBHVisit.BH_PATIENTTYPE_ImmunizationsWellChild);
+		valueObject.getVisit().setBH_VisitType(MBHVisit.BH_VISITTYPE_ImmunizationsWellChild);
 		valueObject.getVisit().saveEx();
 		commitEx();
 
@@ -549,7 +549,7 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
-		valueObject.getVisit().setBH_PatientType(MBHVisit.BH_PATIENTTYPE_InpatientIPD);
+		valueObject.getVisit().setBH_VisitType(MBHVisit.BH_VISITTYPE_InpatientIPD);
 		valueObject.getVisit().saveEx();
 		commitEx();
 

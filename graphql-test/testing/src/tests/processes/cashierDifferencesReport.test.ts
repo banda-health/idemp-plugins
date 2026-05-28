@@ -17,12 +17,12 @@ test('report is runnable', async () => {
 	).data.AD_ProcessGet.Results[0];
 	const beginDateParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Begin Date');
 	const endDateParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'End Date');
-	const patientTypeParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Patient Type');
+	const visitTypeParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Visit Type');
 	const paymentModeParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Payment Mode');
 
 	expect(beginDateParameter).toBeTruthy();
 	expect(endDateParameter).toBeTruthy();
-	expect(patientTypeParameter).toBeTruthy();
+	expect(visitTypeParameter).toBeTruthy();
 	expect(paymentModeParameter).toBeTruthy();
 
 	valueObject.stepName = 'Run report';

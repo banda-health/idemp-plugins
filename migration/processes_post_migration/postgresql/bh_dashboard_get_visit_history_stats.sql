@@ -32,7 +32,7 @@ WITH completed_visits AS (
 			CASE WHEN cv.is_otc = TRUE THEN NULL ELSE rl.ad_ref_list_id END AS ad_ref_list_id,
 			CASE
 				WHEN cv.is_otc = TRUE THEN 'Over the Counter (OTC)'
-				WHEN v.bh_patienttype IS NULL THEN 'None'
+				WHEN v.bh_visittype IS NULL THEN 'None'
 				END                                                           AS alternate_visit_type,
 			WIDTH_BUCKET(EXTRACT(EPOCH FROM bh_visitdate), EXTRACT(EPOCH FROM _begin_date),
 			             EXTRACT(EPOCH FROM _end_date), 6)                  AS bucket_number
@@ -41,7 +41,7 @@ WITH completed_visits AS (
 				JOIN completed_visits cv
 				ON cv.bh_visit_id = v.bh_visit_id
 				LEFT JOIN ad_ref_list rl
-				ON v.bh_patienttype = rl.value
+				ON v.bh_visittype = rl.value
 				LEFT JOIN ad_reference r
 				ON rl.ad_reference_id = r.ad_reference_id
 		WHERE

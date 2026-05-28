@@ -53,12 +53,12 @@
 		<parameter name="End Date" class="java.sql.Timestamp"/>
 		<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 		<parameter name="Payment Mode" class="java.lang.String"/>
-		<parameter name="Patient Type" class="java.lang.String"/>
+		<parameter name="Visit Type" class="java.lang.String"/>
 		<parameter name="AD_User_UU" class="java.lang.String"/>
 		<queryString>
 			<![CDATA[WITH params AS (
 	SELECT
-		COALESCE($P{Patient Type}, '') AS patient_type,
+		COALESCE($P{Visit Type}, '') AS visit_type,
 		COALESCE($P{Payment Mode}, '') AS payment_mode,
 		COALESCE($P{AD_User_UU}, '')   AS ad_user_uu
 ),
@@ -78,7 +78,7 @@
 			AND vd.docstatus != 'VO'
 			AND vd.docstatus != 'DR'
 		GROUP BY
-			bh_visit_id, c_bpartner_id, bh_visitdate, cashier_name, patient_name, bh_patienttype
+			bh_visit_id, c_bpartner_id, bh_visitdate, cashier_name, patient_name, bh_visittype
 	),
 	patient_payments AS (
 		SELECT
@@ -174,7 +174,7 @@ WHERE
 	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="Payment Mode" class="java.lang.String"/>
-	<parameter name="Patient Type" class="java.lang.String"/>
+	<parameter name="Visit Type" class="java.lang.String"/>
 	<parameter name="AD_User_UU" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select 1]]>
@@ -204,8 +204,8 @@ WHERE
 							<datasetParameter name="Payment Mode">
 								<datasetParameterExpression><![CDATA[$P{Payment Mode}]]></datasetParameterExpression>
 							</datasetParameter>
-							<datasetParameter name="Patient Type">
-								<datasetParameterExpression><![CDATA[$P{Patient Type}]]></datasetParameterExpression>
+							<datasetParameter name="Visit Type">
+								<datasetParameterExpression><![CDATA[$P{Visit Type}]]></datasetParameterExpression>
 							</datasetParameter>
 							<datasetParameter name="AD_User_UU">
 								<datasetParameterExpression><![CDATA[$P{AD_User_UU}]]></datasetParameterExpression>

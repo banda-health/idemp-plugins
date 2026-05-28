@@ -605,7 +605,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 	}
 
 	@IPopulateAnnotation.CanRun
-	public void canFilterByPatientTypeAndReferral() throws SQLException, IOException {
+	public void canFilterByVisitTypeAndReferral() throws SQLException, IOException {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
@@ -643,7 +643,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create first visit with Outpatient type and health facility referral");
 		ChuBoeCreateEntity.createVisit(valueObject);
-		valueObject.getVisit().setBH_PatientType("O"); // Outpatient (OPD)
+		valueObject.getVisit().setBH_VisitType("O"); // Outpatient (OPD)
 		valueObject.getVisit().setbh_referral("hf"); // Referral from health facilities
 		valueObject.getVisit().saveEx();
 		commitEx();
@@ -687,7 +687,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create second visit with Inpatient type and community unit referral");
 		ChuBoeCreateEntity.createVisit(valueObject);
-		valueObject.getVisit().setBH_PatientType("I"); // Inpatient (IPD)
+		valueObject.getVisit().setBH_VisitType("I"); // Inpatient (IPD)
 		valueObject.getVisit().setbh_referral("fcu"); // Referral from Community Unit
 		valueObject.getVisit().saveEx();
 		commitEx();
@@ -749,7 +749,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessInformationParameters(
 				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
 						new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null),
-						new ProcessInfoParameter("Patient Type", "O", null, null, null)
+						new ProcessInfoParameter("Visit Type", "O", null, null, null)
 				));
 		valueObject.setReportType("xlsx");
 		ChuBoeCreateEntity.runReport(valueObject);
@@ -809,7 +809,7 @@ public class DiagnosisReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setProcessInformationParameters(
 				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.yesterday(), null, null, null),
 						new ProcessInfoParameter("End Date", TimestampUtils.tomorrow(), null, null, null),
-						new ProcessInfoParameter("Patient Type", "I", null, null, null),
+						new ProcessInfoParameter("Visit Type", "I", null, null, null),
 						new ProcessInfoParameter("Referral", "fcu", null, null, null)
 				));
 		valueObject.setReportType("xlsx");

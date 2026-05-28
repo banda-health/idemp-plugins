@@ -103,7 +103,13 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 		fColumnEntityType = new JTextField("");
 		mainPanel.add(fColumnEntityType, makeGbc(1, yPosition));
 
-		String defaultPath = Path.of("").toAbsolutePath().getParent().getParent().toString();
+		String defaultPath = GraphQLUtil.resolveCustomModelDirectory(null);
+		if (defaultPath == null) {
+			Path currentPath = Path.of("").toAbsolutePath();
+			defaultPath = currentPath.getParent() != null && currentPath.getParent().getParent() != null
+					? currentPath.getParent().getParent().toString()
+					: currentPath.toString();
+		}
 
 		yPosition++;
 		Panel filePanel = new Panel();
@@ -119,7 +125,7 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 
 		yPosition++;
 		mainPanel.add(new JLabel("Custom Model Package Name"), makeGbc(0, yPosition));
-		customModelPackageField = new JTextField("");
+		customModelPackageField = new JTextField("org.bandahealth.idempiere.base.model");
 		mainPanel.add(customModelPackageField, makeGbc(1, yPosition));
 
 		yPosition++;
@@ -327,7 +333,12 @@ public class GraphQLGeneratorDialog extends JFrame implements ActionListener {
 			String customModelPackageName = customModelPackageField.getText();
 			Map<String, ModelMap> modelsForTables;
 			try {
-				modelsForTables = GraphQLUtil.getModelsForTables(customModelFolderName);
+				String resolvedCustomModelFolder = GraphQLUtil.resolveCustomModelDirectory(customModelFolderName);
+				if (resolvedCustomModelFolder != null &&
+						!resolvedCustomModelFolder.equals(customModelFolderName)) {
+					customModelDirectoryNameField.setText(resolvedCustomModelFolder);
+				}
+				modelsForTables = GraphQLUtil.getModelsForTables(resolvedCustomModelFolder);
 			} catch (IOException ex) {
 				throw new RuntimeException(ex);
 			}
