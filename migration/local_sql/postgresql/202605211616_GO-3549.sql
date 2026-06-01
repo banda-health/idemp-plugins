@@ -139,24 +139,13 @@ WITH roles AS (
 			SELECT ad_client_id FROM ad_client WHERE ad_client_uu = '8f5dd4ad-de55-4edf-86c2-1cbce4ff6512'
 		) AS galmi_client_id
 )
-INSERT
-INTO
-	ad_user_roles (ad_user_id, ad_role_id, ad_client_id, ad_org_id, isactive,
-	               created, createdby, updated, updatedby, ad_user_roles_uu)
-SELECT
-	ur.ad_user_id,
-	r.lite_role_id,
-	ur.ad_client_id,
-	ur.ad_org_id,
-	'Y',
-	NOW(),
-	ur.createdby,
-	NOW(),
-	ur.updatedby,
-	uuid_generate_v4()
-FROM
+UPDATE
 	ad_user_roles ur
-		CROSS JOIN roles r
+SET
+	ad_role_id = r.lite_role_id,
+	updated    = NOW()
+FROM
+	roles r
 WHERE
 	ur.ad_client_id = r.galmi_client_id
 	AND ur.ad_role_id IN (r.basic_role_id, r.basic_plus_role_id)
@@ -169,26 +158,20 @@ WHERE
 			x.ad_user_id = ur.ad_user_id
 			AND x.ad_role_id = r.lite_role_id
 			AND x.ad_client_id = ur.ad_client_id
+	)
+	AND 1 = (
+		SELECT
+			COUNT(*)
+		FROM
+			ad_user_roles ur2
+		WHERE
+			ur2.ad_user_id = ur.ad_user_id
+			AND ur2.ad_client_id = r.galmi_client_id
+			AND ur2.ad_role_id IN (r.basic_role_id, r.basic_plus_role_id)
 	);
 
 SELECT
 	bh_add_roles_to_clients('3665260a-9448-4816-8af7-5e3f93a16ab7', 'F');
-
--- Use Cashier Lite as the included role below admin roles for the Galmi client
-UPDATE ad_user_roles ur
-SET
-	ad_role_id = r_cl.ad_role_id
-FROM
-	ad_client c
-		JOIN ad_role r_cbp
-			ON r_cbp.name = c.name || ' Cashier/Registration Basic+'
-		JOIN ad_role r_cl
-			ON r_cl.name = c.name || ' Cashier Lite'
-WHERE
-	c.ad_client_uu = '8f5dd4ad-de55-4edf-86c2-1cbce4ff6512'
-	AND NOT EXISTS(
-		SELECT 1 FROM ad_user_roles ur2 WHERE ur2.ad_user_id = ur.ad_user_id AND ur2.ad_role_id = r_cl.ad_role_id
-	);
 
 SELECT
 	register_migration_script('202605211616_GO-3549.sql')
