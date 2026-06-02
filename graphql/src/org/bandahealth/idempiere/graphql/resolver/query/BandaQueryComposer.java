@@ -92,6 +92,8 @@ public class BandaQueryComposer implements GraphQLQueryResolver {
 				new MBHEncounterDiagnosisQuery(),
 				new MBHEncounterDiagnosticQuery(),
 				new MBHEncounterTypeWindowQuery(),
+				new MBHFeatureFlagQuery(),
+				new MBHFeatureFlagRuleQuery(),
 				new MBHObservationQuery(),
 				new MBHOclOriginatingSourceQuery(),
 				new MBHPayerInfoFldQuery(),

@@ -683,6 +683,10 @@ query DocumentStatusActionMap {
 	DocumentStatusActionMap
 }
 
+query FeatureFlags {
+	FeatureFlags
+}
+
 query InventoryTransactionGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	InventoryTransactionGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		Results {
@@ -881,6 +885,16 @@ query AD_SysConfigGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 			Name
 			UU
 			Value
+		}
+	}
+}
+
+query AD_SystemGet($Size: Int) {
+	AD_SystemGet(Size: $Size) {
+		Results {
+			SystemStatus {
+				Value
+			}
 		}
 	}
 }

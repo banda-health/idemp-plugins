@@ -99,6 +99,8 @@ public class BandaDataLoaderComposer {
 				new MBHEncounterDiagnosisDataLoader(),
 				new MBHEncounterDiagnosticDataLoader(),
 				new MBHEncounterTypeWindowDataLoader(),
+				new MBHFeatureFlagDataLoader(),
+				new MBHFeatureFlagRuleDataLoader(),
 				new MBHObservationDataLoader(),
 				new MBHOclOriginatingSourceDataLoader(),
 				new MBHPayerInfoFldDataLoader(),
