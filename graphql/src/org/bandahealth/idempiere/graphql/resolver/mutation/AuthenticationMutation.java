@@ -261,7 +261,7 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		}
 		PO.setCrossTenantSafe();
 		MOrg organization = new MOrg(idempiereContext, changeAccessInput.getAD_Org_UU(), null);
-		if (organization.get_ID() == 0) {
+		if (!organization.getAD_Org_UU().equals(changeAccessInput.getAD_Org_UU())) {
 			throw new AdempiereException("Unauthorized");
 		}
 		MClient client = MClient.get(organization.getAD_Client_ID());
@@ -280,19 +280,25 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 			throw new AdempiereException("Unauthorized");
 		}
 
-		// check warehouse access
-		List<MBHWarehouseAccess> warehouseAccessList =
-				new Query(idempiereContext, MBHWarehouseAccess.Table_Name, MBHWarehouseAccess.COLUMNNAME_AD_Role_ID + "=?",
-						null).setParameters(role.getAD_Role_ID()).list();
-		MWarehouse warehouse = Arrays.stream(MWarehouse.getForOrg(idempiereContext, organization.get_ID())).filter(
-						organizationWarehouse -> organizationWarehouse.getM_Warehouse_UU()
-								.equals(changeAccessInput.getM_Warehouse_UU()))
-				.findFirst().orElse(null);
-		// If we didn't find a warehouse, or the user doesn't have access to it, unauthorized
-		if (warehouse == null || (!warehouseAccessList.isEmpty() && warehouseAccessList.stream().noneMatch(
-				warehouseAccess -> warehouseAccess.getAD_Role_ID() == role.getAD_Role_ID() &&
-						warehouse.get_ID() == warehouseAccess.getM_Warehouse_ID()))) {
-			throw new AdempiereException("Unauthorized");
+		boolean isSystemClientWithoutWarehouse = client.getAD_Client_ID() == 0
+				&& StringUtil.isNullOrEmpty(changeAccessInput.getM_Warehouse_UU());
+		if (!isSystemClientWithoutWarehouse) {
+			// check warehouse access
+			List<MBHWarehouseAccess> warehouseAccessList =
+					new Query(idempiereContext, MBHWarehouseAccess.Table_Name, MBHWarehouseAccess.COLUMNNAME_AD_Role_ID + "=?",
+							null).setParameters(role.getAD_Role_ID()).list();
+			MWarehouse warehouse = Arrays.stream(MWarehouse.getForOrg(idempiereContext, organization.get_ID())).filter(
+							organizationWarehouse -> organizationWarehouse.getM_Warehouse_UU()
+									.equals(changeAccessInput.getM_Warehouse_UU()))
+					.findFirst().orElse(null);
+			// If we didn't find a warehouse, or the user doesn't have access to it, unauthorized
+			if (warehouse == null || (!warehouseAccessList.isEmpty() && warehouseAccessList.stream().noneMatch(
+					warehouseAccess -> warehouseAccess.getAD_Role_ID() == role.getAD_Role_ID() &&
+							warehouse.get_ID() == warehouseAccess.getM_Warehouse_ID()))) {
+				throw new AdempiereException("Unauthorized");
+			}
+			Env.setContext(idempiereContext, Env.M_WAREHOUSE_ID, warehouse.get_ID());
+			builder.withClaim(LoginClaims.M_Warehouse_ID.name(), warehouse.get_ID());
 		}
 		PO.clearCrossTenantSafe();
 
@@ -307,10 +313,6 @@ public class AuthenticationMutation implements GraphQLMutationResolver {
 		// set organization
 		Env.setContext(idempiereContext, Env.AD_ORG_ID, organization.getAD_Org_ID());
 		builder.withClaim(LoginClaims.AD_Org_ID.name(), organization.getAD_Org_ID());
-
-		// set warehouse
-		Env.setContext(idempiereContext, Env.M_WAREHOUSE_ID, warehouse.get_ID());
-		builder.withClaim(LoginClaims.M_Warehouse_ID.name(), warehouse.get_ID());
 
 		// Lastly, take care of creating a session, if need be
 		MSession session = MSession.get(idempiereContext);

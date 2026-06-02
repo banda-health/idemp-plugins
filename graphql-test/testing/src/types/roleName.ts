@@ -1,6 +1,7 @@
 export enum RoleName {
 	Accounting = 'Accounting',
 	Admin = 'Admin',
+	CashierLite = 'Cashier Lite',
 	CashierRegistrationAdvanced = 'Cashier/Registration Advanced',
 	CashierRegistrationBasic = 'Cashier/Registration Basic',
 	CashierRegistrationBasicPlus = 'Cashier/Registration Basic+',

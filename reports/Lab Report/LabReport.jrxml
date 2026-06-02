@@ -39,7 +39,19 @@
 	END AS age,
 	bp.bh_gender    AS gender,
 	bp.bh_patientid AS patient_id,
-	u.name          AS served_by,
+	(
+		SELECT
+			u.name
+		FROM
+			c_order o
+				LEFT JOIN ad_user u
+				ON o.salesrep_id = u.ad_user_id
+		WHERE
+			o.bh_visit_id = v.bh_visit_id
+		ORDER BY
+			o.c_order_id DESC
+		LIMIT 1
+	)               AS served_by,
 	clinician.name  AS clinician,
 	distinct_group.group1
 FROM
@@ -60,12 +72,8 @@ FROM
 		GROUP BY bh_encounter_id, group1
 	) distinct_group
 		ON bed.bh_encounter_id = distinct_group.bh_encounter_id AND bed.lineno = distinct_group.lineno
-		JOIN c_order o
-		ON v.bh_visit_id = o.bh_visit_id
 		JOIN c_bpartner bp
 		ON v.patient_id = bp.c_bpartner_id
-		LEFT JOIN ad_user u
-		ON o.salesrep_id = u.ad_user_id
 		LEFT JOIN ad_orginfo oi
 		ON v.ad_org_id = oi.ad_org_id
 		LEFT JOIN ad_user clinician

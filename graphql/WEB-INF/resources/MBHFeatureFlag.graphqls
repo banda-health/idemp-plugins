@@ -1,0 +1,7 @@
+extend type Query {
+	FeatureFlags: String!
+}
+
+extend type BH_Feature_Flag {
+	BH_Feature_Flag_Rules: [BH_Feature_Flag_Rule!]
+}
