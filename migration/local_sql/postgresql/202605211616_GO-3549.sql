@@ -123,17 +123,20 @@ WHERE
 			AND x.ad_role_id = r_lite.ad_role_id
 	);
 
+SELECT
+	bh_add_roles_to_clients('3665260a-9448-4816-8af7-5e3f93a16ab7', 'F');
+
 -- Migrate Galmi client users from Cashier/Registration Basic or Basic+ to Cashier Lite
 WITH roles AS (
 	SELECT
 		(
-			SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '09eb7fc8-9cc5-44b0-9d14-15258a066038'
-		) AS basic_role_id,
-		(
-			SELECT ad_role_id FROM ad_role WHERE ad_role_uu = 'c0e72e44-9cc9-4a0a-b5cd-6cc923678c1a'
-		) AS basic_plus_role_id,
-		(
-			SELECT ad_role_id FROM ad_role WHERE ad_role_uu = '3665260a-9448-4816-8af7-5e3f93a16ab7'
+			SELECT
+				ad_role_id
+			FROM
+				ad_role r
+					JOIN ad_client c
+						ON r.ad_client_id = c.ad_client_id AND r.name = c.name || ' Cashier Lite' AND
+						   c.ad_client_uu = '8f5dd4ad-de55-4edf-86c2-1cbce4ff6512'
 		) AS lite_role_id,
 		(
 			SELECT ad_client_id FROM ad_client WHERE ad_client_uu = '8f5dd4ad-de55-4edf-86c2-1cbce4ff6512'
@@ -142,13 +145,17 @@ WITH roles AS (
 UPDATE
 	ad_user_roles ur
 SET
-	ad_role_id = r.lite_role_id,
+	ad_role_id = r_g.lite_role_id,
 	updated    = NOW()
 FROM
-	roles r
+	roles r_g
+		JOIN ad_client c
+			ON r_g.galmi_client_id = c.ad_client_id
+		JOIN ad_role r
+			ON r.name IN (c.name || ' Cashier/Registration Basic', c.name || ' Cashier/Registration Basic+')
 WHERE
-	ur.ad_client_id = r.galmi_client_id
-	AND ur.ad_role_id IN (r.basic_role_id, r.basic_plus_role_id)
+	ur.ad_role_id = r.ad_role_id
+	AND ur.ad_client_id = r_g.galmi_client_id
 	AND NOT EXISTS (
 		SELECT
 			1
@@ -156,7 +163,7 @@ WHERE
 			ad_user_roles x
 		WHERE
 			x.ad_user_id = ur.ad_user_id
-			AND x.ad_role_id = r.lite_role_id
+			AND x.ad_role_id = r_g.lite_role_id
 			AND x.ad_client_id = ur.ad_client_id
 	)
 	AND 1 = (
@@ -164,14 +171,14 @@ WHERE
 			COUNT(*)
 		FROM
 			ad_user_roles ur2
+				JOIN ad_client c
+					ON ur.ad_client_id = c.ad_client_id
+				JOIN ad_role r
+					ON ur.ad_role_id = r.ad_role_id AND
+					   r.name IN (c.name || ' Cashier/Registration Basic', c.name || ' Cashier/Registration Basic+')
 		WHERE
 			ur2.ad_user_id = ur.ad_user_id
-			AND ur2.ad_client_id = r.galmi_client_id
-			AND ur2.ad_role_id IN (r.basic_role_id, r.basic_plus_role_id)
 	);
-
-SELECT
-	bh_add_roles_to_clients('3665260a-9448-4816-8af7-5e3f93a16ab7', 'F');
 
 SELECT
 	register_migration_script('202605211616_GO-3549.sql')
