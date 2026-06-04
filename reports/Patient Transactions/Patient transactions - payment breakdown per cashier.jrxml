@@ -64,21 +64,22 @@
 ),
 	billdetails AS (
 		SELECT
-			bh_visit_id,
-			c_bpartner_id,
-			bh_visitdate AS bill_date,
-			cashier_name AS Cashier,
-			patient_name
+			vd.bh_visit_id,
+			vd.c_bpartner_id,
+			vd.bh_visitdate AS bill_date,
+			vd.cashier_name AS Cashier,
+			vd.patient_name,
+			vd.bh_visittype
 		FROM
-			bh_get_visit_details($P{AD_CLIENT_ID}, TO_TIMESTAMP($P{Begin Date}, 'YYYY-MM-DD HH24:MI')::timestamp, TO_TIMESTAMP($P{End Date}, 'YYYY-MM-DD HH24:MI')::timestamp) vd
+			bh_get_visit_details($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp) vd
 				CROSS JOIN params p
 		WHERE
-			(p.ad_user_uu = ''
-				OR p.ad_user_uu = createdby_user_uu)
+			(p.ad_user_uu = '' OR p.ad_user_uu = vd.createdby_user_uu)
+			AND (p.visit_type = '' OR vd.bh_visittype = p.visit_type)
 			AND vd.docstatus != 'VO'
 			AND vd.docstatus != 'DR'
 		GROUP BY
-			bh_visit_id, c_bpartner_id, bh_visitdate, cashier_name, patient_name, bh_visittype
+			vd.bh_visit_id, vd.c_bpartner_id, vd.bh_visitdate, vd.cashier_name, vd.patient_name, vd.bh_visittype
 	),
 	patient_payments AS (
 		SELECT
@@ -87,8 +88,9 @@
 			payment_mode_name AS payment_type,
 			tendertype
 		FROM
-			bh_get_visit_payments($P{AD_CLIENT_ID}, TO_TIMESTAMP($P{Begin Date}, 'YYYY-MM-DD HH24:MI')::timestamp, TO_TIMESTAMP($P{End Date}, 'YYYY-MM-DD HH24:MI')::timestamp)
-		GROUP BY bh_visit_id, tendertype, payment_mode_name
+			bh_get_visit_payments($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
+		GROUP BY
+			bh_visit_id, tendertype, payment_mode_name
 	),
 	non_patient_payments AS (
 		SELECT
@@ -97,14 +99,15 @@
 			bh_subtype,
 			SUM(linenetamt) * -1 AS amount
 		FROM
-			bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, TO_TIMESTAMP($P{Begin Date}, 'YYYY-MM-DD HH24:MI')::timestamp, TO_TIMESTAMP($P{End Date}, 'YYYY-MM-DD HH24:MI')::timestamp)
-		GROUP BY bh_visit_id, ChargeType_name, bh_subtype
+			bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
+		GROUP BY
+			bh_visit_id, ChargeType_name, bh_subtype
 	)
 SELECT
-	bh_visit_id,
-	Cashiername,
-	paymentamount,
-	paymentmode
+	payment_data.bh_visit_id,
+	payment_data.Cashiername,
+	payment_data.paymentamount,
+	payment_data.paymentmode
 FROM
 	(
 		SELECT
@@ -114,48 +117,40 @@ FROM
 			patient_payments.payment_type AS paymentmode
 		FROM
 			billdetails
-				LEFT JOIN patient_payments
-					ON billdetails.bh_visit_id = patient_payments.bh_visit_id
-		WHERE
-			patient_payments.payment_type IS NOT NULL
-			AND patient_payments.amount IS NOT NULL
-		UNION
+				JOIN patient_payments
+				ON billdetails.bh_visit_id = patient_payments.bh_visit_id
+		UNION ALL
 		SELECT
 			billdetails.bh_visit_id,
-			billdetails.Cashier               AS Cashier,
+			billdetails.Cashier               AS Cashiername,
 			non_patient_payments.amount       AS paymentamount,
 			non_patient_payments.payment_type AS paymentmode
 		FROM
 			billdetails
-				LEFT JOIN non_patient_payments
-					ON billdetails.bh_visit_id = non_patient_payments.bh_visit_id
-		WHERE
-			non_patient_payments.payment_type IS NOT NULL
-			AND non_patient_payments.amount IS NOT NULL
+				JOIN non_patient_payments
+				ON billdetails.bh_visit_id = non_patient_payments.bh_visit_id
 	) payment_data
 		CROSS JOIN params p
 WHERE
-		payment_data.bh_visit_id IN (
+	p.payment_mode = ''
+	OR EXISTS (
 		SELECT
-			billdetails.bh_visit_id
+			1
 		FROM
-			billdetails
-				LEFT JOIN patient_payments
-					ON billdetails.bh_visit_id = patient_payments.bh_visit_id
+			patient_payments pp
 		WHERE
-			(p.payment_mode = ''
-				OR (tendertype = p.payment_mode AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M', 'A')))
-		UNION
+			pp.bh_visit_id = payment_data.bh_visit_id
+			AND pp.tendertype = p.payment_mode
+			AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M', 'A')
+		UNION ALL
 		SELECT
-			billdetails.bh_visit_id
+			1
 		FROM
-			billdetails
-				LEFT JOIN non_patient_payments
-					ON billdetails.bh_visit_id = non_patient_payments.bh_visit_id
+			non_patient_payments npp
 		WHERE
-			(p.payment_mode = ''
-				OR (bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
-					AND p.payment_mode IN ('I', 'W', 'T')))
+			npp.bh_visit_id = payment_data.bh_visit_id
+			AND npp.bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
+			AND p.payment_mode IN ('I', 'W', 'T')
 	);]]>
 		</queryString>
 		<field name="cashiername" class="java.lang.String">

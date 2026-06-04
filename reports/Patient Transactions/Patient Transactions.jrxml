@@ -102,6 +102,43 @@
 			member_id
 		FROM
 			bh_get_visit_non_patient_payments($P{AD_CLIENT_ID}, $P{Begin Date}::timestamp, $P{End Date}::timestamp)
+	),
+	patient_payment_sums AS (
+		SELECT
+			bh_visit_id,
+			SUM(payamt) FILTER ( WHERE tendertype = 'X' )                                   AS cash,
+			SUM(payamt) FILTER ( WHERE tendertype = 'M' )                                   AS mobile,
+			SUM(payamt) FILTER ( WHERE tendertype IN ('C', 'A') )                           AS credit_debit,
+			SUM(payamt) FILTER ( WHERE tendertype = 'D' )                                   AS bank,
+			SUM(payamt) FILTER ( WHERE tendertype = 'K' )                                   AS "check",
+			SUM(payamt) FILTER ( WHERE tendertype NOT IN ('X', 'M', 'C', 'D', 'K', 'A') ) AS other
+		FROM
+			patient_payments
+		GROUP BY
+			bh_visit_id
+	),
+	non_patient_payment_totals AS (
+		SELECT
+			bh_visit_id,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'I' ) * -1 AS insurance,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'W' ) * -1 AS waiver,
+			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'D' ) * -1 AS donation
+		FROM
+			non_patient_payments
+		GROUP BY
+			bh_visit_id
+	),
+	insurance_info AS (
+		SELECT
+			bh_visit_id,
+			STRING_AGG(chargetype_name, ', ') AS chargetype_name,
+			STRING_AGG(member_id, ', ')       AS member_id
+		FROM
+			non_patient_payments
+		WHERE
+			bh_subtype = 'I'
+		GROUP BY
+			bh_visit_id
 	)
 SELECT
 	billdetails.bh_visit_id,
@@ -124,88 +161,49 @@ SELECT
 	COALESCE(non_patient_payment_totals.donation, 0)  AS donation,
 	cb.totalopenbalance
 FROM
-	bh_visit v
-		LEFT JOIN LATERAL (SELECT
-			                   i.bh_visit_id,
-			                   STRING_AGG(i.documentno, ', ') AS invoice_num
-		                   FROM
-			                   c_invoice i
-		                   WHERE
-			                   i.bh_visit_id = v.bh_visit_id
-			                   AND i.docstatus IN ('CO', 'CL')
-			                   AND v.patient_id = i.c_bpartner_id
-		                   GROUP BY i.bh_visit_id) i
-		ON i.bh_visit_id = v.bh_visit_id
-		JOIN billdetails
+	billdetails
+		JOIN bh_visit v
 		ON v.bh_visit_id = billdetails.bh_visit_id
-		LEFT JOIN (
-		SELECT
-			bh_visit_id,
-			SUM(payamt) FILTER ( WHERE tendertype = 'X' )                                   AS cash,
-			SUM(payamt) FILTER ( WHERE tendertype = 'M' )                                   AS mobile,
-			SUM(payamt) FILTER ( WHERE tendertype IN ('C', 'A') )                           AS credit_debit,
-			SUM(payamt) FILTER ( WHERE tendertype = 'D' )                                   AS bank,
-			SUM(payamt) FILTER ( WHERE tendertype = 'K' )                                   AS "check",
-				SUM(payamt) FILTER ( WHERE tendertype NOT IN ('X', 'M', 'C', 'D', 'K', 'A') ) AS other
-		FROM
-			patient_payments
-		GROUP BY bh_visit_id
-	) patient_payment_sums
-		ON v.bh_visit_id = patient_payment_sums.bh_visit_id
+		LEFT JOIN LATERAL (
+			SELECT
+				STRING_AGG(i.documentno, ', ') AS invoice_num
+			FROM
+				c_invoice i
+			WHERE
+				i.bh_visit_id = v.bh_visit_id
+				AND i.docstatus IN ('CO', 'CL')
+				AND v.patient_id = i.c_bpartner_id
+		) i
+		ON TRUE
+		LEFT JOIN patient_payment_sums
+		ON billdetails.bh_visit_id = patient_payment_sums.bh_visit_id
 		JOIN c_bpartner cb
 		ON v.patient_id = cb.c_bpartner_id
-		LEFT JOIN (
-		SELECT
-			bh_visit_id,
-			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'I' ) * -1 AS insurance,
-			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'W' ) * -1 AS waiver,
-			SUM(linenetamt) FILTER ( WHERE bh_subtype = 'D' ) * -1 AS donation
-		FROM
-			non_patient_payments
-		GROUP BY bh_visit_id
-	) non_patient_payment_totals
-		ON v.bh_visit_id = non_patient_payment_totals.bh_visit_id
-		LEFT JOIN (
-		SELECT
-			bh_visit_id,
-			STRING_AGG(chargetype_name, ', ') AS chargetype_name,
-			STRING_AGG(member_id, ', ')       AS member_id
-		FROM
-			non_patient_payments
-		WHERE
-			bh_subtype = 'I'
-		GROUP BY bh_visit_id
-	) insurance_info
-		ON insurance_info.bh_visit_id = v.bh_visit_id
+		LEFT JOIN non_patient_payment_totals
+		ON billdetails.bh_visit_id = non_patient_payment_totals.bh_visit_id
+		LEFT JOIN insurance_info
+		ON billdetails.bh_visit_id = insurance_info.bh_visit_id
 		CROSS JOIN params p
 WHERE
-	EXISTS (
-		SELECT *
+	p.payment_mode = ''
+	OR EXISTS (
+		SELECT
+			1
 		FROM
-			(
-				SELECT
-					billdetails.bh_visit_id
-				FROM
-					billdetails
-						LEFT JOIN patient_payments
-						ON billdetails.bh_visit_id = patient_payments.bh_visit_id
-				WHERE
-					(p.payment_mode = ''
-						OR (tendertype = p.payment_mode AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M', 'A')))
-				UNION ALL
-				SELECT
-					billdetails.bh_visit_id
-				FROM
-					billdetails
-						LEFT JOIN non_patient_payments
-						ON billdetails.bh_visit_id = non_patient_payments.bh_visit_id
-				WHERE
-					(p.payment_mode = ''
-						OR (bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
-							AND p.payment_mode IN ('I', 'W', 'T')))
-			) f
+			patient_payments pp
 		WHERE
-			f.bh_visit_id = v.bh_visit_id
+			pp.bh_visit_id = billdetails.bh_visit_id
+			AND pp.tendertype = p.payment_mode
+			AND p.payment_mode IN ('X', 'K', 'C', 'D', 'M', 'A')
+		UNION ALL
+		SELECT
+			1
+		FROM
+			non_patient_payments npp
+		WHERE
+			npp.bh_visit_id = billdetails.bh_visit_id
+			AND npp.bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END
+			AND p.payment_mode IN ('I', 'W', 'T')
 	)
 ORDER BY
 	DATE(billdetails.bill_date), billdetails.patient_name;]]>
