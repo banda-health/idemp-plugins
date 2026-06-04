@@ -1,3 +1,21 @@
+-- GO-3598: Speed up Patient Transactions report (and related financial reports)
+--
+-- Problem:
+--   Patient Transactions calls bh_get_visit_details() several times per run (main list,
+--   CashierCollections subreport, etc.). The prior implementation re-scanned bh_visit on
+--   bh_visitdate only, then filtered ad_client_id in memory (~90k rows per month across
+--   all tenants). Order line totals were aggregated in a subquery that Postgres often
+--   executed once per visit (nested loop), which timed out on production (~5 min) on
+--   CashierCollections.
+--
+-- Changes:
+--   1. Composite index so visit lookups filter by client and date in the index.
+--   2. Rewrite bh_get_visit_details to scan the date range once and hash-join totals.
+
+-- Existing index bh_visit_bh_visitdate_index (bh_visitdate only) remains for other queries.
+CREATE INDEX IF NOT EXISTS bh_visit_ad_client_bh_visitdate_idx
+	ON bh_visit (ad_client_id, bh_visitdate);
+
 DROP FUNCTION IF EXISTS bh_get_visit_details(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
 CREATE FUNCTION bh_get_visit_details(_ad_client_id numeric,
                                      _begin_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
@@ -35,7 +53,9 @@ CREATE FUNCTION bh_get_visit_details(_ad_client_id numeric,
 	STABLE
 AS
 $$
-WITH visits_in_range AS (
+WITH
+	-- Single pass over visits for this client and report date range.
+	visits_in_range AS (
 	SELECT
 		v.bh_visit_id,
 		v.bh_visitdate,
@@ -50,7 +70,8 @@ WITH visits_in_range AS (
 		v.ad_client_id = _ad_client_id
 		AND v.bh_visitdate BETWEEN _begin_date AND _end_date
 ),
-visit_diagnoses AS (
+	-- Diagnoses limited to visits in range (avoids a separate full bh_visit scan).
+	visit_diagnoses AS (
 	SELECT
 		v.bh_visit_id,
 		ev.bh_concept_id,
@@ -63,7 +84,8 @@ visit_diagnoses AS (
 			LEFT JOIN bh_encounter_diagnosis ev
 			ON e.bh_encounter_id = ev.bh_encounter_id
 ),
-sales_details AS (
+	-- Order line totals aggregated once per c_order_id, then joined (not per output row).
+	sales_details AS (
 	SELECT
 		o.c_order_id,
 		COALESCE(SUM(ol.linenetamt) FILTER ( WHERE ol.c_charge_id IS NULL ), 0) AS saleslineitemtotals,
@@ -125,23 +147,12 @@ FROM
 		LEFT JOIN visit_diagnoses sd
 		ON v.bh_visit_id = sd.bh_visit_id AND sd.diagnosis_rank = 2
 WHERE
+	-- BH_VisitType reference list (same filter as before rewrite).
 	r.ad_reference_uu = '47d32afd-3b94-4caa-8490-f0f1a97494f7'
 	OR r.ad_reference_uu IS NULL;
 $$;
 
--- Commented Code below might be needed in the future
-
--- DO
--- $$
--- 	BEGIN
--- 		IF EXISTS(SELECT
--- 			          1
--- 		          FROM
--- 			          information_schema.routines
--- 		          WHERE
--- 			          ROUTINE_SCHEMA = CURRENT_SCHEMA()
--- 			          AND ROUTINE_NAME = 'bh_get_visit_details') THEN
--- 			DROP FUNCTION bh_get_visit_details;
--- 		END IF;
--- 	END;
--- $$ LANGUAGE plpgsql;
+SELECT
+	register_migration_script('202606031200_GO-3598.sql')
+FROM
+	dual;
