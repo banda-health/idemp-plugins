@@ -94,6 +94,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
+                            <skip>${banda.skip.testing.staging}</skip>
                             <overwrite>true</overwrite>
                             <outputDirectory>${project.parent.basedir}/testing/reports</outputDirectory>
                             <resources>
