@@ -60,9 +60,9 @@ This will build the plugins, compile the reports, and move data imports, DB migr
 
 ## Local Eclipse Development (Docker)
 
-The `docker-dev/` directory runs Eclipse and iDempiere inside a container with this repo mounted at `/workspace/idemp-banda`. This replaces a local iDempiere checkout for day-to-day plugin development.
+The `dev-docker/` directory runs Eclipse and iDempiere inside a container with this repo mounted at `/workspace/idemp-banda`. This replaces a local iDempiere checkout for day-to-day plugin development.
 
-1. Copy `docker-dev/.env.example` to `docker-dev/.env` and configure DB upstream settings (`DB_UPSTREAM_*`, `DB_HOST_PORT`).
+1. Copy `dev-docker/.env.example` to `dev-docker/.env` and configure DB upstream settings (`DB_UPSTREAM_*`, `DB_HOST_PORT`).
 2. `./eclipse.sh` — start the dev container and Eclipse GUI (uses a frozen snapshot image by default; pass `--build` for a fresh image build).
 3. First time only: complete the Eclipse iDempiere install and add Banda plugins to `server.product` (see the [Setup Guide](https://github.com/banda-health/idemp-banda/wiki/Setup-Guide)).
 4. `./build.sh` — run `mvn verify` inside the container, deploying plugins, compiled reports, data imports, and migration files into `/opt/idempiere` (equivalent to the [Building the Plugins](#building-the-plugins--project) step above).
@@ -70,7 +70,7 @@ The `docker-dev/` directory runs Eclipse and iDempiere inside a container with t
 
 The repo is bind-mounted into the container so edits on the host are visible immediately. Eclipse workspace and Maven cache are stored in Docker volumes (`eclipse-workspace`, `maven-repo`).
 
-To freeze your configured environment after setup, run `docker-dev/scripts/capture-container-state.sh` from the `docker-dev/` directory.
+To freeze your configured environment after setup, run `dev-docker/scripts/capture-container-state.sh` from the `dev-docker/` directory.
 
 ## Running Tests
 A database (DB) is needed to run tests (we test business logic, not implementation logic). You can either use your own and have test data be filled in it, or you can use a fresh DB. The Banda Health iDempiere image comes with data to initialize a new DB, if you'd like. Check the `.env.default` file for information that's available, plus the [Banda iDempiere Docker Image Repo](https://github.com/banda-health/idempiere-docker) for full image information.

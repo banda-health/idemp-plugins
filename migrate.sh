@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-DOCKER_DEV_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/docker-dev" && pwd)"
+DOCKER_DEV_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/dev-docker" && pwd)"
 cd "$DOCKER_DEV_DIR"
 
 CONTAINER_NAME="${CONTAINER_NAME:-idempiere-development}"
@@ -96,6 +96,9 @@ if [ "$START_CONTAINER" = true ]; then
             ;;
         build)
             echo "Starting dev container (build from Dockerfile)..."
+            export HOST_UID="${HOST_UID:-$(id -u)}"
+            export HOST_GID="${HOST_GID:-$(id -g)}"
+            echo "Building with HOST_UID=$HOST_UID HOST_GID=$HOST_GID"
             docker compose -f "$COMPOSE_FILE" up -d --build
             ;;
     esac

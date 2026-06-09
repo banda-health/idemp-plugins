@@ -64,10 +64,23 @@ COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN sed -i 's/\r$//' /usr/local/bin/docker-entrypoint.sh \
     && chmod +x /usr/local/bin/docker-entrypoint.sh
 
-# Set up a non-root user (entrypoint runs as root to fix volume permissions, then drops to developer)
-RUN useradd -m developer \
-    && chown -R developer:developer /opt/idempiere \
-    && chown -R developer:developer /home/developer
+# Match the host UID/GID so bind-mounted repo files are writable by developer.
+ARG HOST_UID=1000
+ARG HOST_GID=1000
+RUN set -eux; \
+    if getent passwd ubuntu >/dev/null 2>&1; then \
+        userdel -r ubuntu 2>/dev/null || userdel ubuntu; \
+    fi; \
+    if getent group ubuntu >/dev/null 2>&1; then \
+        groupdel ubuntu 2>/dev/null || true; \
+    fi; \
+    if getent group developer >/dev/null 2>&1; then \
+        groupmod -o -g "${HOST_GID}" developer; \
+    else \
+        groupadd -g "${HOST_GID}" developer; \
+    fi; \
+    useradd -m -u "${HOST_UID}" -g "${HOST_GID}" -s /bin/bash developer; \
+    chown -R developer:developer /opt/idempiere /home/developer
 USER root
 ENV HOME=/home/developer
 

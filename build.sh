@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-DOCKER_DEV_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/docker-dev" && pwd)"
+DOCKER_DEV_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/dev-docker" && pwd)"
 cd "$DOCKER_DEV_DIR"
 
 CONTAINER_NAME="${CONTAINER_NAME:-idempiere-development}"
@@ -16,7 +16,7 @@ Usage: $0 [--skip-tests] [-- maven_args ...]
 Build BandaGo plugins and deploy artifacts into the dev container's iDempiere home.
 
 Equivalent to running inside the container:
-  mvn verify -Didempiere.home.dir=$IDEMPIERE_HOME
+  mvn verify -Didempiere.home.dir=$IDEMPIERE_HOME -Dgitbuildhook.gitconfig.skip=true
 
 This builds plugins, compiles reports, and copies data/migration/reports into
 $IDEMPIERE_HOME (same as host-side mvn verify with idempiere.home.dir set).
@@ -86,4 +86,5 @@ docker exec \
     mvn verify \
         -Didempiere.home.dir="$IDEMPIERE_HOME" \
         -Dbanda.skip.testing.staging=true \
+        -Dgitbuildhook.gitconfig.skip=true \
         "${MAVEN_ARGS[@]+"${MAVEN_ARGS[@]}"}"

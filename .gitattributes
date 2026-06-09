@@ -3,5 +3,5 @@
 eclipse.sh text eol=lf
 migrate.sh text eol=lf
 build.sh text eol=lf
-docker-dev/**/*.sh text eol=lf
-docker-dev/docker-entrypoint.sh text eol=lf
+dev-docker/**/*.sh text eol=lf
+dev-docker/docker-entrypoint.sh text eol=lf

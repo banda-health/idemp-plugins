@@ -1,12 +1,10 @@
+# Run a frozen dev image (no rebuild). Capture updates with scripts/capture-container-state.sh
 include:
   - docker-compose.build-overlays.yml
 
 services:
   idempiere:
-    build:
-      context: ./
-      dockerfile: Dockerfile
-      target: idempiere
+    image: ${IDEMPIERE_DEV_IMAGE:-dev-docker-idempiere:snapshot}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     container_name: idempiere-development
@@ -15,26 +13,24 @@ services:
       - DISPLAY=${DISPLAY:-host.docker.internal:0}
       - RUN_MIGRATIONS_ON_START=${RUN_MIGRATIONS_ON_START:-true}
       - IDEMPIERE_HOME=${IDEMPIERE_HOME:-/opt/idempiere}
+    entrypoint: ["/usr/local/bin/docker-entrypoint.sh"]
+    command: ["/opt/eclipse/eclipse"]
     ports:
       - "${IDEMPIERE_HTTP_PORT:-8080}:8080"
     volumes:
-      # X11 socket mount - required for Linux, ignored/harmless on Windows/Mac
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      # WSLg mount - required for Windows 11 GUI support
       - /mnt/wslg:/mnt/wslg
-      # Keep entrypoint updatable without rebuilding the image
       - ./docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh:ro
       - ./scripts/ensure-build-volume-permissions.sh:/usr/local/bin/ensure-build-volume-permissions.sh:ro
       - ${PLUGINS_MOUNT:-..}:/workspace/idemp-banda:rw
       - eclipse-workspace:/home/developer/eclipse-workspace
       - maven-repo:/home/developer/.m2
 
-  # PgBouncer on localhost:5432; replaces client creds with DB_UPSTREAM_* for the real database.
   db-proxy:
     build:
       context: ./
       dockerfile: docker/db-proxy/Dockerfile
-    image: docker-dev-db-proxy
+    image: dev-docker-db-proxy
     network_mode: "service:idempiere"
     depends_on:
       - idempiere

@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-DOCKER_DEV_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/docker-dev" && pwd)"
+DOCKER_DEV_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/dev-docker" && pwd)"
 cd "$DOCKER_DEV_DIR"
 
 CONTAINER_NAME="${CONTAINER_NAME:-idempiere-development}"
@@ -130,6 +130,9 @@ case "${MODE}" in
         ;;
     build)
         echo "Starting Eclipse via Docker Compose (build from Dockerfile)..."
+        export HOST_UID="${HOST_UID:-$(id -u)}"
+        export HOST_GID="${HOST_GID:-$(id -g)}"
+        echo "Building with HOST_UID=$HOST_UID HOST_GID=$HOST_GID"
         docker compose up -d --build
         ;;
 esac
