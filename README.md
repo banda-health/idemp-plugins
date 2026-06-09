@@ -30,7 +30,7 @@ Additionally, the project also contains the data folders used during client crea
 Located in the `./reports` directory, these are reports available to our iDempiere installation, from receipts to patient transactions.
 
 ## DB Migration
-Located in the `./migration` directory, these files are used to automate iDempiere DB migrations. They also house our custom functions that are stored in the DB.
+Located in the `./migration` directory, these files are used to automate iDempiere DB migrations. They also house our custom functions that are stored in the DB. See [migration/README.md](migration/README.md) for conventions and the new-table workflow.
 
 
 ## Building the Plugins & Project
