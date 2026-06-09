@@ -1,6 +1,5 @@
-include:
-  - docker-compose.build-overlays.yml
-
+# Merge with docker-compose.build-overlays.yml (see eclipse.sh); do not use `include` here —
+# Compose v2.21+ treats duplicate service names in included files as conflicts.
 services:
   idempiere:
     build:

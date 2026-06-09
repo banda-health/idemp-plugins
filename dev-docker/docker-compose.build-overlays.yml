@@ -1,4 +1,5 @@
 # Overlay named volumes on Maven/Eclipse build output paths so artifacts are stored on
+# Merged via: docker compose -f docker-compose.yml -f docker-compose.build-overlays.yml
 # the container filesystem instead of the host bind mount (Windows drvfs rejects POSIX
 # permission updates that Maven uses when copying jars and resources).
 services:

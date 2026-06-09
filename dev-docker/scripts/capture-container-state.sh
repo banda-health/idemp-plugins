@@ -22,7 +22,7 @@ echo
 echo "Saved image: $FULL_IMAGE"
 echo
 echo "Start from this frozen state:"
-echo "  cd dev-docker && IDEMPIERE_DEV_IMAGE=$FULL_IMAGE docker compose -f docker-compose.snapshot.yml up -d"
+echo "  cd dev-docker && IDEMPIERE_DEV_IMAGE=$FULL_IMAGE docker compose -f docker-compose.snapshot.yml -f docker-compose.build-overlays.yml up -d"
 echo
 echo "Share with others (registry):"
 echo "  docker tag $FULL_IMAGE <registry>/<repo>:<tag>"

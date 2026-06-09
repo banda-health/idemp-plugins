@@ -6,6 +6,7 @@ DOCKER_DEV_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/dev-docker" && pwd)"
 cd "$DOCKER_DEV_DIR"
 
 CONTAINER_NAME="${CONTAINER_NAME:-idempiere-development}"
+BUILD_OVERLAYS_FILE="docker-compose.build-overlays.yml"
 
 usage() {
     cat <<EOF
@@ -34,8 +35,8 @@ detect_compose_file() {
     fi
 
     local snapshot_q build_q
-    snapshot_q="$(docker compose -f docker-compose.snapshot.yml ps -q 2>/dev/null || true)"
-    build_q="$(docker compose -f docker-compose.yml ps -q 2>/dev/null || true)"
+    snapshot_q="$(docker compose -f docker-compose.snapshot.yml -f "$BUILD_OVERLAYS_FILE" ps -q 2>/dev/null || true)"
+    build_q="$(docker compose -f docker-compose.yml -f "$BUILD_OVERLAYS_FILE" ps -q 2>/dev/null || true)"
 
     if [[ -n "$snapshot_q" && -z "$build_q" ]]; then
         echo "docker-compose.snapshot.yml"
@@ -57,7 +58,7 @@ spin_down() {
     fi
 
     echo "Stopping Eclipse dev stack ($compose_file)..."
-    docker compose -f "$compose_file" down
+    docker compose -f "$compose_file" -f "$BUILD_OVERLAYS_FILE" down
 }
 
 MODE="snapshot"
@@ -126,13 +127,13 @@ esac
 case "${MODE}" in
     snapshot)
         echo "Starting Eclipse via Docker Compose (frozen snapshot image)..."
-        docker compose -f docker-compose.snapshot.yml up -d
+        docker compose -f docker-compose.snapshot.yml -f "$BUILD_OVERLAYS_FILE" up -d
         ;;
     build)
         echo "Starting Eclipse via Docker Compose (build from Dockerfile)..."
         export HOST_UID="${HOST_UID:-$(id -u)}"
         export HOST_GID="${HOST_GID:-$(id -g)}"
         echo "Building with HOST_UID=$HOST_UID HOST_GID=$HOST_GID"
-        docker compose up -d --build
+        docker compose -f docker-compose.yml -f "$BUILD_OVERLAYS_FILE" up -d --build
         ;;
 esac

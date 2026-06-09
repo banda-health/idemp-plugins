@@ -1,7 +1,6 @@
 # Run a frozen dev image (no rebuild). Capture updates with scripts/capture-container-state.sh
-include:
-  - docker-compose.build-overlays.yml
-
+# Merge with docker-compose.build-overlays.yml (see eclipse.sh); do not use `include` here —
+# Compose v2.21+ treats duplicate service names in included files as conflicts.
 services:
   idempiere:
     image: ${IDEMPIERE_DEV_IMAGE:-dev-docker-idempiere:snapshot}
