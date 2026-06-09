@@ -62,7 +62,7 @@ public class BHLogAuthFailure implements Closeable {
 	 * @param userAgent      the User-Agent header value (may be null)
 	 * @param acceptLanguage the Accept-Language header value (may be null)
 	 * @param context        the request context path (e.g. "/graphql")
-	 * @param username       the username that failed — will be SHA-256 hashed before writing
+	 * @param username       the username that failed authentication
 	 * @param msg            the error message
 	 * @param area           the authentication area (e.g. "SignIn", "ChangePassword", "ChangeAccess")
 	 */
@@ -84,8 +84,8 @@ public class BHLogAuthFailure implements Closeable {
 			writer.append(fingerprint);
 			writer.append("] [context ");
 			writer.append(context);
-			writer.append("] [username-hash ");
-			writer.append(sha256(username));
+			writer.append("] [username ");
+			writer.append(username != null ? username : "unknown");
 			writer.append("] ");
 			writer.append(msg);
 			writer.append("\n");
