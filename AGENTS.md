@@ -15,6 +15,7 @@ their output by copying the `BH_Feature_Flag` reference implementation.
 | Step | What |
 |------|------|
 | Migration | `migration/local_sql/postgresql/YYYYMMDDHHMM_GO-####.sql` |
+| GraphQL template | Update `bh_graphqlgeneratortemplate` in migration (required for GraphQL tables) |
 | Base models | `I_*`, `X_*`, `M*` in `base/src/.../model/` |
 | Model factory | Register in `BHModelFactory` (all 4 methods) |
 | GraphQL | `X_*` artifacts + `M*` stubs; register in 6 composer/mapper files |

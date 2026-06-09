@@ -43,7 +43,7 @@ That script demonstrates:
 - `CREATE TABLE` with FK constraints
 - `ad_element`, `ad_table`, `ad_sequence`, `ad_column` dictionary entries
 - `ad_window`, `ad_tab`, `ad_field`, `ad_menu` (UI)
-- `bh_graphqlgeneratortemplate` table list update (GraphQL exposure)
+- `bh_graphqlgeneratortemplate` table list update (**required** for GraphQL tables)
 
 Smaller examples (column additions only): `202412051125_GO-2976.sql`
 
@@ -86,19 +86,33 @@ Register in:
 ./migrate.sh  # RUN_SyncDBDev.sh
 ```
 
-## GraphQL template table list
+## GraphQL generator template (required)
 
-Tables exposed via the API must appear in `bh_graphqlgeneratortemplate.tablename`.
-Append new table names in the migration script:
+Any new table that gets GraphQL artifacts **must** also update
+`bh_graphqlgeneratortemplate` (`BH_GraphQLGeneratorTemplate`) in the same
+migration script. This row drives the GraphQL generator table list.
+
+Template UUID: `0b9c9d6a-6e59-4ba4-995a-6762c9effe03`
+
+Append new table names with an idempotent `REGEXP_REPLACE` anchored on a
+neighbouring table already in the list:
 
 ```sql
 UPDATE bh_graphqlgeneratortemplate
-SET tablename = REGEXP_REPLACE(tablename, '''Existing_Table''', '''Existing_Table'',''BH_New_Table''', 'i')
-WHERE bh_graphqlgeneratortemplate_uu = '0b9c9d6a-6e59-4ba4-995a-6762c9effe03'
-  AND tablename NOT ILIKE '%BH_New_Table%';
+SET
+	tablename = REGEXP_REPLACE(
+		tablename,
+		'''BH_Encounter_Type_Window''',
+		'''BH_Encounter_Type_Window'',''BH_New_Table''',
+		'i'
+	)
+WHERE
+	bh_graphqlgeneratortemplate_uu = '0b9c9d6a-6e59-4ba4-995a-6762c9effe03'
+	AND tablename NOT ILIKE '%BH_New_Table%';
 ```
 
-See `202605221123_GO-3580.sql` for a working example.
+For multiple tables in one migration, append all names in a single replace.
+See `202605221123_GO-3580.sql` (feature flags example).
 
 ## Role and access (optional)
 

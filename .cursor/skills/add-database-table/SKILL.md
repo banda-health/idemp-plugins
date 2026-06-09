@@ -33,11 +33,35 @@ Sections (in order):
 4. `INSERT INTO ad_column` for every column (include standard audit columns)
 5. Optional: `ad_window`, `ad_tab`, `ad_field`, `ad_menu`, `ad_treenodemm`
 6. Optional: `ad_window_access`, `ad_process_access`, `bh_add_roles_to_clients(...)`
-7. If table is GraphQL-exposed: append table name to `bh_graphqlgeneratortemplate`
-   (`bh_graphqlgeneratortemplate_uu = '0b9c9d6a-6e59-4ba4-995a-6762c9effe03'`)
+7. **Required** when adding GraphQL artifacts: update `bh_graphqlgeneratortemplate`
+   (`BH_GraphQLGeneratorTemplate`; UUID `0b9c9d6a-6e59-4ba4-995a-6762c9effe03`)
 8. End with: `SELECT register_migration_script('FILENAME.sql') FROM dual;`
 
 Use new UUIDs for all `*_UU` columns. Use `MAX(id) + 1` subqueries for IDs.
+
+#### GraphQL generator template (required)
+
+Append each new table to `bh_graphqlgeneratortemplate.tablename` in the same
+migration script. Use an idempotent `REGEXP_REPLACE` anchored on a neighbouring
+table that is already in the list:
+
+```sql
+UPDATE bh_graphqlgeneratortemplate
+SET
+	tablename = REGEXP_REPLACE(
+		tablename,
+		'''BH_Encounter_Type_Window''',
+		'''BH_Encounter_Type_Window'',''BH_My_Table''',
+		'i'
+	)
+WHERE
+	bh_graphqlgeneratortemplate_uu = '0b9c9d6a-6e59-4ba4-995a-6762c9effe03'
+	AND tablename NOT ILIKE '%BH_My_Table%';
+```
+
+For multiple tables, append all names in one replace (see
+`202605221123_GO-3580.sql`). Do not skip this step — the generator template
+drives which tables are included in GraphQL codegen.
 
 ### 2. Base plugin models
 
@@ -130,7 +154,7 @@ Restart the iDempiere server in the dev container if needed.
 - [ ] `BHModelFactory` — import + 4 method branches
 - [ ] GraphQL `X_*` artifacts + `M*` stubs
 - [ ] 6 GraphQL composer / mapper registrations
-- [ ] `bh_graphqlgeneratortemplate` updated (if API-exposed)
+- [ ] `bh_graphqlgeneratortemplate` updated (required for GraphQL tables)
 - [ ] `./build.sh` && `./migrate.sh`
 
 ## Notes

@@ -27,7 +27,7 @@ SELECT register_migration_script('YYYYMMDDHHMM_GO-####.sql') FROM dual;
 3. `ad_table` + `ad_sequence` inserts
 4. `ad_column` inserts for all columns
 5. Optional: window/tab/field/menu/access (`ad_window`, `ad_tab`, `ad_field`, `ad_menu`, `ad_treenodemm`, `ad_window_access`, `bh_add_roles_to_clients`)
-6. If GraphQL-exposed: update `bh_graphqlgeneratortemplate` (`bh_graphqlgeneratortemplate_uu = '0b9c9d6a-6e59-4ba4-995a-6762c9effe03'`)
+6. **Required** when adding GraphQL artifacts: update `bh_graphqlgeneratortemplate` (`BH_GraphQLGeneratorTemplate`; `bh_graphqlgeneratortemplate_uu = '0b9c9d6a-6e59-4ba4-995a-6762c9effe03'`) using idempotent `REGEXP_REPLACE` — see `202605221123_GO-3580.sql`
 
 ## IDs and UUIDs
 
