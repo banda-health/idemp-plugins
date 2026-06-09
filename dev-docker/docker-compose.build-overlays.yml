@@ -1,0 +1,36 @@
+# Overlay named volumes on Maven/Eclipse build output paths so artifacts are stored on
+# the container filesystem instead of the host bind mount (Windows drvfs rejects POSIX
+# permission updates that Maven uses when copying jars and resources).
+services:
+  idempiere:
+    volumes:
+      - idemp-banda-testing:/workspace/idemp-banda/testing
+      - idemp-banda-chuck-test-framework-target:/workspace/idemp-banda/chuck-test-framework/target
+      - idemp-banda-chuck-test-framework-lib:/workspace/idemp-banda/chuck-test-framework/lib
+      - idemp-banda-base-target:/workspace/idemp-banda/base/target
+      - idemp-banda-base-test-target:/workspace/idemp-banda/base-test/target
+      - idemp-banda-base-test-lib:/workspace/idemp-banda/base-test/lib
+      - idemp-banda-graphql-target:/workspace/idemp-banda/graphql/target
+      - idemp-banda-graphql-lib:/workspace/idemp-banda/graphql/lib
+      - idemp-banda-graphql-feature-target:/workspace/idemp-banda/graphql-feature/target
+      - idemp-banda-graphql-test-target:/workspace/idemp-banda/graphql-test/target
+      - idemp-banda-graphql-test-lib:/workspace/idemp-banda/graphql-test/lib
+      - idemp-banda-reports-target:/workspace/idemp-banda/reports/target
+      - idemp-banda-reports-test-target:/workspace/idemp-banda/reports-test/target
+      - idemp-banda-reports-test-lib:/workspace/idemp-banda/reports-test/lib
+
+volumes:
+  idemp-banda-testing:
+  idemp-banda-chuck-test-framework-target:
+  idemp-banda-chuck-test-framework-lib:
+  idemp-banda-base-target:
+  idemp-banda-base-test-target:
+  idemp-banda-base-test-lib:
+  idemp-banda-graphql-target:
+  idemp-banda-graphql-lib:
+  idemp-banda-graphql-feature-target:
+  idemp-banda-graphql-test-target:
+  idemp-banda-graphql-test-lib:
+  idemp-banda-reports-target:
+  idemp-banda-reports-test-target:
+  idemp-banda-reports-test-lib:

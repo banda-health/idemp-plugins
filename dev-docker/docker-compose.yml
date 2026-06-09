@@ -1,0 +1,75 @@
+include:
+  - docker-compose.build-overlays.yml
+
+services:
+  idempiere:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: idempiere
+      args:
+        HOST_UID: ${HOST_UID:-1000}
+        HOST_GID: ${HOST_GID:-1000}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    container_name: idempiere-development
+    user: root
+    environment:
+      - DISPLAY=${DISPLAY:-host.docker.internal:0}
+      - RUN_MIGRATIONS_ON_START=${RUN_MIGRATIONS_ON_START:-true}
+      - IDEMPIERE_HOME=${IDEMPIERE_HOME:-/opt/idempiere}
+    ports:
+      - "${IDEMPIERE_HTTP_PORT:-8080}:8080"
+    volumes:
+      # X11 socket mount - required for Linux, ignored/harmless on Windows/Mac
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      # WSLg mount - required for Windows 11 GUI support
+      - /mnt/wslg:/mnt/wslg
+      # Keep entrypoint updatable without rebuilding the image
+      - ./docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh:ro
+      - ./scripts/ensure-build-volume-permissions.sh:/usr/local/bin/ensure-build-volume-permissions.sh:ro
+      - ${PLUGINS_MOUNT:-..}:/workspace/idemp-banda:rw
+      - eclipse-workspace:/home/developer/eclipse-workspace
+      - maven-repo:/home/developer/.m2
+
+  # PgBouncer on localhost:5432; replaces client creds with DB_UPSTREAM_* for the real database.
+  db-proxy:
+    build:
+      context: ./
+      dockerfile: docker/db-proxy/Dockerfile
+    image: dev-docker-db-proxy
+    network_mode: "service:idempiere"
+    depends_on:
+      - idempiere
+    environment:
+      - DB_TARGET=${DB_TARGET:-host}
+      - DB_HOST_PORT=${DB_HOST_PORT:-5432}
+      - DB_COMPOSE_HOST=${DB_COMPOSE_HOST:-postgres}
+      - DB_UPSTREAM_USER=${DB_UPSTREAM_USER:-adempiere}
+      - DB_UPSTREAM_PASSWORD=${DB_UPSTREAM_PASSWORD:-adempiere}
+      - DB_UPSTREAM_DATABASE=${DB_UPSTREAM_DATABASE:-idempiere}
+      - DB_UPSTREAM_ADMIN_USER=${DB_UPSTREAM_ADMIN_USER:-postgres}
+      - DB_UPSTREAM_ADMIN_PASSWORD=${DB_UPSTREAM_ADMIN_PASSWORD:-postgres}
+      - DB_UPSTREAM_ADMIN_DATABASE=${DB_UPSTREAM_ADMIN_DATABASE:-template1}
+    command: ["/bin/sh", "/db-proxy.sh"]
+    restart: unless-stopped
+
+  # Uncomment when using DB_TARGET=compose
+  # postgres:
+  #   image: postgres:18
+  #   environment:
+  #     POSTGRES_USER: idempiere
+  #     POSTGRES_PASSWORD: idempiere
+  #     POSTGRES_DB: idempiere
+  #   volumes:
+  #     - postgres-data:/var/lib/postgresql/data
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U idempiere"]
+  #     interval: 5s
+  #     timeout: 5s
+  #     retries: 5
+
+volumes:
+  eclipse-workspace:
+  maven-repo:
+#   postgres-data:
