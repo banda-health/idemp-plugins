@@ -3,9 +3,11 @@
 # Source from dev.sh after cd into dev-docker/.
 
 POSTGRES_OVERLAY_FILE="docker-compose.postgres.yml"
+HEADLESS_OVERLAY_FILE="docker-compose.headless.yml"
 
 # Run docker compose with the standard dev stack file merge order.
 # Usage: run_compose_stack <base-compose.yml> <compose-subcommand> [args...]
+# Set HEADLESS=true to merge docker-compose.headless.yml (no Eclipse GUI).
 run_compose_stack() {
     local base_file="$1"
     shift
@@ -13,6 +15,9 @@ run_compose_stack() {
     local -a compose_args=(-f "$base_file")
     if [[ "${DB_TARGET:-compose}" == "compose" ]]; then
         compose_args+=(-f "$POSTGRES_OVERLAY_FILE")
+    fi
+    if [[ "${HEADLESS:-false}" == "true" ]]; then
+        compose_args+=(-f "$HEADLESS_OVERLAY_FILE")
     fi
 
     docker compose "${compose_args[@]}" "$@"

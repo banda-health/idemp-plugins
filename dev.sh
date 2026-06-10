@@ -35,8 +35,9 @@ Commands:
   jasper          Launch Jaspersoft Studio 6.20.3 in the running container (reports workspace).
   build           Run mvn verify inside the container (plugins, reports, data, migrations).
   migrate         Run RUN_SyncDBDev.sh for pending DB migrations.
-  wait-ready      Poll HTTP until iDempiere responds (dev port from dev-docker/.env).
-  test            Run CI test stack (docker compose up at repo root).
+  wait-ready      Poll OSGi console until Banda plugins are ACTIVE/RESOLVED (telnet, CI-style).
+  test            Ensure iDempiere is running; run tests (default: GraphQL Vitest only).
+  test-ci         Run CI test stack (root docker compose up; uses gitignored ./testing/ folder).
   download-jasper Pre-download Studio 6.20.3 zip to dev-docker/vendor/ (optional offline cache).
   capture         Freeze the running dev container (docker commit → IDEMPIERE_DEV_IMAGE in .env).
   push            Push IDEMPIERE_DEV_IMAGE to the registry (run after capture).
@@ -57,7 +58,12 @@ Examples:
   $0 build -- -pl base,graphql
   $0 migrate -- migration/local-folder
   $0 wait-ready
-  $0 test
+  $0 test                              # GraphQL Vitest only (default)
+  $0 test -- visitReceiptReport.test.ts
+  $0 test graphql                      # graphql SOAP + Vitest
+  $0 test --all                        # base + graphql + reports
+  $0 test --rebuild                    # restart server before tests
+  $0 test-ci                 # CI workflow: pre-built image + ./testing/ staging
   $0 capture                            # commits to IDEMPIERE_DEV_IMAGE from dev-docker/.env
   $0 push                               # docker push that image
   IMAGE_TAG=snapshot-step4 $0 capture   # same repo, different tag (partial save)
@@ -158,12 +164,131 @@ wait_for_container() {
 }
 
 load_env() {
+    # Bidirectional sync of shared keys between dev-docker/.env and root .env.
+    bash "${DOCKER_DEV_DIR}/scripts/sync-env.sh" --quiet
     if [[ -f "${DOCKER_DEV_DIR}/.env" ]]; then
         set -a
         # shellcheck disable=SC1091
         source "${DOCKER_DEV_DIR}/.env"
         set +a
     fi
+}
+
+load_root_env() {
+    if [[ -f "${SCRIPT_DIR}/.env" ]]; then
+        set -a
+        # shellcheck disable=SC1091
+        source "${SCRIPT_DIR}/.env"
+        set +a
+    fi
+}
+
+idempiere_osgi_ready() {
+    docker exec \
+        -e IDEMPIERE_HOME="${IDEMPIERE_HOME:-/opt/idempiere}" \
+        "$CONTAINER_NAME" \
+        bash /usr/local/bin/wait-idempiere-ready.sh --once >/dev/null 2>&1
+}
+
+ensure_dev_idempiere() {
+    local restart_server="${1:-false}"
+
+    if [[ "$restart_server" != "true" ]] && idempiere_osgi_ready; then
+        echo "iDempiere OSGi plugins already ready in '$CONTAINER_NAME'."
+        return 0
+    fi
+
+    if docker container inspect "$CONTAINER_NAME" >/dev/null 2>&1; then
+        local running
+        running="$(docker inspect -f '{{.State.Running}}' "$CONTAINER_NAME" 2>/dev/null || echo false)"
+        if [[ "$running" != "true" ]]; then
+            HEADLESS=true start_stack
+            wait_for_container
+        fi
+    else
+        HEADLESS=true start_stack
+        wait_for_container
+    fi
+
+    echo "Starting iDempiere server headlessly in '$CONTAINER_NAME'..."
+    docker exec "$CONTAINER_NAME" bash /usr/local/bin/start-idempiere-server.sh
+    cmd_wait_ready
+}
+
+run_dev_compose_up() {
+    docker compose -f docker-compose.dev.yml up -d --build
+
+    local test_container
+    test_container="$(docker compose -f docker-compose.dev.yml ps -q test)"
+    if [[ -z "$test_container" ]]; then
+        echo "Dev test container did not start." >&2
+        exit 1
+    fi
+}
+
+exec_in_test_container() {
+    docker compose -f docker-compose.dev.yml exec -T test bash -lc "$1"
+}
+
+# Vitest include is src/tests/**/*.test.ts — accept bare filenames from ./dev.sh test -- login.test.ts
+normalize_vitest_args() {
+    local -a result=()
+    local arg
+    for arg in "$@"; do
+        if [[ "$arg" == *.test.ts && "$arg" != src/tests/* ]]; then
+            if [[ -f "${SCRIPT_DIR}/graphql-test/testing/src/tests/processes/${arg}" ]]; then
+                result+=("src/tests/processes/${arg}")
+            else
+                result+=("src/tests/${arg}")
+            fi
+        else
+            result+=("$arg")
+        fi
+    done
+    echo "${result[@]}"
+}
+
+run_test_suite() {
+    local suite="$1"
+    shift
+    local -a vitest_args=("$@")
+
+    run_dev_compose_up
+
+    case "$suite" in
+        all)
+            echo "Running all test suites (base, graphql, reports)..."
+            exec_in_test_container 'cd /app/base-test && ./runTests.sh'
+            exec_in_test_container 'cd /app/graphql-test && npm install --no-audit --no-fund && ./runTests.sh'
+            exec_in_test_container 'cd /app/reports-test && ./runTests.sh'
+            ;;
+        base)
+            echo "Running base-test..."
+            exec_in_test_container 'cd /app/base-test && ./runTests.sh'
+            ;;
+        graphql)
+            echo "Running graphql-test (SOAP + Vitest)..."
+            exec_in_test_container 'cd /app/graphql-test && npm install --no-audit --no-fund && ./runTests.sh'
+            ;;
+        reports)
+            echo "Running reports-test..."
+            exec_in_test_container 'cd /app/reports-test && ./runTests.sh'
+            ;;
+        vitest)
+            read -r -a vitest_args <<<"$(normalize_vitest_args "${vitest_args[@]+"${vitest_args[@]}"}")"
+            local quoted=""
+            if ((${#vitest_args[@]} > 0)); then
+                quoted="$(printf '%q ' "${vitest_args[@]}")"
+            fi
+            echo "Running GraphQL Vitest..."
+            exec_in_test_container "cd /app/graphql-test && npm install --no-audit --no-fund && bash ./check-graphql-test-client.sh && npm test -- --run --reporter=verbose ${quoted}"
+            ;;
+        *)
+            echo "Unknown test suite: $suite" >&2
+            echo "Use: base, graphql, reports, vitest, or --all" >&2
+            exit 1
+            ;;
+    esac
 }
 
 # Resolve docker commit target: IDEMPIERE_DEV_IMAGE from .env, with optional IMAGE_REPO/IMAGE_TAG overrides.
@@ -191,19 +316,26 @@ start_stack() {
     local compose_file_name
     compose_file_name="$(compose_file)"
 
-    configure_display
+    if [[ "${HEADLESS:-false}" != "true" ]]; then
+        configure_display
+    fi
+
+    local -a up_args=(-d)
+    if [[ "${HEADLESS:-false}" == "true" ]]; then
+        up_args+=(--force-recreate)
+    fi
 
     case "${MODE}" in
         snapshot)
             echo "Starting dev stack via Docker Compose (frozen snapshot image)..."
-            run_compose_stack "$compose_file_name" up -d
+            run_compose_stack "$compose_file_name" up "${up_args[@]}"
             ;;
         build)
             echo "Starting dev stack via Docker Compose (build from Dockerfile)..."
             export HOST_UID="${HOST_UID:-$(id -u)}"
             export HOST_GID="${HOST_GID:-$(id -g)}"
             echo "Building with HOST_UID=$HOST_UID HOST_GID=$HOST_GID"
-            run_compose_stack "$compose_file_name" up -d --build
+            run_compose_stack "$compose_file_name" up "${up_args[@]}" --build
             ;;
     esac
 }
@@ -292,35 +424,108 @@ cmd_migrate() {
 
 cmd_wait_ready() {
     load_env
-    local port="${IDEMPIERE_HTTP_PORT:-8080}"
-    local timeout="${WAIT_READY_TIMEOUT:-300}"
-    local interval="${WAIT_READY_INTERVAL:-5}"
-    local url="http://localhost:${port}/"
-    local elapsed=0
+    wait_for_container
 
-    echo "Waiting for iDempiere at ${url} (timeout ${timeout}s, interval ${interval}s)..."
-    while true; do
-        if curl -sf -o /dev/null "$url"; then
-            echo "iDempiere is ready at ${url}"
-            return 0
-        fi
-        if (( elapsed >= timeout )); then
-            echo "Timed out after ${timeout}s waiting for ${url}" >&2
-            exit 1
-        fi
-        sleep "$interval"
-        elapsed=$((elapsed + interval))
-    done
+    local timeout="${WAIT_READY_TIMEOUT:-300}"
+    echo "Waiting for iDempiere OSGi readiness in '$CONTAINER_NAME' (timeout ${timeout}s)..."
+    docker exec \
+        -e IDEMPIERE_HOME="${IDEMPIERE_HOME:-/opt/idempiere}" \
+        -e WAIT_READY_TIMEOUT="${WAIT_READY_TIMEOUT:-300}" \
+        -e WAIT_READY_INTERVAL="${WAIT_READY_INTERVAL:-5}" \
+        "$CONTAINER_NAME" \
+        bash /usr/local/bin/wait-idempiere-ready.sh
 }
 
 cmd_test() {
-    cd "$SCRIPT_DIR"
-    if [[ ! -f .env && -f .env.example ]]; then
-        echo "Missing .env in repo root. Create it from the example:" >&2
-        echo "  cp .env.example .env" >&2
+    local restart_server=false
+    local suite="vitest"
+    local -a vitest_args=()
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --rebuild)
+                restart_server=true
+                shift
+                ;;
+            --all)
+                suite="all"
+                shift
+                ;;
+            --)
+                shift
+                vitest_args=("$@")
+                break
+                ;;
+            -h|--help)
+                cat <<EOF
+Usage: $0 test [suite] [--rebuild] [-- vitest-args...]
+
+Ensures iDempiere is running, starts docker-compose.dev.yml, and runs tests.
+Does not run mvn verify or migrations — run ./dev.sh build and ./dev.sh migrate separately.
+
+Suites (default: vitest — GraphQL Vitest only):
+  (none)     GraphQL Vitest only (requires GraphQL test client in DB; see below)
+  --all      base-test + graphql-test + reports-test (full SOAP + Vitest where applicable)
+  base       base-test/runTests.sh only
+  graphql    graphql-test/runTests.sh (SOAP Java tests + Vitest)
+  reports    reports-test/runTests.sh only
+  vitest     GraphQL Vitest only (same as default)
+
+New database: run "$0 test graphql" once before Vitest-only runs. Vitest checks that
+IDEMPIERE_GRAPHQL_TEST_CLIENT exists in ad_client (SOAP populates it).
+
+Vitest file/pattern filters go after --:
+  $0 test -- visitReceiptReport.test.ts
+  $0 test vitest -- src/tests/processes/visitReceiptReport.test.ts
+
+Options:
+  --rebuild  Restart the iDempiere server even when HTTP is already up
+EOF
+                exit 0
+                ;;
+            base|graphql|reports|vitest|all)
+                suite="$1"
+                shift
+                ;;
+            *)
+                if [[ "$suite" == "vitest" ]]; then
+                    vitest_args+=("$1")
+                    shift
+                else
+                    echo "Unknown argument: $1 (extra args only allowed for vitest suite)" >&2
+                    echo "Run: $0 test --help" >&2
+                    exit 1
+                fi
+                ;;
+        esac
+    done
+
+    load_env
+    local dev_container_name="${CONTAINER_NAME:-idempiere-development}"
+    load_root_env
+    CONTAINER_NAME="$dev_container_name"
+
+    if [[ ! -f "${SCRIPT_DIR}/.env" ]]; then
+        echo "Missing .env in repo root (auto-created from .env.example when possible)." >&2
         exit 1
     fi
-    docker compose up "$@"
+
+    local port="${IDEMPIERE_HTTP_PORT:-8080}"
+    export IDEMPIERE_ENDPOINT="${IDEMPIERE_ENDPOINT:-http://host.docker.internal:${port}}"
+
+    ensure_dev_idempiere "$restart_server"
+
+    cd "$SCRIPT_DIR"
+    run_test_suite "$suite" "${vitest_args[@]}"
+}
+
+cmd_test_ci() {
+    cd "$SCRIPT_DIR"
+    if [[ ! -f .env ]]; then
+        echo "Missing .env in repo root (auto-created from .env.example when possible)." >&2
+        exit 1
+    fi
+    bash "${SCRIPT_DIR}/scripts/compose.sh" up "$@"
 }
 
 cmd_download_jasper() {
@@ -515,6 +720,10 @@ case "$1" in
     test)
         shift
         cmd_test "$@"
+        ;;
+    test-ci)
+        shift
+        cmd_test_ci "$@"
         ;;
     -h|--help|help)
         usage

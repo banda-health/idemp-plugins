@@ -224,8 +224,8 @@ export async function setup() {
 			AD_Role_UU: adminRole.UU,
 			M_Warehouse_UU: organization.M_Warehouses?.[0].UU!,
 		};
-		await graphqlClient.query({
-			query: ChangeAccessDocument,
+		await graphqlClient.mutate({
+			mutation: ChangeAccessDocument,
 			variables: { Access: baseLoginData },
 			context: { valueObject },
 		});

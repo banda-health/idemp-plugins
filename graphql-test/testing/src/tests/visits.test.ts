@@ -1587,21 +1587,16 @@ test(`selling more than in inventory error message is correct and is the same in
 	valueObject.quantity = 100;
 	await createOrder(valueObject);
 
-	let negativeInventoryError: Error;
-	try {
-		await mutate(valueObject)({
-			mutation: Bh_VisitProcessDocument,
-			variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
-		});
-		expect(false).toBe(true);
-		return;
-	} catch (error) {
-		negativeInventoryError = error as Error;
-	}
 	// Since we'll be using this message in the front-end, it needs to be this exact value
 	const disallowNegativeInventoryMessage =
 		/The .+ warehouse does not allow negative inventory for Product = (.+), ASI = .+, Locator = .+ \(Shortage of (\d+)\)/;
-	expect(negativeInventoryError.message.split(' : ')[1]).toMatch(disallowNegativeInventoryMessage);
+
+	await expect(
+		mutate(valueObject)({
+			mutation: Bh_VisitProcessDocument,
+			variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
+		}),
+	).rejects.toThrowError(disallowNegativeInventoryMessage);
 
 	const french = (
 		await query(valueObject)({
@@ -1633,7 +1628,7 @@ test(`selling more than in inventory error message is correct and is the same in
 			mutation: Bh_VisitProcessDocument,
 			variables: { UU: valueObject.visit!.UU, DocumentAction: documentAction.Complete },
 		}),
-	).rejects.toThrowError(negativeInventoryError);
+	).rejects.toThrowError(disallowNegativeInventoryMessage);
 });
 
 test('voiding visits shows data on the report correctly', async () => {

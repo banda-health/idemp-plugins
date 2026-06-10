@@ -22,6 +22,9 @@ services:
       - /mnt/wslg:/mnt/wslg
       - ./docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh:ro
       - ./scripts/ensure-build-volume-permissions.sh:/usr/local/bin/ensure-build-volume-permissions.sh:ro
+      - ./scripts/sync-server-plugins.sh:/usr/local/bin/sync-server-plugins.sh:ro
+      - ./scripts/start-idempiere-server.sh:/usr/local/bin/start-idempiere-server.sh:ro
+      - ./scripts/wait-idempiere-ready.sh:/usr/local/bin/wait-idempiere-ready.sh:ro
       - ${PLUGINS_MOUNT:-..}:/workspace/idemp-banda:rw
 
   db-proxy:
