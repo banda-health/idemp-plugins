@@ -54,19 +54,13 @@ services:
     command: ["/bin/sh", "/db-proxy.sh"]
     restart: unless-stopped
 
-  # Uncomment when using DB_TARGET=compose
+  # Uncomment when using DB_TARGET=compose (set IDEMPIERE_DB_IMAGE in .env).
+  # Do not mount a named volume over /var/lib/postgresql/data — it hides the baked PGDATA.
+  # Reset to CI baseline: docker compose pull postgres && docker compose up -d --force-recreate postgres
   # postgres:
-  #   image: postgres:18
-  #   environment:
-  #     POSTGRES_USER: idempiere
-  #     POSTGRES_PASSWORD: idempiere
-  #     POSTGRES_DB: idempiere
-  #   volumes:
-  #     - postgres-data:/var/lib/postgresql/data
+  #   image: ${IDEMPIERE_DB_IMAGE:-ghcr.io/banda-health/idempiere-db:develop}
   #   healthcheck:
-  #     test: ["CMD-SHELL", "pg_isready -U idempiere"]
+  #     test: ["CMD-SHELL", "pg_isready -U postgres"]
   #     interval: 5s
   #     timeout: 5s
-  #     retries: 5
-
-#   postgres-data:  # uncomment with compose postgres service
+  #     retries: 10
