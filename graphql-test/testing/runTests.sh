@@ -43,36 +43,11 @@ if ! grep -q "Success!!" testResults.txt; then
   exit 1
 fi
 
-# There's something wrong with running Jest in sequence and it won't output any results (both --runInBand and --maxWorkers=1
-# don't output log files). Also, something is wrong with Jest and it's not outputting the results, so we have to do it
-# manually. So, loop over the test files so Jest can run one test at a time in parallel. 😂
-{ echo && echo "Running Jest Tests..."; }
+bash ./check-graphql-test-client.sh
 
-# Find the tests like Jest does
-[ -f "tests-to-execute.txt" ] && rm tests-to-execute.txt
-touch tests-to-execute.txt
-find ./src -type f -regex '.*\/__tests__\/.*\.[jt]sx\?' | sed 's/\.\///' >>tests-to-execute.txt
-find ./src -type f -regex '.*\/\?.*\(spec\|test\)\.[tj]sx\?' | sed 's/\.\///' >>tests-to-execute.txt
-
-[ -f "full-test-results.txt" ] && full-test-results.txt
-touch full-test-results.txt
-export NODE_OPTIONS="--experimental-vm-modules${NODE_OPTIONS:+ $NODE_OPTIONS}"
-
-while IFS= read -r line; do
-  [ -f "jestResults.json" ] && rm jestResults.json
-  touch jestResults.json
-  jest --silent --json --outputFile=jestResults.json "$line"
-  waitCounter=0
-  until [ -s jestResults.json ] || [ $waitCounter -gt 29 ]; do
-    sleep 1
-    ((waitCounter++))
-  done
-  jq -r '.testResults[]|if .status=="passed" or .status=="focused" then "PASS "+.name+" ("+((.endTime-.startTime)/1000|tostring)+")" else "FAIL "+.name+"\n"+.message+"\n" end' <jestResults.json >>full-test-results.txt
-done <tests-to-execute.txt
-
-cat full-test-results.txt
-{ echo && echo; }
-if grep -q "FAIL " full-test-results.txt; then
+{ echo && echo "Running Vitest API Tests..."; }
+npm test -- --run --reporter=verbose
+if [ $? -ne 0 ]; then
   cd ../
   mkdir -p output
   cd ./output

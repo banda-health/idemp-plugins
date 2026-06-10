@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from 'fs/promises';
 import { tmpdir } from 'os';
 import { join } from 'path';
-import { graphqlClient, initialLoginData } from '../api';
+import { graphqlClient, initialLoginData, withRequiredData } from '../api';
 import { LoginInfo } from '../types/global';
 import {
 	Ad_ClientGetDocument,
@@ -96,7 +96,7 @@ async function createDefaultPriceLists(
 	const priceListApiDate = formatApiDate(priceListDate);
 
 	let schema: M_DiscountSchemaGetQuery['M_DiscountSchemaGet']['Results'][0] | undefined;
-	let priceListVersionCount = (
+	let priceListVersionCount = withRequiredData(
 		await graphqlClient.query({
 			query: M_PriceList_VersionGetDocument,
 			variables: {
@@ -106,16 +106,16 @@ async function createDefaultPriceLists(
 				}),
 			},
 			context,
-		})
+		}),
 	).data.M_PriceList_VersionGet.PagingInfo.TotalCount;
 	if (!priceListVersionCount) {
 		// get bogus price list schema - required field
-		schema = (
+		schema = withRequiredData(
 			await graphqlClient.query({
 				query: M_DiscountSchemaGetDocument,
 				variables: { Filter: JSON.stringify({ discounttype: 'P' }) },
 				context,
-			})
+			}),
 		).data.M_DiscountSchemaGet.Results[0];
 		//
 		await graphqlClient.mutate({
@@ -133,7 +133,7 @@ async function createDefaultPriceLists(
 		});
 	}
 
-	priceListVersionCount = (
+	priceListVersionCount = withRequiredData(
 		await graphqlClient.query({
 			query: M_PriceList_VersionGetDocument,
 			variables: {
@@ -143,16 +143,16 @@ async function createDefaultPriceLists(
 				}),
 			},
 			context,
-		})
+		}),
 	).data.M_PriceList_VersionGet.PagingInfo.TotalCount;
 	if (!priceListVersionCount) {
 		// get bogus price list schema - required field
-		schema = (
+		schema = withRequiredData(
 			await graphqlClient.query({
 				query: M_DiscountSchemaGetDocument,
 				variables: { Filter: JSON.stringify({ discounttype: 'P' }) },
 				context,
-			})
+			}),
 		).data.M_DiscountSchemaGet.Results[0];
 		//
 		await graphqlClient.mutate({
@@ -170,28 +170,26 @@ async function createDefaultPriceLists(
 	}
 }
 
-export default async function () {
+export async function setup() {
 	let loginInfo: LoginInfo = {} as LoginInfo;
 	const valueObject: { sessionToken?: string } = { sessionToken: undefined };
-	loginInfo.AD_User = (
+	loginInfo.AD_User = withRequiredData(
 		await graphqlClient.mutate({
 			mutation: SignInDocument,
 			variables: { Credentials: initialLoginData },
 			context: { valueObject },
-		})
-	).data?.SignIn.AD_User;
+		}),
+	).data.SignIn.AD_User;
 	if (!valueObject.sessionToken) {
 		throw new Error('no token generated');
 	}
 	loginInfo.token = valueObject.sessionToken;
-	const {
-		data: {
-			AD_ClientGet: { Results: clients },
-		},
-	} = await graphqlClient.query({
-		query: Ad_ClientGetDocument,
-		context: { valueObject: { sessionToken: loginInfo.token } },
-	});
+	const clients = withRequiredData(
+		await graphqlClient.query({
+			query: Ad_ClientGetDocument,
+			context: { valueObject: { sessionToken: loginInfo.token } },
+		}),
+	).data.AD_ClientGet.Results;
 	loginInfo.AD_Clients = clients;
 
 	// Find the client & org we'll use
@@ -199,7 +197,12 @@ export default async function () {
 	const organization = client?.AD_Orgs[0];
 	const roles = organization?.AD_Roles;
 	if (!client) {
-		throw new Error(`could not find client "${clientName}"`);
+		throw new Error(
+			`Could not find client "${clientName}". Vitest requires this AD_Client to exist. ` +
+				`On a new database, run the GraphQL SOAP data population first ` +
+				`(./dev.sh test graphql, or ./runTests.sh in graphql-test/testing). ` +
+				`Configure the name with IDEMPIERE_GRAPHQL_TEST_CLIENT (current: "${clientName}").`,
+		);
 	}
 	if (!organization) {
 		throw new Error(`client "${client.Name}" didn't have any organizations`);
@@ -230,15 +233,17 @@ export default async function () {
 		loginInfo.token = valueObject.sessionToken;
 
 		// Get some initial data
-		const { data: initialData } = await graphqlClient.query({
-			query: Ad_RoleLocationPriceListsCurrencyGetDocument,
-			variables: {
-				AD_RoleFilter: JSON.stringify({ ad_role_uu: adminRole.UU }),
-				C_LocationFilter: JSON.stringify({ c_bpartner_location: { c_bpartner: { name: 'Standard' } } }),
-				M_PriceListFilter: JSON.stringify({ isdefault: true }),
-			},
-			context: { valueObject },
-		});
+		const initialData = withRequiredData(
+			await graphqlClient.query({
+				query: Ad_RoleLocationPriceListsCurrencyGetDocument,
+				variables: {
+					AD_RoleFilter: JSON.stringify({ ad_role_uu: adminRole.UU }),
+					C_LocationFilter: JSON.stringify({ c_bpartner_location: { c_bpartner: { name: 'Standard' } } }),
+					M_PriceListFilter: JSON.stringify({ isdefault: true }),
+				},
+				context: { valueObject },
+			}),
+		).data;
 		loginInfo.AD_Role = initialData.AD_RoleGet.Results[0];
 		loginInfo.C_Region = initialData.C_LocationGet.Results[0].C_Region;
 		loginInfo.C_Country = initialData.C_LocationGet.Results[0].C_Country;
@@ -251,3 +256,5 @@ export default async function () {
 	await mkdir(workingDirectory, { recursive: true });
 	await writeFile(join(workingDirectory, 'loginInfo'), JSON.stringify(loginInfo));
 }
+
+export { default as teardown } from './teardown';
