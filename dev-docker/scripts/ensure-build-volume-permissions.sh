@@ -7,7 +7,7 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
-# Legacy build.sh created lib/ symlinks on the bind mount; Docker then mounted named
+# Legacy dev workflows created lib/ symlinks on the bind mount; Docker then mounted named
 # volumes at the link target (/home/developer/banda-plugin-libs/...) instead of
 # module lib/ paths. Remove those symlinks before ensuring volume mount points.
 LIB_SYMLINK_MODULES=(

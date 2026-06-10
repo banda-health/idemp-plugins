@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 # Freeze the current container filesystem into a reusable image tag.
-# Run from dev-docker/ after interactive setup (Eclipse cache, builds, workspace metadata).
+# Run from dev-docker/ after the manual Eclipse setup in IMAGE-SETUP.md
+# (target platform, Banda plugins, install, server verify).
 
 set -euo pipefail
 
 CONTAINER_NAME="${CONTAINER_NAME:-idempiere-development}"
+# IMAGE_REPO/IMAGE_TAG are set by dev.sh from IDEMPIERE_DEV_IMAGE; defaults for direct script use.
 IMAGE_REPO="${IMAGE_REPO:-dev-docker-idempiere}"
 IMAGE_TAG="${IMAGE_TAG:-snapshot}"
 FULL_IMAGE="${IMAGE_REPO}:${IMAGE_TAG}"
@@ -22,11 +24,12 @@ echo
 echo "Saved image: $FULL_IMAGE"
 echo
 echo "Start from this frozen state:"
-echo "  cd dev-docker && IDEMPIERE_DEV_IMAGE=$FULL_IMAGE docker compose -f docker-compose.snapshot.yml -f docker-compose.build-overlays.yml up -d"
+echo "  IDEMPIERE_DEV_IMAGE=$FULL_IMAGE ./dev.sh"
+echo "  (set IDEMPIERE_DEV_IMAGE in dev-docker/.env for the team)"
 echo
-echo "Share with others (registry):"
-echo "  docker tag $FULL_IMAGE <registry>/<repo>:<tag>"
-echo "  docker push <registry>/<repo>:<tag>"
+echo "Share with others (registry — includes Eclipse workspace and /opt/idempiere):"
+echo "  ./dev.sh push"
+echo "  Teammates: set IDEMPIERE_DEV_IMAGE in dev-docker/.env, docker pull, ./dev.sh"
 echo
 echo "Share offline (tar file):"
 echo "  docker save $FULL_IMAGE -o idempiere-dev-snapshot.tar"

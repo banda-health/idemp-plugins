@@ -1,7 +1,7 @@
-# Overlay named volumes on Maven/Eclipse build output paths so artifacts are stored on
-# Merged via: docker compose -f docker-compose.yml -f docker-compose.build-overlays.yml
-# the container filesystem instead of the host bind mount (Windows drvfs rejects POSIX
-# permission updates that Maven uses when copying jars and resources).
+# OPTIONAL (Windows drvfs only): overlay named volumes on Maven build output paths when
+# the repo bind mount cannot store POSIX permissions. Not merged by ./dev.sh by default.
+#   docker compose -f docker-compose.yml -f docker-compose.build-overlays.yml up -d
+# Dev state (Eclipse workspace, .m2) is in the image — see IMAGE-SETUP.md — not here.
 services:
   idempiere:
     volumes:

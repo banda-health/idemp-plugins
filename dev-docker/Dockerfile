@@ -60,6 +60,26 @@ RUN wget -c "https://www.eclipse.org/downloads/download.php?file=/technology/epp
     && tar -xf /tmp/eclipse.tar.gz -C /opt \
     && rm /tmp/eclipse.tar.gz
 
+# Jaspersoft Studio 6.20.3 for report design (no CE registration; 6.21.3+ requires login).
+# Maven still compiles/deploys reports with JasperReports 6.17.0 (reports/pom.xml).
+ARG JASPERSOFT_STUDIO_URL=https://jasper-schulungen.de/jasperstudio-standalone/6.20.3/com.jaspersoft.studio.rcp.product-linux.gtk.x86_64.zip
+RUN apt-get update && apt-get install -y --no-install-recommends unzip \
+    && rm -rf /var/lib/apt/lists/* \
+    && wget --tries=3 --timeout=60 --read-timeout=300 --progress=dot:giga \
+        "${JASPERSOFT_STUDIO_URL}" -O /tmp/jaspersoft-studio.zip \
+    && mkdir -p /tmp/jaspersoft-studio-extract /opt/jaspersoft-studio \
+    && unzip -q /tmp/jaspersoft-studio.zip -d /tmp/jaspersoft-studio-extract \
+    && rm /tmp/jaspersoft-studio.zip \
+    && JSS_BIN="$(find /tmp/jaspersoft-studio-extract \( -name 'Jasper Studio' -o -name 'Jaspersoft Studio' \) -type f | head -1)" \
+    && test -n "$JSS_BIN" \
+    && mv "$(dirname "$JSS_BIN")"/* /opt/jaspersoft-studio/ \
+    && chmod +x "/opt/jaspersoft-studio/$(basename "$JSS_BIN")" \
+    && find /opt/jaspersoft-studio/features -type f -path '*/adoptopenjdk_jre/bin/*' -exec chmod a+x {} + \
+    && ln -sf "$(basename "$JSS_BIN")" "/opt/jaspersoft-studio/jaspersoft-studio" \
+    && rm -rf /tmp/jaspersoft-studio-extract
+
+ENV JASPERSOFT_STUDIO_BIN="/opt/jaspersoft-studio/Jasper Studio"
+
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN sed -i 's/\r$//' /usr/local/bin/docker-entrypoint.sh \
     && chmod +x /usr/local/bin/docker-entrypoint.sh
@@ -80,7 +100,8 @@ RUN set -eux; \
         groupadd -g "${HOST_GID}" developer; \
     fi; \
     useradd -m -u "${HOST_UID}" -g "${HOST_GID}" -s /bin/bash developer; \
-    chown -R developer:developer /opt/idempiere /home/developer
+    mkdir -p /home/developer/eclipse-workspace /home/developer/jaspersoft-studio-workspace /home/developer/.m2/repository; \
+    chown -R developer:developer /opt/idempiere /opt/jaspersoft-studio /home/developer
 USER root
 ENV HOME=/home/developer
 

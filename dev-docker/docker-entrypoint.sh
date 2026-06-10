@@ -1,10 +1,14 @@
 #!/bin/bash
 set -euo pipefail
 
-# Named Docker volumes are created root-owned; Eclipse/Maven run as developer.
+# Eclipse/Maven/Studio state lives under /home/developer in the image (see ./dev.sh capture).
 if [ "$(id -u)" = "0" ]; then
-    mkdir -p /home/developer/.m2/repository /home/developer/eclipse-workspace
-    chown -R developer:developer /home/developer/.m2 /home/developer/eclipse-workspace
+    mkdir -p /home/developer/.m2/repository /home/developer/eclipse-workspace /home/developer/jaspersoft-studio-workspace
+    chown -R developer:developer /home/developer/.m2 /home/developer/eclipse-workspace /home/developer/jaspersoft-studio-workspace
+    # Jaspersoft Studio zip ships JRE binaries without +x; launcher fails with JVM exit code 13.
+    if [ -d /opt/jaspersoft-studio/features ]; then
+        find /opt/jaspersoft-studio/features -type f -path '*/adoptopenjdk_jre/bin/*' -exec chmod a+x {} + 2>/dev/null || true
+    fi
     if [ -f /usr/local/bin/ensure-build-volume-permissions.sh ]; then
         bash /usr/local/bin/ensure-build-volume-permissions.sh
     fi

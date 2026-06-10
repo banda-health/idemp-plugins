@@ -19,7 +19,7 @@ their output by copying the `BH_Feature_Flag` reference implementation.
 | Base models | `I_*`, `X_*`, `M*` in `base/src/.../model/` |
 | Model factory | Register in `BHModelFactory` (all 4 methods) |
 | GraphQL | `X_*` artifacts + `M*` stubs; register in 6 composer/mapper files |
-| Apply | `./build.sh` then `./migrate.sh` |
+| Apply | `./dev.sh build` then `./dev.sh migrate` |
 
 Canonical example: `migration/local_sql/postgresql/202605221123_GO-3580.sql`
 
@@ -56,8 +56,6 @@ OCL org/source base: `bandahealth` → `https://api.openconceptlab.org/orgs/band
 
 ## Docker development
 
-- `./eclipse.sh` — start dev container
-- `./build.sh` — build plugins (`mvn verify`)
-- `./migrate.sh` — apply pending migrations
+Use [`dev.sh`](dev.sh). **Freezing a new dev image** (Eclipse target platform, plugin import, install) is manual — see [`dev-docker/IMAGE-SETUP.md`](dev-docker/IMAGE-SETUP.md). Required again when Eclipse, iDempiere, or Jaspersoft Studio versions change in the Dockerfile.
 
-See [`README.md`](README.md) for full setup.
+See [`README.md`](README.md) and [`.cursor/skills/run-idempiere-dev/SKILL.md`](.cursor/skills/run-idempiere-dev/SKILL.md).

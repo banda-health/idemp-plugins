@@ -1,4 +1,4 @@
-# Merge with docker-compose.build-overlays.yml (see eclipse.sh); do not use `include` here —
+# Merge with docker-compose.build-overlays.yml (see dev.sh); do not use `include` here —
 # Compose v2.21+ treats duplicate service names in included files as conflicts.
 services:
   idempiere:
@@ -9,6 +9,7 @@ services:
       args:
         HOST_UID: ${HOST_UID:-1000}
         HOST_GID: ${HOST_GID:-1000}
+        JASPERSOFT_STUDIO_URL: ${JASPERSOFT_STUDIO_URL:-https://jasper-schulungen.de/jasperstudio-standalone/6.20.3/com.jaspersoft.studio.rcp.product-linux.gtk.x86_64.zip}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     container_name: idempiere-development
@@ -28,8 +29,8 @@ services:
       - ./docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh:ro
       - ./scripts/ensure-build-volume-permissions.sh:/usr/local/bin/ensure-build-volume-permissions.sh:ro
       - ${PLUGINS_MOUNT:-..}:/workspace/idemp-banda:rw
-      - eclipse-workspace:/home/developer/eclipse-workspace
-      - maven-repo:/home/developer/.m2
+      # eclipse-workspace, .m2, and jaspersoft-studio-workspace live in the image
+      # (captured with ./dev.sh capture) — not named volumes, so docker pull reproduces setup.
 
   # PgBouncer on localhost:5432; replaces client creds with DB_UPSTREAM_* for the real database.
   db-proxy:
@@ -68,7 +69,4 @@ services:
   #     timeout: 5s
   #     retries: 5
 
-volumes:
-  eclipse-workspace:
-  maven-repo:
-#   postgres-data:
+#   postgres-data:  # uncomment with compose postgres service

@@ -63,14 +63,17 @@ This will build the plugins, compile the reports, and move data imports, DB migr
 The `dev-docker/` directory runs Eclipse and iDempiere inside a container with this repo mounted at `/workspace/idemp-banda`. This replaces a local iDempiere checkout for day-to-day plugin development.
 
 1. Copy `dev-docker/.env.example` to `dev-docker/.env` and configure DB upstream settings (`DB_UPSTREAM_*`, `DB_HOST_PORT`).
-2. `./eclipse.sh` — start the dev container and Eclipse GUI (uses a frozen snapshot image by default; pass `--build` for a fresh image build).
-3. First time only: complete the Eclipse iDempiere install and add Banda plugins to `server.product` (see the [Setup Guide](https://github.com/banda-health/idemp-banda/wiki/Setup-Guide)).
-4. `./build.sh` — run `mvn verify` inside the container, deploying plugins, compiled reports, data imports, and migration files into `/opt/idempiere` (equivalent to the [Building the Plugins](#building-the-plugins--project) step above).
-5. `./migrate.sh` — apply pending DB migrations via `RUN_SyncDBDev.sh`.
+2. `./dev.sh` — start the dev container and Eclipse GUI (uses a frozen snapshot image by default; pass `--build` for a fresh image build — Studio 6.20.3 is downloaded automatically).
+3. **First time / new image only:** interactive Eclipse setup inside the container (target platform, Banda plugins, install, verify), then freeze the image — see **[`dev-docker/IMAGE-SETUP.md`](dev-docker/IMAGE-SETUP.md)** and the [Setup Guide](https://github.com/banda-health/idemp-banda/wiki/Setup-Guide).
+4. `./dev.sh build` — run `mvn verify` inside the container, deploying plugins, compiled reports, data imports, and migration files into `/opt/idempiere` (equivalent to the [Building the Plugins](#building-the-plugins--project) step above).
+5. `./dev.sh migrate` — apply pending DB migrations via `RUN_SyncDBDev.sh`.
+6. `./dev.sh jasper` — launch Jaspersoft Studio 6.20.3 inside the container for report design (same X11 forwarding as Eclipse). Reports still compile with JasperReports 6.17.0 via Maven.
 
-The repo is bind-mounted into the container so edits on the host are visible immediately. Eclipse workspace and Maven cache are stored in Docker volumes (`eclipse-workspace`, `maven-repo`).
+The repo is bind-mounted into the container so edits on the host are visible immediately. Eclipse workspace, Jaspersoft Studio workspace, and Maven cache live **in the dev image** (captured with `./dev.sh capture` and shared via `IDEMPIERE_DEV_IMAGE` on GHCR). See [`dev-docker/IMAGE-SETUP.md`](dev-docker/IMAGE-SETUP.md).
 
-To freeze your configured environment after setup, run `dev-docker/scripts/capture-container-state.sh` from the `dev-docker/` directory.
+**Starting the server:** `./dev.sh` opens Eclipse but does not start iDempiere. After the container is up, run the iDempiere server from Eclipse (`server.product`). After `./dev.sh build` or `./dev.sh migrate`, restart the server in Eclipse. See [AGENTS.md](AGENTS.md) and [`.cursor/skills/run-idempiere-dev/SKILL.md`](.cursor/skills/run-idempiere-dev/SKILL.md) for the full dev vs CI test workflow (including headless `./dev.sh test`).
+
+To freeze your configured environment after setup, see [`dev-docker/IMAGE-SETUP.md`](dev-docker/IMAGE-SETUP.md) and run `./dev.sh capture`.
 
 ## Running Tests
 A database (DB) is needed to run tests (we test business logic, not implementation logic). You can either use your own and have test data be filled in it, or you can use a fresh DB. The Banda Health iDempiere image comes with data to initialize a new DB, if you'd like. Check the `.env.default` file for information that's available, plus the [Banda iDempiere Docker Image Repo](https://github.com/banda-health/idempiere-docker) for full image information.

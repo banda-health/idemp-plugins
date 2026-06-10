@@ -1,5 +1,5 @@
 # Run a frozen dev image (no rebuild). Capture updates with scripts/capture-container-state.sh
-# Merge with docker-compose.build-overlays.yml (see eclipse.sh); do not use `include` here —
+# Merge with docker-compose.build-overlays.yml (see dev.sh); do not use `include` here —
 # Compose v2.21+ treats duplicate service names in included files as conflicts.
 services:
   idempiere:
@@ -22,8 +22,6 @@ services:
       - ./docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh:ro
       - ./scripts/ensure-build-volume-permissions.sh:/usr/local/bin/ensure-build-volume-permissions.sh:ro
       - ${PLUGINS_MOUNT:-..}:/workspace/idemp-banda:rw
-      - eclipse-workspace:/home/developer/eclipse-workspace
-      - maven-repo:/home/developer/.m2
 
   db-proxy:
     build:
@@ -61,7 +59,4 @@ services:
   #     timeout: 5s
   #     retries: 5
 
-volumes:
-  eclipse-workspace:
-  maven-repo:
-#   postgres-data:
+#   postgres-data:  # uncomment with compose postgres service
