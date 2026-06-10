@@ -33,7 +33,7 @@ services:
     depends_on:
       - idempiere
     environment:
-      - DB_TARGET=${DB_TARGET:-host}
+      - DB_TARGET=${DB_TARGET:-compose}
       - DB_HOST_PORT=${DB_HOST_PORT:-5432}
       - DB_COMPOSE_HOST=${DB_COMPOSE_HOST:-postgres}
       - DB_UPSTREAM_USER=${DB_UPSTREAM_USER:-adempiere}

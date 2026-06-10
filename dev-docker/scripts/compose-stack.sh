@@ -11,7 +11,7 @@ run_compose_stack() {
     shift
 
     local -a compose_args=(-f "$base_file")
-    if [[ "${DB_TARGET:-host}" == "compose" ]]; then
+    if [[ "${DB_TARGET:-compose}" == "compose" ]]; then
         compose_args+=(-f "$POSTGRES_OVERLAY_FILE")
     fi
 

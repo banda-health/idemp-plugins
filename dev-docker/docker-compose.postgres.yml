@@ -1,6 +1,6 @@
 # Optional in-compose Postgres (merged when DB_TARGET=compose in dev-docker/.env).
 # Uses the baked develop DB image (PGDATA in image — do not mount a named volume here).
-# Not merged by ./dev.sh when DB_TARGET=host (default) — no pull or container created.
+# Not merged by ./dev.sh when DB_TARGET=host — no pull or container created.
 services:
   postgres:
     image: ${IDEMPIERE_DB_IMAGE:-ghcr.io/banda-health/idempiere-db:develop}
