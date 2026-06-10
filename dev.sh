@@ -6,6 +6,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOCKER_DEV_DIR="${SCRIPT_DIR}/dev-docker"
 cd "$DOCKER_DEV_DIR"
 
+# shellcheck disable=SC1091
+source "${DOCKER_DEV_DIR}/scripts/compose-stack.sh"
+
 CONTAINER_NAME="${CONTAINER_NAME:-idempiere-development}"
 IDEMPIERE_HOME="${IDEMPIERE_HOME:-/opt/idempiere}"
 PLUGINS_DIR="${PLUGINS_CONTAINER_DIR:-/workspace/idemp-banda}"
@@ -90,8 +93,8 @@ detect_compose_file() {
     fi
 
     local snapshot_q build_q
-    snapshot_q="$(docker compose -f docker-compose.snapshot.yml ps -q 2>/dev/null || true)"
-    build_q="$(docker compose -f docker-compose.yml ps -q 2>/dev/null || true)"
+    snapshot_q="$(run_compose_stack docker-compose.snapshot.yml ps -q 2>/dev/null || true)"
+    build_q="$(run_compose_stack docker-compose.yml ps -q 2>/dev/null || true)"
 
     if [[ -n "$snapshot_q" && -z "$build_q" ]]; then
         echo "docker-compose.snapshot.yml"
@@ -193,19 +196,20 @@ start_stack() {
     case "${MODE}" in
         snapshot)
             echo "Starting dev stack via Docker Compose (frozen snapshot image)..."
-            docker compose -f "$compose_file_name" up -d
+            run_compose_stack "$compose_file_name" up -d
             ;;
         build)
             echo "Starting dev stack via Docker Compose (build from Dockerfile)..."
             export HOST_UID="${HOST_UID:-$(id -u)}"
             export HOST_GID="${HOST_GID:-$(id -g)}"
             echo "Building with HOST_UID=$HOST_UID HOST_GID=$HOST_GID"
-            docker compose -f "$compose_file_name" up -d --build
+            run_compose_stack "$compose_file_name" up -d --build
             ;;
     esac
 }
 
 cmd_down() {
+    load_env
     local compose_file_name
     if ! compose_file_name="$(detect_compose_file)"; then
         echo "No dev stack is running."
@@ -213,7 +217,7 @@ cmd_down() {
     fi
 
     echo "Stopping dev stack ($compose_file_name)..."
-    docker compose -f "$compose_file_name" down
+    run_compose_down "$compose_file_name"
 }
 
 cmd_up() {

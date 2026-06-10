@@ -1,0 +1,19 @@
+# Optional in-compose Postgres (merged when DB_TARGET=compose in dev-docker/.env).
+# Uses the baked develop DB image (PGDATA in image — do not mount a named volume here).
+# Not merged by ./dev.sh when DB_TARGET=host (default) — no pull or container created.
+services:
+  postgres:
+    image: ${IDEMPIERE_DB_IMAGE:-ghcr.io/banda-health/idempiere-db:develop}
+    pull_policy: ${IDEMPIERE_DB_PULL_POLICY:-missing}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  db-proxy:
+    depends_on:
+      idempiere:
+        condition: service_started
+      postgres:
+        condition: service_healthy

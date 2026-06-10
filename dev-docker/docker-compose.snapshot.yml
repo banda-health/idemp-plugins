@@ -1,6 +1,7 @@
 # Run a frozen dev image (no rebuild). Capture updates with scripts/capture-container-state.sh
-# Merge with docker-compose.build-overlays.yml (see dev.sh); do not use `include` here —
-# Compose v2.21+ treats duplicate service names in included files as conflicts.
+# Merge with docker-compose.build-overlays.yml (see dev.sh); optionally
+# docker-compose.postgres.yml when DB_TARGET=compose in .env.
+# Do not use `include` here — Compose v2.21+ treats duplicate service names as conflicts.
 services:
   idempiere:
     image: ${IDEMPIERE_DEV_IMAGE:-dev-docker-idempiere:snapshot}
@@ -44,12 +45,3 @@ services:
     command: ["/bin/sh", "/db-proxy.sh"]
     restart: unless-stopped
 
-  # Uncomment when using DB_TARGET=compose (set IDEMPIERE_DB_IMAGE in .env).
-  # Do not mount a named volume over /var/lib/postgresql/data — it hides the baked PGDATA.
-  # postgres:
-  #   image: ${IDEMPIERE_DB_IMAGE:-ghcr.io/banda-health/idempiere-db:develop}
-  #   healthcheck:
-  #     test: ["CMD-SHELL", "pg_isready -U postgres"]
-  #     interval: 5s
-  #     timeout: 5s
-  #     retries: 10
