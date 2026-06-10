@@ -20,8 +20,10 @@ cleanup() {
 }
 trap cleanup EXIT
 
+ready=false
 for _ in $(seq 1 90); do
 	if pg_isready -U postgres -q 2>/dev/null; then
+		ready=true
 		break
 	fi
 	if ! kill -0 "$pg_pid" 2>/dev/null; then
@@ -29,7 +31,8 @@ for _ in $(seq 1 90); do
 		exit 1
 	fi
 	sleep 1
-else
+done
+if [ "$ready" != true ]; then
 	echo "postgres did not become ready" >&2
 	exit 1
 fi
