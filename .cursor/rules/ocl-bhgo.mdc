@@ -10,7 +10,7 @@ Source: `bandahealth/BHGO`
 UI: https://app.openconceptlab.org/#/orgs/bandahealth/sources/BHGO/  
 Canonical examples in `external-mocks/files/ocl/BHGO-concepts.json`:
 
-- Concept `551` — Anemia, iron deficiency (MOH-705 extras, `Index_terms`)
+- Concept `551` — Anemia, iron deficiency (MOH-705 extras, `index_terms`)
 - Concept `302` — Pneumonia (`index_terms`, preferred name, SAME-AS to CIEL)
 
 ## Concept fields
@@ -25,9 +25,12 @@ Canonical examples in `external-mocks/files/ocl/BHGO-concepts.json`:
 
 ## Concept extras
 
-- `Index_terms` or `index_terms` — comma-separated search synonyms (both casings exist in legacy data; use `Index_terms` for new unless matching a neighbor concept)
-- `MOH-705A-LESSTHAN5` — MOH 705 line label for patients under 5
-- `MOH-705B-GREATERTHAN5` — MOH 705 line label for patients 5 and older
+All extra keys are **lowercase** (must match Jasper reports and `bh_concept_extra.bh_key` after Concept Sync).
+
+- `index_terms` — comma-separated search synonyms
+- `moh-705a-lessthan5` — MOH 705 line label for patients under 5
+- `moh-705b-greaterthan5` — MOH 705 line label for patients 5 and older
+- `local_name` — optional short display label
 
 Populate MOH-705 extras when the diagnosis appears on MOH 705 reports.
 
@@ -62,9 +65,9 @@ POST /orgs/bandahealth/sources/BHGO/concepts/
   "datatype": "Coded",
   "names": [{ "name": "Pneumonia", "locale": "en", "locale_preferred": true, "name_type": "Fully Specified" }],
   "extras": {
-    "Index_terms": "PNA, pneumonia, ...",
-    "MOH-705A-LESSTHAN5": "Pneumonia",
-    "MOH-705B-GREATERTHAN5": "Pneumonia"
+    "index_terms": "PNA, pneumonia, ...",
+    "moh-705a-lessthan5": "Pneumonia",
+    "moh-705b-greaterthan5": "Pneumonia"
   }
 }
 ```

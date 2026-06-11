@@ -16,7 +16,7 @@ Canonical example: concept `2` (Urine microscopy panel) in `external-mocks/files
 |------|---------------|----------|------|
 | Panel | `LabSet` | `None` | Groups related tests (e.g. urine microscopy panel) |
 | Individual test | `Test` | `Numeric`, `Coded`, `Text`, etc. | Standalone orderable test |
-| Drug (C&S antibiotics) | `Drug` | `Coded` | Rare; use `PANEL_1`, `PANEL_2` extras for specimen panels |
+| Drug (C&S antibiotics) | `Drug` | `Coded` | Rare; use `panel_1`, `panel_2` extras for specimen panels |
 
 ## Mapping types
 
@@ -25,14 +25,17 @@ Canonical example: concept `2` (Urine microscopy panel) in `external-mocks/files
 
 Do not use SAME-AS where CONCEPT-SET is intended (panel membership).
 
+All extra keys are **lowercase** (must match Jasper reports and `bh_concept_extra.bh_key` after Concept Sync).
+
 ## Mapping extras (on CONCEPT-SET)
 
 - `local_name` — short label shown in MOH-706 and UI (e.g. `"Urine T. Vaginalis"`)
-- `MOH-706` — numeric line position on MOH 706 form (e.g. `1.1`, `1.8`)
+- `moh-706` — numeric line position on MOH 706 form (e.g. `1.1`, `1.8`)
 
 ## Concept extras
 
 - `local_name` — friendly display name on the concept itself when different from the formal name
+- `units`, `low_normal`, `hi_normal` — reference ranges where applicable
 
 ## External targets
 
@@ -57,7 +60,7 @@ POST /orgs/bandahealth/sources/BHLabs/mappings/
   "map_type": "CONCEPT-SET",
   "from_concept_url": "/orgs/bandahealth/sources/BHLabs/concepts/{panel_id}/",
   "to_concept_url": "/orgs/CIEL/sources/CIEL/concepts/{child_id}/",
-  "extras": { "local_name": "...", "MOH-706": 1.1 }
+  "extras": { "local_name": "...", "moh-706": 1.1 }
 }
 ```
 
@@ -65,6 +68,6 @@ POST /orgs/bandahealth/sources/BHLabs/mappings/
 
 1. Create or locate the panel concept (`LabSet`)
 2. Create or locate each member test concept
-3. Add CONCEPT-SET mappings panel → members with `local_name` and `MOH-706`
+3. Add CONCEPT-SET mappings panel → members with `local_name` and `moh-706`
 4. Add SAME-AS on the panel if it maps to a CIEL panel concept
 5. Verify in OCL UI; run Concept Sync with `source=BHLabs`

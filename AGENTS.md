@@ -44,6 +44,7 @@ OCL org/source base: `bandahealth` → `https://api.openconceptlab.org/orgs/band
   `GET /orgs/CIEL/sources/CIEL/concepts/{id}/` (or LOINC equivalent) and confirm `display_name` matches.
 - Search before creating to avoid duplicates: `GET .../concepts/?q={name}`
 - Retire wrong mappings (`retired: true`); do not leave duplicate active SAME-AS mappings.
+- All concept/mapping **extra keys are lowercase** in OCL (e.g. `index_terms`, `local_name`, `moh-705a-lessthan5`, `low_normal`) — must match Jasper reports and `bh_concept_extra.bh_key` after Concept Sync.
 - After bulk uploads, run **Concept Sync** in iDempiere for the affected source (`BHGO` or `BHLabs`).
 - Local examples: `external-mocks/files/ocl/BHGO-concepts.json`, `external-mocks/files/ocl/BHLabs-concepts.json`
 
