@@ -36,7 +36,7 @@ Commands:
   build           Run mvn verify inside the container (plugins, reports, data, migrations).
   migrate         Run RUN_SyncDBDev.sh for pending DB migrations.
   wait-ready      Poll OSGi console until Banda plugins are ACTIVE/RESOLVED (telnet, CI-style).
-  test            Ensure iDempiere is running; run tests (default: GraphQL Vitest only).
+  test            Ensure iDempiere is running; run tests (default: GraphQL Jest only).
   test-ci         Run CI test stack (root docker compose up; uses gitignored ./testing/ folder).
   download-jasper Pre-download Studio 6.20.3 zip to dev-docker/vendor/ (optional offline cache).
   capture         Freeze the running dev container (docker commit → IDEMPIERE_DEV_IMAGE in .env).
@@ -58,9 +58,9 @@ Examples:
   $0 build -- -pl base,graphql
   $0 migrate -- migration/local-folder
   $0 wait-ready
-  $0 test                              # GraphQL Vitest only (default)
+  $0 test                              # GraphQL Jest only (default)
   $0 test -- visitReceiptReport.test.ts
-  $0 test graphql                      # graphql SOAP + Vitest
+  $0 test graphql                      # graphql SOAP + Jest
   $0 test --all                        # base + graphql + reports
   $0 test --rebuild                    # restart server before tests
   $0 test-ci                 # CI workflow: pre-built image + ./testing/ staging
@@ -230,8 +230,8 @@ exec_in_test_container() {
     docker compose -f docker-compose.dev.yml exec -T test bash -lc "$1"
 }
 
-# Vitest include is src/tests/**/*.test.ts — accept bare filenames from ./dev.sh test -- login.test.ts
-normalize_vitest_args() {
+# Jest tests live under src/tests/**/*.test.ts — accept bare filenames from ./dev.sh test -- login.test.ts
+normalize_jest_args() {
     local -a result=()
     local arg
     for arg in "$@"; do
@@ -251,7 +251,7 @@ normalize_vitest_args() {
 run_test_suite() {
     local suite="$1"
     shift
-    local -a vitest_args=("$@")
+    local -a jest_args=("$@")
 
     run_dev_compose_up
 
@@ -267,25 +267,25 @@ run_test_suite() {
             exec_in_test_container 'cd /app/base-test && ./runTests.sh'
             ;;
         graphql)
-            echo "Running graphql-test (SOAP + Vitest)..."
+            echo "Running graphql-test (SOAP + Jest)..."
             exec_in_test_container 'cd /app/graphql-test && npm install --no-audit --no-fund && ./runTests.sh'
             ;;
         reports)
             echo "Running reports-test..."
             exec_in_test_container 'cd /app/reports-test && ./runTests.sh'
             ;;
-        vitest)
-            read -r -a vitest_args <<<"$(normalize_vitest_args "${vitest_args[@]+"${vitest_args[@]}"}")"
+        jest)
+            read -r -a jest_args <<<"$(normalize_jest_args "${jest_args[@]+"${jest_args[@]}"}")"
             local quoted=""
-            if ((${#vitest_args[@]} > 0)); then
-                quoted="$(printf '%q ' "${vitest_args[@]}")"
+            if ((${#jest_args[@]} > 0)); then
+                quoted="$(printf '%q ' "${jest_args[@]}")"
             fi
-            echo "Running GraphQL Vitest..."
-            exec_in_test_container "cd /app/graphql-test && npm install --no-audit --no-fund && bash ./check-graphql-test-client.sh && bash ./wait-graphql-ready.sh && bash ./run-vitest-isolated.sh ${quoted}"
+            echo "Running GraphQL Jest..."
+            exec_in_test_container "cd /app/graphql-test && npm install --no-audit --no-fund && npm test -- ${quoted}"
             ;;
         *)
             echo "Unknown test suite: $suite" >&2
-            echo "Use: base, graphql, reports, vitest, or --all" >&2
+            echo "Use: base, graphql, reports, jest, or --all" >&2
             exit 1
             ;;
     esac
@@ -438,8 +438,8 @@ cmd_wait_ready() {
 
 cmd_test() {
     local restart_server=false
-    local suite="vitest"
-    local -a vitest_args=()
+    local suite="jest"
+    local -a jest_args=()
 
     while [[ $# -gt 0 ]]; do
         case "$1" in
@@ -453,46 +453,45 @@ cmd_test() {
                 ;;
             --)
                 shift
-                vitest_args=("$@")
+                jest_args=("$@")
                 break
                 ;;
             -h|--help)
                 cat <<EOF
-Usage: $0 test [suite] [--rebuild] [-- vitest-args...]
+Usage: $0 test [suite] [--rebuild] [-- jest-args...]
 
 Ensures iDempiere is running, starts docker-compose.dev.yml, and runs tests.
 Does not run mvn verify or migrations — run ./dev.sh build and ./dev.sh migrate separately.
 
-Suites (default: vitest — GraphQL Vitest only):
-  (none)     GraphQL Vitest only (requires GraphQL test client in DB; see below)
-  --all      base-test + graphql-test + reports-test (full SOAP + Vitest where applicable)
+Suites (default: jest — GraphQL Jest only):
+  (none)     GraphQL Jest only
+  --all      base-test + graphql-test + reports-test (full SOAP + Jest where applicable)
   base       base-test/runTests.sh only
-  graphql    graphql-test/runTests.sh (SOAP Java tests + Vitest)
+  graphql    graphql-test/runTests.sh (SOAP Java tests + Jest)
   reports    reports-test/runTests.sh only
-  vitest     GraphQL Vitest only (same as default)
+  jest       GraphQL Jest only (same as default)
 
-New database: run "$0 test graphql" once before Vitest-only runs. Vitest checks that
-IDEMPIERE_GRAPHQL_TEST_CLIENT exists in ad_client (SOAP populates it).
+New database: run "$0 test graphql" once before Jest-only runs (SOAP populates test data).
 
-Vitest file/pattern filters go after --:
+Jest file/pattern filters go after --:
   $0 test -- visitReceiptReport.test.ts
-  $0 test vitest -- src/tests/processes/visitReceiptReport.test.ts
+  $0 test jest -- src/tests/processes/visitReceiptReport.test.ts
 
 Options:
   --rebuild  Restart the iDempiere server even when HTTP is already up
 EOF
                 exit 0
                 ;;
-            base|graphql|reports|vitest|all)
+            base|graphql|reports|jest|all)
                 suite="$1"
                 shift
                 ;;
             *)
-                if [[ "$suite" == "vitest" ]]; then
-                    vitest_args+=("$1")
+                if [[ "$suite" == "jest" ]]; then
+                    jest_args+=("$1")
                     shift
                 else
-                    echo "Unknown argument: $1 (extra args only allowed for vitest suite)" >&2
+                    echo "Unknown argument: $1 (extra args only allowed for jest suite)" >&2
                     echo "Run: $0 test --help" >&2
                     exit 1
                 fi
@@ -518,7 +517,7 @@ EOF
     ensure_dev_idempiere "$restart_server"
 
     cd "$SCRIPT_DIR"
-    run_test_suite "$suite" "${vitest_args[@]}"
+    run_test_suite "$suite" "${jest_args[@]}"
 }
 
 cmd_test_ci() {

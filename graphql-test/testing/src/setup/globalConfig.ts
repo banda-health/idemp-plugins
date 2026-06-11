@@ -1,4 +1,4 @@
-import { beforeAll, beforeEach, expect } from 'vitest';
+import { beforeAll, beforeEach, expect, jest } from '@jest/globals';
 import { readFile } from 'fs/promises';
 import { tmpdir } from 'os';
 import { join } from 'path';
@@ -8,7 +8,10 @@ import { toCamelCase } from '../utils';
 const workingDirectory = join(tmpdir(), 'rest-global-setup');
 
 // Since we're dealing with APIs and processing documents, calls may take a while
-// depending on the DB. So, increase the test timeout to handle it (also set in vitest.config.ts).
+// depending on the DB. So, increase the test timeout to handle it
+jest.setTimeout(30000); // 30 seconds
+
+// Some tests need something before everything, so define the beforeAll as well
 beforeAll(async () => {
 	// get the admin login information
 	const stringifiedLoginInfo = await readFile(join(workingDirectory, 'loginInfo'), 'utf8');

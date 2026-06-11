@@ -19307,7 +19307,6 @@ export type Bh_Feature_Flag_RuleInput = {
   BH_Rule_Client?: InputMaybe<ForeignEntityInput>;
   BH_Rule_Role?: InputMaybe<ForeignEntityInput>;
   BH_Rule_User?: InputMaybe<ForeignEntityInput>;
-  BH_SystemAdmin?: InputMaybe<Scalars['Boolean']['input']>;
   /** Optional short description of the record */
   Description?: InputMaybe<Scalars['String']['input']>;
   /** The record is active in the system */

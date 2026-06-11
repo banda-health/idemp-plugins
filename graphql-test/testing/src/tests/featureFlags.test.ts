@@ -12,7 +12,6 @@ import {
 	FeatureFlagsDocument,
 	SignInDocument,
 } from '../__generated__/graphql';
-import { ApolloClient, type OperationVariables, type TypedDocumentNode } from '@apollo/client/core';
 import { initialLoginData, mutate, query } from '../api';
 import { ValueObject } from '../models';
 import { RoleName } from '../types/roleName';
@@ -233,11 +232,9 @@ function buildFeatureFlagRuleBase(valueObject: ValueObject, seqNo = 10) {
 	};
 }
 
-async function expectForbiddenMutation<TData, TVariables extends OperationVariables>(
+async function expectForbiddenMutation(
 	valueObject: ValueObject,
-	mutation: ApolloClient.MutateOptions<TData, TVariables> & {
-		mutation: TypedDocumentNode<TData, TVariables>;
-	},
+	mutation: Parameters<ReturnType<typeof mutate>>[0],
 	expectedMessage: RegExp = /Access denied for table: BH_Feature_Flag/,
 ) {
 	let error: Error | undefined;

@@ -57,15 +57,15 @@ Prerequisite: run `./dev.sh build` (and `./dev.sh migrate` if SQL changed) separ
 3. `docker compose -f docker-compose.dev.yml up` — external-mocks + test container
 4. Runs the selected test suite via `docker compose exec` (see suites below)
 
-**Default:** `./dev.sh test` runs **GraphQL Vitest only** (fastest iteration).
+**Default:** `./dev.sh test` runs **GraphQL Jest only** (fastest iteration).
 
-On a **new database**, run `./dev.sh test graphql` once first (SOAP creates the test client). Vitest-only runs check that `IDEMPIERE_GRAPHQL_TEST_CLIENT` exists in `ad_client` before starting.
+On a **new database**, run `./dev.sh test graphql` once first (SOAP creates the test client).
 
 | Command | What runs |
 |---------|-----------|
-| `./dev.sh test` | GraphQL Vitest only |
-| `./dev.sh test -- visitReceiptReport.test.ts` | Vitest with file/pattern filter |
-| `./dev.sh test graphql` | graphql SOAP Java tests + Vitest |
+| `./dev.sh test` | GraphQL Jest only |
+| `./dev.sh test -- visitReceiptReport.test.ts` | Jest with file/pattern filter |
+| `./dev.sh test graphql` | graphql SOAP Java tests + Jest |
 | `./dev.sh test base` / `reports` | That suite's `runTests.sh` only |
 | `./dev.sh test --all` | base + graphql + reports |
 
@@ -90,13 +90,13 @@ Use when developing GraphQL endpoints against a running server.
 1. iDempiere running (Path A or B)
 2. `docker compose -f docker-compose.dev.yml up --build`
 3. `docker compose -f docker-compose.dev.yml exec test /bin/bash`
-4. `cd graphql-test && npm test -- --run`
+4. `cd graphql-test && npm test`
 
 Environment variables (root `.env`):
 
 - `IDEMPIERE_ENDPOINT` — e.g. `http://host.docker.internal:9090` (dev) or `http://idempiere:8080` (CI)
 - `IDEMPIERE_USER` / `IDEMPIERE_USER_PASSWORD` — default `SuperUser` / `System`
-- `IDEMPIERE_GRAPHQL_TEST_CLIENT` — Vitest client name (default `GraphQL Test Client`; created by graphql SOAP population)
+- `IDEMPIERE_GRAPHQL_TEST_CLIENT` — GraphQL test client name (default `GraphQL Test Client`; created by graphql SOAP population)
 
 ## Credentials & clients
 
@@ -116,8 +116,8 @@ Do not commit `dev-docker/.env` or root `.env` — they contain real passwords.
 | Build plugins (dev container) | `./dev.sh build` |
 | Apply migrations | `./dev.sh migrate` |
 | Wait for dev server | `./dev.sh wait-ready` (OSGi telnet + Banda bundles, CI-style) |
-| Run GraphQL Vitest (default) | `./dev.sh test` |
-| Run one Vitest file | `./dev.sh test -- visitReceiptReport.test.ts` |
+| Run GraphQL Jest (default) | `./dev.sh test` |
+| Run one Jest file | `./dev.sh test -- visitReceiptReport.test.ts` |
 | Run full dev test suite | `./dev.sh test --all` |
 | Restart server + test | `./dev.sh test --rebuild` |
 | Run CI test suite | `./dev.sh test-ci` |

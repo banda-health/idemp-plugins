@@ -1,3 +1,4 @@
+import { isApolloError } from '@apollo/client/core';
 import {
 	Bh_VisitProcessDocument,
 	C_BPartnerGetDocument,
@@ -539,8 +540,10 @@ test('reactivating an order that would case inventory to go negative message cor
 		});
 		expect(false).toBe(true);
 	} catch (error) {
-		if (error instanceof Error) {
-			errorMessage = error.message.split(' : ')[1] || error.message;
+		if (error instanceof Error && isApolloError(error)) {
+			errorMessage = error.graphQLErrors
+				.map((graphqlError) => graphqlError.message.split(' : ')[1] || graphqlError.message)
+				.join(', ');
 		}
 	}
 

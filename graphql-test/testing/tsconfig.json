@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"target": "ES2022",
-		"types": ["node", "vitest/globals"],
+		"types": ["node", "jest"],
 		"allowJs": true,
 		"skipLibCheck": true,
 		"esModuleInterop": true,
@@ -16,5 +16,5 @@
 		"noFallthroughCasesInSwitch": true
 	},
 	"compileOnSave": true,
-	"include": ["src/**/*", "vitest.config.ts", "codegen.ts"]
+	"include": ["src/**/*", "jest.config.ts", "codegen.ts"]
 }
