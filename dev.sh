@@ -281,7 +281,7 @@ run_test_suite() {
                 quoted="$(printf '%q ' "${vitest_args[@]}")"
             fi
             echo "Running GraphQL Vitest..."
-            exec_in_test_container "cd /app/graphql-test && npm install --no-audit --no-fund && bash ./check-graphql-test-client.sh && bash ./wait-graphql-ready.sh && npm test -- --run --reporter=verbose ${quoted}"
+            exec_in_test_container "cd /app/graphql-test && npm install --no-audit --no-fund && bash ./check-graphql-test-client.sh && bash ./wait-graphql-ready.sh && bash ./run-vitest-isolated.sh ${quoted}"
             ;;
         *)
             echo "Unknown test suite: $suite" >&2

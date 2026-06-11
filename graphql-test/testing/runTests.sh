@@ -47,7 +47,7 @@ bash ./check-graphql-test-client.sh
 bash ./wait-graphql-ready.sh
 
 { echo && echo "Running Vitest API Tests..."; }
-npm test -- --run --reporter=verbose
+bash ./run-vitest-isolated.sh
 if [ $? -ne 0 ]; then
   cd ../
   mkdir -p output
