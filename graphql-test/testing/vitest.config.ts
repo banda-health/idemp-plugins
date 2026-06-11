@@ -10,11 +10,11 @@ export default defineConfig({
 		testTimeout: 30_000,
 		clearMocks: true,
 		// Tests share a live DB and global login state — one file at a time.
-		pool: 'forks',
+		// threads avoids fork worker crashes on loaded CI agents (report tests die with forks).
+		pool: 'threads',
 		isolate: true,
 		maxWorkers: 1,
 		fileParallelism: false,
-		// Jasper report tests can leave workers busy; default 10s teardown is too short on CI.
 		teardownTimeout: 60_000,
 	},
 	resolve: {

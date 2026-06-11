@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Run each Vitest file in its own process (same approach as the old Jest loop in runTests.sh).
-# Avoids Vitest 4 fork-pool worker teardown failures when the full suite runs in one session.
+# Avoids Vitest worker teardown failures when the full suite runs in one session.
 
 set -euo pipefail
 
