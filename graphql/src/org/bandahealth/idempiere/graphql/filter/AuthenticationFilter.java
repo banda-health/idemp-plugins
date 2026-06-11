@@ -1,13 +1,10 @@
 package org.bandahealth.idempiere.graphql.filter;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.util.ServerContext;
 import org.bandahealth.idempiere.graphql.model.AuthenticationCookie;
 import org.bandahealth.idempiere.graphql.utils.AuthenticationUtil;
-import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.compiere.model.MSession;
 import org.compiere.model.MSystem;
 import org.compiere.util.Env;
@@ -20,187 +17,114 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequestWrapper;
-import javax.ws.rs.HttpMethod;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 /**
- * Basic Authentication on all requests
- *
- * @author kevin
+ * Basic Authentication on all requests. Batched GraphQL requests are authorized per operation so an
+ * allowlisted operation cannot unlock protected operations in the same HTTP request.
  */
 public class AuthenticationFilter implements Filter {
 
-	private final String ERROR_UNAUTHORIZED = "Unauthorized";
-	private final String ERROR_INTERNAL_SERVER_ERROR = "Internal Server Error";
-	/**
-	 * These are the queries that can be used without authentication
-	 */
-	private final List<String> ALLOWABLE_UNAUTHENTICATED_QUERIES = List.of("SignIn", "ChangePassword", "AD_LanguageGet");
-	/**
-	 * These are the queries that can be used without full authentication
-	 */
-	private final List<String> ALLOWABLE_PARTIALLY_AUTHENTICATED_QUERIES =
+	private static final String ERROR_UNAUTHORIZED = "Unauthorized";
+	private static final String ERROR_INTERNAL_SERVER_ERROR = "Internal Server Error";
+	private static final List<String> ALLOWABLE_UNAUTHENTICATED_QUERIES =
+			List.of("SignIn", "ChangePassword", "AD_LanguageGet");
+	private static final List<String> ALLOWABLE_PARTIALLY_AUTHENTICATED_QUERIES =
 			List.of("ChangeAccess", "AD_ClientGet", "AD_ClientForAccessSelection");
-	/**
-	 * These are the queries that are available in non-PROD environments
-	 */
-	private final List<String> ALLOWABLE_UNAUTHENTICATED_NON_PROD_QUERIES = List.of("IntrospectionQuery");
+	private static final List<String> ALLOWABLE_UNAUTHENTICATED_NON_PROD_QUERIES = List.of("IntrospectionQuery");
+
+	private GraphQLOperationAuthClassifier operationAuthClassifier;
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		// Intentionally left blank
+		operationAuthClassifier = new GraphQLOperationAuthClassifier(ALLOWABLE_UNAUTHENTICATED_QUERIES,
+				ALLOWABLE_PARTIALLY_AUTHENTICATED_QUERIES, ALLOWABLE_UNAUTHENTICATED_NON_PROD_QUERIES);
 	}
 
-	/**
-	 * This performs the actual filtering of the requests
-	 *
-	 * @param request  The passed-in request
-	 * @param response The response to leverage
-	 * @param chain    The passed-in filter chain
-	 * @throws IOException
-	 * @throws ServletException
-	 */
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
 			ServletException {
-		// Always start off with a new context
 		ServerContext.setCurrentInstance(new Properties());
-		//
-		HttpServletRequestWrapper bandaRequest = new BandaServletRequestWrapper(request);
-		String requestQuery = bandaRequest.getParameter("query");
-		// If the query parameter didn't come through, try to pull it from the body
-		if (StringUtil.isNullOrEmpty(requestQuery)) {
-			try {
-				String requestBody = bandaRequest.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-				requestQuery = (String) ((Map<String, Object>) ((List<Object>) new ObjectMapper().configure(
-						DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true).readValue(requestBody, ArrayList.class))
-						.get(0)).get("query");
-			} catch (Exception ignore) {
-			}
-			if (StringUtil.isNullOrEmpty(requestQuery)) {
-				requestQuery = "";
-			}
-		}
-		// Don't filter a request to get an authentication session or to change a password
-		if (bandaRequest.getMethod().equals(HttpMethod.POST)) {
-			boolean requestCanProceedWithoutAuthentication = false;
-			if (!MSystem.get(Env.getCtx()).getSystemStatus().equals(MSystem.SYSTEMSTATUS_Production)) {
-				for (String allowableUnauthenticatedQuery : ALLOWABLE_UNAUTHENTICATED_NON_PROD_QUERIES) {
-					if (requestQuery.contains("query " + allowableUnauthenticatedQuery + " {") ||
-							requestQuery.contains("query " + allowableUnauthenticatedQuery + "{")) {
-						requestCanProceedWithoutAuthentication = true;
-						break;
-					}
-				}
-			}
-			if (!requestCanProceedWithoutAuthentication) {
-				for (String allowableUnauthenticatedQuery : ALLOWABLE_UNAUTHENTICATED_QUERIES) {
-					if (requestQuery.contains(allowableUnauthenticatedQuery + "(")) {
-						requestCanProceedWithoutAuthentication = true;
-						break;
-					}
-				}
-			}
-			if (requestCanProceedWithoutAuthentication) {
-				chain.doFilter(bandaRequest, response);
-				return;
+
+		BandaServletRequestWrapper bandaRequest = new BandaServletRequestWrapper(request);
+		GraphQLBatchRequest batchRequest = GraphQLBatchRequest.parse(bandaRequest);
+		boolean isProduction = MSystem.get(Env.getCtx()).getSystemStatus().equals(MSystem.SYSTEMSTATUS_Production);
+		AuthenticationSessionState sessionState = resolveSessionState(bandaRequest);
+
+		List<Boolean> allowedOperations = new ArrayList<>();
+		List<String> operationErrors = new ArrayList<>();
+		for (GraphQLBatchRequest.GraphQLOperation operation : batchRequest.getOperations()) {
+			GraphQLOperationAuthRequirement requirement =
+					operationAuthClassifier.getRequirement(operation.getQuery(), isProduction);
+			if (GraphQLOperationAuthClassifier.isAllowed(requirement, sessionState)) {
+				allowedOperations.add(Boolean.TRUE);
+				operationErrors.add(null);
+			} else {
+				allowedOperations.add(Boolean.FALSE);
+				operationErrors.add(ERROR_UNAUTHORIZED);
 			}
 		}
 
-		Cookie authenticationCookie = AuthenticationCookie.getAuthenticationCookie(bandaRequest);
+		boolean hasAllowedOperation = allowedOperations.stream().anyMatch(Boolean::booleanValue);
+		boolean hasDeniedOperation = allowedOperations.stream().anyMatch(allowed -> !allowed);
 
-		// consume JWT from cookie i.e. execute signature validation
-		if (authenticationCookie != null) {
-			try {
-				AuthenticationUtil.validate(authenticationCookie.getValue(), Env.getCtx());
-				if (Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_USER_ID))) {
-					return;
-				}
-				boolean doesRequestContainQueryAllowableWhenPartiallyAuthenticated = false;
-				for (String allowableUnauthenticatedQuery : ALLOWABLE_PARTIALLY_AUTHENTICATED_QUERIES) {
-					if (requestQuery.contains(allowableUnauthenticatedQuery)) {
-						doesRequestContainQueryAllowableWhenPartiallyAuthenticated = true;
-						break;
-					}
-				}
-				if (!doesRequestContainQueryAllowableWhenPartiallyAuthenticated) {
-					MSession session = MSession.get(Env.getCtx());
-//				if (session.isProcessed()) {
-//					// is possible that the session was finished in a reboot instead of a logout
-//					// if there is a REST_AuthToken or a REST_RefreshToken, then the user has not logged out
-//					MAuthToken authToken = MAuthToken.get(Env.getCtx(), token);
-//					if (authToken != null || MRefreshToken.exists(token)) {
-//						DB.executeUpdateEx(
-//								"UPDATE AD_Session SET Processed='N', UpdatedBy=CreatedBy, Updated=getDate() WHERE AD_Session_ID=?",
-//								new Object[]{AD_Session_ID}, null);
-//						session.load(session.get_TrxName());
-//					} else {
-//						requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
-//					}
-//				}
-					if (Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_USER_ID)) ||
-							Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_ROLE_ID)) || session.isProcessed()) {
-						abortRequest(requestQuery, response, ERROR_UNAUTHORIZED);
-						return;
-					}
-				}
-			} catch (JWTVerificationException | AdempiereException ex) {
-				abortRequest(requestQuery, response, ERROR_UNAUTHORIZED);
-				return;
-			} catch (Exception ex) {
-				abortRequest(requestQuery, response, ERROR_INTERNAL_SERVER_ERROR);
-				return;
-			}
-		} else {
-			abortRequest(requestQuery, response, ERROR_UNAUTHORIZED);
+		if (!hasAllowedOperation) {
+			GraphQLBatchResponseBuilder.writeDeniedBatch(batchRequest, operationErrors, response);
 			return;
 		}
 
-		chain.doFilter(bandaRequest, response);
+		if (!hasDeniedOperation) {
+			chain.doFilter(bandaRequest, response);
+			return;
+		}
+
+		List<GraphQLBatchRequest.GraphQLOperation> forwardedOperations = new ArrayList<>();
+		for (int index = 0; index < batchRequest.size(); index++) {
+			if (allowedOperations.get(index)) {
+				forwardedOperations.add(batchRequest.getOperations().get(index));
+			}
+		}
+
+		BandaServletRequestWrapper forwardedRequest =
+				new BandaServletRequestWrapper(bandaRequest, batchRequest.toJsonBytes(forwardedOperations));
+		BandaServletResponseWrapper wrappedResponse = new BandaServletResponseWrapper((javax.servlet.http.HttpServletResponse) response);
+		chain.doFilter(forwardedRequest, wrappedResponse);
+
+		List<Object> mergedResults =
+				GraphQLBatchResponseBuilder.mergeResults(batchRequest, allowedOperations, wrappedResponse.getCapturedBody());
+		GraphQLBatchResponseBuilder.writeMergedBatch(response, batchRequest, mergedResults);
+	}
+
+	private AuthenticationSessionState resolveSessionState(BandaServletRequestWrapper request) {
+		Cookie authenticationCookie = AuthenticationCookie.getAuthenticationCookie(request);
+		if (authenticationCookie == null) {
+			return AuthenticationSessionState.NONE;
+		}
+		try {
+			AuthenticationUtil.validate(authenticationCookie.getValue(), Env.getCtx());
+			if (Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_USER_ID))) {
+				return AuthenticationSessionState.NONE;
+			}
+			if (Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_ROLE_ID))) {
+				return AuthenticationSessionState.PARTIAL;
+			}
+			MSession session = MSession.get(Env.getCtx());
+			if (session == null || session.isProcessed()) {
+				return AuthenticationSessionState.PARTIAL;
+			}
+			return AuthenticationSessionState.FULL;
+		} catch (JWTVerificationException | AdempiereException ex) {
+			return AuthenticationSessionState.NONE;
+		} catch (Exception ex) {
+			return AuthenticationSessionState.NONE;
+		}
 	}
 
 	@Override
 	public void destroy() {
 		// Intentionally left blank
-	}
-
-	/**
-	 * Write a response body as close as possible to what GraphQL generates
-	 *
-	 * @param requestQuery The query string passed in as part of the request
-	 * @param response     The response to return
-	 * @param errorMessage The error message to use
-	 * @throws IOException
-	 */
-	private void abortRequest(String requestQuery, ServletResponse response, String errorMessage) throws IOException {
-		List<String> paths = new ArrayList<>();
-		if (!StringUtil.isNullOrEmpty(requestQuery)) {
-			try {
-				// Try to get the requested queries so they can be returned in the error
-				paths.add("\"" + Arrays.stream(StringUtil.stripNewLines(requestQuery).replace("mutation", "")
-						.replace(":", " ").replace("(", " ").replace("{", " ")
-						.replace("$", " ").replace("!", " ").replace("query", "")
-						.split(" ")).filter(s -> !StringUtil.isNullOrEmpty(s)).findFirst().orElse("unknown") + "\"");
-			} catch (Exception ignore) {
-			}
-		}
-		response.setContentType("application/json");
-		String errorResponse = "{\"data\":{";
-		if (!paths.isEmpty()) {
-			errorResponse += paths.stream().map(path -> path + ": null").collect(Collectors.joining(","));
-		}
-		errorResponse += "},\"errors\":[{\"message\": \"" + errorMessage + "\"";
-		if (!paths.isEmpty()) {
-			errorResponse += ",\"paths\":[" + String.join(",", paths) + "]";
-		}
-		errorResponse += "}]}";
-		response.getWriter().write(errorResponse);
 	}
 }

@@ -33,13 +33,22 @@ public class BandaServletRequestWrapper extends HttpServletRequestWrapper {
 		body = readBytes(request.getReader(), "utf-8");
 	}
 
+	public BandaServletRequestWrapper(HttpServletRequest request, byte[] body) {
+		super(request);
+		this.body = body;
+	}
+
 	public BandaServletRequestWrapper(ServletRequest request) throws IOException {
 		this((HttpServletRequest) request);
 	}
 
+	byte[] getBody() {
+		return body;
+	}
+
 	@Override
 	public ServletInputStream getInputStream() throws IOException {
-		final ByteArrayInputStream bais = new ByteArrayInputStream(body);
+		final ByteArrayInputStream bais = new ByteArrayInputStream(body == null ? new byte[0] : body);
 		return new ServletInputStream() {
 
 			@Override
