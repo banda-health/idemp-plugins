@@ -7,9 +7,10 @@
 #   After a sync, the updated file's mtime is aligned to the winner so the
 #   next run stays idempotent until a file is edited again.
 #
+# SKIP: set SKIP_ENV_SYNC=1 or CI=true to disable sync (e.g. TeamCity agents).
+#
 # SHARED KEY MAPPINGS (same keys or derived pairs):
 #   dev-docker                    ↔ root
-#   IDEMPIERE_HTTP_PORT           ↔ IDEMPIERE_ENDPOINT (http://host.docker.internal:<port>)
 #   DB_UPSTREAM_DATABASE          ↔ DB_NAME
 #   DB_UPSTREAM_PASSWORD          ↔ IDEMPIERE_DATABASE_PASSWORD
 #   DB_UPSTREAM_ADMIN_PASSWORD    ↔ POSTGRES_PASSWORD
@@ -21,11 +22,11 @@
 #   IDEMPIERE_GRAPHQL_TEST_CLIENT ↔ IDEMPIERE_GRAPHQL_TEST_CLIENT
 #   EXTERNAL_MOCKS_PORT           ↔ EXTERNAL_MOCKS_PORT
 #
-# DEV-ONLY (never copied): IDEMPIERE_HOME, PLUGINS_*, RUN_MIGRATIONS_ON_START,
-#   DB_COMPOSE_HOST, IDEMPIERE_DEV_IMAGE, IDEMPIERE_DB_IMAGE, HOST_UID/GID, ...
+# DEV-ONLY (never copied): IDEMPIERE_HTTP_PORT, IDEMPIERE_HOME, PLUGINS_*,
+#   RUN_MIGRATIONS_ON_START, DB_COMPOSE_HOST, IDEMPIERE_DEV_IMAGE, IDEMPIERE_DB_IMAGE, ...
 #
-# ROOT-ONLY (never copied): CONTAINER_NAME, IDEMPIERE_FRESH_DB, IDEMPIERE_VERSION,
-#   IDEMPIERE_PORT, EXTERNAL_MOCKS_ENDPOINT, OCL_*, YOUTRACK_TOKEN, ...
+# ROOT-ONLY (never copied): IDEMPIERE_ENDPOINT, CONTAINER_NAME, IDEMPIERE_FRESH_DB,
+#   IDEMPIERE_VERSION, IDEMPIERE_PORT, EXTERNAL_MOCKS_ENDPOINT, OCL_*, YOUTRACK_TOKEN, ...
 #
 # Invoked automatically (silent) from dev.sh load_env and scripts/compose.sh.
 # Diagnostics: ./dev-docker/scripts/sync-env.sh --dry-run | --check
@@ -118,19 +119,6 @@ set_env_var() {
     mv "$tmp" "$file"
 }
 
-endpoint_from_port() {
-    printf 'http://host.docker.internal:%s' "${1:-8080}"
-}
-
-port_from_endpoint() {
-    local endpoint="${1:-}"
-    if [[ "$endpoint" =~ :([0-9]+)(/|$) ]]; then
-        echo "${BASH_REMATCH[1]}"
-    else
-        echo "8080"
-    fi
-}
-
 ensure_env_files() {
     if [[ ! -f "$DEV_ENV" && -f "$DEV_EXAMPLE" ]]; then
         if [[ "$DRY_RUN" == true || "$CHECK_ONLY" == true ]]; then
@@ -156,13 +144,10 @@ file_mtime() {
 build_dev_to_root_plan() {
     local dev_file="$1"
     local -n _plan="$2"
-    local db_target http_port host_port
+    local db_target
 
     _plan=()
     db_target="$(read_env_var "$dev_file" DB_TARGET || echo compose)"
-    http_port="$(read_env_var "$dev_file" IDEMPIERE_HTTP_PORT || echo 8080)"
-
-    _plan[IDEMPIERE_ENDPOINT]="$(endpoint_from_port "$http_port")"
 
     if v="$(read_env_var "$dev_file" DB_UPSTREAM_DATABASE)"; then _plan[DB_NAME]="$v"; fi
     if v="$(read_env_var "$dev_file" DB_UPSTREAM_PASSWORD)"; then _plan[IDEMPIERE_DATABASE_PASSWORD]="$v"; fi
@@ -182,12 +167,9 @@ build_dev_to_root_plan() {
 build_root_to_dev_plan() {
     local root_file="$1"
     local -n _plan="$2"
-    local endpoint postgres_host postgres_port
+    local postgres_host postgres_port
 
     _plan=()
-    if endpoint="$(read_env_var "$root_file" IDEMPIERE_ENDPOINT)"; then
-        _plan[IDEMPIERE_HTTP_PORT]="$(port_from_endpoint "$endpoint")"
-    fi
 
     if v="$(read_env_var "$root_file" DB_NAME)"; then _plan[DB_UPSTREAM_DATABASE]="$v"; fi
     if v="$(read_env_var "$root_file" IDEMPIERE_DATABASE_PASSWORD)"; then _plan[DB_UPSTREAM_PASSWORD]="$v"; fi
@@ -248,6 +230,10 @@ apply_plan() {
     done
     echo "$count"
 }
+
+if [[ "${SKIP_ENV_SYNC:-}" == "1" || "${CI:-}" == "true" ]]; then
+    exit 0
+fi
 
 if [[ ! -f "$DEV_ENV" && ! -f "$ROOT_ENV" ]]; then
     exit 0

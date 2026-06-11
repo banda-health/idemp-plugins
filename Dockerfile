@@ -1,6 +1,6 @@
 FROM alpine:latest
 RUN apk update && apk add --no-cache wget libxml2-utils bash postgresql-client nodejs npm jq
-RUN npm install vitest@3.2.4 typescript@6.0.3 ts-node@10.9.2 --global
+RUN npm install vitest@4.1.8 typescript@6.0.3 ts-node@10.9.2 --global
 
 WORKDIR /app
 COPY ./docker-entrypoint.sh .

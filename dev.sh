@@ -281,7 +281,7 @@ run_test_suite() {
                 quoted="$(printf '%q ' "${vitest_args[@]}")"
             fi
             echo "Running GraphQL Vitest..."
-            exec_in_test_container "cd /app/graphql-test && npm install --no-audit --no-fund && bash ./check-graphql-test-client.sh && npm test -- --run --reporter=verbose ${quoted}"
+            exec_in_test_container "cd /app/graphql-test && npm install --no-audit --no-fund && bash ./check-graphql-test-client.sh && bash ./wait-graphql-ready.sh && npm test -- --run --reporter=verbose ${quoted}"
             ;;
         *)
             echo "Unknown test suite: $suite" >&2
@@ -510,8 +510,10 @@ EOF
         exit 1
     fi
 
+    # Dev test containers reach the Eclipse server via host port mapping — independent of
+    # root .env IDEMPIERE_ENDPOINT (http://idempiere:8080 for CI compose only).
     local port="${IDEMPIERE_HTTP_PORT:-8080}"
-    export IDEMPIERE_ENDPOINT="${IDEMPIERE_ENDPOINT:-http://host.docker.internal:${port}}"
+    export IDEMPIERE_ENDPOINT="http://host.docker.internal:${port}"
 
     ensure_dev_idempiere "$restart_server"
 
