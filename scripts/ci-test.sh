@@ -43,7 +43,14 @@ bash "${ROOT}/scripts/compose.sh" up -d --wait --wait-timeout "${WAIT_TIMEOUT}" 
 
 echo "Running tests..."
 set +e
-bash "${ROOT}/scripts/compose.sh" run --rm tests "$@"
+compose_run_args=(run --rm)
+for arg in "$@"; do
+  case "$arg" in
+    --build) compose_run_args+=(--build) ;;
+    *) echo "Ignoring unknown ci-test.sh argument: $arg" >&2 ;;
+  esac
+done
+bash "${ROOT}/scripts/compose.sh" "${compose_run_args[@]}" tests
 exit_code=$?
 set -e
 

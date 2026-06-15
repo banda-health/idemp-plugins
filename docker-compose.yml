@@ -21,6 +21,7 @@ services:
       - INSTALLATION_HOME=${INSTALLATION_HOME}
       - OCL_API_TOKEN=whatever
       - OCL_BASE_URL=http://external-mocks:${EXTERNAL_MOCKS_PORT}/ocl
+      - GRAPHQL_PROXY_UPSTREAM_URL=http://external-mocks:${EXTERNAL_MOCKS_PORT}/graphql-proxy
     ports:
       - ${IDEMPIERE_PORT}:8080
       - ${IDEMPIERE_SSL_PORT}:8443
@@ -49,7 +50,7 @@ services:
     container_name: '${CONTAINER_NAME}_tests'
     environment:
       - CI=${CI:-false}
-      - TEST_QUIET=${TEST_QUIET:-false}
+      - TEST_QUIET=${TEST_QUIET:-true}
       - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
       - IDEMPIERE_GRAPHQL_TEST_CLIENT=${IDEMPIERE_GRAPHQL_TEST_CLIENT}
       - IDEMPIERE_USER=${IDEMPIERE_USER}

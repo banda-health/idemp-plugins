@@ -14,3 +14,4 @@ cd ../reports-test
 
 cd ../
 rm .unhealthy
+exit 0

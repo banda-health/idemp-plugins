@@ -46,7 +46,12 @@ fi
 # There's something wrong with running Jest in sequence and it won't output any results (both --runInBand and --maxWorkers=1
 # don't output log files). Also, something is wrong with Jest and it's not outputting the results, so we have to do it
 # manually. So, loop over the test files so Jest can run one test at a time in parallel. 😂
-if [[ "${TEST_QUIET:-false}" != "true" ]]; then
+jest_quiet=false
+if [[ "${TEST_QUIET:-false}" == "true" || "${CI:-false}" == "true" ]]; then
+  jest_quiet=true
+fi
+
+if [[ "$jest_quiet" != "true" ]]; then
   { echo && echo "Running Jest Tests..."; }
 fi
 
@@ -58,12 +63,12 @@ find ./src -type f -regex '.*\/\?.*\(spec\|test\)\.[tj]sx\?' | sed 's/\.\///' >>
 
 [ -f "full-test-results.txt" ] && full-test-results.txt
 touch full-test-results.txt
-export NODE_OPTIONS="--experimental-vm-modules${NODE_OPTIONS:+ $NODE_OPTIONS}"
+export NODE_OPTIONS="--experimental-vm-modules --no-warnings"
 
 while IFS= read -r line; do
   [ -f "jestResults.json" ] && rm jestResults.json
   touch jestResults.json
-  if [[ "${TEST_QUIET:-false}" == "true" ]]; then
+  if [[ "$jest_quiet" == "true" ]]; then
     jest --silent --json --outputFile=jestResults.json "$line" >/dev/null 2>&1
   else
     jest --silent --json --outputFile=jestResults.json "$line"
