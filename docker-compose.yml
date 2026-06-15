@@ -38,6 +38,7 @@ services:
 
   tests:
     build: .
+    restart: "no"
     depends_on:
       idempiere:
         condition: service_healthy
@@ -47,6 +48,8 @@ services:
       - ./db-output:/app/output
     container_name: '${CONTAINER_NAME}_tests'
     environment:
+      - CI=${CI:-false}
+      - TEST_QUIET=${TEST_QUIET:-false}
       - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
       - IDEMPIERE_GRAPHQL_TEST_CLIENT=${IDEMPIERE_GRAPHQL_TEST_CLIENT}
       - IDEMPIERE_USER=${IDEMPIERE_USER}

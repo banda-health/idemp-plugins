@@ -7,4 +7,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 bash "${ROOT}/dev-docker/scripts/sync-env.sh" --quiet
 cd "$ROOT"
+if [[ "${CI:-}" == "true" || "${COMPOSE_QUIET:-}" == "1" ]]; then
+    export COMPOSE_PROGRESS=quiet
+fi
 exec docker compose "$@"

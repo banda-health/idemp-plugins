@@ -521,12 +521,7 @@ EOF
 }
 
 cmd_test_ci() {
-    cd "$SCRIPT_DIR"
-    if [[ ! -f .env ]]; then
-        echo "Missing .env in repo root (auto-created from .env.example when possible)." >&2
-        exit 1
-    fi
-    bash "${SCRIPT_DIR}/scripts/compose.sh" up "$@"
+    bash "${SCRIPT_DIR}/scripts/ci-test.sh" "$@"
 }
 
 cmd_download_jasper() {

@@ -14,4 +14,3 @@ cd ../reports-test
 
 cd ../
 rm .unhealthy
-exec "$@"

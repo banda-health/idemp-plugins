@@ -80,8 +80,10 @@ Tests require the **Garden World** client (ClientID 11 in SOAP requests) for SOA
 Use for TeamCity-parity runs with the pre-built `banda-idempiere` image.
 
 1. `mvn verify` on host or CI first — populates gitignored `./testing/`
-2. `./dev.sh test-ci` or `docker compose up` at repo root
+2. `./dev.sh test-ci` or `scripts/ci-test.sh` (deps start detached; `compose run --rm tests` exits when the entrypoint finishes; stack is torn down)
 3. iDempiere at `${IDEMPIERE_PORT}` (default **9877**)
+
+Do **not** use bare `docker compose up` in CI — the test container used to fall through to `tail -f` and never exit, and other services keep the step alive. TeamCity should call `scripts/ci-test.sh` (same root `docker-compose.yml`). `TEST_QUIET=false` restores full per-file Jest reporter output.
 
 ## Path D: GraphQL test iteration
 
