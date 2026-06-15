@@ -20,6 +20,8 @@ export CI=true
 export TEST_QUIET="${TEST_QUIET:-true}"
 export COMPOSE_PROGRESS=quiet
 
+bash "${ROOT}/scripts/ci-clean-workspace.sh"
+
 WAIT_TIMEOUT="${CI_TEST_WAIT_TIMEOUT:-1200}"
 project_label="${COMPOSE_PROJECT_NAME:-${CONTAINER_NAME:-test}}"
 
