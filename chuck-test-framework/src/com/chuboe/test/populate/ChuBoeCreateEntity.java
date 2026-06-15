@@ -44,6 +44,7 @@ import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MProduct_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
+import org.bandahealth.idempiere.base.utils.ReportContextUtil;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MBankAccount;
@@ -1225,7 +1226,7 @@ public class ChuBoeCreateEntity {
 		// Connect the process to the process instance.
 		processInfo.setAD_PInstance_ID(mpi.get_ID());
 
-		ServerProcessCtl.process(processInfo, null);
+		ReportContextUtil.withBaseLanguage(valueObject.getContext(), () -> ServerProcessCtl.process(processInfo, null));
 
 		if (processInfo.getExportFile() == null) {
 			int trlCount = DB.getSQLValueEx(null,

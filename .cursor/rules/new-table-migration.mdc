@@ -1,0 +1,44 @@
+---
+description: Conventions for iDempiere migration SQL when adding or altering tables
+globs: migration/local_sql/**/*.sql
+alwaysApply: false
+---
+
+# Migration SQL Conventions
+
+## File location and naming
+
+- Path: `migration/local_sql/postgresql/`
+- Name: `YYYYMMDDHHMM_GO-####.sql` (timestamp + issue number)
+- Example: `202605221123_GO-3580.sql`
+
+## Required footer
+
+Every script must end with:
+
+```sql
+SELECT register_migration_script('YYYYMMDDHHMM_GO-####.sql') FROM dual;
+```
+
+## New table script structure
+
+1. `CREATE TABLE` with constraints and FKs
+2. `ad_element` inserts for custom columns
+3. `ad_table` + `ad_sequence` inserts
+4. `ad_column` inserts for all columns
+5. Optional: window/tab/field/menu/access (`ad_window`, `ad_tab`, `ad_field`, `ad_menu`, `ad_treenodemm`, `ad_window_access`, `bh_add_roles_to_clients`)
+6. **Required** when adding GraphQL artifacts: update `bh_graphqlgeneratortemplate` (`BH_GraphQLGeneratorTemplate`; `bh_graphqlgeneratortemplate_uu = '0b9c9d6a-6e59-4ba4-995a-6762c9effe03'`) using idempotent `REGEXP_REPLACE` — see `202605221123_GO-3580.sql`
+
+## IDs and UUIDs
+
+- Generate new UUIDs for every `*_UU` column
+- Use `SELECT MAX(id) + 1 FROM table` for numeric IDs
+- Reference related rows by `*_UU` in subqueries, not hard-coded IDs
+
+## Canonical example
+
+`migration/local_sql/postgresql/202605221123_GO-3580.sql` (Feature Flag tables)
+
+## After migration
+
+Follow `.cursor/skills/add-database-table/SKILL.md` for base models, `BHModelFactory`, and GraphQL wiring.

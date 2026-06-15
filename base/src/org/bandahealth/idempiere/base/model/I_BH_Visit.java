@@ -23,7 +23,7 @@ import org.compiere.util.KeyNamePair;
 
 /** Generated Interface for BH_Visit
  *  @author iDempiere (generated) 
- *  @version Release 13
+ *  @version Release 12
  */
 @SuppressWarnings("all")
 public interface I_BH_Visit 
@@ -88,15 +88,6 @@ public interface I_BH_Visit
 	/** Get New Visit	  */
 	public boolean isBH_NewVisit();
 
-    /** Column name BH_PatientType */
-    public static final String COLUMNNAME_BH_PatientType = "BH_PatientType";
-
-	/** Set Patient Type	  */
-	public void setBH_PatientType (String BH_PatientType);
-
-	/** Get Patient Type	  */
-	public String getBH_PatientType();
-
     /** Column name BH_Process_Stage */
     public static final String COLUMNNAME_BH_Process_Stage = "BH_Process_Stage";
 
@@ -127,6 +118,15 @@ public interface I_BH_Visit
 
 	/** Get Visit Date	  */
 	public Timestamp getBH_VisitDate();
+
+    /** Column name BH_VisitType */
+    public static final String COLUMNNAME_BH_VisitType = "BH_VisitType";
+
+	/** Set Visit Type	  */
+	public void setBH_VisitType (String BH_VisitType);
+
+	/** Get Visit Type	  */
+	public String getBH_VisitType();
 
     /** Column name BH_Visit_ID */
     public static final String COLUMNNAME_BH_Visit_ID = "BH_Visit_ID";

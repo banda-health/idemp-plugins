@@ -20,6 +20,7 @@
         <maven.compiler.release>17</maven.compiler.release>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <banda.skip.testing.staging>false</banda.skip.testing.staging>
     </properties>
 
     <build>
@@ -218,6 +219,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
+                            <skip>${banda.skip.testing.staging}</skip>
                             <outputDirectory>${project.basedir}/testing/data</outputDirectory>
                             <resources>
                                 <resource>
@@ -248,6 +250,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
+                            <skip>${banda.skip.testing.staging}</skip>
                             <overwrite>true</overwrite>
                             <outputDirectory>${project.basedir}/testing/migration</outputDirectory>
                             <resources>

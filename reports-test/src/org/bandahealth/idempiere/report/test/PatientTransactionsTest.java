@@ -1108,7 +1108,7 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 	}
 
 	@IPopulateAnnotation.CanRun
-	public void visitsWithoutAPatientTypeAppear() throws SQLException, IOException {
+	public void visitsWithoutAVisitTypeAppear() throws SQLException, IOException {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
 		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
@@ -1138,7 +1138,7 @@ public class PatientTransactionsTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
-		valueObject.getVisit().setBH_PatientType(null);
+		valueObject.getVisit().setBH_VisitType(null);
 		valueObject.getVisit().saveEx();
 		commitEx();
 

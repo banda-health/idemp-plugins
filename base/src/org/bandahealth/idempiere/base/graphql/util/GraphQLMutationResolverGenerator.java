@@ -57,7 +57,8 @@ public class GraphQLMutationResolverGenerator {
 		// Get the name of the model to extend
 		tableStructureExtensions = modelsForTables.get(MTable.get(AD_Table_ID).getTableName());
 		if (tableStructureExtensions == null) {
-			throw new FileNotFoundException("Can't find file to match for table " + MTable.get(AD_Table_ID).getTableName());
+			throw new FileNotFoundException(
+					GraphQLUtil.getMissingModelDirectoryMessage(MTable.get(AD_Table_ID).getTableName()));
 		}
 
 		// Header

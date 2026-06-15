@@ -1,0 +1,37 @@
+# OPTIONAL (Windows drvfs only): overlay named volumes on Maven build output paths when
+# the repo bind mount cannot store POSIX permissions. Not merged by ./dev.sh by default.
+#   docker compose -f docker-compose.yml -f docker-compose.build-overlays.yml up -d
+# Dev state (Eclipse workspace, .m2) is in the image — see IMAGE-SETUP.md — not here.
+services:
+  idempiere:
+    volumes:
+      - idemp-banda-testing:/workspace/idemp-banda/testing
+      - idemp-banda-chuck-test-framework-target:/workspace/idemp-banda/chuck-test-framework/target
+      - idemp-banda-chuck-test-framework-lib:/workspace/idemp-banda/chuck-test-framework/lib
+      - idemp-banda-base-target:/workspace/idemp-banda/base/target
+      - idemp-banda-base-test-target:/workspace/idemp-banda/base-test/target
+      - idemp-banda-base-test-lib:/workspace/idemp-banda/base-test/lib
+      - idemp-banda-graphql-target:/workspace/idemp-banda/graphql/target
+      - idemp-banda-graphql-lib:/workspace/idemp-banda/graphql/lib
+      - idemp-banda-graphql-feature-target:/workspace/idemp-banda/graphql-feature/target
+      - idemp-banda-graphql-test-target:/workspace/idemp-banda/graphql-test/target
+      - idemp-banda-graphql-test-lib:/workspace/idemp-banda/graphql-test/lib
+      - idemp-banda-reports-target:/workspace/idemp-banda/reports/target
+      - idemp-banda-reports-test-target:/workspace/idemp-banda/reports-test/target
+      - idemp-banda-reports-test-lib:/workspace/idemp-banda/reports-test/lib
+
+volumes:
+  idemp-banda-testing:
+  idemp-banda-chuck-test-framework-target:
+  idemp-banda-chuck-test-framework-lib:
+  idemp-banda-base-target:
+  idemp-banda-base-test-target:
+  idemp-banda-base-test-lib:
+  idemp-banda-graphql-target:
+  idemp-banda-graphql-lib:
+  idemp-banda-graphql-feature-target:
+  idemp-banda-graphql-test-target:
+  idemp-banda-graphql-test-lib:
+  idemp-banda-reports-target:
+  idemp-banda-reports-test-target:
+  idemp-banda-reports-test-lib:

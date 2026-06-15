@@ -6,6 +6,7 @@ import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.base.model.MReference_BH;
+import org.bandahealth.idempiere.base.utils.ReportContextUtil;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.model.ReportOutput;
 import org.bandahealth.idempiere.graphql.model.input.MProcessParaInput;
@@ -113,8 +114,8 @@ public class MProcessMutation extends X_AD_ProcessMutation {
 			processInfo.setParameter(processInformationParameters.toArray(ProcessInfoParameter[]::new));
 		}
 
-		// Run the report
-		ServerProcessCtl.process(processInfo, null);
+		// Run the report using the base language so Jasper printouts are not blank for login locales
+		ReportContextUtil.withBaseLanguage(process.getCtx(), () -> ServerProcessCtl.process(processInfo, null));
 
 		if (processInfo.isError()) {
 			throw new AdempiereException("Could not generate report " + process.getName());
@@ -149,7 +150,11 @@ public class MProcessMutation extends X_AD_ProcessMutation {
 		}
 
 		// Run the process
-		ServerProcessCtl.process(processInfo, null);
+		if (process.isReport()) {
+			ReportContextUtil.withBaseLanguage(process.getCtx(), () -> ServerProcessCtl.process(processInfo, null));
+		} else {
+			ServerProcessCtl.process(processInfo, null);
+		}
 
 		if (processInfo.isError()) {
 			throw new AdempiereException("Could not run process " + process.getName());

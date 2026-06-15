@@ -159,7 +159,7 @@
 				SELECT bh_visit_id FROM c_order WHERE docstatus IN ('CO', 'CL') AND ad_client_id = $P{AD_CLIENT_ID}
 			)
 			AND bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
-			AND COALESCE(bh_patienttype, '') != 'Im'
+			AND COALESCE(bh_visittype, '') != 'Im'
 	),
 	diagnosis_count AS (
 		SELECT DISTINCT
