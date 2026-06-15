@@ -10,11 +10,24 @@ if [[ ! -f .env ]]; then
     exit 1
 fi
 
-# shellcheck disable=SC1091
-set -a
-# shellcheck source=/dev/null
-source .env
-set +a
+load_env_file() {
+    local file="$1"
+    while IFS= read -r line || [[ -n "$line" ]]; do
+        [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
+        line="${line#export }"
+        line="${line%%$'\r'}"
+        if [[ "$line" =~ ^([A-Za-z_][A-Za-z0-9_]*)=(.*)$ ]]; then
+            local key="${BASH_REMATCH[1]}"
+            local value="${BASH_REMATCH[2]}"
+            if [[ "$value" =~ ^\"(.*)\"$ ]] || [[ "$value" =~ ^\'(.*)\'$ ]]; then
+                value="${BASH_REMATCH[1]}"
+            fi
+            export "$key=$value"
+        fi
+    done <"$file"
+}
+
+load_env_file .env
 
 export CI=true
 export TEST_QUIET="${TEST_QUIET:-true}"
