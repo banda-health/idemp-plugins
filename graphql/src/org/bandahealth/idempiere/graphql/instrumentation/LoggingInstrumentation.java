@@ -41,17 +41,8 @@ public class LoggingInstrumentation extends SimpleInstrumentation {
 					String variablesString;
 					try {
 						ObjectMapper mapper = new ObjectMapper();
-						variablesString = mapper.writeValueAsString(parameters.getVariables());
-						// Mask the password for sign-ins
-						if (parameters.getQuery().contains("AuthenticationInput")) {
-							// Replace any value of the "Password" field with "***" in the JSON string, including embedded contexts
-							// This regex will handle escaped double quotes (\") by not stopping the match on an escaped quote sequence.
-							// It matches "Password": "...." where ... may contain any character except unescaped double quotes.
-							variablesString = variablesString.replaceAll(
-									"(\"Password\"\\s*:\\s*\")((?:[^\"\\\\]|\\\\.)*)(\")",
-									"$1***$3"
-							);
-						}
+						variablesString = StringUtil.maskSensitiveJsonStringValues(
+								mapper.writeValueAsString(parameters.getVariables()));
 					} catch (JsonProcessingException e) {
 						variablesString = parameters.getVariables().entrySet().stream()
 								.map((entry) -> entry.getKey() + ": " + entry.getValue().toString()).collect(Collectors.joining(", "));
