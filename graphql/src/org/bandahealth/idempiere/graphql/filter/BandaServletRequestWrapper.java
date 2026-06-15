@@ -42,7 +42,7 @@ public class BandaServletRequestWrapper extends HttpServletRequestWrapper {
 		this((HttpServletRequest) request);
 	}
 
-	byte[] getBody() {
+	public byte[] getBody() {
 		return body;
 	}
 

@@ -19,6 +19,7 @@ services:
       - DISPLAY=${DISPLAY:-host.docker.internal:0}
       - RUN_MIGRATIONS_ON_START=${RUN_MIGRATIONS_ON_START:-true}
       - IDEMPIERE_HOME=${IDEMPIERE_HOME:-/opt/idempiere}
+      - GRAPHQL_PROXY_UPSTREAM_URL=http://host.docker.internal:${EXTERNAL_MOCKS_PORT:-8081}/graphql-proxy
     ports:
       - "${IDEMPIERE_HTTP_PORT:-8080}:8080"
     volumes:

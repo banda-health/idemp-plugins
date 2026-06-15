@@ -104,6 +104,11 @@ stop_server() {
 stop_server
 
 echo "Starting iDempiere server from ${SERVER_HOME} (log: ${LOG_FILE})..."
+if [[ -z "${GRAPHQL_PROXY_UPSTREAM_URL:-}" ]]; then
+    GRAPHQL_PROXY_UPSTREAM_URL="http://host.docker.internal:${EXTERNAL_MOCKS_PORT:-8081}/graphql-proxy"
+    export GRAPHQL_PROXY_UPSTREAM_URL
+    echo "GRAPHQL_PROXY_UPSTREAM_URL not set; defaulting to ${GRAPHQL_PROXY_UPSTREAM_URL}"
+fi
 cd "$SERVER_HOME"
 nohup ./idempiere-server.sh >>"$LOG_FILE" 2>&1 &
 echo $! >"$PID_FILE"

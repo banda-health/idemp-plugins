@@ -1,14 +1,8 @@
 package org.bandahealth.idempiere.graphql.filter;
 
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import org.adempiere.exceptions.AdempiereException;
 import org.adempiere.util.ServerContext;
-import org.bandahealth.idempiere.graphql.model.AuthenticationCookie;
-import org.bandahealth.idempiere.graphql.utils.AuthenticationUtil;
-import org.compiere.model.MSession;
 import org.compiere.model.MSystem;
 import org.compiere.util.Env;
-import org.compiere.util.Util;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -16,7 +10,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,28 +92,7 @@ public class AuthenticationFilter implements Filter {
 	}
 
 	private AuthenticationSessionState resolveSessionState(BandaServletRequestWrapper request) {
-		Cookie authenticationCookie = AuthenticationCookie.getAuthenticationCookie(request);
-		if (authenticationCookie == null) {
-			return AuthenticationSessionState.NONE;
-		}
-		try {
-			AuthenticationUtil.validate(authenticationCookie.getValue(), Env.getCtx());
-			if (Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_USER_ID))) {
-				return AuthenticationSessionState.NONE;
-			}
-			if (Util.isEmpty(Env.getContext(Env.getCtx(), Env.AD_ROLE_ID))) {
-				return AuthenticationSessionState.PARTIAL;
-			}
-			MSession session = MSession.get(Env.getCtx());
-			if (session == null || session.isProcessed()) {
-				return AuthenticationSessionState.PARTIAL;
-			}
-			return AuthenticationSessionState.FULL;
-		} catch (JWTVerificationException | AdempiereException ex) {
-			return AuthenticationSessionState.NONE;
-		} catch (Exception ex) {
-			return AuthenticationSessionState.NONE;
-		}
+		return AuthenticationSessionResolver.resolve(request);
 	}
 
 	@Override
