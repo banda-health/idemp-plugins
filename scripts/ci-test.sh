@@ -10,6 +10,11 @@ if [[ ! -f .env ]]; then
     exit 1
 fi
 
+if [[ -f .ci-compose.env ]]; then
+    # shellcheck disable=SC1091
+    source .ci-compose.env
+fi
+
 load_env_file() {
     local file="$1"
     while IFS= read -r line || [[ -n "$line" ]]; do
@@ -33,10 +38,13 @@ export CI=true
 export TEST_QUIET="${TEST_QUIET:-true}"
 export COMPOSE_PROGRESS=quiet
 
+# TeamCity sets TST_COMPOSE_PROJECT_NAME in the parent shell via .ci-compose.env.
+COMPOSE_PROJECT_NAME="${COMPOSE_PROJECT_NAME:-${TST_COMPOSE_PROJECT_NAME:-}}"
 if [[ -z "${COMPOSE_PROJECT_NAME:-}" ]]; then
-    echo "COMPOSE_PROJECT_NAME must be set in .env for CI test runs." >&2
+    echo "COMPOSE_PROJECT_NAME must be set in .env (or TST_COMPOSE_PROJECT_NAME in the environment) for CI test runs." >&2
     exit 1
 fi
+export COMPOSE_PROJECT_NAME
 
 bash "${ROOT}/scripts/ci-clean-workspace.sh"
 
