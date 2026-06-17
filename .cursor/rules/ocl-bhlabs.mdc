@@ -1,0 +1,73 @@
+---
+description: OCL BHLabs lab test and panel upload conventions
+globs: "**/*{BHLabs,bhlabs,lab,ocl}*"
+alwaysApply: false
+---
+
+# BHLabs — lab tests in OCL
+
+Source: `bandahealth/BHLabs`  
+UI: https://app.openconceptlab.org/#/orgs/bandahealth/sources/BHLabs/  
+Canonical example: concept `2` (Urine microscopy panel) in `external-mocks/files/ocl/BHLabs-concepts.json`
+
+## Concept types
+
+| Type | concept_class | datatype | When |
+|------|---------------|----------|------|
+| Panel | `LabSet` | `None` | Groups related tests (e.g. urine microscopy panel) |
+| Individual test | `Test` | `Numeric`, `Coded`, `Text`, etc. | Standalone orderable test |
+| Drug (C&S antibiotics) | `Drug` | `Coded` | Rare; use `panel_1`, `panel_2` extras for specimen panels |
+
+## Mapping types
+
+- **CONCEPT-SET** — panel → member test. `from_concept_url` is the panel; `to_concept_url` is the child (CIEL or LOINC).
+- **SAME-AS** — BHLabs concept equivalent to an external concept (often the panel itself mapped to CIEL).
+
+Do not use SAME-AS where CONCEPT-SET is intended (panel membership).
+
+All extra keys are **lowercase** (must match Jasper reports and `bh_concept_extra.bh_key` after Concept Sync).
+
+## Mapping extras (on CONCEPT-SET)
+
+- `local_name` — short label shown in MOH-706 and UI (e.g. `"Urine T. Vaginalis"`)
+- `moh-706` — numeric line position on MOH 706 form (e.g. `1.1`, `1.8`)
+
+## Concept extras
+
+- `local_name` — friendly display name on the concept itself when different from the formal name
+- `units`, `low_normal`, `hi_normal` — reference ranges where applicable
+
+## External targets
+
+- **CIEL**: `to_source_url: /orgs/CIEL/sources/CIEL/`, `to_concept_code: "{id}"`
+- **LOINC**: `to_source_url: /orgs/Regenstrief/sources/LOINC/`, `to_concept_code: "{loinc}"`
+
+Verify the external concept name before mapping.
+
+## API upload pattern
+
+```json
+POST /orgs/bandahealth/sources/BHLabs/concepts/
+{
+  "concept_class": "LabSet",
+  "datatype": "None",
+  "names": [{ "name": "...", "locale": "en", "locale_preferred": true, "name_type": "Fully Specified" }],
+  "extras": { "local_name": "..." }
+}
+
+POST /orgs/bandahealth/sources/BHLabs/mappings/
+{
+  "map_type": "CONCEPT-SET",
+  "from_concept_url": "/orgs/bandahealth/sources/BHLabs/concepts/{panel_id}/",
+  "to_concept_url": "/orgs/CIEL/sources/CIEL/concepts/{child_id}/",
+  "extras": { "local_name": "...", "moh-706": 1.1 }
+}
+```
+
+## Workflow checklist
+
+1. Create or locate the panel concept (`LabSet`)
+2. Create or locate each member test concept
+3. Add CONCEPT-SET mappings panel → members with `local_name` and `moh-706`
+4. Add SAME-AS on the panel if it maps to a CIEL panel concept
+5. Verify in OCL UI; run Concept Sync with `source=BHLabs`

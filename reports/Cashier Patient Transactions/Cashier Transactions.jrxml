@@ -59,11 +59,11 @@
 	<parameter name="End Date" class="java.sql.Timestamp"/>
 	<parameter name="AD_CLIENT_ID" class="java.lang.Integer"/>
 	<parameter name="Payment Mode" class="java.lang.String"/>
-	<parameter name="Patient Type" class="java.lang.String"/>
+	<parameter name="Visit Type" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[WITH params AS (
 	SELECT
-		COALESCE($P{Patient Type}, '') AS patient_type,
+		COALESCE($P{Visit Type}, '') AS visit_type,
 		COALESCE($P{Payment Mode}, '') AS payment_mode
 ),
 	billdetails AS (

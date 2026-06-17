@@ -1,0 +1,4 @@
+# Headless dev stack: run migrations on start but do not launch Eclipse (port 8080 free for iDempiere server).
+services:
+  idempiere:
+    command: ["tail", "-f", "/dev/null"]

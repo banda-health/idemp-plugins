@@ -63,7 +63,7 @@
 		<parameter name="Diagnosis" class="java.lang.String"/>
 		<parameter name="BH_Concept_UU" class="java.lang.String"/>
 		<parameter name="Patient Tags" class="java.util.List"/>
-		<parameter name="Patient Type" class="java.lang.String"/>
+		<parameter name="Visit Type" class="java.lang.String"/>
 		<parameter name="Referral" class="java.lang.String"/>
 		<queryString>
 			<![CDATA[WITH visit_diagnoses AS (
@@ -145,9 +145,9 @@ WHERE
 		)
 		)
 	AND (
-		$P{Patient Type} IS NULL OR
-		$P{Patient Type} = '' OR
-		v.bh_patienttype = $P{Patient Type}
+		$P{Visit Type} IS NULL OR
+		$P{Visit Type} = '' OR
+		v.bh_visittype = $P{Visit Type}
 		)
 	AND (
 		$P{Referral} IS NULL OR
@@ -183,7 +183,7 @@ ORDER BY
 	<parameter name="Diagnosis" class="java.lang.String"/>
 	<parameter name="BH_Concept_UU" class="java.lang.String"/>
 	<parameter name="Patient Tags" class="java.util.List"/>
-	<parameter name="Patient Type" class="java.lang.String"/>
+	<parameter name="Visit Type" class="java.lang.String"/>
 	<parameter name="Referral" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT 1;]]>
@@ -247,8 +247,8 @@ ORDER BY
 						<datasetParameter name="Patient Tags">
 							<datasetParameterExpression><![CDATA[$P{Patient Tags}]]></datasetParameterExpression>
 						</datasetParameter>
-						<datasetParameter name="Patient Type">
-							<datasetParameterExpression><![CDATA[$P{Patient Type}]]></datasetParameterExpression>
+						<datasetParameter name="Visit Type">
+							<datasetParameterExpression><![CDATA[$P{Visit Type}]]></datasetParameterExpression>
 						</datasetParameter>
 						<datasetParameter name="Referral">
 							<datasetParameterExpression><![CDATA[$P{Referral}]]></datasetParameterExpression>

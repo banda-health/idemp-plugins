@@ -3237,7 +3237,7 @@ test(`can save mental health as a visit type`, async () => {
 		mutation: Bh_VisitSaveDocument,
 		variables: {
 			Entity: {
-				BH_PatientType: { UU: mentalHealth.UU },
+				BH_VisitType: { UU: mentalHealth.UU },
 				BH_VisitDate: valueObject.date?.getTime(),
 				Description: valueObject.getStepMessageLong(),
 				Patient: { UU: valueObject.businessPartner!.UU },
@@ -3350,7 +3350,7 @@ test('can schedule and change scheduled visits', async () => {
 		variables: {
 			Entity: {
 				UU: visitUU,
-				BH_PatientType: { UU: visitTypes[0].UU },
+				BH_VisitType: { UU: visitTypes[0].UU },
 				BH_VisitDate: valueObject.date?.getTime(),
 				Description: valueObject.getStepMessageLong(),
 				Patient: { UU: valueObject.businessPartner!.UU },
@@ -3371,7 +3371,7 @@ test('can schedule and change scheduled visits', async () => {
 		variables: {
 			Entity: {
 				UU: visitUU,
-				BH_PatientType: { UU: visitTypes[0].UU },
+				BH_VisitType: { UU: visitTypes[0].UU },
 				BH_VisitDate: valueObject.date?.getTime(),
 				Change_Reason: 'the patient needs to wait another week',
 			},
@@ -3406,7 +3406,7 @@ test('search by not exists works', async () => {
 		variables: {
 			Entity: {
 				UU: visitUU,
-				BH_PatientType: { UU: visitTypes[0].UU },
+				BH_VisitType: { UU: visitTypes[0].UU },
 				BH_VisitDate: valueObject.date?.getTime(),
 				Description: valueObject.getStepMessageLong(),
 				Patient: { UU: valueObject.businessPartner!.UU },

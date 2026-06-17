@@ -30,13 +30,13 @@ test('report is runnable', async () => {
 	const beginDateParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Begin Date');
 	const endDateParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'End Date');
 	const paymentModeParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Payment Mode');
-	const patientTypeParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Patient Type');
+	const visitTypeParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Visit Type');
 	const completedByParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Completed By');
 
 	expect(beginDateParameter).toBeTruthy();
 	expect(endDateParameter).toBeTruthy();
 	expect(paymentModeParameter).toBeTruthy();
-	expect(patientTypeParameter).toBeTruthy();
+	expect(visitTypeParameter).toBeTruthy();
 	expect(completedByParameter).toBeTruthy();
 
 	valueObject.stepName = 'Run report';
@@ -119,13 +119,13 @@ test('data visible on report', async () => {
 	const beginDateParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Begin Date');
 	const endDateParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'End Date');
 	const paymentModeParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Payment Mode');
-	const patientTypeParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Patient Type');
+	const visitTypeParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Visit Type');
 	const completedByParameter = process.AD_Process_ParaList?.find((parameter) => parameter.Name === 'Completed By');
 
 	expect(beginDateParameter).toBeTruthy();
 	expect(endDateParameter).toBeTruthy();
 	expect(paymentModeParameter).toBeTruthy();
-	expect(patientTypeParameter).toBeTruthy();
+	expect(visitTypeParameter).toBeTruthy();
 	expect(completedByParameter).toBeTruthy();
 
 	valueObject.stepName = 'Run report';

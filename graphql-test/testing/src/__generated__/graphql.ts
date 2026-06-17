@@ -19968,7 +19968,7 @@ export type Bh_Visit = {
   BH_Coming_From?: Maybe<Ad_Ref_List>;
   BH_Encounters?: Maybe<Array<Bh_Encounter>>;
   BH_NewVisit: Scalars['Boolean']['output'];
-  BH_PatientType?: Maybe<Ad_Ref_List>;
+  BH_VisitType?: Maybe<Ad_Ref_List>;
   /** Drop down field in visits for users to define the process stage */
   BH_Process_Stage?: Maybe<Ad_Ref_List>;
   BH_ReferredFromTo?: Maybe<Scalars['String']['output']>;
@@ -20015,7 +20015,7 @@ export type Bh_VisitInput = {
   BH_Clinician_User?: InputMaybe<ForeignEntityInput>;
   BH_Encounters?: InputMaybe<Array<Bh_EncounterInput>>;
   BH_NewVisit?: InputMaybe<Scalars['Boolean']['input']>;
-  BH_PatientType?: InputMaybe<ForeignEntityInput>;
+  BH_VisitType?: InputMaybe<ForeignEntityInput>;
   /** Drop down field in visits for users to define the process stage */
   BH_Process_Stage?: InputMaybe<ForeignEntityInput>;
   BH_ReferredFromTo?: InputMaybe<Scalars['String']['input']>;

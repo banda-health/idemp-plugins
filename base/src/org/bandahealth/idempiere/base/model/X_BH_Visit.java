@@ -24,7 +24,7 @@ import org.compiere.model.*;
 
 /** Generated Model for BH_Visit
  *  @author iDempiere (generated)
- *  @version Release 13 - $Id$ */
+ *  @version Release 12 - $Id$ */
 @org.adempiere.base.Model(table="BH_Visit")
 public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 {
@@ -32,7 +32,7 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20250414L;
+	private static final long serialVersionUID = 20260525L;
 
     /** Standard Constructor */
     public X_BH_Visit (Properties ctx, int BH_Visit_ID, String trxName)
@@ -168,50 +168,6 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 		return false;
 	}
 
-	/** Antenatal (ANC) = A */
-	public static final String BH_PATIENTTYPE_AntenatalANC = "A";
-	/** Dental = D */
-	public static final String BH_PATIENTTYPE_Dental = "D";
-	/** Eye Clinic = E */
-	public static final String BH_PATIENTTYPE_EyeClinic = "E";
-	/** Inpatient (IPD) = I */
-	public static final String BH_PATIENTTYPE_InpatientIPD = "I";
-	/** Immunizations &amp; Well Child = Im */
-	public static final String BH_PATIENTTYPE_ImmunizationsWellChild = "Im";
-	/** Maternity = M */
-	public static final String BH_PATIENTTYPE_Maternity = "M";
-	/** Outpatient (OPD) = O */
-	public static final String BH_PATIENTTYPE_OutpatientOPD = "O";
-	/** Surgery = S */
-	public static final String BH_PATIENTTYPE_Surgery = "S";
-	/** Mental Health = Z */
-	public static final String BH_PATIENTTYPE_MentalHealth = "Z";
-	/** Over The Counter (OTC) = ot */
-	public static final String BH_PATIENTTYPE_OverTheCounterOTC = "ot";
-	/** Family Planning = u */
-	public static final String BH_PATIENTTYPE_FamilyPlanning = "u";
-	/** Follow-up = x */
-	public static final String BH_PATIENTTYPE_Follow_Up = "x";
-	/** PT/OT = y */
-	public static final String BH_PATIENTTYPE_PTOT = "y";
-	/** Home Visit = z */
-	public static final String BH_PATIENTTYPE_HomeVisit = "z";
-	/** Set Patient Type.
-		@param BH_PatientType Patient Type
-	*/
-	public void setBH_PatientType (String BH_PatientType)
-	{
-
-		set_Value (COLUMNNAME_BH_PatientType, BH_PatientType);
-	}
-
-	/** Get Patient Type.
-		@return Patient Type	  */
-	public String getBH_PatientType()
-	{
-		return (String)get_Value(COLUMNNAME_BH_PatientType);
-	}
-
 	/** Cashier / Registration = tocashier */
 	public static final String BH_PROCESS_STAGE_CashierRegistration = "tocashier";
 	/** Clinician / Dentist = toclinician */
@@ -267,6 +223,50 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 	public Timestamp getBH_VisitDate()
 	{
 		return (Timestamp)get_Value(COLUMNNAME_BH_VisitDate);
+	}
+
+	/** Antenatal (ANC) = A */
+	public static final String BH_VISITTYPE_AntenatalANC = "A";
+	/** Dental = D */
+	public static final String BH_VISITTYPE_Dental = "D";
+	/** Eye Clinic = E */
+	public static final String BH_VISITTYPE_EyeClinic = "E";
+	/** Inpatient (IPD) = I */
+	public static final String BH_VISITTYPE_InpatientIPD = "I";
+	/** Immunizations &amp; Well Child = Im */
+	public static final String BH_VISITTYPE_ImmunizationsWellChild = "Im";
+	/** Maternity = M */
+	public static final String BH_VISITTYPE_Maternity = "M";
+	/** Mental Health = Mh */
+	public static final String BH_VISITTYPE_MentalHealth = "Mh";
+	/** Outpatient (OPD) = O */
+	public static final String BH_VISITTYPE_OutpatientOPD = "O";
+	/** Surgery = S */
+	public static final String BH_VISITTYPE_Surgery = "S";
+	/** Over The Counter (OTC) = ot */
+	public static final String BH_VISITTYPE_OverTheCounterOTC = "ot";
+	/** Family Planning = u */
+	public static final String BH_VISITTYPE_FamilyPlanning = "u";
+	/** Follow-up = x */
+	public static final String BH_VISITTYPE_Follow_Up = "x";
+	/** PT/OT = y */
+	public static final String BH_VISITTYPE_PTOT = "y";
+	/** Home Visit = z */
+	public static final String BH_VISITTYPE_HomeVisit = "z";
+	/** Set Visit Type.
+		@param BH_VisitType Visit Type
+	*/
+	public void setBH_VisitType (String BH_VisitType)
+	{
+
+		set_Value (COLUMNNAME_BH_VisitType, BH_VisitType);
+	}
+
+	/** Get Visit Type.
+		@return Visit Type	  */
+	public String getBH_VisitType()
+	{
+		return (String)get_Value(COLUMNNAME_BH_VisitType);
 	}
 
 	/** Set Visit.

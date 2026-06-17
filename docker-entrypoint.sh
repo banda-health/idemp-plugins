@@ -14,4 +14,4 @@ cd ../reports-test
 
 cd ../
 rm .unhealthy
-exec "$@"
+exit 0
