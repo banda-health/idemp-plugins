@@ -1,5 +1,6 @@
 extend type BH_Concept {
 	BH_Client_Concepts: [BH_Client_Concept!]
+	BH_Client_Concept_Extras: [BH_Client_Concept_Extra!]
 	BH_Concept_Descriptions: [BH_Concept_Description!]
 	BH_Concept_Extras: [BH_Concept_Extra!]
 	BH_Concept_Names: [BH_Concept_Name!]

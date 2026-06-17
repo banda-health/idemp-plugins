@@ -388,7 +388,8 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create high normal override");
 		MBHClientConceptExtra clientConceptExtra =
 				new MBHClientConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
-		clientConceptExtra.setBH_Concept_Extra_ID(conceptExtra.get_ID());
+		clientConceptExtra.setBH_Concept_ID(conceptExtra.getBH_Concept_ID());
+		clientConceptExtra.setBH_Key(conceptExtra.getBH_Key());
 		clientConceptExtra.setBH_Value("6");
 		clientConceptExtra.saveEx();
 		commitEx();
@@ -689,7 +690,8 @@ public class LaboratoryReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create high normal override");
 		MBHClientConceptExtra clientConceptExtra =
 				new MBHClientConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
-		clientConceptExtra.setBH_Concept_Extra_ID(conceptExtra.get_ID());
+		clientConceptExtra.setBH_Concept_Mapping_ID(conceptExtra.getBH_Concept_Mapping_ID());
+		clientConceptExtra.setBH_Key(conceptExtra.getBH_Key());
 		clientConceptExtra.setBH_Value("6");
 		clientConceptExtra.saveEx();
 		commitEx();
