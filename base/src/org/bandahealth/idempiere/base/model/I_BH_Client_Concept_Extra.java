@@ -82,16 +82,36 @@ public interface I_BH_Client_Concept_Extra
 	/** Get BH_Client_Concept_Extra_UU	  */
 	public String getBH_Client_Concept_Extra_UU();
 
-    /** Column name BH_Concept_Extra_ID */
-    public static final String COLUMNNAME_BH_Concept_Extra_ID = "BH_Concept_Extra_ID";
+    /** Column name BH_Concept_ID */
+    public static final String COLUMNNAME_BH_Concept_ID = "BH_Concept_ID";
 
-	/** Set Concept Extra	  */
-	public void setBH_Concept_Extra_ID (int BH_Concept_Extra_ID);
+	/** Set Concept	  */
+	public void setBH_Concept_ID (int BH_Concept_ID);
 
-	/** Get Concept Extra	  */
-	public int getBH_Concept_Extra_ID();
+	/** Get Concept	  */
+	public int getBH_Concept_ID();
 
-	public I_BH_Concept_Extra getBH_Concept_Extra() throws RuntimeException;
+	public I_BH_Concept getBH_Concept() throws RuntimeException;
+
+    /** Column name BH_Concept_Mapping_ID */
+    public static final String COLUMNNAME_BH_Concept_Mapping_ID = "BH_Concept_Mapping_ID";
+
+	/** Set Concept Mapping	  */
+	public void setBH_Concept_Mapping_ID (int BH_Concept_Mapping_ID);
+
+	/** Get Concept Mapping	  */
+	public int getBH_Concept_Mapping_ID();
+
+	public I_BH_Concept_Mapping getBH_Concept_Mapping() throws RuntimeException;
+
+    /** Column name BH_Key */
+    public static final String COLUMNNAME_BH_Key = "BH_Key";
+
+	/** Set Key	  */
+	public void setBH_Key (String BH_Key);
+
+	/** Get Key	  */
+	public String getBH_Key();
 
     /** Column name BH_Value */
     public static final String COLUMNNAME_BH_Value = "BH_Value";
