@@ -1,0 +1,50 @@
+# Run a frozen dev image (no rebuild). Capture updates with scripts/capture-container-state.sh
+# Merge with docker-compose.build-overlays.yml (see dev.sh); optionally
+# docker-compose.postgres.yml when DB_TARGET=compose in .env.
+# Do not use `include` here — Compose v2.21+ treats duplicate service names as conflicts.
+services:
+  idempiere:
+    image: ${IDEMPIERE_DEV_IMAGE:-dev-docker-idempiere:snapshot}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    container_name: idempiere-development
+    user: root
+    environment:
+      - DISPLAY=${DISPLAY:-host.docker.internal:0}
+      - RUN_MIGRATIONS_ON_START=${RUN_MIGRATIONS_ON_START:-true}
+      - IDEMPIERE_HOME=${IDEMPIERE_HOME:-/opt/idempiere}
+    entrypoint: ["/usr/local/bin/docker-entrypoint.sh"]
+    command: ["/opt/eclipse/eclipse"]
+    ports:
+      - "${IDEMPIERE_HTTP_PORT:-8080}:8080"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /mnt/wslg:/mnt/wslg
+      - ./docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh:ro
+      - ./scripts/ensure-build-volume-permissions.sh:/usr/local/bin/ensure-build-volume-permissions.sh:ro
+      - ./scripts/sync-server-plugins.sh:/usr/local/bin/sync-server-plugins.sh:ro
+      - ./scripts/start-idempiere-server.sh:/usr/local/bin/start-idempiere-server.sh:ro
+      - ./scripts/wait-idempiere-ready.sh:/usr/local/bin/wait-idempiere-ready.sh:ro
+      - ${PLUGINS_MOUNT:-..}:/workspace/idemp-banda:rw
+
+  db-proxy:
+    build:
+      context: ./
+      dockerfile: docker/db-proxy/Dockerfile
+    image: dev-docker-db-proxy
+    network_mode: "service:idempiere"
+    depends_on:
+      - idempiere
+    environment:
+      - DB_TARGET=${DB_TARGET:-compose}
+      - DB_HOST_PORT=${DB_HOST_PORT:-5432}
+      - DB_COMPOSE_HOST=${DB_COMPOSE_HOST:-postgres}
+      - DB_UPSTREAM_USER=${DB_UPSTREAM_USER:-adempiere}
+      - DB_UPSTREAM_PASSWORD=${DB_UPSTREAM_PASSWORD:-adempiere}
+      - DB_UPSTREAM_DATABASE=${DB_UPSTREAM_DATABASE:-idempiere}
+      - DB_UPSTREAM_ADMIN_USER=${DB_UPSTREAM_ADMIN_USER:-postgres}
+      - DB_UPSTREAM_ADMIN_PASSWORD=${DB_UPSTREAM_ADMIN_PASSWORD:-postgres}
+      - DB_UPSTREAM_ADMIN_DATABASE=${DB_UPSTREAM_ADMIN_DATABASE:-template1}
+    command: ["/bin/sh", "/db-proxy.sh"]
+    restart: unless-stopped
+

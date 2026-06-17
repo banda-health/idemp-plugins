@@ -46,33 +46,6 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 		return entity.isBH_NewVisit();
 	}
 
-	public static Map<String, String> BH_PATIENTTYPE_UUIDS_BY_VALUE = new HashMap<>() {
-		{
-			put("O", "0a48b24a-8c67-4067-beb5-4eb3bc7daeb1"); // Outpatient (OPD)
-			put("I", "46d397b3-103d-4663-86b2-27e395dd158d"); // Inpatient (IPD)
-			put("A", "3ce6d10d-8c9c-4e4d-b7ff-67abe9da58a1"); // Antenatal (ANC)
-			put("Im", "3cbeb14f-10db-4e32-9b85-e3463eb620b8"); // Immunizations & Well Child
-			put("M", "4fa370d8-d02f-4506-91b9-9f06c2e00baf"); // Maternity
-			put("D", "1841d957-db04-4640-af15-811a12deb7e4"); // Dental
-			put("E", "1e8a9ec6-0f1e-4fac-8085-593ebeec9d44"); // Eye Clinic
-			put("S", "74d58aed-2017-47bc-94f0-9a20c7b208a2"); // Surgery
-			put("ot", "6ba8938f-3337-4224-be0b-0cbcd3c606ad"); // Over The Counter (OTC)
-			put("z", "6403b016-5628-4612-a7a1-00e68e3dd0ae"); // Home Visit
-			put("y", "1cbfa54e-47ba-4d7b-ada0-119ac3404767"); // PT/OT
-			put("x", "65ef5222-ed10-4764-b516-a9874ef56519"); // Follow-up
-			put("u", "fd6db151-fb69-40ed-a784-5d8b99b92004"); // Family Planning
-			put("Z", "b3bd568f-e623-41ba-8d52-c1886a0a3d05"); // Mental Health
-		}
-	};
-	public CompletableFuture<MRefList_BH> BH_PatientType(MBHVisit entity, DataFetchingEnvironment environment) {
-		if (StringUtil.isNullOrEmpty(entity.getBH_PatientType())) {
-			return null;
-		}
-		DataLoader<String, MRefList_BH> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
-		return dataLoader.load(BH_PATIENTTYPE_UUIDS_BY_VALUE.get(entity.getBH_PatientType()));
-	}
-
 	public static Map<String, String> BH_PROCESS_STAGE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("toclinician", "e74d5f99-fd01-4d54-ab35-7a630c43f064"); // Clinician / Dentist
@@ -106,6 +79,33 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 		DataLoader<String, MRefList_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
 		return dataLoader.load(BH_REFERRAL_UUIDS_BY_VALUE.get(entity.getbh_referral()));
+	}
+
+	public static Map<String, String> BH_VISITTYPE_UUIDS_BY_VALUE = new HashMap<>() {
+		{
+			put("O", "0a48b24a-8c67-4067-beb5-4eb3bc7daeb1"); // Outpatient (OPD)
+			put("I", "46d397b3-103d-4663-86b2-27e395dd158d"); // Inpatient (IPD)
+			put("A", "3ce6d10d-8c9c-4e4d-b7ff-67abe9da58a1"); // Antenatal (ANC)
+			put("Im", "3cbeb14f-10db-4e32-9b85-e3463eb620b8"); // Immunizations & Well Child
+			put("M", "4fa370d8-d02f-4506-91b9-9f06c2e00baf"); // Maternity
+			put("D", "1841d957-db04-4640-af15-811a12deb7e4"); // Dental
+			put("E", "1e8a9ec6-0f1e-4fac-8085-593ebeec9d44"); // Eye Clinic
+			put("S", "74d58aed-2017-47bc-94f0-9a20c7b208a2"); // Surgery
+			put("ot", "6ba8938f-3337-4224-be0b-0cbcd3c606ad"); // Over The Counter (OTC)
+			put("z", "6403b016-5628-4612-a7a1-00e68e3dd0ae"); // Home Visit
+			put("y", "1cbfa54e-47ba-4d7b-ada0-119ac3404767"); // PT/OT
+			put("x", "65ef5222-ed10-4764-b516-a9874ef56519"); // Follow-up
+			put("u", "fd6db151-fb69-40ed-a784-5d8b99b92004"); // Family Planning
+			put("Mh", "b3bd568f-e623-41ba-8d52-c1886a0a3d05"); // Mental Health
+		}
+	};
+	public CompletableFuture<MRefList_BH> BH_VisitType(MBHVisit entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getBH_VisitType())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(BH_VISITTYPE_UUIDS_BY_VALUE.get(entity.getBH_VisitType()));
 	}
 
 

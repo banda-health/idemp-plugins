@@ -145,7 +145,7 @@ public class NonPatientPaymentReportTest extends ChuBoePopulateFactoryVO {
 			Row headerRow = TableUtils.getHeaderRow(sheet, "Date");
 			TableUtils.getColumnIndex(headerRow, "Patient Name");
 			TableUtils.getColumnIndex(headerRow, "Patient No");
-			TableUtils.getColumnIndex(headerRow, "Patient Type");
+			TableUtils.getColumnIndex(headerRow, "Visit Type");
 			TableUtils.getColumnIndex(headerRow, "Member ID");
 			TableUtils.getColumnIndex(headerRow, "Member Name ");
 			TableUtils.getColumnIndex(headerRow, "Relationship");

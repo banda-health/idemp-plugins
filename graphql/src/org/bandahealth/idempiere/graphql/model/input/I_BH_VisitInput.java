@@ -39,20 +39,6 @@ public interface I_BH_VisitInput extends I_BH_Visit {
 	ForeignEntityInput BH_Clinician_User();
 
 	/**
-	 * Set BH_PatientType.
-	 *
-	 * @param BH_PatientType BH_PatientType
-	 */
-	void setBH_PatientTypeInput(ForeignEntityInput BH_PatientType);
-
-	/**
-	 * Get BH_PatientType.
-	 *
-	 * @return BH_PatientType
-	 */
-	ForeignEntityInput BH_PatientType();
-
-	/**
 	 * Set BH_Process_Stage.
 	 *
 	 * @param BH_Process_Stage Drop down field in visits for users to define the process stage
@@ -79,6 +65,20 @@ public interface I_BH_VisitInput extends I_BH_Visit {
 	 * @return bh_referral
 	 */
 	ForeignEntityInput bh_referral();
+
+	/**
+	 * Set BH_VisitType.
+	 *
+	 * @param BH_VisitType BH_VisitType
+	 */
+	void setBH_VisitTypeInput(ForeignEntityInput BH_VisitType);
+
+	/**
+	 * Get BH_VisitType.
+	 *
+	 * @return BH_VisitType
+	 */
+	ForeignEntityInput BH_VisitType();
 
 	/**
 	 * Set UU.

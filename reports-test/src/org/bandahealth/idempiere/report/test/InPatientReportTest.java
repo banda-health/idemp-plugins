@@ -80,7 +80,7 @@ public class InPatientReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
-		valueObject.getVisit().setBH_PatientType(MBHVisit.BH_PATIENTTYPE_InpatientIPD);
+		valueObject.getVisit().setBH_VisitType(MBHVisit.BH_VISITTYPE_InpatientIPD);
 		valueObject.getVisit().saveEx();
 		commitEx();
 
@@ -148,7 +148,7 @@ public class InPatientReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create visit an old visit that should be filtered out");
 		valueObject.setDateOffset(-10);
 		ChuBoeCreateEntity.createVisit(valueObject);
-		valueObject.getVisit().setBH_PatientType(MBHVisit.BH_PATIENTTYPE_InpatientIPD);
+		valueObject.getVisit().setBH_VisitType(MBHVisit.BH_VISITTYPE_InpatientIPD);
 		valueObject.getVisit().saveEx();
 		commitEx();
 
@@ -167,7 +167,7 @@ public class InPatientReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create visit where the end date is in the range");
 		ChuBoeCreateEntity.createVisit(valueObject);
-		valueObject.getVisit().setBH_PatientType(MBHVisit.BH_PATIENTTYPE_InpatientIPD);
+		valueObject.getVisit().setBH_VisitType(MBHVisit.BH_VISITTYPE_InpatientIPD);
 		valueObject.getVisit().saveEx();
 		commitEx();
 
@@ -181,7 +181,7 @@ public class InPatientReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create visit where the start date is in the range");
 		valueObject.setDateOffset(10);
 		ChuBoeCreateEntity.createVisit(valueObject);
-		valueObject.getVisit().setBH_PatientType(MBHVisit.BH_PATIENTTYPE_InpatientIPD);
+		valueObject.getVisit().setBH_VisitType(MBHVisit.BH_VISITTYPE_InpatientIPD);
 		valueObject.getVisit().saveEx();
 		commitEx();
 
@@ -201,7 +201,7 @@ public class InPatientReportTest extends ChuBoePopulateFactoryVO {
 		valueObject.setStepName("Create visit where the start date is before the range and the end date is in the future");
 		valueObject.setDateOffset(-20);
 		ChuBoeCreateEntity.createVisit(valueObject);
-		valueObject.getVisit().setBH_PatientType(MBHVisit.BH_PATIENTTYPE_InpatientIPD);
+		valueObject.getVisit().setBH_VisitType(MBHVisit.BH_VISITTYPE_InpatientIPD);
 		valueObject.getVisit().saveEx();
 		commitEx();
 
@@ -278,7 +278,7 @@ public class InPatientReportTest extends ChuBoePopulateFactoryVO {
 
 		valueObject.setStepName("Create visit");
 		ChuBoeCreateEntity.createVisit(valueObject);
-		valueObject.getVisit().setBH_PatientType(MBHVisit.BH_PATIENTTYPE_InpatientIPD);
+		valueObject.getVisit().setBH_VisitType(MBHVisit.BH_VISITTYPE_InpatientIPD);
 		valueObject.getVisit().saveEx();
 		commitEx();
 

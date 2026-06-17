@@ -26,8 +26,8 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mBH_Clinician_User;
-	private ForeignEntityInput mBH_PatientType;
 	private ForeignEntityInput mBH_Process_Stage;
+	private ForeignEntityInput mBH_VisitType;
 	private ForeignEntityInput mBH_Voided_Reason;
 	private ForeignEntityInput mPatient;
 	private ForeignEntityInput mbh_referral;
@@ -113,45 +113,6 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 	@JsonProperty("BH_Clinician_User")
 	public ForeignEntityInput BH_Clinician_User() {
 		return mBH_Clinician_User;
-	}
-
-	/**
-	 * Set Patient Type.
-	 *
-	 * @param BH_PatientType Patient Type
-	 */
-	@JsonProperty("BH_PatientType")
-	public void setBH_PatientTypeInput(ForeignEntityInput BH_PatientType) {
-		this.mBH_PatientType = BH_PatientType;
-		if (BH_PatientType != null) {
-			// Since an entity was passed, make sure it's in the list of acceptable values
-			if (!X_BH_VisitResolver.BH_PATIENTTYPE_UUIDS_BY_VALUE.containsValue(BH_PatientType.getUU())) {
-				throw new AdempiereException("The reference list UU of " + BH_PatientType.getUU() +
-						" is not in the list defined for the BH_PatientType column");
-			}
-			// Now make sure it's in the DB
-			MRefList_BH foreignEntity;
-			if ((foreignEntity =
-					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
-							.setParameters(BH_PatientType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
-				this.setBH_PatientType(foreignEntity.getValue());
-			} else {
-				throw new AdempiereException(
-						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + BH_PatientType.getUU());
-			}
-		} else {
-			this.setBH_PatientType(null);
-		}
-	}
-
-	/**
-	 * Get Patient Type.
-	 *
-	 * @return Patient Type
-	 */
-	@JsonProperty("BH_PatientType")
-	public ForeignEntityInput BH_PatientType() {
-		return mBH_PatientType;
 	}
 
 	/**
@@ -241,6 +202,45 @@ public class X_BH_VisitInput extends MBHVisit implements I_BH_VisitInput {
 		if (get_ID() == 0) {
 			super.setBH_Visit_ID(BH_Visit_ID);
 		}
+	}
+
+	/**
+	 * Set Visit Type.
+	 *
+	 * @param BH_VisitType Visit Type
+	 */
+	@JsonProperty("BH_VisitType")
+	public void setBH_VisitTypeInput(ForeignEntityInput BH_VisitType) {
+		this.mBH_VisitType = BH_VisitType;
+		if (BH_VisitType != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_BH_VisitResolver.BH_VISITTYPE_UUIDS_BY_VALUE.containsValue(BH_VisitType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BH_VisitType.getUU() +
+						" is not in the list defined for the BH_VisitType column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(BH_VisitType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setBH_VisitType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + BH_VisitType.getUU());
+			}
+		} else {
+			this.setBH_VisitType(null);
+		}
+	}
+
+	/**
+	 * Get Visit Type.
+	 *
+	 * @return Visit Type
+	 */
+	@JsonProperty("BH_VisitType")
+	public ForeignEntityInput BH_VisitType() {
+		return mBH_VisitType;
 	}
 
 	/**

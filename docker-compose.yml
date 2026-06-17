@@ -5,7 +5,7 @@ services:
       - postgres
     volumes:
       - ./testing:${INSTALLATION_HOME}
-      - ./idempiere-logs:/opt/idempiere/log
+      - ./idempiere-logs/${CONTAINER_NAME}:/opt/idempiere/log
     container_name: '${CONTAINER_NAME}_idempiere'
     environment:
       - DB_ADMIN_PASS=${POSTGRES_PASSWORD}
@@ -21,6 +21,7 @@ services:
       - INSTALLATION_HOME=${INSTALLATION_HOME}
       - OCL_API_TOKEN=whatever
       - OCL_BASE_URL=http://external-mocks:${EXTERNAL_MOCKS_PORT}/ocl
+      - GRAPHQL_PROXY_UPSTREAM_URL=http://external-mocks:${EXTERNAL_MOCKS_PORT}/graphql-proxy
     ports:
       - ${IDEMPIERE_PORT}:8080
       - ${IDEMPIERE_SSL_PORT}:8443
@@ -38,6 +39,7 @@ services:
 
   tests:
     build: .
+    restart: "no"
     depends_on:
       idempiere:
         condition: service_healthy
@@ -47,6 +49,8 @@ services:
       - ./db-output:/app/output
     container_name: '${CONTAINER_NAME}_tests'
     environment:
+      - CI=${CI:-false}
+      - TEST_QUIET=${TEST_QUIET:-true}
       - IDEMPIERE_ENDPOINT=${IDEMPIERE_ENDPOINT}
       - IDEMPIERE_GRAPHQL_TEST_CLIENT=${IDEMPIERE_GRAPHQL_TEST_CLIENT}
       - IDEMPIERE_USER=${IDEMPIERE_USER}

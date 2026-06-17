@@ -35,7 +35,7 @@ FROM
 JOIN bh_visit v
 ON v.bh_visit_id = bgvp.bh_visit_id
 JOIN ad_ref_list arl
-ON arl.value = v.bh_patienttype
+ON arl.value = v.bh_visittype
 JOIN ad_reference ar
 ON ar.ad_reference_id = arl.ad_reference_id AND ar.ad_reference_uu = '47d32afd-3b94-4caa-8490-f0f1a97494f7'
 GROUP BY arl.name
