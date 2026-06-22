@@ -28,6 +28,7 @@ import {
 	Bh_VisitSaveWithEncountersOrdersAndInvoicesDocument,
 	Bh_VisitSaveWithOrdersAndInvoicesDocument,
 	Bh_VisitSaveWithOrdersInvoicesPayerInformationAndPaymentsDocument,
+	Bh_VisitWithVisitTypeDocument,
 	Bh_Voided_ReasonGetDocument,
 	C_AllocationLineGetDocument,
 	C_BPartnerGetDocument,
@@ -3216,7 +3217,7 @@ test(`can save triage as a process stage`, async () => {
 	});
 });
 
-test(`can save mental health as a visit type`, async () => {
+test(`can save and read back all visit types`, async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
@@ -3226,24 +3227,40 @@ test(`can save mental health as a visit type`, async () => {
 	const visitTypes = (
 		await query(valueObject)({
 			query: Ad_Ref_ListGetDocument,
-			variables: { Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.VISIT_TYPE } }) },
+			variables: {
+				Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUuid.VISIT_TYPE }, isactive: true }),
+			},
 		})
 	).data.AD_Ref_ListGet.Results;
-	const mentalHealth = visitTypes.find((processStage) => processStage.Name === 'Mental Health')!;
-	expect(mentalHealth).toBeTruthy();
+	expect(visitTypes.length).toBeGreaterThan(0);
 
-	valueObject.stepName = 'Create visit';
-	await mutate(valueObject)({
-		mutation: Bh_VisitSaveDocument,
-		variables: {
-			Entity: {
-				BH_VisitType: { UU: mentalHealth.UU },
-				BH_VisitDate: valueObject.date?.getTime(),
-				Description: valueObject.getStepMessageLong(),
-				Patient: { UU: valueObject.businessPartner!.UU },
+	for (const visitType of visitTypes) {
+		const visitUU = v4();
+
+		valueObject.stepName = `Save visit with visit type ${visitType.Name} (${visitType.Value})`;
+		await mutate(valueObject)({
+			mutation: Bh_VisitSaveDocument,
+			variables: {
+				Entity: {
+					UU: visitUU,
+					BH_VisitType: { UU: visitType.UU },
+					BH_VisitDate: valueObject.date?.getTime(),
+					Description: valueObject.getStepMessageLong(),
+					Patient: { UU: valueObject.businessPartner!.UU },
+				},
 			},
-		},
-	});
+		});
+
+		valueObject.stepName = `Read back visit and verify visit type ${visitType.Name} (${visitType.Value})`;
+		const visit = (
+			await query(valueObject)({ query: Bh_VisitWithVisitTypeDocument, variables: { UU: visitUU } })
+		).data.BH_Visit!;
+		expect(visit.UU).toBe(visitUU);
+		expect(visit.BH_VisitType).toBeTruthy();
+		expect(visit.BH_VisitType?.UU).toBe(visitType.UU);
+		expect(visit.BH_VisitType?.Name).toBe(visitType.Name);
+		expect(visit.BH_VisitType?.Value).toBe(visitType.Value);
+	}
 });
 
 test(`'coming from' shows the correct data`, async () => {
