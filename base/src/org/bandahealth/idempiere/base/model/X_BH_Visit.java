@@ -237,8 +237,8 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 	public static final String BH_VISITTYPE_ImmunizationsWellChild = "Im";
 	/** Maternity = M */
 	public static final String BH_VISITTYPE_Maternity = "M";
-	/** Mental Health = Mh */
-	public static final String BH_VISITTYPE_MentalHealth = "Mh";
+	/** Mental Health = Z */
+	public static final String BH_VISITTYPE_MentalHealth = "Z";
 	/** Outpatient (OPD) = O */
 	public static final String BH_VISITTYPE_OutpatientOPD = "O";
 	/** Surgery = S */
