@@ -402,6 +402,17 @@ query BH_Visit($UU: String!) {
 	}
 }
 
+query BH_VisitWithVisitType($UU: String!) {
+	BH_Visit(UU: $UU) {
+		UU
+		BH_VisitType {
+			Name
+			UU
+			Value
+		}
+	}
+}
+
 query BH_VisitCount($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	BH_VisitGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		PagingInfo {
