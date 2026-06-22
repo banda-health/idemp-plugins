@@ -14,7 +14,7 @@ DB_UPSTREAM_ADMIN_DATABASE="${DB_UPSTREAM_ADMIN_DATABASE:-template1}"
 
 case "$DB_TARGET" in
   host)
-    UPSTREAM_HOST="host.docker.internal"
+    UPSTREAM_HOST="${DB_UPSTREAM_HOST:-host.docker.internal}"
     UPSTREAM_PORT="${DB_HOST_PORT:-5432}"
     ;;
   compose)
