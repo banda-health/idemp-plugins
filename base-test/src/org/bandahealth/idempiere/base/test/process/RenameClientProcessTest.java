@@ -5,6 +5,7 @@ import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.ChuBoePopulateVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MClient_BH;
+import org.bandahealth.idempiere.base.process.RenameClientProcess;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MCalendar;
 import org.compiere.model.MOrg;
@@ -133,7 +134,7 @@ public class RenameClientProcessTest extends ChuBoePopulateFactoryVO {
 				valueObject.setProcessRecordId(0);
 				valueObject.setProcessTableId(0);
 				valueObject.setProcessInformationParameters(List.of(
-						new ProcessInfoParameter("New Clinic Name", newName, null, null, null)
+						new ProcessInfoParameter(RenameClientProcess.PARAMETERNAME_NEW_NAME, newName, null, null, null)
 				));
 				ChuBoeCreateEntity.runProcess(valueObject);
 				commitEx();
