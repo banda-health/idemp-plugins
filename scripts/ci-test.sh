@@ -46,8 +46,6 @@ if [[ -z "${COMPOSE_PROJECT_NAME:-}" ]]; then
 fi
 export COMPOSE_PROJECT_NAME
 
-bash "${ROOT}/scripts/ci-clean-workspace.sh"
-
 WAIT_TIMEOUT="${CI_TEST_WAIT_TIMEOUT:-1200}"
 project_label="${COMPOSE_PROJECT_NAME}"
 
@@ -73,6 +71,7 @@ tear_down_stack() {
             "${CONTAINER_NAME}_tests" \
             2>/dev/null || true
     fi
+    bash "${ROOT}/scripts/ci-clean-workspace.sh"
 }
 
 echo "Tearing down any previous test stack (project=${project_label})..."
