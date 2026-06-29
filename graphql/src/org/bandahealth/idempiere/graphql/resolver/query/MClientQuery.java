@@ -75,6 +75,7 @@ public class MClientQuery extends X_AD_ClientQuery {
 	public CompletableFuture<MClient_BH> AD_Client(String UU, DataFetchingEnvironment environment) {
 		return CompletableFuture.supplyAsync(() -> {
 			Properties iDempiereContext = BandaGraphQLContext.getCtx(environment);
+			Repository.setCopyOfPropertiesForNestedThreadUsage(iDempiereContext);
 			// Since we'll already filter by what the user has below, clear any client ID on the context
 			Env.setContext(iDempiereContext, Env.AD_CLIENT_ID, 0);
 			try {
