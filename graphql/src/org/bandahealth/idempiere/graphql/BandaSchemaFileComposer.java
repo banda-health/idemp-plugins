@@ -76,7 +76,7 @@ public class BandaSchemaFileComposer {
 //						"WEB-INF/resources/MBHClientConcept.graphqls",
 //						"WEB-INF/resources/MBHClientConceptExtra.graphqls",
 						"WEB-INF/resources/MBHConcept.graphqls",
-						"WEB-INF/resources/MBHConceptExtra.graphqls",
+//						"WEB-INF/resources/MBHConceptExtra.graphqls",
 						"WEB-INF/resources/MBHConceptMapping.graphqls",
 //						"WEB-INF/resources/MBHDefaultDocActionAccess.graphqls",
 //						"WEB-INF/resources/MBHDefaultIncludedRole.graphqls",

@@ -40,7 +40,8 @@ test('can save and delete client concept extras', async () => {
 		mutation: Bh_Client_Concept_ExtraSaveDocument,
 		variables: {
 			BH_Client_Concept_Extra: {
-				BH_Concept_Extra: { UU: conceptExtraUU },
+				BH_Concept: { UU: conceptUU },
+				BH_Key: 'local_name',
 				BH_Value: 'kersplam 2',
 			},
 		},
@@ -55,12 +56,12 @@ test('can save and delete client concept extras', async () => {
 
 	expect(concept).toBeTruthy();
 	expect(concept.BH_Concept_Extras?.length).toBe(1);
-	expect(concept.BH_Concept_Extras![0].BH_Client_Concept_Extra).toBeTruthy();
-	expect(concept.BH_Concept_Extras![0].BH_Client_Concept_Extra!.BH_Value).toBe('kersplam 2');
+	expect(concept.BH_Client_Concept_Extras?.length).toBe(1);
+	expect(concept.BH_Client_Concept_Extras![0].BH_Value).toBe('kersplam 2');
 
 	await mutate(valueObject)({
 		mutation: Bh_Client_Concept_ExtraDeleteDocument,
-		variables: { UUs: [concept.BH_Concept_Extras![0].BH_Client_Concept_Extra!.UU] },
+		variables: { UUs: [concept.BH_Client_Concept_Extras![0].UU] },
 	});
 	concept = (
 		await query(valueObject)({
@@ -71,7 +72,7 @@ test('can save and delete client concept extras', async () => {
 
 	expect(concept).toBeTruthy();
 	expect(concept.BH_Concept_Extras?.length).toBe(1);
-	expect(concept.BH_Concept_Extras![0].BH_Client_Concept_Extra).toBeNull();
+	expect(concept.BH_Client_Concept_Extras ?? []).toHaveLength(0);
 });
 
 test('client cannot save multiple client extras for an extra', async () => {
@@ -106,7 +107,8 @@ test('client cannot save multiple client extras for an extra', async () => {
 		mutation: Bh_Client_Concept_ExtraSaveDocument,
 		variables: {
 			BH_Client_Concept_Extra: {
-				BH_Concept_Extra: { UU: conceptExtraUU },
+				BH_Concept: { UU: conceptUU },
+				BH_Key: 'local_name',
 				BH_Value: 'kersplam 2',
 			},
 		},
@@ -118,7 +120,8 @@ test('client cannot save multiple client extras for an extra', async () => {
 			mutation: Bh_Client_Concept_ExtraSaveDocument,
 			variables: {
 				BH_Client_Concept_Extra: {
-					BH_Concept_Extra: { UU: conceptExtraUU },
+					BH_Concept: { UU: conceptUU },
+					BH_Key: 'local_name',
 					BH_Value: 'kersplam 3',
 				},
 			},

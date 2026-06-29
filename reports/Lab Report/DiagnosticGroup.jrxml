@@ -105,11 +105,11 @@ FROM
 						LEFT JOIN bh_concept_extra ce_low
 							ON c.bh_concept_id = ce_low.bh_concept_id AND ce_low.bh_key = 'low_normal'
 						LEFT JOIN bh_client_concept_extra cce_low
-							ON ce_low.bh_concept_extra_id = cce_low.bh_concept_extra_id AND cce_low.ad_client_id = ed.ad_client_id
+							ON cce_low.bh_concept_id = c.bh_concept_id AND cce_low.bh_key = 'low_normal' AND cce_low.ad_client_id = ed.ad_client_id
 						LEFT JOIN bh_concept_extra ce_high
 							ON c.bh_concept_id = ce_high.bh_concept_id AND ce_high.bh_key = 'hi_normal'
 						LEFT JOIN bh_client_concept_extra cce_high
-							ON ce_high.bh_concept_extra_id = cce_high.bh_concept_extra_id AND cce_high.ad_client_id = ed.ad_client_id
+							ON cce_high.bh_concept_id = c.bh_concept_id AND cce_high.bh_key = 'hi_normal' AND cce_high.ad_client_id = ed.ad_client_id
 						LEFT JOIN LATERAL (SELECT DISTINCT ON (cm.to_bh_concept_id)
 							                   cm.to_bh_concept_id                                                              AS bh_concept_id,
 							                   COALESCE(cm_cce_low.bh_client_concept_extra_id,
@@ -128,13 +128,13 @@ FROM
 									                   ON cm.bh_concept_mapping_id = cm_ce_low.bh_concept_mapping_id AND
 									                      cm_ce_low.bh_key = 'low_normal'
 								                   LEFT JOIN bh_client_concept_extra cm_cce_low
-									                   ON cm_ce_low.bh_concept_extra_id = cm_cce_low.bh_concept_extra_id AND
+									                   ON cm_cce_low.bh_concept_mapping_id = cm.bh_concept_mapping_id AND cm_cce_low.bh_key = 'low_normal' AND
 									                      cm_cce_low.ad_client_id = ed.ad_client_id
 								                   LEFT JOIN bh_concept_extra cm_ce_high
 									                   ON cm.bh_concept_mapping_id = cm_ce_high.bh_concept_mapping_id AND
 									                      cm_ce_high.bh_key = 'hi_normal'
 								                   LEFT JOIN bh_client_concept_extra cm_cce_high
-									                   ON cm_ce_high.bh_concept_extra_id = cm_cce_high.bh_concept_extra_id AND
+									                   ON cm_cce_high.bh_concept_mapping_id = cm.bh_concept_mapping_id AND cm_cce_high.bh_key = 'hi_normal' AND
 									                      cm_cce_high.ad_client_id = ed.ad_client_id
 						                   WHERE
 							                   cm.to_bh_concept_id = c.bh_concept_id

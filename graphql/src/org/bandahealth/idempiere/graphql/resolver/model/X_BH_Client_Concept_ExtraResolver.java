@@ -3,8 +3,10 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBHClientConceptExtra;
-import org.bandahealth.idempiere.base.model.MBHConceptExtra;
-import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_Concept_ExtraDataLoader;
+import org.bandahealth.idempiere.base.model.MBHConcept;
+import org.bandahealth.idempiere.base.model.MBHConceptMapping;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_ConceptDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_Concept_MappingDataLoader;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -20,17 +22,32 @@ public class X_BH_Client_Concept_ExtraResolver extends POResolver<MBHClientConce
 
 
 	/**
-	 * Get Concept Extra.
+	 * Get Concept.
 	 *
-	 * @return Concept Extra
+	 * @return Concept
 	 */
-	public CompletableFuture<MBHConceptExtra> BH_Concept_Extra(MBHClientConceptExtra entity, DataFetchingEnvironment environment) {
-		if (entity.getBH_Concept_Extra_ID() < 1) {
+	public CompletableFuture<MBHConcept> BH_Concept(MBHClientConceptExtra entity, DataFetchingEnvironment environment) {
+		if (entity.getBH_Concept_ID() < 1) {
 			return null;
 		}
-		DataLoader<Integer, MBHConceptExtra> dataLoader =
-				environment.getDataLoaderRegistry().getDataLoader(X_BH_Concept_ExtraDataLoader.DATALOADER_BH_Concept_Extra_BY_ID);
-		return dataLoader.load(entity.getBH_Concept_Extra_ID());
+		DataLoader<Integer, MBHConcept> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_BH_ConceptDataLoader.DATALOADER_BH_Concept_BY_ID);
+		return dataLoader.load(entity.getBH_Concept_ID());
+	}
+
+
+	/**
+	 * Get Concept Mapping.
+	 *
+	 * @return Concept Mapping
+	 */
+	public CompletableFuture<MBHConceptMapping> BH_Concept_Mapping(MBHClientConceptExtra entity, DataFetchingEnvironment environment) {
+		if (entity.getBH_Concept_Mapping_ID() < 1) {
+			return null;
+		}
+		DataLoader<Integer, MBHConceptMapping> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_BH_Concept_MappingDataLoader.DATALOADER_BH_Concept_Mapping_BY_ID);
+		return dataLoader.load(entity.getBH_Concept_Mapping_ID());
 	}
 
 }
