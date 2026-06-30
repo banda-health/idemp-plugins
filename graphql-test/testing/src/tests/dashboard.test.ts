@@ -57,6 +57,7 @@ async function setupSellableProduct(valueObject: ValueObject) {
 
 	valueObject.stepName = 'Create product';
 	valueObject.salesStandardPrice = 100;
+	valueObject.quantity = 10;
 	await createProduct(valueObject);
 
 	valueObject.stepName = 'Create purchase order';
