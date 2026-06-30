@@ -51,10 +51,18 @@ function dayKey(timestamp: number): string {
 	return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
 }
 
+/** Midday on a calendar day — stays inside startOfDay/endOfDay query windows and avoids TZ midnight edge cases. */
+function stableTestDate(date: Date): Date {
+	const copy = new Date(date);
+	copy.setHours(12, 0, 0, 0);
+	return copy;
+}
+
+/** Recent day within the open accounting period, unlikely to overlap other suites' yesterday/today visits. */
 function daysAgo(days: number): Date {
 	const date = new Date();
 	date.setDate(date.getDate() - days);
-	return date;
+	return stableTestDate(date);
 }
 
 async function getDashboardGeneralData(valueObject: ValueObject, beginDate: Date, endDate: Date) {
@@ -298,6 +306,74 @@ test('six-month time range always returned for historical inventory charges and 
 	expect(new Date(data[5]?.BucketValue || new Date()).getMonth()).toBe(new Date().getMonth());
 });
 
+test('vitals tracked percent excludes dental and other non-clinical visit types', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+	await setupSellableProduct(valueObject);
+
+	const opdVisitTypeUuid = await getVisitTypeUuid(valueObject, 'Outpatient (OPD)');
+	const dentalVisitTypeUuid = await getVisitTypeUuid(valueObject, 'Dental');
+	const testDay = daysAgo(14);
+
+	const baselinePercent = Number((await getDashboardGeneralData(valueObject, testDay, testDay)).PercentVitalsTracked);
+
+	valueObject.stepName = 'Complete OPD visit with vitals';
+	valueObject.date = testDay;
+	await saveVisit(valueObject, opdVisitTypeUuid);
+	await addVitalsEncounter(valueObject);
+	await completeVisit(valueObject);
+
+	const afterEligibleVisitPercent = Number(
+		(await getDashboardGeneralData(valueObject, testDay, testDay)).PercentVitalsTracked,
+	);
+	expect(afterEligibleVisitPercent).toBeGreaterThan(baselinePercent);
+
+	valueObject.stepName = 'Complete dental visit without vitals';
+	await preparePatient(valueObject);
+	valueObject.date = testDay;
+	await saveVisit(valueObject, dentalVisitTypeUuid);
+	await completeVisit(valueObject);
+
+	const afterExcludedVisitPercent = Number(
+		(await getDashboardGeneralData(valueObject, testDay, testDay)).PercentVitalsTracked,
+	);
+	expect(afterExcludedVisitPercent).toBe(afterEligibleVisitPercent);
+});
+
+test('diagnoses coded percent excludes family planning visits', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+	await setupSellableProduct(valueObject);
+
+	const opdVisitTypeUuid = await getVisitTypeUuid(valueObject, 'Outpatient (OPD)');
+	const familyPlanningVisitTypeUuid = await getVisitTypeUuid(valueObject, 'Family Planning');
+	const testDay = daysAgo(15);
+
+	const baselinePercent = Number((await getDashboardGeneralData(valueObject, testDay, testDay)).PercentDiagnosesCoded);
+
+	valueObject.stepName = 'Complete OPD visit with coded diagnosis';
+	valueObject.date = testDay;
+	await saveVisit(valueObject, opdVisitTypeUuid);
+	await addCodedDiagnosisEncounter(valueObject);
+	await completeVisit(valueObject);
+
+	const afterEligibleVisitPercent = Number(
+		(await getDashboardGeneralData(valueObject, testDay, testDay)).PercentDiagnosesCoded,
+	);
+	expect(afterEligibleVisitPercent).toBeGreaterThan(baselinePercent);
+
+	valueObject.stepName = 'Complete family planning visit without diagnosis';
+	await preparePatient(valueObject);
+	valueObject.date = testDay;
+	await saveVisit(valueObject, familyPlanningVisitTypeUuid);
+	await completeVisit(valueObject);
+
+	const afterExcludedVisitPercent = Number(
+		(await getDashboardGeneralData(valueObject, testDay, testDay)).PercentDiagnosesCoded,
+	);
+	expect(afterExcludedVisitPercent).toBe(afterEligibleVisitPercent);
+});
+
 test('visit history stats use one bucket per visit day', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
@@ -377,72 +453,4 @@ test('OTC visits appear under the OTC reference list, not alternate visit type',
 	expect(
 		visitHistory.some((stat) => stat.BH_PatientType?.Value !== 'ot' && stat.BH_PatientType?.Name === 'Outpatient (OPD)'),
 	).toBe(true);
-});
-
-test('vitals tracked percent excludes dental and other non-clinical visit types', async () => {
-	const valueObject = globalThis.__VALUE_OBJECT__;
-	await valueObject.login();
-	await setupSellableProduct(valueObject);
-
-	const opdVisitTypeUuid = await getVisitTypeUuid(valueObject, 'Outpatient (OPD)');
-	const dentalVisitTypeUuid = await getVisitTypeUuid(valueObject, 'Dental');
-	const testDay = daysAgo(40);
-
-	const baselinePercent = Number((await getDashboardGeneralData(valueObject, testDay, testDay)).PercentVitalsTracked);
-
-	valueObject.stepName = 'Complete OPD visit with vitals';
-	valueObject.date = testDay;
-	await saveVisit(valueObject, opdVisitTypeUuid);
-	await addVitalsEncounter(valueObject);
-	await completeVisit(valueObject);
-
-	const afterEligibleVisitPercent = Number(
-		(await getDashboardGeneralData(valueObject, testDay, testDay)).PercentVitalsTracked,
-	);
-	expect(afterEligibleVisitPercent).toBeGreaterThan(baselinePercent);
-
-	valueObject.stepName = 'Complete dental visit without vitals';
-	await preparePatient(valueObject);
-	valueObject.date = testDay;
-	await saveVisit(valueObject, dentalVisitTypeUuid);
-	await completeVisit(valueObject);
-
-	const afterExcludedVisitPercent = Number(
-		(await getDashboardGeneralData(valueObject, testDay, testDay)).PercentVitalsTracked,
-	);
-	expect(afterExcludedVisitPercent).toBe(afterEligibleVisitPercent);
-});
-
-test('diagnoses coded percent excludes family planning visits', async () => {
-	const valueObject = globalThis.__VALUE_OBJECT__;
-	await valueObject.login();
-	await setupSellableProduct(valueObject);
-
-	const opdVisitTypeUuid = await getVisitTypeUuid(valueObject, 'Outpatient (OPD)');
-	const familyPlanningVisitTypeUuid = await getVisitTypeUuid(valueObject, 'Family Planning');
-	const testDay = daysAgo(41);
-
-	const baselinePercent = Number((await getDashboardGeneralData(valueObject, testDay, testDay)).PercentDiagnosesCoded);
-
-	valueObject.stepName = 'Complete OPD visit with coded diagnosis';
-	valueObject.date = testDay;
-	await saveVisit(valueObject, opdVisitTypeUuid);
-	await addCodedDiagnosisEncounter(valueObject);
-	await completeVisit(valueObject);
-
-	const afterEligibleVisitPercent = Number(
-		(await getDashboardGeneralData(valueObject, testDay, testDay)).PercentDiagnosesCoded,
-	);
-	expect(afterEligibleVisitPercent).toBeGreaterThan(baselinePercent);
-
-	valueObject.stepName = 'Complete family planning visit without diagnosis';
-	await preparePatient(valueObject);
-	valueObject.date = testDay;
-	await saveVisit(valueObject, familyPlanningVisitTypeUuid);
-	await completeVisit(valueObject);
-
-	const afterExcludedVisitPercent = Number(
-		(await getDashboardGeneralData(valueObject, testDay, testDay)).PercentDiagnosesCoded,
-	);
-	expect(afterExcludedVisitPercent).toBe(afterEligibleVisitPercent);
 });
