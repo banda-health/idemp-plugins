@@ -137,7 +137,7 @@ WHERE
 	name = 'Personnel - NHIF';
 
 /**********************************************************************************************************************/
--- Remove orphaned NHIF cashier report dictionary (processes deleted in GO-2722; buttons in GO-2532)
+-- Remove orphaned NHIF cashier report dictionary (processes deleted in GO-2722)
 /**********************************************************************************************************************/
 DELETE
 FROM
@@ -153,42 +153,6 @@ FROM
 	ad_element
 WHERE
 	ad_element_uu IN ('39664999-42ff-48f5-97ae-03159fabff9e', '8f3723e5-7cd6-4c97-bd59-06fd9da287e9');
-
-DELETE
-FROM
-	bh_tabnavbtn_tab_trl
-WHERE
-	bh_tabnavbtn_tab_id IN (
-		SELECT bh_tabnavbtn_tab_id FROM bh_tabnavbtn_tab
-		WHERE bh_tabnavbtn_id IN (
-			SELECT bh_tabnavbtn_id FROM bh_tabnavbtn
-			WHERE bh_tabnavbtn_uu IN ('81089221-596a-4ce2-a2ea-19c9a92d6837', '127fb899-61a7-4e55-a421-a5032f5998ce')
-		)
-	);
-
-DELETE
-FROM
-	bh_tabnavbtn_tab
-WHERE
-	bh_tabnavbtn_id IN (
-		SELECT bh_tabnavbtn_id FROM bh_tabnavbtn
-		WHERE bh_tabnavbtn_uu IN ('81089221-596a-4ce2-a2ea-19c9a92d6837', '127fb899-61a7-4e55-a421-a5032f5998ce')
-	);
-
-DELETE
-FROM
-	bh_tabnavbtn_trl
-WHERE
-	bh_tabnavbtn_id IN (
-		SELECT bh_tabnavbtn_id FROM bh_tabnavbtn
-		WHERE bh_tabnavbtn_uu IN ('81089221-596a-4ce2-a2ea-19c9a92d6837', '127fb899-61a7-4e55-a421-a5032f5998ce')
-	);
-
-DELETE
-FROM
-	bh_tabnavbtn
-WHERE
-	bh_tabnavbtn_uu IN ('81089221-596a-4ce2-a2ea-19c9a92d6837', '127fb899-61a7-4e55-a421-a5032f5998ce');
 
 /**********************************************************************************************************************/
 -- Drop unused NHIF columns from c_payment (GO-1335 removed most; NHIF_Number remained)
