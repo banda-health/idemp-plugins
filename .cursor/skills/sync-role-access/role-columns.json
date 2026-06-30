@@ -1,0 +1,20 @@
+{
+  "_comment": "Normalized matrix role-header (lowercased, whitespace-collapsed) -> master role ad_role_uu. null = column has no master role; any non-zero cell in a null column is a hard error. Keep keys matching the sheet header EXACTLY after normalization (note the sheet's inconsistent spacing, e.g. 'clinician/nurse basic' vs 'clinician/ nurse advanced').",
+  "clinic admin": "461b31c5-cae2-449d-8a0c-7385b12f4685",
+  "cashier lite": "3665260a-9448-4816-8af7-5e3f93a16ab7",
+  "cashier/ registration basic": "09eb7fc8-9cc5-44b0-9d14-15258a066038",
+  "cashier/ registration basic + price editing": "c0e72e44-9cc9-4a0a-b5cd-6cc923678c1a",
+  "cashier/ registration advanced": "ee008abc-2c16-4230-b48c-b1f5577ea270",
+  "inventory/ pharmacy advanced": "ec17fee0-a53a-4dbb-b946-423ce14880eb",
+  "inventory/ pharmacy basic": "a1618fd6-e1ab-4e41-a08d-854229cd5971",
+  "clinician/nurse basic": "98617c31-55ff-48f9-bd44-253ef323d960",
+  "clinician/ nurse advanced": "c54253cf-c86b-4aaa-b472-ed8880635c62",
+  "triage": "ae618e24-a47a-40cc-bb5c-8dca64d86daf",
+  "lab/ radiology basic": "17ccea57-1131-4d51-83ca-1824182e4493",
+  "lab/ radiology advanced": "097feff0-3aa6-41fe-bf76-936b03859846",
+  "accounting": "93365778-a2d9-433b-b962-87fb150db4fa",
+  "otc only": "b986f846-09bc-461e-956a-e524fd75aa8a",
+  "clinic user": "e1a9a87d-dc61-4d9e-a6c9-f91d5f42e33e",
+  "registration": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "starter": null
+}
