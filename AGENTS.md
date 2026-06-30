@@ -25,6 +25,25 @@ Canonical example: `migration/local_sql/postgresql/202605221123_GO-3580.sql`
 
 More detail: [`migration/README.md`](migration/README.md)
 
+## Role access (reports)
+
+Role access to reports/processes is governed by the public **standard role matrix** sheet,
+not guessed. Generate the `AD_Process_Access` migration from it with the
+**[`.cursor/skills/sync-role-access/SKILL.md`](.cursor/skills/sync-role-access/SKILL.md)**
+tool (plain Python — works from any assistant or shell):
+
+```bash
+# New report: emit its access block and paste it INTO the report's own feature migration
+python3 .cursor/skills/sync-role-access/generate.py --offline --report "Purchased Stocks"
+python3 .cursor/skills/sync-role-access/generate.py --offline --check                 # validate only (CI)
+python3 .cursor/skills/sync-role-access/generate.py --offline --write --ticket GO-#### # re-sync delta for shipped reports
+```
+
+A report is delivered as one feature migration (`.jrxml` + `ad_process`/params/menu/access),
+so its access block lives **in that migration** (see `202606301208_GO-3561.sql`). The tool maps
+the sheet's `R:`/`R;` rows to `ad_process_access` via committed maps + a snapshot and fails loudly
+on unmapped rows/cells/columns. Windows/forms are not yet covered (hand-write those).
+
 ## OCL concept uploads
 
 Open Concept Lab is the source of truth for clinical concepts synced into BandaGo via `ConceptSyncProcess`.
