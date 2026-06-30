@@ -658,6 +658,25 @@ query C_UOMGetDefault {
 	}
 }
 
+query DashboardGeneralDataGet($BeginDate: DateTime!, $EndDate: DateTime!) {
+	DashboardGeneralDataGet(BeginDate: $BeginDate, EndDate: $EndDate) {
+		PercentDiagnosesCoded
+		PercentVitalsTracked
+	}
+}
+
+query DashboardVisitHistoryStatGet($BeginDate: DateTime!, $EndDate: DateTime!) {
+	DashboardVisitHistoryStatGet(BeginDate: $BeginDate, EndDate: $EndDate) {
+		AlternateVisitType
+		BH_PatientType {
+			Name
+			Value
+		}
+		BucketValue
+		Frequency
+	}
+}
+
 query DashboardFinancialHistoricalGet {
 	DashboardFinancialHistoricalGet {
 		BucketValue
