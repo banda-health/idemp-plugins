@@ -51,6 +51,12 @@ function dayKey(timestamp: number): string {
 	return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
 }
 
+function daysAgo(days: number): Date {
+	const date = new Date();
+	date.setDate(date.getDate() - days);
+	return date;
+}
+
 async function setupSellableProduct(valueObject: ValueObject) {
 	valueObject.stepName = 'Create business partner';
 	await createBusinessPartner(valueObject);
@@ -363,8 +369,8 @@ test('vitals tracked percent excludes dental and other non-clinical visit types'
 
 	const opdVisitTypeUuid = await getVisitTypeUuid(valueObject, 'Outpatient (OPD)');
 	const dentalVisitTypeUuid = await getVisitTypeUuid(valueObject, 'Dental');
-	const rangeBegin = yesterday();
-	const rangeEnd = new Date();
+	const rangeBegin = daysAgo(10);
+	const rangeEnd = daysAgo(9);
 
 	valueObject.stepName = 'Complete OPD visit with vitals';
 	valueObject.date = rangeBegin;
@@ -398,8 +404,8 @@ test('diagnoses coded percent excludes family planning visits', async () => {
 
 	const opdVisitTypeUuid = await getVisitTypeUuid(valueObject, 'Outpatient (OPD)');
 	const familyPlanningVisitTypeUuid = await getVisitTypeUuid(valueObject, 'Family Planning');
-	const rangeBegin = yesterday();
-	const rangeEnd = new Date();
+	const rangeBegin = daysAgo(12);
+	const rangeEnd = daysAgo(11);
 
 	valueObject.stepName = 'Complete OPD visit with coded diagnosis';
 	valueObject.date = rangeBegin;
