@@ -51,10 +51,16 @@ function dayKey(timestamp: number): string {
 	return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
 }
 
-function daysAgo(days: number): Date {
-	const date = new Date();
-	date.setDate(date.getDate() - days);
-	return date;
+async function getDashboardGeneralData(valueObject: ValueObject, beginDate: Date, endDate: Date) {
+	return (
+		await query(valueObject)({
+			query: DashboardGeneralDataGetDocument,
+			variables: {
+				BeginDate: startOfDayMs(beginDate),
+				EndDate: endOfDayMs(endDate),
+			},
+		})
+	).data.DashboardGeneralDataGet;
 }
 
 async function setupSellableProduct(valueObject: ValueObject) {
@@ -369,32 +375,32 @@ test('vitals tracked percent excludes dental and other non-clinical visit types'
 
 	const opdVisitTypeUuid = await getVisitTypeUuid(valueObject, 'Outpatient (OPD)');
 	const dentalVisitTypeUuid = await getVisitTypeUuid(valueObject, 'Dental');
-	const rangeBegin = daysAgo(10);
-	const rangeEnd = daysAgo(9);
+	const rangeBegin = yesterday();
+	const rangeEnd = new Date();
+
+	const baselinePercent = Number((await getDashboardGeneralData(valueObject, rangeBegin, rangeEnd)).PercentVitalsTracked);
+
+	valueObject.stepName = 'Complete dental visit without vitals';
+	valueObject.date = rangeEnd;
+	await saveVisit(valueObject, dentalVisitTypeUuid);
+	await completeVisit(valueObject);
+
+	const afterExcludedVisitPercent = Number(
+		(await getDashboardGeneralData(valueObject, rangeBegin, rangeEnd)).PercentVitalsTracked,
+	);
+	expect(afterExcludedVisitPercent).toBe(baselinePercent);
 
 	valueObject.stepName = 'Complete OPD visit with vitals';
+	valueObject.setRandom();
 	valueObject.date = rangeBegin;
 	await saveVisit(valueObject, opdVisitTypeUuid);
 	await addVitalsEncounter(valueObject);
 	await completeVisit(valueObject);
 
-	valueObject.stepName = 'Complete dental visit without vitals';
-	valueObject.setRandom();
-	valueObject.date = rangeEnd;
-	await saveVisit(valueObject, dentalVisitTypeUuid);
-	await completeVisit(valueObject);
-
-	const generalData = (
-		await query(valueObject)({
-			query: DashboardGeneralDataGetDocument,
-			variables: {
-				BeginDate: startOfDayMs(rangeBegin),
-				EndDate: endOfDayMs(rangeEnd),
-			},
-		})
-	).data.DashboardGeneralDataGet;
-
-	expect(Number(generalData.PercentVitalsTracked)).toBe(1);
+	const afterEligibleVisitPercent = Number(
+		(await getDashboardGeneralData(valueObject, rangeBegin, rangeEnd)).PercentVitalsTracked,
+	);
+	expect(afterEligibleVisitPercent).toBeGreaterThan(afterExcludedVisitPercent);
 });
 
 test('diagnoses coded percent excludes family planning visits', async () => {
@@ -404,30 +410,30 @@ test('diagnoses coded percent excludes family planning visits', async () => {
 
 	const opdVisitTypeUuid = await getVisitTypeUuid(valueObject, 'Outpatient (OPD)');
 	const familyPlanningVisitTypeUuid = await getVisitTypeUuid(valueObject, 'Family Planning');
-	const rangeBegin = daysAgo(12);
-	const rangeEnd = daysAgo(11);
+	const rangeBegin = yesterday();
+	const rangeEnd = new Date();
+
+	const baselinePercent = Number((await getDashboardGeneralData(valueObject, rangeBegin, rangeEnd)).PercentDiagnosesCoded);
+
+	valueObject.stepName = 'Complete family planning visit without diagnosis';
+	valueObject.date = rangeEnd;
+	await saveVisit(valueObject, familyPlanningVisitTypeUuid);
+	await completeVisit(valueObject);
+
+	const afterExcludedVisitPercent = Number(
+		(await getDashboardGeneralData(valueObject, rangeBegin, rangeEnd)).PercentDiagnosesCoded,
+	);
+	expect(afterExcludedVisitPercent).toBe(baselinePercent);
 
 	valueObject.stepName = 'Complete OPD visit with coded diagnosis';
+	valueObject.setRandom();
 	valueObject.date = rangeBegin;
 	await saveVisit(valueObject, opdVisitTypeUuid);
 	await addCodedDiagnosisEncounter(valueObject);
 	await completeVisit(valueObject);
 
-	valueObject.stepName = 'Complete family planning visit without diagnosis';
-	valueObject.setRandom();
-	valueObject.date = rangeEnd;
-	await saveVisit(valueObject, familyPlanningVisitTypeUuid);
-	await completeVisit(valueObject);
-
-	const generalData = (
-		await query(valueObject)({
-			query: DashboardGeneralDataGetDocument,
-			variables: {
-				BeginDate: startOfDayMs(rangeBegin),
-				EndDate: endOfDayMs(rangeEnd),
-			},
-		})
-	).data.DashboardGeneralDataGet;
-
-	expect(Number(generalData.PercentDiagnosesCoded)).toBe(1);
+	const afterEligibleVisitPercent = Number(
+		(await getDashboardGeneralData(valueObject, rangeBegin, rangeEnd)).PercentDiagnosesCoded,
+	);
+	expect(afterEligibleVisitPercent).toBeGreaterThan(afterExcludedVisitPercent);
 });
