@@ -69,6 +69,7 @@ async function setupSellableProduct(valueObject: ValueObject) {
 	valueObject.documentAction = documentAction.Complete;
 	await valueObject.setDocumentBaseType(documentBaseType.MaterialReceipt, null, false, false, false);
 	await createInOutFromOrder(valueObject);
+	valueObject.quantity = 1;
 }
 
 async function getVisitTypeUuid(valueObject: ValueObject, name: string) {
