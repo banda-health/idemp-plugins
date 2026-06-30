@@ -77,7 +77,7 @@
 60110,Wages,,Expense,,,No,,60
 60410,NSSF Paid,,Expense,,,No,,60
 60430,PAYE Paid,,Expense,,,No,,60
-60510,NHIF Paid,,Expense,,,No,,60
+60510,SHA Paid,,Expense,,,No,,60
 60930,Other Payroll Expenses,,Expense,,,No,,60
 61,Occupancy Cost,,Expense,,,Yes,,6
 61100,Rent Expense,,Expense,,,No,,61
