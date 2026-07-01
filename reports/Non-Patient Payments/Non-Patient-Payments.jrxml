@@ -216,8 +216,6 @@ WHERE
 			npp.bh_visit_id
 		FROM
 			non_patient_payments npp
-				LEFT JOIN c_bpartner bp
-					ON bp.name = npp.ChargeType_name
 		WHERE
 			(p.payment_mode = '' OR (npp.bh_subtype = CASE WHEN p.payment_mode = 'T' THEN 'D' ELSE p.payment_mode END AND
 			                         p.payment_mode IN ('I', 'W', 'T')))
