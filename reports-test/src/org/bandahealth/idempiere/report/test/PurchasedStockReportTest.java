@@ -209,6 +209,8 @@ public class PurchasedStockReportTest extends ChuBoePopulateFactoryVO {
 
 	private void createPurchasedStockVendorBill(ChuBoePopulateVO valueObject, Timestamp date, String vendorName)
 			throws SQLException {
+		valueObject.clearBusinessPartner();
+		valueObject.clearProduct();
 		valueObject.setStepName("Create vendor " + vendorName);
 		valueObject.setSalesStandardPrice(new BigDecimal(100));
 		ChuBoeCreateEntity.createBusinessPartner(valueObject);
