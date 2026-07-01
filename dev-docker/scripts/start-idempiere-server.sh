@@ -83,8 +83,10 @@ stop_server() {
     fi
 
     if command -v pgrep >/dev/null 2>&1; then
-        # Match JVMs only — avoid killing this script (also named idempiere-server.sh).
-        for pattern in "org.adempiere.server.application" "org.adempiere.server.product" "org.eclipse.equinox.launcher"; do
+        # Match iDempiere server JVMs only. Do not pgrep org.eclipse.equinox.launcher —
+        # Eclipse uses the same launcher and would be killed (JVM exit 143) when this
+        # script runs while the IDE is open.
+        for pattern in "org.adempiere.server.application" "org.adempiere.server.product"; do
             while read -r orphan; do
                 [[ -n "$orphan" && "$orphan" != "$$" ]] || continue
                 echo "Stopping orphaned JVM (pid $orphan)..."
@@ -92,7 +94,7 @@ stop_server() {
             done < <(pgrep -f "$pattern" 2>/dev/null || true)
         done
         sleep 2
-        for pattern in "org.adempiere.server.application" "org.adempiere.server.product" "org.eclipse.equinox.launcher"; do
+        for pattern in "org.adempiere.server.application" "org.adempiere.server.product"; do
             while read -r orphan; do
                 [[ -n "$orphan" && "$orphan" != "$$" ]] || continue
                 kill -9 "$orphan" 2>/dev/null || true

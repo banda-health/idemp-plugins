@@ -406,7 +406,6 @@ public class X_C_PaymentTransactionResolver extends POResolver<MPaymentTransacti
 			put("M", "7a78334e-3494-4d40-a718-c42cb053eea6"); // Mobile Money
 			put("B", "ade64e84-cd1b-43bc-a85c-c17a14963305"); // Bill Waiver
 			put("L", "7449ae78-c7d3-463b-921e-62a82a5e1a59"); // M-TIBA
-			put("N", "28617687-cb93-494a-8f03-bc453da32658"); // NHIF
 			put("F", "e24511d1-9180-491c-9cc6-354b8a08e1ff"); // Donor Fund
 			put("i", "5b4b4fcf-85c0-4d7c-851d-ab0db2e84b6d"); // Linda Mama
 			put("G", "bb077404-71a4-4348-9afa-2b99ae9e1381"); // CCC

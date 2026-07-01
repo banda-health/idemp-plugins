@@ -69,9 +69,9 @@ while IFS= read -r line; do
   [ -f "jestResults.json" ] && rm jestResults.json
   touch jestResults.json
   if [[ "$jest_quiet" == "true" ]]; then
-    jest --silent --json --outputFile=jestResults.json "$line" >/dev/null 2>&1
+    jest --runInBand --silent --json --outputFile=jestResults.json "$line" >/dev/null 2>&1
   else
-    jest --silent --json --outputFile=jestResults.json "$line"
+    jest --runInBand --silent --json --outputFile=jestResults.json "$line"
   fi
   waitCounter=0
   until [ -s jestResults.json ] || [ $waitCounter -gt 29 ]; do

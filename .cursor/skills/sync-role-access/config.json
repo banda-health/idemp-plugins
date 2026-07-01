@@ -1,0 +1,15 @@
+{
+  "spreadsheet_id": "1ZBJGcV3vZUlxdqh_6qJBE9MxDB82i5yk3VPGgeJhcTI",
+  "gid": "0",
+  "snapshot": "role-matrix.snapshot.csv",
+  "migration_dir": "migration/local_sql/postgresql",
+  "header_marker": "System Components",
+  "ignore_columns": ["all combinations of roles created manualy"],
+  "legend": {
+    "0": "No access",
+    "1": "Read Only",
+    "2": "Create/Edit",
+    "3": "Deactivate",
+    "4": "Delete/Void"
+  }
+}

@@ -150,7 +150,7 @@ FROM
 			ON visit_info.bh_visit_id = v.bh_visit_id
 WHERE
 	v.bh_visittype = 'I'
-	AND (pif.name IS NULL OR pif.name = 'NHIF Number')
+	AND (pif.name IS NULL OR pif.name IN ('NHIF Number', 'SHA Number'))
 	AND (ed.lineno IS NULL OR ed.lineno = 0)
 	AND visit_info.is_finished
 	AND (v.bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date} OR v.updated BETWEEN $P{Begin Date} AND $P{End Date} OR

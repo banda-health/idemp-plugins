@@ -51,12 +51,14 @@ ADMIN_USER=$(quote_conn_value "$DB_UPSTREAM_ADMIN_USER")
 ADMIN_PASSWORD=$(quote_conn_value "$DB_UPSTREAM_ADMIN_PASSWORD")
 ADMIN_DATABASE=$(quote_conn_value "$DB_UPSTREAM_ADMIN_DATABASE")
 
+APP_CONN="host=${UPSTREAM_HOST} port=${UPSTREAM_PORT} dbname=${APP_DATABASE} user=${APP_USER} password=${APP_PASSWORD} connect_query='SET search_path TO adempiere, public'"
+
 cat >"$CONFIG_DIR/pgbouncer.ini" <<EOF
 [databases]
 template1 = host=${UPSTREAM_HOST} port=${UPSTREAM_PORT} dbname=${ADMIN_DATABASE} user=${ADMIN_USER} password=${ADMIN_PASSWORD}
 postgres = host=${UPSTREAM_HOST} port=${UPSTREAM_PORT} dbname=postgres user=${ADMIN_USER} password=${ADMIN_PASSWORD}
-idempiere = host=${UPSTREAM_HOST} port=${UPSTREAM_PORT} dbname=${APP_DATABASE} user=${APP_USER} password=${APP_PASSWORD}
-* = host=${UPSTREAM_HOST} port=${UPSTREAM_PORT} dbname=${APP_DATABASE} user=${APP_USER} password=${APP_PASSWORD}
+idempiere = ${APP_CONN}
+* = ${APP_CONN}
 
 [pgbouncer]
 listen_addr = 127.0.0.1
