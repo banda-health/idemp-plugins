@@ -24,6 +24,7 @@ import {
 	createInOutFromOrder,
 	createInvoice,
 	createOrder,
+	createPatient,
 	createPayment,
 	createProduct,
 	yesterday,
@@ -35,15 +36,11 @@ const CLINICAL_DETAILS_WINDOW_UUID = '2e37e97b-aeb5-47d7-add3-0d602233c2aa';
 const HEIGHT_FIELD_UUID = '2842fb94-b841-4973-903e-89c7f24455b2';
 
 function startOfDayMs(date: Date): number {
-	const copy = new Date(date);
-	copy.setHours(0, 0, 0, 0);
-	return copy.getTime();
+	return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 0, 0, 0, 0);
 }
 
 function endOfDayMs(date: Date): number {
-	const copy = new Date(date);
-	copy.setHours(23, 59, 59, 999);
-	return copy.getTime();
+	return Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 23, 59, 59, 999);
 }
 
 function dayKey(timestamp: number): string {
@@ -51,17 +48,17 @@ function dayKey(timestamp: number): string {
 	return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
 }
 
-/** Midday on a calendar day — stays inside startOfDay/endOfDay query windows and avoids TZ midnight edge cases. */
+/** Midday UTC on a calendar day — matches backdated visit tests and timestamptz storage. */
 function stableTestDate(date: Date): Date {
 	const copy = new Date(date);
-	copy.setHours(12, 0, 0, 0);
+	copy.setUTCHours(12, 0, 0, 0);
 	return copy;
 }
 
-/** Recent day within the open accounting period, unlikely to overlap other suites' yesterday/today visits. */
+/** Isolated day for metric tests; unlikely to overlap other suites' yesterday/today visits. */
 function daysAgo(days: number): Date {
 	const date = new Date();
-	date.setDate(date.getDate() - days);
+	date.setUTCDate(date.getUTCDate() - days);
 	return stableTestDate(date);
 }
 
@@ -79,7 +76,7 @@ async function getDashboardGeneralData(valueObject: ValueObject, beginDate: Date
 
 async function preparePatient(valueObject: ValueObject) {
 	valueObject.clearBusinessPartner();
-	await createBusinessPartner(valueObject);
+	await createPatient(valueObject);
 }
 
 async function setupSellableProduct(valueObject: ValueObject) {
@@ -317,6 +314,7 @@ test('vitals tracked percent excludes dental and other non-clinical visit types'
 
 	const baselinePercent = Number((await getDashboardGeneralData(valueObject, testDay, testDay)).PercentVitalsTracked);
 
+	await preparePatient(valueObject);
 	valueObject.stepName = 'Complete OPD visit with vitals';
 	valueObject.date = testDay;
 	await saveVisit(valueObject, opdVisitTypeUuid);
@@ -351,6 +349,7 @@ test('diagnoses coded percent excludes family planning visits', async () => {
 
 	const baselinePercent = Number((await getDashboardGeneralData(valueObject, testDay, testDay)).PercentDiagnosesCoded);
 
+	await preparePatient(valueObject);
 	valueObject.stepName = 'Complete OPD visit with coded diagnosis';
 	valueObject.date = testDay;
 	await saveVisit(valueObject, opdVisitTypeUuid);
@@ -383,6 +382,7 @@ test('visit history stats use one bucket per visit day', async () => {
 	const yesterdayDate = yesterday();
 	const todayDate = new Date();
 
+	await preparePatient(valueObject);
 	valueObject.stepName = 'Complete visit yesterday';
 	valueObject.date = yesterdayDate;
 	await saveVisit(valueObject, opdVisitTypeUuid);
@@ -416,6 +416,7 @@ test('OTC visits appear under the OTC reference list, not alternate visit type',
 	await valueObject.login();
 	await setupSellableProduct(valueObject);
 
+	await preparePatient(valueObject);
 	valueObject.stepName = 'Complete regular patient visit';
 	valueObject.date = new Date();
 	await saveVisit(valueObject, await getVisitTypeUuid(valueObject, 'Outpatient (OPD)'));

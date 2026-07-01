@@ -10,6 +10,7 @@ import {
 	C_BPartnerGetDocument,
 	C_BPartnerSaveDocument,
 	C_BPartnerSaveWithLocationAndContactDocument,
+	C_LocationUpdateWithBPartnerDocument,
 	C_ChargeSaveDocument,
 	C_InvoiceGetDocument,
 	C_InvoiceProcessDocument,
@@ -174,16 +175,45 @@ export async function createPatient(valueObject: ValueObject) {
 	const patientBusinessPartnerGroup = (
 		await query(valueObject)({
 			query: C_Bp_GroupGetDocument,
-			variables: { Filter: JSON.stringify({ Name: 'Patients - DO NOT CHANGE' }) },
+			variables: { Filter: JSON.stringify({ name: 'Patients - DO NOT CHANGE' }) },
 		})
 	).data.C_BP_GroupGet.Results[0];
 	if (patientBusinessPartnerGroup == null) {
 		throw new Error('Patient BP Group is not present');
 	}
+	const partnerLocationUuid =
+		valueObject.businessPartnerLocation?.UU || valueObject.businessPartner!.C_BPartner_Locations?.[0]?.UU;
+	if (!partnerLocationUuid) {
+		throw new Error('Patient location not present after business partner creation');
+	}
+	const locationUuid = v4();
 	await mutate(valueObject)({
-		mutation: C_BPartnerSaveDocument,
-		variables: { Entity: { C_BP_Group: { UU: patientBusinessPartnerGroup.UU }, UU: valueObject.businessPartner!.UU } },
+		mutation: C_LocationUpdateWithBPartnerDocument,
+		variables: {
+			C_BPartner: {
+				UU: valueObject.businessPartner!.UU,
+				C_BP_Group: { UU: patientBusinessPartnerGroup.UU },
+			},
+			C_Location: {
+				UU: locationUuid,
+				C_Region: valueObject.region ? { UU: valueObject.region.UU } : undefined,
+				C_Country: valueObject.country ? { UU: valueObject.country.UU } : undefined,
+				City: 'Test',
+			},
+			C_BPartner_Location: {
+				UU: partnerLocationUuid,
+				C_BPartner: { UU: valueObject.businessPartner!.UU },
+				C_Location: { UU: locationUuid },
+				Name: valueObject.city + ' ' + valueObject.region?.Name,
+			},
+		},
 	});
+	valueObject.businessPartner = (
+		await query(valueObject)({
+			query: C_BPartnerGetDocument,
+			variables: { Size: 1, Filter: JSON.stringify({ c_bpartner_uu: valueObject.businessPartner!.UU }) },
+		})
+	).data.C_BPartnerGet.Results[0];
 }
 
 /**
