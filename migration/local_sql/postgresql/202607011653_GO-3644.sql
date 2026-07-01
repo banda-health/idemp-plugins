@@ -1,3 +1,24 @@
+-- GO-3644: Speed up Non Patient Payment Report
+--
+-- Problem:
+--   The report was timing out (~24 min actual, 300s nginx limit). Three bottlenecks:
+--
+--   1. bh_get_visit_non_patient_payments: the ClaimNo and Relationship LEFT JOINs on
+--      bh_bp_specific_payer_info (662K rows) ran as nested loops — one full seq scan
+--      per invoice line (1,137 lines × 662K rows = 750M rows processed, ~580s).
+--
+--   2. Report WHERE subquery had an unused LEFT JOIN c_bpartner that forced
+--      1.58M index lookups with 717M heap fetches (~544s). Fixed in the .jrxml.
+--
+--   3. bh_get_visit_details: LEFT JOIN ad_ref_list (1,626 rows) × all visits then
+--      probed ad_reference per combination (125M pkey lookups, ~237s). Fixed below.
+
+-- Fix 1: index so bh_bp_specific_payer_info joins use index scan inside the loop.
+CREATE INDEX IF NOT EXISTS bh_bp_specific_payer_info_c_invoiceline_id_idx
+	ON bh_bp_specific_payer_info (c_invoiceline_id);
+
+-- Fix 3: rewrite bh_get_visit_details to pre-filter ad_ref_list to the visit-type
+-- reference UUID before joining to visits, eliminating the 125M ad_reference lookups.
 DROP FUNCTION IF EXISTS bh_get_visit_details(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
 CREATE FUNCTION bh_get_visit_details(_ad_client_id numeric,
                                      _begin_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
@@ -35,7 +56,9 @@ CREATE FUNCTION bh_get_visit_details(_ad_client_id numeric,
 	STABLE
 AS
 $$
-WITH visits_in_range AS (
+WITH
+	-- Single pass over visits for this client and report date range.
+	visits_in_range AS (
 	SELECT
 		v.bh_visit_id,
 		v.bh_visitdate,
@@ -50,7 +73,8 @@ WITH visits_in_range AS (
 		v.ad_client_id = _ad_client_id
 		AND v.bh_visitdate BETWEEN _begin_date AND _end_date
 ),
-visit_diagnoses AS (
+	-- Diagnoses limited to visits in range (avoids a separate full bh_visit scan).
+	visit_diagnoses AS (
 	SELECT
 		v.bh_visit_id,
 		ev.bh_concept_id,
@@ -63,7 +87,8 @@ visit_diagnoses AS (
 			LEFT JOIN bh_encounter_diagnosis ev
 			ON e.bh_encounter_id = ev.bh_encounter_id
 ),
-sales_details AS (
+	-- Order line totals aggregated once per c_order_id, then joined (not per output row).
+	sales_details AS (
 	SELECT
 		o.c_order_id,
 		COALESCE(SUM(ol.linenetamt) FILTER ( WHERE ol.c_charge_id IS NULL ), 0) AS saleslineitemtotals,
@@ -79,8 +104,8 @@ sales_details AS (
 	GROUP BY
 		o.c_order_id
 ),
--- Pre-filter ref_list to only visit-type entries, evaluated once instead of per visit.
-visit_type_names AS (
+	-- Pre-filter ref_list to only visit-type entries, evaluated once instead of per visit.
+	visit_type_names AS (
 	SELECT
 		rl.value,
 		rl.name
@@ -136,19 +161,7 @@ FROM
 		ON v.bh_visit_id = sd.bh_visit_id AND sd.diagnosis_rank = 2;
 $$;
 
--- Commented Code below might be needed in the future
-
--- DO
--- $$
--- 	BEGIN
--- 		IF EXISTS(SELECT
--- 			          1
--- 		          FROM
--- 			          information_schema.routines
--- 		          WHERE
--- 			          ROUTINE_SCHEMA = CURRENT_SCHEMA()
--- 			          AND ROUTINE_NAME = 'bh_get_visit_details') THEN
--- 			DROP FUNCTION bh_get_visit_details;
--- 		END IF;
--- 	END;
--- $$ LANGUAGE plpgsql;
+SELECT
+	register_migration_script('202607011653_GO-3644.sql')
+FROM
+	dual;
