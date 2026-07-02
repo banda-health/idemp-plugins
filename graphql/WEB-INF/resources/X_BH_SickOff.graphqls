@@ -1,0 +1,56 @@
+# Generated Schema for BH_SickOff - DO NOT CHANGE
+#		@author Banda Health (generated)
+#		@version Release 12 - $Id$
+extend type Query {
+	BH_SickOff(UU: String!): BH_SickOff
+	BH_SickOffGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): BH_SickOffConnection!
+}
+
+extend type Mutation {
+	BH_SickOffSave(Entity: BH_SickOffInput!): BH_SickOff!
+	BH_SickOffSaveMany(Entities: [BH_SickOffInput!]!): [BH_SickOff!]!
+	BH_SickOffDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_SickOffConnection {
+	Results: [BH_SickOff!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_SickOff {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	BH_Clinician_User: AD_User!
+	BH_Visit: BH_Visit!
+	UU: ID!
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Any further instructions for the employer or patient
+	BH_Additional_Clinical_Notes: String
+	EndDate: Date!
+	# The record is active in the system
+	IsActive: Boolean!
+	StartDate: Date!
+	# Date this record was updated
+	Updated: DateTime!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_SickOffInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	BH_Clinician_User: ForeignEntityInput
+	BH_Visit: ForeignEntityInput
+	UU: ID
+	# Any further instructions for the employer or patient
+	BH_Additional_Clinical_Notes: String
+	EndDate: Date
+	# The record is active in the system
+	IsActive: Boolean
+	StartDate: Date
+}

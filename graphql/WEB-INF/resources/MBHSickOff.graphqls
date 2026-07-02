@@ -1,0 +1,3 @@
+extend type BH_SickOff {
+	BH_SickOff_Print_Logs: [BH_SickOff_Print_Log!]
+}

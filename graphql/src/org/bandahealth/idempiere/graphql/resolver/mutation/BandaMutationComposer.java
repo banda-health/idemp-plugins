@@ -103,6 +103,8 @@ public class BandaMutationComposer {
 				new MBHPaymentRefMutation(),
 				new MBHProductCategoryDefaultMutation(),
 				new MBHProductIncludedMutation(),
+				new MBHSickOffMutation(),
+				new MBHSickOffPrintLogMutation(),
 				new MBHTagMutation(),
 				new MBHVisitMutation(),
 				new MBHVoidedReasonMutation(),

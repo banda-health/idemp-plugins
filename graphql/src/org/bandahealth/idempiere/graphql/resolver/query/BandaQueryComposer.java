@@ -104,6 +104,8 @@ public class BandaQueryComposer implements GraphQLQueryResolver {
 				new MBHPaymentRefQuery(),
 				new MBHProductCategoryDefaultQuery(),
 				new MBHProductIncludedQuery(),
+				new MBHSickOffQuery(),
+				new MBHSickOffPrintLogQuery(),
 				new MBHTagQuery(),
 				new MBHVisitQuery(),
 				new MBHVoidedReasonQuery(),
