@@ -111,8 +111,6 @@ public class BandaDataLoaderComposer {
 				new MBHPaymentRefDataLoader(),
 				new MBHProductCategoryDefaultDataLoader(),
 				new MBHProductIncludedDataLoader(),
-				new MBHSickOffDataLoader(),
-				new MBHSickOffPrintLogDataLoader(),
 				new MBHTagDataLoader(),
 				new MBHVisitDataLoader(),
 				new MBHVoidedReasonDataLoader(),

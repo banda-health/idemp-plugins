@@ -35,8 +35,6 @@ import org.bandahealth.idempiere.base.model.MBHPaymentRef;
 import org.bandahealth.idempiere.base.model.MBHPaymentRefBankAccount;
 import org.bandahealth.idempiere.base.model.MBHProductCategoryDefault;
 import org.bandahealth.idempiere.base.model.MBHProductIncluded;
-import org.bandahealth.idempiere.base.model.MBHSickOff;
-import org.bandahealth.idempiere.base.model.MBHSickOffPrintLog;
 import org.bandahealth.idempiere.base.model.MBHTag;
 import org.bandahealth.idempiere.base.model.MBHVisit;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
@@ -230,10 +228,6 @@ public class BHModelFactory implements IModelFactory {
 			return MBHTag.class;
 		} else if (tableName.equalsIgnoreCase(MBHBPartnerTags.Table_Name)) {
 			return MBHBPartnerTags.class;
-		} else if (tableName.equalsIgnoreCase(MBHSickOff.Table_Name)) {
-			return MBHSickOff.class;
-		} else if (tableName.equalsIgnoreCase(MBHSickOffPrintLog.Table_Name)) {
-			return MBHSickOffPrintLog.class;
 		}
 
 		return null;
@@ -383,10 +377,6 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHTag(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHBPartnerTags.Table_Name)) {
 			return new MBHBPartnerTags(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHSickOff.Table_Name)) {
-			return new MBHSickOff(Env.getCtx(), Record_ID, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHSickOffPrintLog.Table_Name)) {
-			return new MBHSickOffPrintLog(Env.getCtx(), Record_ID, trxName);
 		}
 
 		return null;
@@ -540,10 +530,6 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHTag(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHBPartnerTags.Table_Name)) {
 			return new MBHBPartnerTags(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHSickOff.Table_Name)) {
-			return new MBHSickOff(Env.getCtx(), rs, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHSickOffPrintLog.Table_Name)) {
-			return new MBHSickOffPrintLog(Env.getCtx(), rs, trxName);
 		}
 
 		return null;
@@ -679,10 +665,6 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHTag(Env.getCtx(), Record_UU, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHBPartnerTags.Table_Name)) {
 			return new MBHBPartnerTags(Env.getCtx(), Record_UU, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHSickOff.Table_Name)) {
-			return new MBHSickOff(Env.getCtx(), Record_UU, trxName);
-		} else if (tableName.equalsIgnoreCase(MBHSickOffPrintLog.Table_Name)) {
-			return new MBHSickOffPrintLog(Env.getCtx(), Record_UU, trxName);
 		}
 
 		return null;
