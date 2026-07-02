@@ -328,8 +328,6 @@ public class BandaObjectMapper {
 							addMapping(I_BH_PaymentRef_BankAcctInput.class, MBHPaymentRefBankAccountInput.class);
 							addMapping(I_BH_Product_CategoryDefaultInput.class, MBHProductCategoryDefaultInput.class);
 							addMapping(I_BH_Product_IncludedInput.class, MBHProductIncludedInput.class);
-							addMapping(I_BH_SickOffInput.class, MBHSickOffInput.class);
-							addMapping(I_BH_SickOff_Print_LogInput.class, MBHSickOffPrintLogInput.class);
 							addMapping(I_BH_TagInput.class, MBHTagInput.class);
 							addMapping(I_BH_VisitInput.class, MBHVisitInput.class);
 							addMapping(I_BH_Voided_ReasonInput.class, MBHVoidedReasonInput.class);
