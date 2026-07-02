@@ -14,6 +14,7 @@ import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.report.test.utils.TableUtils;
 import org.bandahealth.idempiere.report.test.utils.TimestampUtils;
 import org.compiere.model.MInvoice;
@@ -345,6 +346,170 @@ public class ExpensesTest extends ChuBoePopulateFactoryVO {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			assertEquals(businessPartnerRow.get().getCell(dateColumnIndex).getStringCellValue(),
 					dateFormat.format(valueObject.getDate()), "Expense date is correct");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void showsPaymentMethodFromLinkedPaymentWhenInvoiceIsOnCredit() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create expense category");
+		ChuBoeCreateEntity.createCharge(valueObject);
+		valueObject.getCharge().setC_ChargeType_ID(expenseCategoryChargeType.getC_ChargeType_ID());
+		valueObject.getCharge().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create expense");
+		valueObject.setSalesPrice(new BigDecimal(100));
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_APInvoice, null, false, false, false);
+		ChuBoeCreateEntity.createInvoice(valueObject);
+		valueObject.getInvoice().setPaymentRule(MInvoice.PAYMENTRULE_OnCredit);
+		valueObject.getInvoice().saveEx();
+		commitEx();
+
+		valueObject.getInvoice().setDocAction(DocumentEngine.ACTION_Complete);
+		valueObject.getInvoice().processIt(DocumentEngine.ACTION_Complete);
+		valueObject.getInvoice().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create expense payment");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_APPayment, null, false, false, false);
+		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(patientTransactionReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Date");
+			int supplierColumnIndex = TableUtils.getColumnIndex(headerRow, "Supplier");
+			int paymentMethodColumnIndex = TableUtils.getColumnIndex(headerRow, "Payment Method");
+
+			Optional<Row> expenseRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(supplierColumnIndex) != null &&
+							row.getCell(supplierColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(supplierColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName())).findFirst();
+			assertTrue(expenseRow.isPresent(), "Expense appears on report");
+			assertEquals("Cash", expenseRow.get().getCell(paymentMethodColumnIndex).getStringCellValue(),
+					"Payment method comes from linked payment tender type");
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void canFilterByPaymentMethodUsingLinkedPaymentTenderType() throws SQLException, IOException {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		valueObject.setStepName("Create business partner 1");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		MBPartner_BH cashExpenseBusinessPartner = valueObject.getBusinessPartner();
+		commitEx();
+
+		valueObject.setStepName("Create expense category");
+		ChuBoeCreateEntity.createCharge(valueObject);
+		valueObject.getCharge().setC_ChargeType_ID(expenseCategoryChargeType.getC_ChargeType_ID());
+		valueObject.getCharge().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create cash expense");
+		valueObject.setSalesPrice(new BigDecimal(100));
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_APInvoice, null, false, false, false);
+		ChuBoeCreateEntity.createInvoice(valueObject);
+		valueObject.getInvoice().setPaymentRule(MInvoice.PAYMENTRULE_OnCredit);
+		valueObject.getInvoice().saveEx();
+		commitEx();
+
+		valueObject.getInvoice().setDocAction(DocumentEngine.ACTION_Complete);
+		valueObject.getInvoice().processIt(DocumentEngine.ACTION_Complete);
+		valueObject.getInvoice().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create cash expense payment");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_Cash);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_APPayment, null, false, false, false);
+		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		valueObject.clearBusinessPartner();
+
+		valueObject.setStepName("Create business partner 2");
+		ChuBoeCreateEntity.createBusinessPartner(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Create mobile money expense");
+		valueObject.setSalesPrice(new BigDecimal(400));
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Prepare);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_APInvoice, null, false, false, false);
+		ChuBoeCreateEntity.createInvoice(valueObject);
+		valueObject.getInvoice().setPaymentRule(MInvoice.PAYMENTRULE_OnCredit);
+		valueObject.getInvoice().saveEx();
+		commitEx();
+
+		valueObject.getInvoice().setDocAction(DocumentEngine.ACTION_Complete);
+		valueObject.getInvoice().processIt(DocumentEngine.ACTION_Complete);
+		valueObject.getInvoice().saveEx();
+		commitEx();
+
+		valueObject.setStepName("Create mobile money expense payment");
+		valueObject.setDocumentAction(DocumentEngine.ACTION_Complete);
+		valueObject.setTenderType(MPayment_BH.TENDERTYPE_MPesa);
+		valueObject.setDocBaseType(MDocType_BH.DOCBASETYPE_APPayment, null, false, false, false);
+		ChuBoeCreateEntity.createPayment(valueObject);
+		commitEx();
+
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(patientTransactionReportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(Arrays.asList(
+				new ProcessInfoParameter("Begin Date", TimestampUtils.startOfYesterday(), null, null, null),
+				new ProcessInfoParameter("End Date", TimestampUtils.endOfTomorrow(), null, null, null),
+				new ProcessInfoParameter("Payment Method", MInvoice.PAYMENTRULE_Cash, null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
+
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Row headerRow = TableUtils.getHeaderRow(sheet, "Date");
+			int supplierColumnIndex = TableUtils.getColumnIndex(headerRow, "Supplier");
+
+			Optional<Row> cashExpenseRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(supplierColumnIndex) != null &&
+							row.getCell(supplierColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(supplierColumnIndex).getStringCellValue().contains(cashExpenseBusinessPartner.getName()))
+					.findFirst();
+			assertTrue(cashExpenseRow.isPresent(), "Cash expense appears when filtered by cash payment method");
+			Optional<Row> mobileMoneyExpenseRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> row.getCell(supplierColumnIndex) != null &&
+							row.getCell(supplierColumnIndex).getCellType().equals(CellType.STRING) &&
+							row.getCell(supplierColumnIndex).getStringCellValue()
+									.contains(valueObject.getBusinessPartner().getName())).findFirst();
+			assertTrue(mobileMoneyExpenseRow.isEmpty(), "Mobile money expense is filtered out");
 		}
 	}
 

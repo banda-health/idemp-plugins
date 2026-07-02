@@ -42,7 +42,7 @@
 	c.name                                      AS expense_category,
 	bp.name                                     AS supplier_name,
 	u.name                                      AS tracked_by,
-	rl.name                                     AS payment_method,
+	COALESCE(tt.name, rl.name)                  AS payment_method,
 	il.linenetamt                               AS amount
 FROM
 	c_invoice i
@@ -56,10 +56,30 @@ FROM
 		ON i.c_bpartner_id = bp.c_bpartner_id
 		JOIN ad_user u
 		ON i.createdby = u.ad_user_id
-		JOIN ad_ref_list rl
+		LEFT JOIN LATERAL (
+			SELECT
+				p.tendertype
+			FROM
+				c_payment p
+			WHERE
+				p.bh_original_c_invoice_id = i.c_invoice_id
+				AND p.isactive = 'Y'
+				AND p.docstatus IN ('CO', 'CL')
+			ORDER BY
+				p.c_payment_id
+			LIMIT 1
+		) expense_payment
+			ON TRUE
+		LEFT JOIN ad_ref_list tt
+		ON expense_payment.tendertype = tt.value
+			AND tt.ad_reference_id = (
+				SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = '9d124599-d720-436b-a609-011bcf2eff8e'
+			)
+		LEFT JOIN ad_ref_list rl
 		ON i.paymentrule = rl.value
-		JOIN ad_reference r
-		ON rl.ad_reference_id = r.ad_reference_id AND r.ad_reference_uu = 'af0136e2-1ec4-4b60-a8a1-dc6c252e4878'
+			AND rl.ad_reference_id = (
+				SELECT ad_reference_id FROM ad_reference WHERE ad_reference_uu = 'af0136e2-1ec4-4b60-a8a1-dc6c252e4878'
+			)
 WHERE
 	i.issotrx = 'N'
 	AND i.c_order_id IS NULL
@@ -69,7 +89,17 @@ WHERE
 	AND i.dateinvoiced::date + i.updated::time BETWEEN $P{Begin Date} AND $P{End Date}
 	AND ($P{C_Charge_UU} IS NULL OR c.c_charge_uu = $P{C_Charge_UU})
 	AND ($P{C_BPartner_UU} IS NULL OR bp.c_bpartner_uu = $P{C_BPartner_UU})
-	AND (COALESCE($P{Payment Method}, '') = '' OR $P{Payment Method} = i.paymentrule)
+	AND (COALESCE($P{Payment Method}, '') = ''
+		OR $P{Payment Method} = i.paymentrule
+		OR $P{Payment Method} = CASE expense_payment.tendertype
+			WHEN 'X' THEN 'B'
+			WHEN 'M' THEN 'A'
+			WHEN 'C' THEN 'K'
+			WHEN 'K' THEN 'S'
+			WHEN 'D' THEN 'K'
+			WHEN 'A' THEN 'T'
+			ELSE NULL
+		END)
 	AND (COALESCE($P{Created By}, '') = '' OR $P{Created By} = u.ad_user_uu)]]>
 	</queryString>
 	<field name="expense_date" class="java.lang.String">
