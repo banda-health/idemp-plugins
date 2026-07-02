@@ -1,0 +1,2 @@
+package org.bandahealth.idempiere.graphql.resolver.model;
+public class MBHVisitFamilyPlanningProductResolver extends X_BH_Visit_Family_Planning_ProductResolver {}

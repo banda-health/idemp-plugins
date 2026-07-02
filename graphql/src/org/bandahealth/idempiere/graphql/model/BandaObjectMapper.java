@@ -330,6 +330,10 @@ public class BandaObjectMapper {
 							addMapping(I_BH_Product_IncludedInput.class, MBHProductIncludedInput.class);
 							addMapping(I_BH_TagInput.class, MBHTagInput.class);
 							addMapping(I_BH_VisitInput.class, MBHVisitInput.class);
+							addMapping(I_BH_Visit_Family_PlanningInput.class, MBHVisitFamilyPlanningInput.class);
+							addMapping(I_BH_Visit_Family_Planning_ProductInput.class, MBHVisitFamilyPlanningProductInput.class);
+							addMapping(I_BH_Visit_Family_Planning_Larc_Removal_ReasonInput.class,
+									MBHVisitFamilyPlanningLarcRemovalReasonInput.class);
 							addMapping(I_BH_Voided_ReasonInput.class, MBHVoidedReasonInput.class);
 							addMapping(I_BH_Warehouse_AccessInput.class, MBHWarehouseAccessInput.class);
 							addMapping(I_B_BidCommentInput.class, X_B_BidCommentInput.class);

@@ -414,6 +414,43 @@ query BH_VisitWithVisitType($UU: String!) {
 	}
 }
 
+query BH_VisitWithFamilyPlanning($UU: String!) {
+	BH_Visit(UU: $UU) {
+		UU
+		BH_Visit_Family_Planning {
+			UU
+			BH_Contraceptive_Oral
+			BH_Contraceptive_Injectable
+			BH_Screening_Tb
+			BH_Screening_Hiv
+			BH_Hiv_Counseled_Tested {
+				Value
+			}
+			BH_Ipv_Reproductive_Coercion {
+				Value
+			}
+			BH_Emergency_Contraception_Notes
+			BH_Remarks
+			BH_Visit_Family_Planning_Products {
+				UU
+				QtyEntered
+				BH_Fp_Method {
+					Value
+				}
+				M_Product {
+					UU
+				}
+			}
+			BH_Larc_Removal_Reasons {
+				UU
+				BH_Larc_Removal_Reason {
+					Value
+				}
+			}
+		}
+	}
+}
+
 query BH_VisitCount($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 	BH_VisitGet(Page: $Page, Size: $Size, Sort: $Sort, Filter: $Filter) {
 		PagingInfo {

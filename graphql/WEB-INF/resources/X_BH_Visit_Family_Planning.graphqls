@@ -1,0 +1,128 @@
+# Generated Schema for BH_Visit_Family_Planning - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 12 - $Id$
+extend type Query {
+	BH_Visit_Family_Planning(UU: String!): BH_Visit_Family_Planning
+	BH_Visit_Family_PlanningGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): BH_Visit_Family_PlanningConnection!
+}
+
+extend type Mutation {
+	BH_Visit_Family_PlanningSave(Entity: BH_Visit_Family_PlanningInput!): BH_Visit_Family_Planning!
+	BH_Visit_Family_PlanningSaveMany(Entities: [BH_Visit_Family_PlanningInput!]!): [BH_Visit_Family_Planning!]!
+	BH_Visit_Family_PlanningDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Visit_Family_PlanningConnection {
+	Results: [BH_Visit_Family_Planning!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Visit_Family_Planning {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	BH_Cervical_Cancer_Screening: AD_Ref_List
+	BH_Cervical_Pap_Method: AD_Ref_List
+	BH_Cervical_Results: AD_Ref_List
+	BH_Contraceptive_Condoms: Boolean!
+	BH_Contraceptive_Emergency: Boolean!
+	BH_Contraceptive_Implants: Boolean!
+	BH_Contraceptive_Injectable: Boolean!
+	BH_Contraceptive_Iucd: Boolean!
+	BH_Contraceptive_Natural_Fp: Boolean!
+	BH_Contraceptive_Oral: Boolean!
+	BH_Contraceptive_Vsc: Boolean!
+	BH_Cycle_Beads_Given: AD_Ref_List
+	BH_Emergency_Contraception_Given: AD_Ref_List
+	BH_Emergency_Contraception_Notes: String
+	BH_First_Ever_Contraceptive_User: AD_Ref_List
+	BH_First_Visit_Fp_At_Clinic: AD_Ref_List
+	BH_Hiv_Counseled_Tested: AD_Ref_List
+	BH_Hiv_Results: AD_Ref_List
+	BH_Implants_Type_Of_Visit: AD_Ref_List
+	BH_Injectable_Route: AD_Ref_List
+	BH_Injectable_Type_Of_Visit: AD_Ref_List
+	BH_Ipv_Reproductive_Coercion: AD_Ref_List
+	BH_Iucd_Type_Of_Visit: AD_Ref_List
+	BH_Natural_Fp_Counseled: AD_Ref_List
+	BH_Oral_Type_Of_Visit: AD_Ref_List
+	BH_Postpartum_Fp: AD_Ref_List
+	BH_Referral_Community_From: AD_Ref_List
+	BH_Referral_Community_To: AD_Ref_List
+	BH_Referrals: AD_Ref_List
+	BH_Referrals_Reason: String
+	BH_Remarks: String
+	BH_Screening_Cervical: Boolean!
+	BH_Screening_Hiv: Boolean!
+	BH_Screening_Ipv: Boolean!
+	BH_Screening_Tb: Boolean!
+	BH_Tb_Screening: AD_Ref_List
+	UU: ID!
+	BH_Visit: BH_Visit!
+	BH_Vsc_Btl: Boolean!
+	BH_Vsc_Given: AD_Ref_List
+	BH_Vsc_Vasectomy: Boolean!
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: DateTime!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_Visit_Family_PlanningInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	BH_Cervical_Cancer_Screening: ForeignEntityInput
+	BH_Cervical_Pap_Method: ForeignEntityInput
+	BH_Cervical_Results: ForeignEntityInput
+	BH_Contraceptive_Condoms: Boolean
+	BH_Contraceptive_Emergency: Boolean
+	BH_Contraceptive_Implants: Boolean
+	BH_Contraceptive_Injectable: Boolean
+	BH_Contraceptive_Iucd: Boolean
+	BH_Contraceptive_Natural_Fp: Boolean
+	BH_Contraceptive_Oral: Boolean
+	BH_Contraceptive_Vsc: Boolean
+	BH_Cycle_Beads_Given: ForeignEntityInput
+	BH_Emergency_Contraception_Given: ForeignEntityInput
+	BH_Emergency_Contraception_Notes: String
+	BH_First_Ever_Contraceptive_User: ForeignEntityInput
+	BH_First_Visit_Fp_At_Clinic: ForeignEntityInput
+	BH_Hiv_Counseled_Tested: ForeignEntityInput
+	BH_Hiv_Results: ForeignEntityInput
+	BH_Implants_Type_Of_Visit: ForeignEntityInput
+	BH_Injectable_Route: ForeignEntityInput
+	BH_Injectable_Type_Of_Visit: ForeignEntityInput
+	BH_Ipv_Reproductive_Coercion: ForeignEntityInput
+	BH_Iucd_Type_Of_Visit: ForeignEntityInput
+	BH_Natural_Fp_Counseled: ForeignEntityInput
+	BH_Oral_Type_Of_Visit: ForeignEntityInput
+	BH_Postpartum_Fp: ForeignEntityInput
+	BH_Referral_Community_From: ForeignEntityInput
+	BH_Referral_Community_To: ForeignEntityInput
+	BH_Referrals: ForeignEntityInput
+	BH_Referrals_Reason: String
+	BH_Remarks: String
+	BH_Screening_Cervical: Boolean
+	BH_Screening_Hiv: Boolean
+	BH_Screening_Ipv: Boolean
+	BH_Screening_Tb: Boolean
+	BH_Tb_Screening: ForeignEntityInput
+	UU: ID
+	BH_Visit: ForeignEntityInput
+	BH_Vsc_Btl: Boolean
+	BH_Vsc_Given: ForeignEntityInput
+	BH_Vsc_Vasectomy: Boolean
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+}

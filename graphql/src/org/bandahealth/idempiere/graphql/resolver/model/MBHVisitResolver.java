@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBHEncounter;
 import org.bandahealth.idempiere.base.model.MBHVisit;
+import org.bandahealth.idempiere.base.model.MBHVisitFamilyPlanning;
 import org.bandahealth.idempiere.base.model.MInOut_BH;
 import org.bandahealth.idempiere.base.model.MInvoice_BH;
 import org.bandahealth.idempiere.base.model.MOrder_BH;
@@ -11,6 +12,7 @@ import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.GraphQLEndpoint;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MBHEncounterDataLoader;
+import org.bandahealth.idempiere.graphql.dataloader.impl.MBHVisitFamilyPlanningDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MInOutDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MInvoiceDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.MOrderDataLoader;
@@ -62,6 +64,13 @@ public class MBHVisitResolver extends X_BH_VisitResolver {
 	public CompletableFuture<List<MBHEncounter>> BH_Encounters(MBHVisit entity, DataFetchingEnvironment environment) {
 		final DataLoader<String, List<MBHEncounter>> dataLoader = environment.getDataLoaderRegistry()
 				.getDataLoader(MBHEncounterDataLoader.DATALOADER_BH_Encounter_BY_BH_Visit_ID);
+		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getBH_Visit_ID()));
+	}
+
+	public CompletableFuture<MBHVisitFamilyPlanning> BH_Visit_Family_Planning(MBHVisit entity,
+			DataFetchingEnvironment environment) {
+		final DataLoader<String, MBHVisitFamilyPlanning> dataLoader = environment.getDataLoaderRegistry()
+				.getDataLoader(MBHVisitFamilyPlanningDataLoader.DATALOADER_BH_Visit_Family_Planning_BY_BH_Visit_ID);
 		return dataLoader.load(ModelUtil.getModelKey(entity, entity.getBH_Visit_ID()));
 	}
 
