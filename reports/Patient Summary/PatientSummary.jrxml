@@ -50,6 +50,7 @@
 			<![CDATA[SELECT
 	ROW_NUMBER() OVER (ORDER BY ol.created) 	AS line_no,
 	p.name                                     	AS medication_name,
+	ol.qtyordered                              	AS quantity,
 	COALESCE(ol.description, '')           		AS instructions
 FROM
 	bh_visit v
@@ -69,6 +70,7 @@ ORDER BY
 		</queryString>
 		<field name="line_no" class="java.lang.Integer"/>
 		<field name="medication_name" class="java.lang.String"/>
+		<field name="quantity" class="java.math.BigDecimal"/>
 		<field name="instructions" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="BH_Visit_UU" class="java.lang.String"/>
@@ -483,7 +485,7 @@ FROM
 	.replaceAll("^,\\s*|,\\s*$", "") : "")]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="80" width="481" height="16" uuid="414693a6-db8f-4b01-8d02-0652957b9edc">
+				<reportElement positionType="Float" x="0" y="80" width="481" height="16" uuid="414693a6-db8f-4b01-8d02-0652957b9edc">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -492,7 +494,7 @@ FROM
 				<text><![CDATA[Brief History & Physical Findings:]]></text>
 			</staticText>
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-				<reportElement x="0" y="98" width="481" height="16" uuid="aa6e558c-79ca-4d06-826a-4c755fd0835f"/>
+				<reportElement positionType="Float" x="0" y="98" width="481" height="16" uuid="aa6e558c-79ca-4d06-826a-4c755fd0835f"/>
 				<textFieldExpression><![CDATA[$F{clinical_notes}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -542,12 +544,12 @@ FROM
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="281" uuid="5bab7beb-fd8a-40e2-935d-2a817cfed1ba">
+					<jr:column width="251" uuid="5bab7beb-fd8a-40e2-935d-2a817cfed1ba">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
 						<jr:columnHeader style="Table_TH" height="18" rowSpan="1">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							<staticText>
-								<reportElement x="0" y="0" width="281" height="18" uuid="58d2bfad-9ebc-4e53-8c42-f38523d1672a"/>
+								<reportElement x="0" y="0" width="251" height="18" uuid="58d2bfad-9ebc-4e53-8c42-f38523d1672a"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font isBold="true"/>
 								</textElement>
@@ -556,18 +558,38 @@ FROM
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="18">
 							<textField textAdjust="ScaleFont" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="281" height="18" uuid="ebb5f19e-9648-4fa5-a76c-7736f72556c3"/>
+								<reportElement x="0" y="0" width="251" height="18" uuid="ebb5f19e-9648-4fa5-a76c-7736f72556c3"/>
 								<box rightPadding="3"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{medication_name}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="200" uuid="5247ffc8-c02e-4707-b0ed-9b1533f36ac6">
+					<jr:column width="70" uuid="e7a90c14-52d3-4b8f-9b6a-7c1d2e3f4a5b">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:columnHeader style="Table_TH" height="18" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="70" height="18" uuid="0f8b1c2d-3e4f-4a5b-8c6d-9e0f1a2b3c4d"/>
+								<textElement textAlignment="Left" verticalAlignment="Middle">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Quantity]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="Table_TD" height="18">
+							<textField textAdjust="ScaleFont" pattern="#,##0" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="70" height="18" uuid="6d5c4b3a-2f1e-4d0c-9b8a-7e6f5d4c3b2a"/>
+								<box rightPadding="3"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="160" uuid="5247ffc8-c02e-4707-b0ed-9b1533f36ac6">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 						<jr:columnHeader style="Table_TH" height="18" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="200" height="18" uuid="c021a3b2-2ec9-4030-9647-5ecad97a5ec9"/>
+								<reportElement x="0" y="0" width="160" height="18" uuid="c021a3b2-2ec9-4030-9647-5ecad97a5ec9"/>
 								<textElement textAlignment="Left" verticalAlignment="Middle">
 									<font isBold="true"/>
 								</textElement>
@@ -576,7 +598,7 @@ FROM
 						</jr:columnHeader>
 						<jr:detailCell style="Table_TD" height="18">
 							<textField textAdjust="ScaleFont" isBlankWhenNull="true">
-								<reportElement x="0" y="0" width="200" height="18" uuid="2a4d5c29-06f5-4146-bc7d-951d907b1da1"/>
+								<reportElement x="0" y="0" width="160" height="18" uuid="2a4d5c29-06f5-4146-bc7d-951d907b1da1"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{instructions}]]></textFieldExpression>
 							</textField>

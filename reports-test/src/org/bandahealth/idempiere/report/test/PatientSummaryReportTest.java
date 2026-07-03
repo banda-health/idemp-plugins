@@ -235,6 +235,10 @@ public class PatientSummaryReportTest extends ChuBoePopulateFactoryVO {
 					hasCellContaining(sheet, "Medication / Management Provided"), is(true));
 			assertThat("Products on visit are shown",
 					hasCellContaining(sheet, valueObject.getProduct().getName()), is(true));
+			assertThat("Quantity column header is shown",
+					hasCellContaining(sheet, "Quantity"), is(true));
+			assertThat("Quantity for the product is shown on its row",
+					rowContainingHasValue(sheet, valueObject.getProduct().getName(), "2"), is(true));
 
 			assertThat("Clinician name is shown with label",
 					hasCellContaining(sheet, "Clinician Name:", valueObject.getUser().getName()), is(true));
@@ -433,6 +437,19 @@ public class PatientSummaryReportTest extends ChuBoePopulateFactoryVO {
 				row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
 						cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
 								cell.getStringCellValue().contains(text)));
+	}
+
+	private boolean rowContainingHasValue(Sheet sheet, String rowText, String value) {
+		return StreamSupport.stream(sheet.spliterator(), false)
+				.filter(row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+						cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+								cell.getStringCellValue().contains(rowText)))
+				.anyMatch(row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+						cell -> cell != null && (cell.getCellType().equals(CellType.STRING)
+								? cell.getStringCellValue().trim().equals(value)
+								: cell.getCellType().equals(CellType.NUMERIC) &&
+										BigDecimal.valueOf(cell.getNumericCellValue()).stripTrailingZeros()
+												.toPlainString().equals(value))));
 	}
 
 	private boolean hasCellContaining(Sheet sheet, String label, String value) {
