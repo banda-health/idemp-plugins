@@ -78,6 +78,18 @@ sales_details AS (
 		o.ad_client_id = _ad_client_id
 	GROUP BY
 		o.c_order_id
+),
+-- Pre-filter ref_list to only visit-type entries, evaluated once instead of per visit.
+visit_type_names AS (
+	SELECT
+		rl.value,
+		rl.name
+	FROM
+		ad_ref_list rl
+			JOIN ad_reference r
+			ON rl.ad_reference_id = r.ad_reference_id
+	WHERE
+		r.ad_reference_uu = '47d32afd-3b94-4caa-8490-f0f1a97494f7'
 )
 SELECT
 	v.bh_visit_id,
@@ -92,7 +104,7 @@ SELECT
 	v.patient_id                                     AS patient_id,
 	bp.name                                          AS patient_name,
 	v.bh_visittype                                   AS visit_type,
-	rl.name                                          AS bh_visittype_name,
+	vtn.name                                         AS bh_visittype_name,
 	COALESCE(bp.bh_local_patientid, bp.bh_patientid) AS bh_patientid,
 	bp.bh_birthday                                   AS patient_birthday,
 	bp.bh_gender                                     AS patient_gender,
@@ -116,17 +128,12 @@ FROM
 		ON v.patient_id = bp.c_bpartner_id
 		JOIN ad_user createdby_user
 		ON v.createdby = createdby_user.ad_user_id
-		LEFT JOIN ad_ref_list rl
-		ON rl.value = v.bh_visittype
-		LEFT JOIN ad_reference r
-		ON rl.ad_reference_id = r.ad_reference_id
+		LEFT JOIN visit_type_names vtn
+		ON vtn.value = v.bh_visittype
 		LEFT JOIN visit_diagnoses pd
 		ON v.bh_visit_id = pd.bh_visit_id AND pd.diagnosis_rank = 1
 		LEFT JOIN visit_diagnoses sd
-		ON v.bh_visit_id = sd.bh_visit_id AND sd.diagnosis_rank = 2
-WHERE
-	r.ad_reference_uu = '47d32afd-3b94-4caa-8490-f0f1a97494f7'
-	OR r.ad_reference_uu IS NULL;
+		ON v.bh_visit_id = sd.bh_visit_id AND sd.diagnosis_rank = 2;
 $$;
 
 -- Commented Code below might be needed in the future

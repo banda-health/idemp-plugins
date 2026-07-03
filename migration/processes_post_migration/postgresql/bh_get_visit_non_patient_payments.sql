@@ -54,7 +54,7 @@ FROM
 				JOIN bh_payer_info_fld pif
 				ON bpspi.bh_payer_info_fld_id = pif.bh_payer_info_fld_id
 		WHERE
-			(pif.name IN ('Member ID', 'NHIF Number', 'Patient ID') OR pif.name IS NULL)
+			(pif.name IN ('Member ID', 'NHIF Number', 'SHA Number', 'Patient ID') OR pif.name IS NULL)
 	) AS bpspii
 		ON bpspii.c_invoiceline_id = il.c_invoiceline_id
 		LEFT JOIN (

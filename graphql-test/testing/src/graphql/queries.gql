@@ -287,11 +287,12 @@ query BH_ConceptGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 			bh_concept_class
 			BH_Display_Name
 			BH_Concept_Type
+			BH_Client_Concept_Extras {
+				BH_Key
+				BH_Value
+				UU
+			}
 			BH_Concept_Extras {
-				BH_Client_Concept_Extra {
-					BH_Value
-					UU
-				}
 				BH_Key
 				BH_Value
 				UU
@@ -654,6 +655,25 @@ query C_TaxCategoryGet($Page: Int, $Size: Int, $Sort: String, $Filter: String) {
 query C_UOMGetDefault {
 	C_UOMGetDefault {
 		UU
+	}
+}
+
+query DashboardGeneralDataGet($BeginDate: DateTime!, $EndDate: DateTime!) {
+	DashboardGeneralDataGet(BeginDate: $BeginDate, EndDate: $EndDate) {
+		PercentDiagnosesCoded
+		PercentVitalsTracked
+	}
+}
+
+query DashboardVisitHistoryStatGet($BeginDate: DateTime!, $EndDate: DateTime!) {
+	DashboardVisitHistoryStatGet(BeginDate: $BeginDate, EndDate: $EndDate) {
+		AlternateVisitType
+		BH_PatientType {
+			Name
+			Value
+		}
+		BucketValue
+		Frequency
 	}
 }
 

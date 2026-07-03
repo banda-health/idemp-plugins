@@ -39,16 +39,30 @@ public interface I_BH_Client_Concept_ExtraInput extends I_BH_Client_Concept_Extr
 	String getUU();
 
 	/**
-	 * Set BH_Concept_Extra.
+	 * Set BH_Concept.
 	 *
-	 * @param BH_Concept_Extra BH_Concept_Extra
+	 * @param BH_Concept BH_Concept
 	 */
-	void setBH_Concept_ExtraInput(ForeignEntityInput BH_Concept_Extra);
+	void setBH_ConceptInput(ForeignEntityInput BH_Concept);
 
 	/**
-	 * Get BH_Concept_Extra.
+	 * Get BH_Concept.
 	 *
-	 * @return BH_Concept_Extra
+	 * @return BH_Concept
 	 */
-	ForeignEntityInput BH_Concept_Extra();
+	ForeignEntityInput BH_Concept();
+
+	/**
+	 * Set BH_Concept_Mapping.
+	 *
+	 * @param BH_Concept_Mapping BH_Concept_Mapping
+	 */
+	void setBH_Concept_MappingInput(ForeignEntityInput BH_Concept_Mapping);
+
+	/**
+	 * Get BH_Concept_Mapping.
+	 *
+	 * @return BH_Concept_Mapping
+	 */
+	ForeignEntityInput BH_Concept_Mapping();
 }

@@ -7,6 +7,7 @@ Project conventions and agent workflows live in tool-agnostic docs in the repo:
 - **[`dev.sh`](dev.sh)** — Docker dev environment (Eclipse, build, migrate, Jaspersoft Studio)
 - **[`dev-docker/IMAGE-SETUP.md`](dev-docker/IMAGE-SETUP.md)** — manual Eclipse steps when building/freezing the dev image
 - **[`migration/README.md`](migration/README.md)** — migration naming, new-table workflow, canonical examples
+- **[`.cursor/skills/sync-role-access/SKILL.md`](.cursor/skills/sync-role-access/SKILL.md)** — generate report role access (`AD_Process_Access`) from the standard role matrix sheet
 
 When adding a database table, follow the full checklist in those files. Do not run
 the model or GraphQL generators; replicate output using `BH_Feature_Flag` as reference.

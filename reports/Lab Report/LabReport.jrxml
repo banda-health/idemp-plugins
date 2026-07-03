@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 6.21.5  -->
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.19.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LabReport" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="481" leftMargin="57" rightMargin="57" topMargin="57" bottomMargin="36" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter1.jrdax"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -53,7 +53,15 @@
 		LIMIT 1
 	)               AS served_by,
 	clinician.name  AS clinician,
-	distinct_group.group1
+	distinct_group.group1,
+	EXISTS (
+		SELECT 1
+		FROM bh_encounter_diagnostic ed2
+		JOIN bh_concept sp2 ON ed2.selected_panel_id = sp2.bh_concept_id
+		WHERE ed2.bh_encounter_id = bed.bh_encounter_id
+		  AND ed2.group1 = distinct_group.group1
+		  AND sp2.bh_concept_class = 'ConvSet'
+	) AS is_cs
 FROM
 	bh_visit v
 		JOIN bh_encounter be
@@ -71,7 +79,7 @@ FROM
 			bh_value IS NOT NULL
 		GROUP BY bh_encounter_id, group1
 	) distinct_group
-		ON bed.bh_encounter_id = distinct_group.bh_encounter_id AND bed.lineno = distinct_group.lineno
+		ON bed.bh_encounter_id = distinct_group.bh_encounter_id AND bed.group1 = distinct_group.group1 AND bed.lineno = distinct_group.lineno
 		JOIN c_bpartner bp
 		ON v.patient_id = bp.c_bpartner_id
 		LEFT JOIN ad_orginfo oi
@@ -81,7 +89,7 @@ FROM
 WHERE
 	v.bh_visit_uu = $P{BH_Visit_UU}
 ORDER BY
-	bed.lineno]]>
+	is_cs, bed.lineno]]>
 	</queryString>
 	<field name="date" class="java.sql.Timestamp">
 		<property name="com.jaspersoft.studio.field.name" value="date"/>
@@ -128,11 +136,15 @@ ORDER BY
 		<property name="com.jaspersoft.studio.field.label" value="group1"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="bh_encounter_diagnostic"/>
 	</field>
+	<field name="is_cs" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="is_cs"/>
+		<property name="com.jaspersoft.studio.field.label" value="is_cs"/>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
-	<pageHeader>
-		<band height="239">
+	<title>
+		<band height="239" splitType="Prevent">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<staticText>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="143" width="80" height="16" uuid="e3174d74-0a4e-4485-aeb1-a6540d24b83b">
@@ -341,10 +353,11 @@ ORDER BY
 				<text><![CDATA[Report Date:]]></text>
 			</staticText>
 		</band>
-	</pageHeader>
+	</title>
 	<detail>
 		<band height="21" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[Boolean.FALSE.equals($F{is_cs})]]></printWhenExpression>
 			<subreport>
 				<reportElement x="0" y="0" width="480" height="20" uuid="20c3a5d2-1f26-4f14-895c-12ef96a7ebd3">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -355,6 +368,21 @@ ORDER BY
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "DiagnosticGroup.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="21" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<printWhenExpression><![CDATA[Boolean.TRUE.equals($F{is_cs})]]></printWhenExpression>
+			<subreport>
+				<reportElement x="0" y="0" width="480" height="20" uuid="a1b2c3d4-e5f6-7890-abcd-ef1234567890">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="Group1">
+					<subreportParameterExpression><![CDATA[$F{group1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "CultureSensitivityGroup.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

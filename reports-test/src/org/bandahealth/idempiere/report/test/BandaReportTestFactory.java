@@ -44,6 +44,7 @@ public class BandaReportTestFactory implements IChuBoePopulateFactory {
 		tests.add(new PaymentTrailTest());
 		tests.add(new PrescriptionFormReportTest());
 		tests.add(new ProductsAndPricesTest());
+		tests.add(new PurchasedStockReportTest());
 		tests.add(new ServiceListReportTest());
 		tests.add(new ServicesChargedReportTest());
 		tests.add(new StockToBeOrderedTest());

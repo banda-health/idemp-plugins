@@ -40,10 +40,6 @@ public class MPayment_BH extends MPayment {
 	 * M-Tiba = L
 	 */
 	public static final String TENDERTYPE_MTiba = "L";
-	/**
-	 * NHIF = N
-	 */
-	public static final String TENDERTYPE_NHIF = "N";
 
 	/** Load Meta Data */
 

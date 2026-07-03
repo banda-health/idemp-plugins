@@ -108,55 +108,96 @@ FROM
 	) prd_turn
 		CROSS JOIN (
 		SELECT
-			COALESCE((COUNT(v_v.*) FILTER ( WHERE v_v.bh_visit_id IS NOT NULL ))::numeric / NULLIF(COUNT(v.*)::numeric, 0),
-			         0) AS ct_v,
-			COALESCE((COUNT(v_d.*) FILTER ( WHERE v_d.bh_visit_id IS NOT NULL ))::numeric / NULLIF(COUNT(v.*)::numeric, 0),
-			         0) AS ct_d,
-			COALESCE((COUNT(v_n.*) FILTER ( WHERE v_n.bh_visit_id IS NOT NULL ))::numeric / NULLIF(COUNT(v.*)::numeric, 0),
-			         0) AS ct_n
-		FROM
-			bh_visit v
-				JOIN completed_visits cv
-				ON v.bh_visit_id = cv.bh_visit_id AND is_otc = FALSE
-				LEFT JOIN (
-				SELECT DISTINCT
-					v.bh_visit_id
+			(
+				SELECT
+					COALESCE(COUNT(v_v.bh_visit_id)::numeric / NULLIF(COUNT(ve.bh_visit_id)::numeric, 0), 0)
 				FROM
-					bh_visit v
-						JOIN completed_visits cv
-						ON v.bh_visit_id = cv.bh_visit_id AND is_otc = FALSE
-						JOIN bh_encounter e
-						ON e.bh_visit_id = v.bh_visit_id AND e.bh_encounter_type = 'V'
-						JOIN bh_observation o
-						ON e.bh_encounter_id = o.bh_encounter_id AND o.bh_value != ''
-			) v_v
-				ON v.bh_visit_id = v_v.bh_visit_id
-				LEFT JOIN (
-				SELECT DISTINCT
-					v.bh_visit_id
+					(
+						SELECT
+							v.bh_visit_id
+						FROM
+							bh_visit v
+								JOIN completed_visits cv
+								ON v.bh_visit_id = cv.bh_visit_id
+						WHERE
+							cv.is_otc = FALSE
+							AND (v.bh_visittype IS NULL OR v.bh_visittype NOT IN ('D', 'E', 'ot', 'y', 'u'))
+					) ve
+						LEFT JOIN (
+						SELECT DISTINCT
+							v.bh_visit_id
+						FROM
+							bh_visit v
+								JOIN completed_visits cv
+								ON v.bh_visit_id = cv.bh_visit_id
+								JOIN bh_encounter e
+								ON e.bh_visit_id = v.bh_visit_id AND e.bh_encounter_type = 'V'
+								JOIN bh_observation o
+								ON e.bh_encounter_id = o.bh_encounter_id AND o.bh_value != ''
+						WHERE
+							cv.is_otc = FALSE
+							AND (v.bh_visittype IS NULL OR v.bh_visittype NOT IN ('D', 'E', 'ot', 'y', 'u'))
+					) v_v
+						ON ve.bh_visit_id = v_v.bh_visit_id
+			) AS ct_v,
+			(
+				SELECT
+					COALESCE(COUNT(v_d.bh_visit_id)::numeric / NULLIF(COUNT(de.bh_visit_id)::numeric, 0), 0)
 				FROM
-					bh_visit v
-						JOIN completed_visits cv
-						ON v.bh_visit_id = cv.bh_visit_id AND is_otc = FALSE
-						JOIN bh_encounter e
-						ON e.bh_visit_id = v.bh_visit_id AND e.bh_encounter_type = 'D'
-						JOIN bh_encounter_diagnosis ed
-						ON e.bh_encounter_id = ed.bh_encounter_id AND ed.bh_concept_id IS NOT NULL
-			) v_d
-				ON v.bh_visit_id = v_d.bh_visit_id
-				LEFT JOIN (
-				SELECT DISTINCT
-					v.bh_visit_id
+					(
+						SELECT
+							v.bh_visit_id
+						FROM
+							bh_visit v
+								JOIN completed_visits cv
+								ON v.bh_visit_id = cv.bh_visit_id
+						WHERE
+							cv.is_otc = FALSE
+							AND (v.bh_visittype IS NULL OR v.bh_visittype NOT IN ('ot', 'u'))
+					) de
+						LEFT JOIN (
+						SELECT DISTINCT
+							v.bh_visit_id
+						FROM
+							bh_visit v
+								JOIN completed_visits cv
+								ON v.bh_visit_id = cv.bh_visit_id
+								JOIN bh_encounter e
+								ON e.bh_visit_id = v.bh_visit_id AND e.bh_encounter_type = 'D'
+								JOIN bh_encounter_diagnosis ed
+								ON e.bh_encounter_id = ed.bh_encounter_id AND ed.bh_concept_id IS NOT NULL
+						WHERE
+							cv.is_otc = FALSE
+							AND (v.bh_visittype IS NULL OR v.bh_visittype NOT IN ('ot', 'u'))
+					) v_d
+						ON de.bh_visit_id = v_d.bh_visit_id
+			) AS ct_d,
+			(
+				SELECT
+					COALESCE(COUNT(v_n.bh_visit_id)::numeric / NULLIF(COUNT(ne.bh_visit_id)::numeric, 0), 0)
 				FROM
-					bh_visit v
-						JOIN completed_visits cv
-						ON v.bh_visit_id = cv.bh_visit_id AND is_otc = FALSE
-						JOIN bh_encounter e
-						ON e.bh_visit_id = v.bh_visit_id AND e.bh_encounter_type = 'C'
-						JOIN bh_observation o
-						ON e.bh_encounter_id = o.bh_encounter_id AND o.bh_value != ''
-			) v_n
-				ON v.bh_visit_id = v_n.bh_visit_id
+					(
+						SELECT
+							v.bh_visit_id
+						FROM
+							bh_visit v
+								JOIN completed_visits cv
+								ON v.bh_visit_id = cv.bh_visit_id AND cv.is_otc = FALSE
+					) ne
+						LEFT JOIN (
+						SELECT DISTINCT
+							v.bh_visit_id
+						FROM
+							bh_visit v
+								JOIN completed_visits cv
+								ON v.bh_visit_id = cv.bh_visit_id AND cv.is_otc = FALSE
+								JOIN bh_encounter e
+								ON e.bh_visit_id = v.bh_visit_id AND e.bh_encounter_type = 'C'
+								JOIN bh_observation o
+								ON e.bh_encounter_id = o.bh_encounter_id AND o.bh_value != ''
+					) v_n
+						ON ne.bh_visit_id = v_n.bh_visit_id
+			) AS ct_n
 	) doc_quality
 		CROSS JOIN (
 		SELECT

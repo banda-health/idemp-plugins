@@ -2,6 +2,7 @@ package org.bandahealth.idempiere.graphql.dataloader.impl;
 
 import org.bandahealth.idempiere.base.model.MChargeType_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
+import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.bandahealth.idempiere.graphql.utils.QueryUtil;
 import org.bandahealth.idempiere.graphql.utils.SqlUtil;
@@ -36,6 +37,7 @@ public class MChargeDataLoader extends X_C_ChargeDataLoader {
 
 	private MappedBatchLoaderWithContext<String, MCharge_BH> getAssociatedCustomerReceivablesByBusinessPartnerIdBatchLoader() {
 		return (keys, batchLoaderEnvironment) -> CompletableFuture.supplyAsync(() -> {
+			Repository.setCopyOfPropertiesForNestedThreadUsage(batchLoaderEnvironment.getContext());
 			String modelName = ModelUtil.getModelFromKey(keys.iterator().next());
 			Set<Integer> businessPartnerGroupIds = keys.stream().map(ModelUtil::getIdFromKey).collect(Collectors.toSet());
 

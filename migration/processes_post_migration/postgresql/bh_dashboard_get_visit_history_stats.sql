@@ -27,19 +27,30 @@ WITH completed_visits AS (
 		v.ad_client_id = _ad_client_id
 		AND v.bh_visitdate BETWEEN _begin_date AND _end_date
 ),
+	otc_ref_list AS (
+		SELECT
+			rl.ad_ref_list_id
+		FROM
+			ad_ref_list rl
+				JOIN ad_reference r
+				ON rl.ad_reference_id = r.ad_reference_id
+		WHERE
+			r.ad_reference_uu = '47d32afd-3b94-4caa-8490-f0f1a97494f7'
+			AND rl.value = 'ot'
+	),
 	buckets_cte AS (
 		SELECT
-			CASE WHEN cv.is_otc = TRUE THEN NULL ELSE rl.ad_ref_list_id END AS ad_ref_list_id,
+			date_trunc('day', v.bh_visitdate)::timestamp AS bucket_value,
+			CASE WHEN cv.is_otc = TRUE THEN otc.ad_ref_list_id ELSE rl.ad_ref_list_id END AS ad_ref_list_id,
 			CASE
-				WHEN cv.is_otc = TRUE THEN 'Over the Counter (OTC)'
+				WHEN cv.is_otc = TRUE THEN NULL
 				WHEN v.bh_visittype IS NULL THEN 'None'
-				END                                                           AS alternate_visit_type,
-			WIDTH_BUCKET(EXTRACT(EPOCH FROM bh_visitdate), EXTRACT(EPOCH FROM _begin_date),
-			             EXTRACT(EPOCH FROM _end_date), 6)                  AS bucket_number
+				END                                          AS alternate_visit_type
 		FROM
 			bh_visit v
 				JOIN completed_visits cv
 				ON cv.bh_visit_id = v.bh_visit_id
+				CROSS JOIN otc_ref_list otc
 				LEFT JOIN ad_ref_list rl
 				ON v.bh_visittype = rl.value
 				LEFT JOIN ad_reference r
@@ -47,25 +58,14 @@ WITH completed_visits AS (
 		WHERE
 			r.ad_reference_id IS NULL
 			OR r.ad_reference_uu = '47d32afd-3b94-4caa-8490-f0f1a97494f7'
-	),
-	bucket_mapping (bucket_number, bucket_value) AS (
-		VALUES
-			(1, _begin_date),
-			(2, _end_date - (_end_date - _begin_date) * 5 / 6),
-			(3, _end_date - (_end_date - _begin_date) * 4 / 6),
-			(4, _end_date - (_end_date - _begin_date) * 3 / 6),
-			(5, _end_date - (_end_date - _begin_date) * 2 / 6),
-			(6, _end_date - (_end_date - _begin_date) / 6)
 	)
 SELECT
-	bm.bucket_value,
+	bucket_value,
 	ad_ref_list_id,
 	alternate_visit_type,
 	COUNT(*) AS frequency
 FROM
-	bucket_mapping bm
-		LEFT JOIN buckets_cte bcte
-		ON bcte.bucket_number = bm.bucket_number
+	buckets_cte
 GROUP BY
-	bm.bucket_value, ad_ref_list_id, alternate_visit_type;
+	bucket_value, ad_ref_list_id, alternate_visit_type;
 $$;

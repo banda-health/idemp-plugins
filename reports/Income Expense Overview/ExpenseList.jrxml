@@ -59,8 +59,8 @@ FROM
 			         0)                     AS sum_personnel,
 			COALESCE(SUM(il.linenetamt) FILTER ( WHERE c.name = 'Personnel - Salaries' ),
 			         0)                     AS personnel_salaries,
-			COALESCE(SUM(il.linenetamt) FILTER ( WHERE c.name = 'Personnel - NHIF' ),
-			         0)                     AS personnel_nhif,
+			COALESCE(SUM(il.linenetamt) FILTER ( WHERE c.name = 'Personnel - SHA' ),
+			         0)                     AS personnel_sha,
 			COALESCE(SUM(il.linenetamt) FILTER ( WHERE c.name = 'Personnel - NSSF' ),
 			         0)                     AS personnel_nssf,
 			COALESCE(SUM(il.linenetamt) FILTER ( WHERE c.name = 'Personnel - PAYE' ),
@@ -192,8 +192,8 @@ FROM
 	<field name="personnel_salaries" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="personnel_salaries"/>
 	</field>
-	<field name="personnel_nhif" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="personnel_nhif"/>
+	<field name="personnel_sha" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="personnel_sha"/>
 	</field>
 	<field name="personnel_nssf" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="personnel_nssf"/>
@@ -1120,7 +1120,7 @@ FROM
 					<font size="11" isBold="false"/>
 					<paragraph leftIndent="26"/>
 				</textElement>
-				<text><![CDATA[NHIF]]></text>
+				<text><![CDATA[SHA]]></text>
 			</staticText>
 			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement stretchType="ContainerBottom" x="358" y="32" width="82" height="16" uuid="10434f11-3338-4ef8-bb95-3fd22ec38f41">
@@ -1138,7 +1138,7 @@ FROM
 					<font size="11"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{personnel_nhif}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{personnel_sha}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="48" width="358" height="16" uuid="4a52a2e8-860c-4112-b318-97342be15709">
