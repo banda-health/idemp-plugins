@@ -40,7 +40,6 @@ public class X_BH_Client_Concept_Extra extends PO implements I_BH_Client_Concept
       /** if (BH_Client_Concept_Extra_ID == 0)
         {
 			setBH_Client_Concept_Extra_ID (0);
-			setBH_Concept_Extra_ID (0);
         } */
     }
 
@@ -51,7 +50,6 @@ public class X_BH_Client_Concept_Extra extends PO implements I_BH_Client_Concept
       /** if (BH_Client_Concept_Extra_ID == 0)
         {
 			setBH_Client_Concept_Extra_ID (0);
-			setBH_Concept_Extra_ID (0);
         } */
     }
 
@@ -62,7 +60,6 @@ public class X_BH_Client_Concept_Extra extends PO implements I_BH_Client_Concept
       /** if (BH_Client_Concept_Extra_UU == null)
         {
 			setBH_Client_Concept_Extra_ID (0);
-			setBH_Concept_Extra_ID (0);
         } */
     }
 
@@ -73,7 +70,6 @@ public class X_BH_Client_Concept_Extra extends PO implements I_BH_Client_Concept
       /** if (BH_Client_Concept_Extra_UU == null)
         {
 			setBH_Client_Concept_Extra_ID (0);
-			setBH_Concept_Extra_ID (0);
         } */
     }
 
@@ -141,31 +137,73 @@ public class X_BH_Client_Concept_Extra extends PO implements I_BH_Client_Concept
 		return (String)get_Value(COLUMNNAME_BH_Client_Concept_Extra_UU);
 	}
 
-	public I_BH_Concept_Extra getBH_Concept_Extra() throws RuntimeException
+	public I_BH_Concept getBH_Concept() throws RuntimeException
 	{
-		return (I_BH_Concept_Extra)MTable.get(getCtx(), I_BH_Concept_Extra.Table_ID)
-			.getPO(getBH_Concept_Extra_ID(), get_TrxName());
+		return (I_BH_Concept)MTable.get(getCtx(), I_BH_Concept.Table_ID)
+			.getPO(getBH_Concept_ID(), get_TrxName());
 	}
 
-	/** Set Concept Extra.
-		@param BH_Concept_Extra_ID Concept Extra
+	/** Set Concept.
+		@param BH_Concept_ID Concept
 	*/
-	public void setBH_Concept_Extra_ID (int BH_Concept_Extra_ID)
+	public void setBH_Concept_ID (int BH_Concept_ID)
 	{
-		if (BH_Concept_Extra_ID < 1)
-			set_ValueNoCheck (COLUMNNAME_BH_Concept_Extra_ID, null);
+		if (BH_Concept_ID < 1)
+			set_ValueNoCheck (COLUMNNAME_BH_Concept_ID, null);
 		else
-			set_ValueNoCheck (COLUMNNAME_BH_Concept_Extra_ID, Integer.valueOf(BH_Concept_Extra_ID));
+			set_ValueNoCheck (COLUMNNAME_BH_Concept_ID, Integer.valueOf(BH_Concept_ID));
 	}
 
-	/** Get Concept Extra.
-		@return Concept Extra	  */
-	public int getBH_Concept_Extra_ID()
+	/** Get Concept.
+		@return Concept	  */
+	public int getBH_Concept_ID()
 	{
-		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Concept_Extra_ID);
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Concept_ID);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
+	}
+
+	public I_BH_Concept_Mapping getBH_Concept_Mapping() throws RuntimeException
+	{
+		return (I_BH_Concept_Mapping)MTable.get(getCtx(), I_BH_Concept_Mapping.Table_ID)
+			.getPO(getBH_Concept_Mapping_ID(), get_TrxName());
+	}
+
+	/** Set Concept Mapping.
+		@param BH_Concept_Mapping_ID Concept Mapping
+	*/
+	public void setBH_Concept_Mapping_ID (int BH_Concept_Mapping_ID)
+	{
+		if (BH_Concept_Mapping_ID < 1)
+			set_ValueNoCheck (COLUMNNAME_BH_Concept_Mapping_ID, null);
+		else
+			set_ValueNoCheck (COLUMNNAME_BH_Concept_Mapping_ID, Integer.valueOf(BH_Concept_Mapping_ID));
+	}
+
+	/** Get Concept Mapping.
+		@return Concept Mapping	  */
+	public int getBH_Concept_Mapping_ID()
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_Concept_Mapping_ID);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set Key.
+		@param BH_Key Key
+	*/
+	public void setBH_Key (String BH_Key)
+	{
+		set_Value (COLUMNNAME_BH_Key, BH_Key);
+	}
+
+	/** Get Key.
+		@return Key	  */
+	public String getBH_Key()
+	{
+		return (String)get_Value(COLUMNNAME_BH_Key);
 	}
 
 	/** Set BH_Value.

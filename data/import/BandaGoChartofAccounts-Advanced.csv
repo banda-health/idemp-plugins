@@ -74,7 +74,7 @@
 22,Accrued Expenses,,Liability,,,Yes,,2
 22100,Accrued Payroll,,Liability,,,No,,22
 22210,PAYE Payable,,Liability,,,No,,22
-22230,NHIF Payable,,Liability,,,No,,22
+22230,SHA Payable,,Liability,,,No,,22
 22250,Local Tax Withholding,,Liability,,,No,,22
 22260,Other Payable 1,,Liability,,,No,,22
 22270,Other Payable 2,,Liability,,,No,,22
@@ -158,7 +158,7 @@
 60130,Salaries,,Expense,,,No,,60
 60410,NSSF Paid,,Expense,,,No,,60
 60430,PAYE Paid,,Expense,,,No,,60
-60510,NHIF Paid,,Expense,,,No,,60
+60510,SHA Paid,,Expense,,,No,,60
 60600,Employer's Liability Insurance,,Expense,,,No,,60
 60900,Other Benefit Expense,,Expense,,,No,,60
 60910,Staff Gifts & Perks,,Expense,,,No,,60

@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHClientConceptExtra;
-import org.bandahealth.idempiere.base.model.MBHConceptExtra;
+import org.bandahealth.idempiere.base.model.MBHConcept;
+import org.bandahealth.idempiere.base.model.MBHConceptMapping;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -21,7 +22,8 @@ import java.sql.ResultSet;
 public class X_BH_Client_Concept_ExtraInput extends MBHClientConceptExtra implements I_BH_Client_Concept_ExtraInput {
 
 	private ForeignEntityInput mAD_Org;
-	private ForeignEntityInput mBH_Concept_Extra;
+	private ForeignEntityInput mBH_Concept;
+	private ForeignEntityInput mBH_Concept_Mapping;
 
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
@@ -102,39 +104,76 @@ public class X_BH_Client_Concept_ExtraInput extends MBHClientConceptExtra implem
 	}
 
 	/**
-	 * Set Concept Extra.
+	 * Set Concept.
 	 *
-	 * @param BH_Concept_Extra Concept Extra
+	 * @param BH_Concept Concept
 	 */
-	@JsonProperty("BH_Concept_Extra")
-	public void setBH_Concept_ExtraInput(ForeignEntityInput BH_Concept_Extra) {
-		this.mBH_Concept_Extra = BH_Concept_Extra;
+	@JsonProperty("BH_Concept")
+	public void setBH_ConceptInput(ForeignEntityInput BH_Concept) {
+		this.mBH_Concept = BH_Concept;
 		if (!is_new()) {
 			return;
 		}
-		if (BH_Concept_Extra != null) {
+		if (BH_Concept != null) {
 			// Since an entity was passed, make sure it's in the DB
-			MBHConceptExtra foreignEntity;
+			MBHConcept foreignEntity;
 			if ((foreignEntity =
-					new Query(getCtx(), "BH_Concept_Extra", "BH_Concept_Extra_UU=?", get_TrxName())
-							.setParameters(BH_Concept_Extra.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
-				this.setBH_Concept_Extra_ID(foreignEntity.get_ID());
+					new Query(getCtx(), "BH_Concept", "BH_Concept_UU=?", get_TrxName())
+							.setParameters(BH_Concept.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setBH_Concept_ID(foreignEntity.get_ID());
 			} else {
 				throw new AdempiereException(
-						"Could not find entity in table BH_Concept_Extra with UU " + BH_Concept_Extra.getUU());
+						"Could not find entity in table BH_Concept with UU " + BH_Concept.getUU());
 			}
 		} else {
-			this.setBH_Concept_Extra_ID(0);
+			this.setBH_Concept_ID(0);
 		}
 	}
 
 	/**
-	 * Get Concept Extra.
+	 * Get Concept.
 	 *
-	 * @return Concept Extra
+	 * @return Concept
 	 */
-	@JsonProperty("BH_Concept_Extra")
-	public ForeignEntityInput BH_Concept_Extra() {
-		return mBH_Concept_Extra;
+	@JsonProperty("BH_Concept")
+	public ForeignEntityInput BH_Concept() {
+		return mBH_Concept;
+	}
+
+	/**
+	 * Set Concept Mapping.
+	 *
+	 * @param BH_Concept_Mapping Concept Mapping
+	 */
+	@JsonProperty("BH_Concept_Mapping")
+	public void setBH_Concept_MappingInput(ForeignEntityInput BH_Concept_Mapping) {
+		this.mBH_Concept_Mapping = BH_Concept_Mapping;
+		if (!is_new()) {
+			return;
+		}
+		if (BH_Concept_Mapping != null) {
+			// Since an entity was passed, make sure it's in the DB
+			MBHConceptMapping foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), "BH_Concept_Mapping", "BH_Concept_Mapping_UU=?", get_TrxName())
+							.setParameters(BH_Concept_Mapping.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
+				this.setBH_Concept_Mapping_ID(foreignEntity.get_ID());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table BH_Concept_Mapping with UU " + BH_Concept_Mapping.getUU());
+			}
+		} else {
+			this.setBH_Concept_Mapping_ID(0);
+		}
+	}
+
+	/**
+	 * Get Concept Mapping.
+	 *
+	 * @return Concept Mapping
+	 */
+	@JsonProperty("BH_Concept_Mapping")
+	public ForeignEntityInput BH_Concept_Mapping() {
+		return mBH_Concept_Mapping;
 	}
 }

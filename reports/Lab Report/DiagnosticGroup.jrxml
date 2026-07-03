@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.21.5.final using JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LabReport" pageWidth="480" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="470" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" uuid="63dd7fdf-ab82-47d6-b896-b7c46a087877">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DiagnosticGroup" pageWidth="480" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="470" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" uuid="20c3a5d2-1f26-4f14-895c-12ef96a7ebd3">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="KB DB 11"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
@@ -70,9 +70,9 @@ FROM
 		SELECT
 			CASE
 				WHEN low_normal IS NOT NULL AND high_normal IS NOT NULL
-					THEN low_normal || ' - ' || high_normal
-				WHEN low_normal IS NOT NULL THEN '> ' || low_normal
-				WHEN high_normal IS NOT NULL THEN '< ' || high_normal END AS reference_range,
+					THEN low_normal || ' - ' || high_normal || COALESCE(' ' || units, '')
+				WHEN low_normal IS NOT NULL THEN '> ' || low_normal || COALESCE(' ' || units, '')
+				WHEN high_normal IS NOT NULL THEN '< ' || high_normal || COALESCE(' ' || units, '') END AS reference_range,
 			CASE
 				WHEN low_normal IS NOT NULL AND high_normal IS NOT NULL THEN CASE
 					                                                             WHEN bh_value::numeric BETWEEN low_normal::numeric AND high_normal::numeric
@@ -97,7 +97,10 @@ FROM
 					CASE
 						WHEN cce_high.bh_client_concept_extra_id IS NOT NULL THEN cce_high.bh_value
 						WHEN cm_e_values.mapped_high_extra_id IS NOT NULL THEN cm_e_values.mapped_high
-						ELSE ce_high.bh_value END AS high_normal
+						ELSE ce_high.bh_value END AS high_normal,
+					CASE
+						WHEN cce_units.bh_client_concept_extra_id IS NOT NULL THEN cce_units.bh_value
+						ELSE ce_units.bh_value END AS units
 				FROM
 					bh_concept c
 						JOIN bh_encounter_diagnostic ed
@@ -105,11 +108,15 @@ FROM
 						LEFT JOIN bh_concept_extra ce_low
 							ON c.bh_concept_id = ce_low.bh_concept_id AND ce_low.bh_key = 'low_normal'
 						LEFT JOIN bh_client_concept_extra cce_low
-							ON ce_low.bh_concept_extra_id = cce_low.bh_concept_extra_id AND cce_low.ad_client_id = ed.ad_client_id
+							ON cce_low.bh_concept_id = c.bh_concept_id AND cce_low.bh_key = 'low_normal' AND cce_low.ad_client_id = ed.ad_client_id
 						LEFT JOIN bh_concept_extra ce_high
 							ON c.bh_concept_id = ce_high.bh_concept_id AND ce_high.bh_key = 'hi_normal'
 						LEFT JOIN bh_client_concept_extra cce_high
-							ON ce_high.bh_concept_extra_id = cce_high.bh_concept_extra_id AND cce_high.ad_client_id = ed.ad_client_id
+							ON cce_high.bh_concept_id = c.bh_concept_id AND cce_high.bh_key = 'hi_normal' AND cce_high.ad_client_id = ed.ad_client_id
+						LEFT JOIN bh_concept_extra ce_units
+							ON c.bh_concept_id = ce_units.bh_concept_id AND ce_units.bh_key = 'units'
+						LEFT JOIN bh_client_concept_extra cce_units
+							ON cce_units.bh_concept_id = c.bh_concept_id AND cce_units.bh_key = 'units' AND cce_units.ad_client_id = ed.ad_client_id
 						LEFT JOIN LATERAL (SELECT DISTINCT ON (cm.to_bh_concept_id)
 							                   cm.to_bh_concept_id                                                              AS bh_concept_id,
 							                   COALESCE(cm_cce_low.bh_client_concept_extra_id,
@@ -128,13 +135,13 @@ FROM
 									                   ON cm.bh_concept_mapping_id = cm_ce_low.bh_concept_mapping_id AND
 									                      cm_ce_low.bh_key = 'low_normal'
 								                   LEFT JOIN bh_client_concept_extra cm_cce_low
-									                   ON cm_ce_low.bh_concept_extra_id = cm_cce_low.bh_concept_extra_id AND
+									                   ON cm_cce_low.bh_concept_mapping_id = cm.bh_concept_mapping_id AND cm_cce_low.bh_key = 'low_normal' AND
 									                      cm_cce_low.ad_client_id = ed.ad_client_id
 								                   LEFT JOIN bh_concept_extra cm_ce_high
 									                   ON cm.bh_concept_mapping_id = cm_ce_high.bh_concept_mapping_id AND
 									                      cm_ce_high.bh_key = 'hi_normal'
 								                   LEFT JOIN bh_client_concept_extra cm_cce_high
-									                   ON cm_ce_high.bh_concept_extra_id = cm_cce_high.bh_concept_extra_id AND
+									                   ON cm_cce_high.bh_concept_mapping_id = cm.bh_concept_mapping_id AND cm_cce_high.bh_key = 'hi_normal' AND
 									                      cm_cce_high.ad_client_id = ed.ad_client_id
 						                   WHERE
 							                   cm.to_bh_concept_id = c.bh_concept_id

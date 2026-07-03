@@ -9,6 +9,7 @@ import org.compiere.model.Query;
 import java.sql.Timestamp;
 
 public class MInvoiceInput extends X_C_InvoiceInput {
+	private String explicitPaymentRule;
 	/**
 	 * Standard constructor (don't forget to use @JsonCreator and @JsonProperty
 	 * annotations from the super class since those aren't inherited)
@@ -25,13 +26,22 @@ public class MInvoiceInput extends X_C_InvoiceInput {
 	}
 
 	@Override
+	public void setPaymentRuleInput(ForeignEntityInput PaymentRule) {
+		super.setPaymentRuleInput(PaymentRule);
+		if (PaymentRule != null) {
+			explicitPaymentRule = getPaymentRule();
+		}
+	}
+
+	@Override
 	public void setC_BPartnerInput(ForeignEntityInput C_BPartner) {
 		super.setC_BPartnerInput(C_BPartner);
 		if (getC_BPartner_ID() > 0) {
 			// Since the setter overrides the following properties, get them in case we need to re-set them
 			Integer paymentTermID = (Integer) get_Value(COLUMNNAME_C_PaymentTerm_ID);
 			Integer priceListID = (Integer) get_Value(COLUMNNAME_M_PriceList_ID);
-			String paymentRule = (String) get_Value(COLUMNNAME_PaymentRule);
+			String paymentRule = explicitPaymentRule != null ? explicitPaymentRule :
+					(String) get_Value(COLUMNNAME_PaymentRule);
 			Integer bpartnerLocationID = (Integer) get_Value(COLUMNNAME_C_BPartner_Location_ID);
 			Integer userID = (Integer) get_Value(COLUMNNAME_AD_User_ID);
 
