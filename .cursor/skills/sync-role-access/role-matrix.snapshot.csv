@@ -22,6 +22,7 @@
 ,   show in clinician dropdown,N/A,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,
 ,   vitals and chief complaint field,N/A,4,0,0,0,0,0,0,2,2,2,0,1,0,0,3,0,2,
 ,   clinical fields within visit form,N/A,4,0,0,0,0,0,0,2,2,0,0,1,0,0,3,0,2,
+,    family planning,,4,0,0,0,0,0,0,2,2,0,0,1,0,0,3,0,2,
 ,   lab / diagnostic fields within visit,N/A,4,0,0,0,0,0,0,2,2,0,2,2,0,0,0,0,2,
 ,   editting product sale price,N/A,1,1,0,1,1,1,0,0,1,1,0,0,1,0,1,0,1,
 ,   allergies,N/A,4,0,0,0,0,0,0,2,2,0,2,2,0,0,3,0,2,
