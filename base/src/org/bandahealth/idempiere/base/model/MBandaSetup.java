@@ -5,6 +5,7 @@ import org.bandahealth.idempiere.base.utils.StringUtil;
 import org.compiere.model.I_C_Location;
 import org.compiere.model.I_C_ValidCombination;
 import org.compiere.model.MAccount;
+import org.compiere.model.MAcctProcessor;
 import org.compiere.model.MAcctSchema;
 import org.compiere.model.MAcctSchemaDefault;
 import org.compiere.model.MAttributeSet;
@@ -30,9 +31,11 @@ import org.compiere.model.MProductCategoryAcct;
 import org.compiere.model.MRefList;
 import org.compiere.model.MRefTable;
 import org.compiere.model.MReference;
+import org.compiere.model.MRequestProcessor;
 import org.compiere.model.MRole;
 import org.compiere.model.MRoleIncluded;
 import org.compiere.model.MRoleOrgAccess;
+import org.compiere.model.MSchedule;
 import org.compiere.model.MTable;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.MWarehouse;
@@ -55,6 +58,8 @@ import org.compiere.util.Trx;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -83,6 +88,16 @@ public class MBandaSetup {
 	public static final String REFERENCE_PAYMENT_REF_UU = "5943153c-cf7b-4bd1-96b7-ff36d1c0f860";
 	/* The UU of the Accounting - Accounts import format */
 	public static final String IMPORTFORMAT_ACCOUNTING_ACCOUNTS_UU = "7fbbb20b-8521-47e4-b0e1-31332f17958b";
+	/* The shared daily schedule every tenant's accounting processor runs on (GO-3636/GO-3654) */
+	public static final int SCHEDULE_ACCOUNTING_PROCESSOR_ID = 200000;
+	/* The shared "15 Days" schedule every tenant's request processor runs on (GO-3636/GO-3654) */
+	public static final int SCHEDULE_REQUEST_PROCESSOR_ID = 1000000;
+	/* The overnight load-trough windows the processors' first run is staggered into, in minutes after midnight
+	 * (accounting 00:00-01:59, request 02:00-03:44 -- must match the fleet-wide spread from GO-3636) */
+	public static final int ACCT_PROCESSOR_TROUGH_START_MINUTES = 0;
+	public static final int ACCT_PROCESSOR_TROUGH_WINDOW_MINUTES = 120;
+	public static final int REQUEST_PROCESSOR_TROUGH_START_MINUTES = 120;
+	public static final int REQUEST_PROCESSOR_TROUGH_WINDOW_MINUTES = 105;
 	/**
 	 * Admin = A
 	 */
@@ -1417,6 +1432,59 @@ public class MBandaSetup {
 				log.warning("Failure: Could not save updates for business partner");
 			}
 		});
+		return true;
+	}
+
+	/**
+	 * Core setup (MSetup.createClient) puts the new client's accounting & request processors on the seed
+	 * every-few-minutes schedules (SystemIDs.SCHEDULE_10_MINUTES/SCHEDULE_15_MINUTES), which would run them all
+	 * day, every day. Move them to the shared schedules and stagger their first run into the overnight load
+	 * trough (accounting 00:00-01:59, request 02:00-03:44), matching the fleet-wide spread done in GO-3636.
+	 * This must happen before AdempiereServerMgr ever loads the processors (it only picks up new ones on a
+	 * server restart/reload) -- once a processor is running, it rewrites DateNextRun from its in-memory
+	 * schedule on every run, so any later DB correction is silently lost (GO-3654).
+	 *
+	 * @return Whether the processors were moved to the shared overnight schedules
+	 */
+	public boolean updateProcessorRunSchedules() {
+		if (new Query(context, MSchedule.Table_Name, MSchedule.COLUMNNAME_AD_Schedule_ID + " IN (?,?)",
+				getTransactionName())
+				.setParameters(SCHEDULE_ACCOUNTING_PROCESSOR_ID, SCHEDULE_REQUEST_PROCESSOR_ID)
+				.setOnlyActiveRecords(true).count() != 2) {
+			log.severe("Failure: The shared overnight processor schedules don't exist in this environment");
+			return false;
+		}
+
+		// Stateless stagger: each client gets a deterministic slot in the trough window based on its ID
+		LocalDateTime tomorrow = LocalDate.now().plusDays(1).atStartOfDay();
+		Timestamp accountingProcessorNextRun = Timestamp.valueOf(tomorrow.plusMinutes(
+				ACCT_PROCESSOR_TROUGH_START_MINUTES + getAD_Client_ID() % ACCT_PROCESSOR_TROUGH_WINDOW_MINUTES));
+		Timestamp requestProcessorNextRun = Timestamp.valueOf(tomorrow.plusMinutes(
+				REQUEST_PROCESSOR_TROUGH_START_MINUTES + getAD_Client_ID() % REQUEST_PROCESSOR_TROUGH_WINDOW_MINUTES));
+
+		List<MAcctProcessor> accountingProcessors = new Query(context, MAcctProcessor.Table_Name,
+				MAcctProcessor.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(getAD_Client_ID())
+				.list();
+		for (MAcctProcessor accountingProcessor : accountingProcessors) {
+			accountingProcessor.setAD_Schedule_ID(SCHEDULE_ACCOUNTING_PROCESSOR_ID);
+			accountingProcessor.setDateNextRun(accountingProcessorNextRun);
+			if (!accountingProcessor.save()) {
+				log.severe("Failure: Accounting processor not moved to the shared overnight schedule");
+				return false;
+			}
+		}
+
+		List<MRequestProcessor> requestProcessors = new Query(context, MRequestProcessor.Table_Name,
+				MRequestProcessor.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(getAD_Client_ID())
+				.list();
+		for (MRequestProcessor requestProcessor : requestProcessors) {
+			requestProcessor.setAD_Schedule_ID(SCHEDULE_REQUEST_PROCESSOR_ID);
+			requestProcessor.setDateNextRun(requestProcessorNextRun);
+			if (!requestProcessor.save()) {
+				log.severe("Failure: Request processor not moved to the shared overnight schedule");
+				return false;
+			}
+		}
 		return true;
 	}
 
