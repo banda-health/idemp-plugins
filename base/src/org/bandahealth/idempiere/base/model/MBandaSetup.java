@@ -1466,10 +1466,16 @@ public class MBandaSetup {
 				MAcctProcessor.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(getAD_Client_ID())
 				.list();
 		for (MAcctProcessor accountingProcessor : accountingProcessors) {
+			// MAcctProcessor.beforeSave recomputes DateNextRun from "now" whenever AD_Schedule_ID changes,
+			// so the schedule move and the staggered first run have to be saved separately
 			accountingProcessor.setAD_Schedule_ID(SCHEDULE_ACCOUNTING_PROCESSOR_ID);
-			accountingProcessor.setDateNextRun(accountingProcessorNextRun);
 			if (!accountingProcessor.save()) {
 				log.severe("Failure: Accounting processor not moved to the shared overnight schedule");
+				return false;
+			}
+			accountingProcessor.setDateNextRun(accountingProcessorNextRun);
+			if (!accountingProcessor.save()) {
+				log.severe("Failure: Accounting processor's first run not staggered into the overnight trough");
 				return false;
 			}
 		}
@@ -1478,10 +1484,15 @@ public class MBandaSetup {
 				MRequestProcessor.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(getAD_Client_ID())
 				.list();
 		for (MRequestProcessor requestProcessor : requestProcessors) {
+			// MRequestProcessor.beforeSave has the same DateNextRun recompute as MAcctProcessor
 			requestProcessor.setAD_Schedule_ID(SCHEDULE_REQUEST_PROCESSOR_ID);
-			requestProcessor.setDateNextRun(requestProcessorNextRun);
 			if (!requestProcessor.save()) {
 				log.severe("Failure: Request processor not moved to the shared overnight schedule");
+				return false;
+			}
+			requestProcessor.setDateNextRun(requestProcessorNextRun);
+			if (!requestProcessor.save()) {
+				log.severe("Failure: Request processor's first run not staggered into the overnight trough");
 				return false;
 			}
 		}
