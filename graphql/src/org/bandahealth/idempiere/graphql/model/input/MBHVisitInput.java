@@ -8,6 +8,7 @@ import java.util.List;
 
 public class MBHVisitInput extends X_BH_VisitInput {
 	private List<MBHEncounterInput> BH_Encounters = new ArrayList<>();
+	private MBHVisitFamilyPlanningInput BH_Visit_Family_Planning;
 	private List<MInvoiceInput> C_Invoices = new ArrayList<>();
 	private List<MOrderInput> C_Orders = new ArrayList<>();
 	private List<MPaymentInput> C_Payments = new ArrayList<>();
@@ -24,6 +25,15 @@ public class MBHVisitInput extends X_BH_VisitInput {
 
 	public void setBH_Encounters(List<MBHEncounterInput> BH_Encounters) {
 		this.BH_Encounters = BH_Encounters;
+	}
+
+	@JsonProperty("BH_Visit_Family_Planning")
+	public MBHVisitFamilyPlanningInput getBH_Visit_Family_Planning() {
+		return BH_Visit_Family_Planning;
+	}
+
+	public void setBH_Visit_Family_Planning(MBHVisitFamilyPlanningInput BH_Visit_Family_Planning) {
+		this.BH_Visit_Family_Planning = BH_Visit_Family_Planning;
 	}
 
 	public List<MInvoiceInput> getC_Invoices() {

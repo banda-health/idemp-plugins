@@ -6,6 +6,7 @@ extend type BH_Visit {
 	# The audited field for the previous process stage
 	BH_Coming_From: AD_Ref_List
 	BH_Encounters: [BH_Encounter!]
+	BH_Visit_Family_Planning: BH_Visit_Family_Planning
 	C_Invoices: [C_Invoice!]
 	C_Orders: [C_Order!]
 	C_Payments: [C_Payment!]
@@ -14,6 +15,7 @@ extend type BH_Visit {
 
 extend input BH_VisitInput {
 	BH_Encounters: [BH_EncounterInput!]
+	BH_Visit_Family_Planning: BH_Visit_Family_PlanningInput
 	C_Invoices: [C_InvoiceInput!]
 	C_Orders: [C_OrderInput!]
 	C_Payments: [C_PaymentInput!]

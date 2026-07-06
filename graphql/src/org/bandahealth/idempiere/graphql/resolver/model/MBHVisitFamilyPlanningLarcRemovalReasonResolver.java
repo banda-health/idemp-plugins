@@ -1,0 +1,2 @@
+package org.bandahealth.idempiere.graphql.resolver.model;
+public class MBHVisitFamilyPlanningLarcRemovalReasonResolver extends X_BH_Visit_Family_Planning_Larc_Removal_ReasonResolver {}

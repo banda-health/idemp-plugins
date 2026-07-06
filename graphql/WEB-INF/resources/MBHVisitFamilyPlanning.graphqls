@@ -1,0 +1,9 @@
+extend type BH_Visit_Family_Planning {
+	BH_Visit_Family_Planning_Products: [BH_Visit_Family_Planning_Product!]
+	BH_Larc_Removal_Reasons: [BH_Visit_Family_Planning_Larc_Removal_Reason!]
+}
+
+extend input BH_Visit_Family_PlanningInput {
+	BH_Visit_Family_Planning_Products: [BH_Visit_Family_Planning_ProductInput!]
+	BH_Larc_Removal_Reasons: [BH_Visit_Family_Planning_Larc_Removal_ReasonInput!]
+}

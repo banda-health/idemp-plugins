@@ -8,7 +8,7 @@ import {
 	documentStatus,
 } from '../models';
 import { RoleName } from '../types/roleName';
-import { Ad_MenuGetDocument, DocumentStatusActionMapDocument } from '../__generated__/graphql';
+import { Ad_MenuGetDocument, Ad_MenuGetQuery, DocumentStatusActionMapDocument } from '../__generated__/graphql';
 
 const mainMenuRootUuid = 'bb0670c5-0dc1-468a-8b85-a91b15407368';
 
@@ -16,6 +16,7 @@ const windowUuid = {
 	allergies: '45f693e1-d33a-43cf-81dc-1f75262f3bd0',
 	billingHistoryManageDebt: '02235082-ebb7-47d3-ba31-9654de1f32c1',
 	clinicalDetails: '2e37e97b-aeb5-47d7-add3-0d602233c2aa',
+	familyPlanning: '2dd179a5-5886-4971-99c0-f7b6f75d0ac3',
 	chiefComplaint: 'ee3189d3-9bf5-4528-b5c8-26f2cabde1ed',
 	dashboard: 'd91768c8-5c5b-4d7c-9a6f-15b06d45908b',
 	debtPayments: '4497b5f7-758d-4e82-8e2b-01c4364ce609',
@@ -40,7 +41,53 @@ const windowUuid = {
 	transferInventory: 'd3c84cad-7306-464d-85da-7e629846f8c0',
 	visitsBills: 'a1f3e45c-4a6f-4c05-af26-517b8e9cbb77',
 	vitals: '53b4d743-c311-40e5-aa8e-c0880c42c1b1',
+	labDiagnosticsDetails: '3084592a-531b-4fbd-a412-5c14c2b15288',
 } as const;
+
+/** Windows used for visit-form role gating or modals — never top-level Greenlight menu entries. */
+const windowsHiddenFromMainMenu = [
+	windowUuid.vitals,
+	windowUuid.chiefComplaint,
+	windowUuid.clinicalDetails,
+	windowUuid.familyPlanning,
+	windowUuid.labDiagnosticsDetails,
+	windowUuid.debtPayments,
+	windowUuid.billingHistoryManageDebt,
+	windowUuid.supplierPayments,
+] as const;
+
+type MainMenuNode = NonNullable<
+	NonNullable<
+		NonNullable<Ad_MenuGetQuery['AD_MenuGet']['Results'][0]>['ChildrenTree_NodeMMList']
+	>[number]['Node']
+>;
+
+const loadMainMenuNodes = async (valueObject: typeof globalThis.__VALUE_OBJECT__) =>
+	(
+		await query(valueObject)({
+			query: Ad_MenuGetDocument,
+			variables: { Size: 1, Filter: JSON.stringify({ ad_menu_uu: mainMenuRootUuid }) },
+		})
+	).data.AD_MenuGet.Results[0]
+		.ChildrenTree_NodeMMList!.flatMap((menuNode) => [
+			menuNode.Node,
+			...(menuNode.Node?.ChildrenTree_NodeMMList?.map((childNode) => childNode.Node) || []),
+		])
+		.filter((menu): menu is MainMenuNode => !!menu);
+
+const mainMenuWindowUUs = (menus: MainMenuNode[]) =>
+	menus.flatMap((menu) => (menu.AD_Window?.UU ? [menu.AD_Window.UU] : []));
+
+test('admin main menu does not include visit sub-windows or internal-only windows', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const menuWindowUUs = mainMenuWindowUUs(await loadMainMenuNodes(valueObject));
+
+	for (const hiddenWindowUuid of windowsHiddenFromMainMenu) {
+		expect(menuWindowUUs).not.toContain(hiddenWindowUuid);
+	}
+});
 
 test('admin role has correct access', async () => {
 	await globalThis.__VALUE_OBJECT__.login();
@@ -85,6 +132,8 @@ test('admin role has correct access', async () => {
 	expect(windowAccess?.[windowUuid.chiefComplaint]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
+
+	expect(windowAccess?.[windowUuid.familyPlanning]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.diagnoses)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.diagnoses]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
@@ -235,6 +284,8 @@ test('clinic admin role has correct access', async () => {
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
 
+	expect(windowAccess?.[windowUuid.familyPlanning]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
+
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.diagnoses)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.diagnoses]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 
@@ -380,6 +431,8 @@ test('cashier/registration basic role has correct access', async () => {
 	expect(windowAccess?.[windowUuid.chiefComplaint]).toBeUndefined();
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toBeUndefined();
+
+	expect(windowAccess?.[windowUuid.familyPlanning]).toBeUndefined();
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.diagnoses)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.diagnoses]).toBeUndefined();
@@ -530,6 +583,8 @@ test('cashier/registration basic plus role has correct access', async () => {
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toBeUndefined();
 
+	expect(windowAccess?.[windowUuid.familyPlanning]).toBeUndefined();
+
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.diagnoses)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.diagnoses]).toBeUndefined();
 
@@ -678,6 +733,8 @@ test('cashier/registration advanced role has correct access', async () => {
 	expect(windowAccess?.[windowUuid.chiefComplaint]).toBeUndefined();
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toBeUndefined();
+
+	expect(windowAccess?.[windowUuid.familyPlanning]).toBeUndefined();
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.diagnoses)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.diagnoses]).toBeUndefined();
@@ -828,6 +885,8 @@ test('inventory/pharmacy advanced role has correct access', async () => {
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toBeUndefined();
 
+	expect(windowAccess?.[windowUuid.familyPlanning]).toBeUndefined();
+
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.diagnoses)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.diagnoses]).toBeUndefined();
 
@@ -977,6 +1036,8 @@ test('inventory/pharmacy basic role has correct access', async () => {
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toBeUndefined();
 
+	expect(windowAccess?.[windowUuid.familyPlanning]).toBeUndefined();
+
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.diagnoses)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.diagnoses]).toBeUndefined();
 
@@ -1121,6 +1182,8 @@ test('clinician/nurse basic role has correct access', async () => {
 	expect(windowAccess?.[windowUuid.chiefComplaint]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
+
+	expect(windowAccess?.[windowUuid.familyPlanning]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.diagnoses)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.diagnoses]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
@@ -1267,6 +1330,8 @@ test('clinician/nurse advanced role has correct access', async () => {
 	expect(windowAccess?.[windowUuid.chiefComplaint]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
+
+	expect(windowAccess?.[windowUuid.familyPlanning]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.diagnoses)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.diagnoses]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
@@ -1417,6 +1482,8 @@ test('triage role has correct access', async () => {
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toBeUndefined();
 
+	expect(windowAccess?.[windowUuid.familyPlanning]).toBeUndefined();
+
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.diagnoses)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.diagnoses]).toBeUndefined();
 
@@ -1556,6 +1623,8 @@ test('lab/radiology basic role has correct access', async () => {
 	expect(windowAccess?.[windowUuid.chiefComplaint]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toBeUndefined();
+
+	expect(windowAccess?.[windowUuid.familyPlanning]).toBeUndefined();
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.diagnoses)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.diagnoses]).toBeUndefined();
@@ -1698,6 +1767,8 @@ test('lab/radiology advanced role has correct access', async () => {
 	expect(windowAccess?.[windowUuid.chiefComplaint]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: false });
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
+
+	expect(windowAccess?.[windowUuid.familyPlanning]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.diagnoses)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.diagnoses]).toBeUndefined();
@@ -1847,6 +1918,8 @@ test('accounting role has correct access', async () => {
 	expect(windowAccess?.[windowUuid.chiefComplaint]).toBeUndefined();
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toBeUndefined();
+
+	expect(windowAccess?.[windowUuid.familyPlanning]).toBeUndefined();
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.diagnoses)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.diagnoses]).toBeUndefined();
@@ -1998,6 +2071,8 @@ test('otc only role has correct access', async () => {
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toBeUndefined();
 
+	expect(windowAccess?.[windowUuid.familyPlanning]).toBeUndefined();
+
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.diagnoses)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.diagnoses]).toBeUndefined();
 
@@ -2144,6 +2219,8 @@ test('clinic user role has correct access', async () => {
 	expect(windowAccess?.[windowUuid.chiefComplaint]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
+
+	expect(windowAccess?.[windowUuid.familyPlanning]).toMatchObject({ IsReadWrite: true, BH_CanDeactivate: true });
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.diagnoses)).not.toBeUndefined();
 	expect(windowAccess?.[windowUuid.diagnoses]).toMatchObject({ IsReadWrite: false, BH_CanDeactivate: false });
@@ -2293,6 +2370,7 @@ test('registration role has correct access', async () => {
 	expect(windowAccess?.[windowUuid.vitals]).toBeUndefined();
 	expect(windowAccess?.[windowUuid.chiefComplaint]).toBeUndefined();
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toBeUndefined();
+	expect(windowAccess?.[windowUuid.familyPlanning]).toBeUndefined();
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.diagnoses)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.diagnoses]).toBeUndefined();
 
@@ -2380,6 +2458,8 @@ test('cashier lite role has correct access', async () => {
 	expect(windowAccess?.[windowUuid.chiefComplaint]).toBeUndefined();
 
 	expect(windowAccess?.[windowUuid.clinicalDetails]).toBeUndefined();
+
+	expect(windowAccess?.[windowUuid.familyPlanning]).toBeUndefined();
 
 	expect(menus.find((menu) => menu?.AD_Window?.UU === windowUuid.diagnoses)).toBeUndefined();
 	expect(windowAccess?.[windowUuid.diagnoses]).toBeUndefined();

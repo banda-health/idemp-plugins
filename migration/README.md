@@ -42,6 +42,7 @@ That script demonstrates:
 
 - `CREATE TABLE` with FK constraints
 - `ad_element`, `ad_table`, `ad_sequence`, `ad_column` dictionary entries
+- `AD_Client_ID` / `AD_Org_ID` column defaults (`@#AD_Client_ID@`, `@#AD_Org_ID@`) — required for GraphQL saves
 - `ad_window`, `ad_tab`, `ad_field`, `ad_menu` (UI)
 - `bh_graphqlgeneratortemplate` table list update (**required** for GraphQL tables)
 
