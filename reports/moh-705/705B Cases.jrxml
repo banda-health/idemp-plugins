@@ -67,7 +67,7 @@
 			 'Diarrhea with severe dehydration', 'Other Diseases Of Respiratory System', 'Sexual Assault', 'Kalaazar',
 			 'Fevers', 'Eye Infections', 'Dracunculiasis (Guinea Worm)', 'Neoplasms', 'Newly Diagnosed HIV',
 			 'Other Central Nervous System Conditions', 'Other Convulsive Disorders', 'Other Eye Conditions', 'Plague',
-			 'Diarrhea', 'Congenital Anomalies', 'Chromosomal Abnormalities (E.G Downs Syndrome; Edwards Syndrome Etc.)',
+			 'Congenital Anomalies', 'Chromosomal Abnormalities (E.G Downs Syndrome; Edwards Syndrome Etc.)',
 			 'Cerebral Palsy', 'Autism')
 			AND LOWER(bh_key) = 'moh-705b-greaterthan5'
 	),

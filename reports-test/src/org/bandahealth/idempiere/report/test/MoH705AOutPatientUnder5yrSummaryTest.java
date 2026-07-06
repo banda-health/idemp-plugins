@@ -875,4 +875,80 @@ public class MoH705AOutPatientUnder5yrSummaryTest extends ChuBoePopulateFactoryV
 			assertTrue(rowToFind.isPresent(), "Year is on the report");
 		}
 	}
+
+	@IPopulateAnnotation.CanRun
+	public void diagnosesAppearInMohOrder() throws Exception {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		ensureDiagnosisOnMoh705List(valueObject, "Cholera");
+		ensureDiagnosisOnMoh705List(valueObject, "Asthma");
+		generateReport(valueObject);
+
+		int choleraRow = getRowIndexForDiagnosis(valueObject, "Cholera");
+		int asthmaRow = getRowIndexForDiagnosis(valueObject, "Asthma");
+		assertTrue(choleraRow < asthmaRow,
+				"Cholera (MoH line 4) appears before Asthma (MoH line 11) instead of alphabetically");
+	}
+
+	private void ensureDiagnosisOnMoh705List(ChuBoePopulateVO valueObject, String diagnosisName) throws Exception {
+		int currentClientId = Env.getAD_Client_ID(Env.getCtx());
+		try {
+			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, 0);
+			MBHConcept codedDiagnosis = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+					MBHConcept.COLUMNNAME_BH_Display_Name + "=?", valueObject.getTransactionName())
+					.setParameters(diagnosisName).first();
+			if (codedDiagnosis == null) {
+				valueObject.setStepName("Create the " + diagnosisName + " coded diagnosis");
+				codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+				codedDiagnosis.setBH_Display_Name(diagnosisName);
+				codedDiagnosis.setOcl_Uuid(diagnosisName);
+				codedDiagnosis.saveEx();
+				commitEx();
+			}
+
+			MBHConceptExtra extra = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
+					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? AND "
+							+ MBHConceptExtra.COLUMNNAME_BH_Key + "=?",
+					valueObject.getTransactionName())
+					.setParameters(diagnosisName, codedDiagnosis.getBH_Concept_ID(), MOH705ALESSTHAN5).first();
+			if (extra == null) {
+				extra = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
+				extra.setBH_Key(MOH705ALESSTHAN5);
+				extra.setBH_Value(diagnosisName);
+				extra.setBH_Concept_ID(codedDiagnosis.getBH_Concept_ID());
+				extra.saveEx();
+				commitEx();
+			}
+		} finally {
+			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
+		}
+	}
+
+	private void generateReport(ChuBoePopulateVO valueObject) throws Exception {
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.startOfMonth(), null, null, null),
+						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
+	}
+
+	private int getRowIndexForDiagnosis(ChuBoePopulateVO valueObject, String diagnosisName) throws IOException {
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Optional<Row> diagnosisRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().equals(diagnosisName))).findFirst();
+			assertTrue(diagnosisRow.isPresent(), "Found row for diagnosis " + diagnosisName);
+			return diagnosisRow.get().getRowNum();
+		}
+	}
 }
