@@ -17,6 +17,7 @@ import org.bandahealth.idempiere.base.model.MSequence_BH;
 import org.bandahealth.idempiere.base.model.MUser_BH;
 import org.bandahealth.idempiere.base.model.MWarehouse_BH;
 import org.bandahealth.idempiere.base.utils.QueryUtil;
+import org.compiere.model.MAcctProcessor;
 import org.compiere.model.MAttributeSet;
 import org.compiere.model.MBPGroup;
 import org.compiere.model.MBPartnerLocation;
@@ -27,6 +28,7 @@ import org.compiere.model.MElementValue;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPriceList;
+import org.compiere.model.MRequestProcessor;
 import org.compiere.model.MRole;
 import org.compiere.model.MUserRoles;
 import org.compiere.model.MWarehouse;
@@ -37,6 +39,8 @@ import org.compiere.util.CLogMgt;
 import org.compiere.util.Env;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -428,6 +432,45 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							"	FROM c_bpartner " +
 							"	WHERE ad_client_id = " + client.get_ID() +
 							"		AND (paymentrule = 'B' OR  paymentrulepo = 'B')" +
+							") AS result"
+			);
+
+			// Assert the processors were moved off the seed every-few-minutes schedules onto the shared
+			// overnight schedules, with the first run staggered into the load trough (GO-3654)
+			MAcctProcessor accountingProcessor = new Query(valueObject.getContext(), MAcctProcessor.Table_Name,
+					MAcctProcessor.COLUMNNAME_AD_Client_ID + "=?", valueObject.getTransactionName())
+					.setParameters(client.get_ID()).first();
+			assertNotNull(accountingProcessor, "Accounting processor was created");
+			assertEquals(MBandaSetup.SCHEDULE_ACCOUNTING_PROCESSOR_ID, accountingProcessor.getAD_Schedule_ID(),
+					"Accounting processor is on the shared overnight schedule");
+			assertEquals(Timestamp.valueOf(LocalDate.now().plusDays(1).atStartOfDay()
+							.plusMinutes(MBandaSetup.ACCT_PROCESSOR_TROUGH_START_MINUTES
+									+ client.get_ID() % MBandaSetup.ACCT_PROCESSOR_TROUGH_WINDOW_MINUTES)),
+					accountingProcessor.getDateNextRun(),
+					"Accounting processor's first run is staggered into the overnight trough");
+
+			MRequestProcessor requestProcessor = new Query(valueObject.getContext(), MRequestProcessor.Table_Name,
+					MRequestProcessor.COLUMNNAME_AD_Client_ID + "=?", valueObject.getTransactionName())
+					.setParameters(client.get_ID()).first();
+			assertNotNull(requestProcessor, "Request processor was created");
+			assertEquals(MBandaSetup.SCHEDULE_REQUEST_PROCESSOR_ID, requestProcessor.getAD_Schedule_ID(),
+					"Request processor is on the shared overnight schedule");
+			assertEquals(Timestamp.valueOf(LocalDate.now().plusDays(1).atStartOfDay()
+							.plusMinutes(MBandaSetup.REQUEST_PROCESSOR_TROUGH_START_MINUTES
+									+ client.get_ID() % MBandaSetup.REQUEST_PROCESSOR_TROUGH_WINDOW_MINUTES)),
+					requestProcessor.getDateNextRun(),
+					"Request processor's first run is staggered into the overnight trough");
+
+			addAssertionSQL(
+					"SELECT " +
+							"'Shared overnight schedules anchor next-run to start time' AS name, " +
+							"(" +
+							"	SELECT COUNT(*) = 2 " +
+							"	FROM ad_schedule " +
+							"	WHERE ad_schedule_id IN (" + MBandaSetup.SCHEDULE_ACCOUNTING_PROCESSOR_ID + ", " +
+							MBandaSetup.SCHEDULE_REQUEST_PROCESSOR_ID + ")" +
+							"		AND isactive = 'Y'" +
+							"		AND isignoreprocessingtime = 'Y'" +
 							") AS result"
 			);
 
