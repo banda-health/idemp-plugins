@@ -24,6 +24,7 @@ import org.bandahealth.idempiere.base.model.MBHEncounterDiagnostic;
 import org.bandahealth.idempiere.base.model.MBHEncounterTypeWindow;
 import org.bandahealth.idempiere.base.model.MBHFeatureFlag;
 import org.bandahealth.idempiere.base.model.MBHFeatureFlagRule;
+import org.bandahealth.idempiere.base.model.MBHFieldRule;
 import org.bandahealth.idempiere.base.model.MBHGraphqlGeneratorTemplate;
 import org.bandahealth.idempiere.base.model.MBHObservation;
 import org.bandahealth.idempiere.base.model.MBHOclOriginatingSource;
@@ -227,6 +228,8 @@ public class BHModelFactory implements IModelFactory {
 			return MBHFeatureFlag.class;
 		} else if (tableName.equalsIgnoreCase(MBHFeatureFlagRule.Table_Name)) {
 			return MBHFeatureFlagRule.class;
+		} else if (tableName.equalsIgnoreCase(MBHFieldRule.Table_Name)) {
+			return MBHFieldRule.class;
 		} else if (tableName.equalsIgnoreCase(MBHOclOriginatingSource.Table_Name)) {
 			return MBHOclOriginatingSource.class;
 		} else if (tableName.equalsIgnoreCase(MBHClientConceptExtra.Table_Name)) {
@@ -382,6 +385,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHFeatureFlag(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHFeatureFlagRule.Table_Name)) {
 			return new MBHFeatureFlagRule(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHFieldRule.Table_Name)) {
+			return new MBHFieldRule(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHOclOriginatingSource.Table_Name)) {
 			return new MBHOclOriginatingSource(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHClientConceptExtra.Table_Name)) {
@@ -541,6 +546,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHFeatureFlag(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHFeatureFlagRule.Table_Name)) {
 			return new MBHFeatureFlagRule(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHFieldRule.Table_Name)) {
+			return new MBHFieldRule(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHOclOriginatingSource.Table_Name)) {
 			return new MBHOclOriginatingSource(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHClientConceptExtra.Table_Name)) {
@@ -678,6 +685,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHFeatureFlag(Env.getCtx(), Record_UU, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHFeatureFlagRule.Table_Name)) {
 			return new MBHFeatureFlagRule(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHFieldRule.Table_Name)) {
+			return new MBHFieldRule(Env.getCtx(), Record_UU, trxName);
 		} else if (tableName.equalsIgnoreCase(MField_BH.Table_Name)) {
 			return new MField_BH(Env.getCtx(), Record_UU, trxName);
 		} else if (tableName.equalsIgnoreCase(MFieldGroup_BH.Table_Name)) {
