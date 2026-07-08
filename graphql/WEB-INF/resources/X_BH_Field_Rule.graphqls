@@ -1,0 +1,50 @@
+# Generated Schema for BH_Field_Rule - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 12 - $Id$
+extend type Query {
+	BH_Field_Rule(UU: String!): BH_Field_Rule
+	BH_Field_RuleGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): BH_Field_RuleConnection!
+}
+
+extend type Mutation {
+	BH_Field_RuleSave(Entity: BH_Field_RuleInput!): BH_Field_Rule!
+	BH_Field_RuleSaveMany(Entities: [BH_Field_RuleInput!]!): [BH_Field_Rule!]!
+	BH_Field_RuleDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Field_RuleConnection {
+	Results: [BH_Field_Rule!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Field_Rule {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	BH_FieldKey: String!
+	UU: ID!
+	BH_Form: String!
+	BH_Required: Boolean!
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: DateTime!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_Field_RuleInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	BH_FieldKey: String
+	UU: ID
+	BH_Form: String
+	BH_Required: Boolean
+	# The record is active in the system
+	IsActive: Boolean
+}

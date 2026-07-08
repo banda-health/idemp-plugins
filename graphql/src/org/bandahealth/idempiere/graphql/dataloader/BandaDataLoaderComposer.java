@@ -101,6 +101,7 @@ public class BandaDataLoaderComposer {
 				new MBHEncounterTypeWindowDataLoader(),
 				new MBHFeatureFlagDataLoader(),
 				new MBHFeatureFlagRuleDataLoader(),
+				new MBHFieldRuleDataLoader(),
 				new MBHObservationDataLoader(),
 				new MBHOclOriginatingSourceDataLoader(),
 				new MBHPayerInfoFldDataLoader(),
