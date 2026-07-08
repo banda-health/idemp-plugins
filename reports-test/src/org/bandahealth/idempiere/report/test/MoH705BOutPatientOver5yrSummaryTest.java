@@ -821,6 +821,21 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 	}
 
 	@IPopulateAnnotation.CanRun
+	public void officialLinesAppearWithoutTaggedConcepts() throws Exception {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		generateReport(valueObject);
+
+		// Official MoH 705B lines must render even when no concept is tagged with them
+		for (String diagnosis : new String[]{"Jiggers Infestation", "Malaria in Pregnancy",
+				"Fistula (birth related)", "Overweight (BMI>25)", "All Other Diseases"}) {
+			getRowIndexForDiagnosis(valueObject, diagnosis);
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
 	public void diarrheaRowAppearsOnReport() throws Exception {
 		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
 		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
