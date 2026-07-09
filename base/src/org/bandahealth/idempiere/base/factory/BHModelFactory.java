@@ -24,6 +24,7 @@ import org.bandahealth.idempiere.base.model.MBHEncounterDiagnostic;
 import org.bandahealth.idempiere.base.model.MBHEncounterTypeWindow;
 import org.bandahealth.idempiere.base.model.MBHFeatureFlag;
 import org.bandahealth.idempiere.base.model.MBHFeatureFlagRule;
+import org.bandahealth.idempiere.base.model.MBHFieldRule;
 import org.bandahealth.idempiere.base.model.MBHGraphqlGeneratorTemplate;
 import org.bandahealth.idempiere.base.model.MBHObservation;
 import org.bandahealth.idempiere.base.model.MBHOclOriginatingSource;
@@ -37,6 +38,9 @@ import org.bandahealth.idempiere.base.model.MBHProductCategoryDefault;
 import org.bandahealth.idempiere.base.model.MBHProductIncluded;
 import org.bandahealth.idempiere.base.model.MBHTag;
 import org.bandahealth.idempiere.base.model.MBHVisit;
+import org.bandahealth.idempiere.base.model.MBHVisitFamilyPlanning;
+import org.bandahealth.idempiere.base.model.MBHVisitFamilyPlanningLarcRemovalReason;
+import org.bandahealth.idempiere.base.model.MBHVisitFamilyPlanningProduct;
 import org.bandahealth.idempiere.base.model.MBHVoidedReason;
 import org.bandahealth.idempiere.base.model.MBHWarehouseAccess;
 import org.bandahealth.idempiere.base.model.MBPGroup_BH;
@@ -156,6 +160,12 @@ public class BHModelFactory implements IModelFactory {
 			return MInOut_BH.class;
 		} else if (tableName.equalsIgnoreCase(MBHVisit.Table_Name)) {
 			return MBHVisit.class;
+		} else if (tableName.equalsIgnoreCase(MBHVisitFamilyPlanning.Table_Name)) {
+			return MBHVisitFamilyPlanning.class;
+		} else if (tableName.equalsIgnoreCase(MBHVisitFamilyPlanningProduct.Table_Name)) {
+			return MBHVisitFamilyPlanningProduct.class;
+		} else if (tableName.equalsIgnoreCase(MBHVisitFamilyPlanningLarcRemovalReason.Table_Name)) {
+			return MBHVisitFamilyPlanningLarcRemovalReason.class;
 		} else if (tableName.equalsIgnoreCase(MAttributeSet_BH.Table_Name)) {
 			return MAttributeSet_BH.class;
 		} else if (tableName.equalsIgnoreCase(MProcess_BH.Table_Name)) {
@@ -218,6 +228,8 @@ public class BHModelFactory implements IModelFactory {
 			return MBHFeatureFlag.class;
 		} else if (tableName.equalsIgnoreCase(MBHFeatureFlagRule.Table_Name)) {
 			return MBHFeatureFlagRule.class;
+		} else if (tableName.equalsIgnoreCase(MBHFieldRule.Table_Name)) {
+			return MBHFieldRule.class;
 		} else if (tableName.equalsIgnoreCase(MBHOclOriginatingSource.Table_Name)) {
 			return MBHOclOriginatingSource.class;
 		} else if (tableName.equalsIgnoreCase(MBHClientConceptExtra.Table_Name)) {
@@ -309,6 +321,12 @@ public class BHModelFactory implements IModelFactory {
 			return new MInOut_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHVisit.Table_Name)) {
 			return new MBHVisit(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHVisitFamilyPlanning.Table_Name)) {
+			return new MBHVisitFamilyPlanning(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHVisitFamilyPlanningProduct.Table_Name)) {
+			return new MBHVisitFamilyPlanningProduct(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHVisitFamilyPlanningLarcRemovalReason.Table_Name)) {
+			return new MBHVisitFamilyPlanningLarcRemovalReason(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MAttributeSet_BH.Table_Name)) {
 			return new MAttributeSet_BH(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MProcess_BH.Table_Name)) {
@@ -367,6 +385,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHFeatureFlag(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHFeatureFlagRule.Table_Name)) {
 			return new MBHFeatureFlagRule(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHFieldRule.Table_Name)) {
+			return new MBHFieldRule(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHOclOriginatingSource.Table_Name)) {
 			return new MBHOclOriginatingSource(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHClientConceptExtra.Table_Name)) {
@@ -458,6 +478,12 @@ public class BHModelFactory implements IModelFactory {
 			return new MInOut_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHVisit.Table_Name)) {
 			return new MBHVisit(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHVisitFamilyPlanning.Table_Name)) {
+			return new MBHVisitFamilyPlanning(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHVisitFamilyPlanningProduct.Table_Name)) {
+			return new MBHVisitFamilyPlanningProduct(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHVisitFamilyPlanningLarcRemovalReason.Table_Name)) {
+			return new MBHVisitFamilyPlanningLarcRemovalReason(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MAttributeSet_BH.Table_Name)) {
 			return new MAttributeSet_BH(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MProcess_BH.Table_Name)) {
@@ -520,6 +546,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHFeatureFlag(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHFeatureFlagRule.Table_Name)) {
 			return new MBHFeatureFlagRule(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHFieldRule.Table_Name)) {
+			return new MBHFieldRule(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHOclOriginatingSource.Table_Name)) {
 			return new MBHOclOriginatingSource(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHClientConceptExtra.Table_Name)) {
@@ -611,6 +639,12 @@ public class BHModelFactory implements IModelFactory {
 			return new MInOut_BH(Env.getCtx(), Record_UU, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHVisit.Table_Name)) {
 			return new MBHVisit(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHVisitFamilyPlanning.Table_Name)) {
+			return new MBHVisitFamilyPlanning(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHVisitFamilyPlanningProduct.Table_Name)) {
+			return new MBHVisitFamilyPlanningProduct(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHVisitFamilyPlanningLarcRemovalReason.Table_Name)) {
+			return new MBHVisitFamilyPlanningLarcRemovalReason(Env.getCtx(), Record_UU, trxName);
 		} else if (tableName.equalsIgnoreCase(MAttributeSet_BH.Table_Name)) {
 			return new MAttributeSet_BH(Env.getCtx(), Record_UU, trxName);
 		} else if (tableName.equalsIgnoreCase(MProcess_BH.Table_Name)) {
@@ -651,6 +685,8 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHFeatureFlag(Env.getCtx(), Record_UU, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHFeatureFlagRule.Table_Name)) {
 			return new MBHFeatureFlagRule(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHFieldRule.Table_Name)) {
+			return new MBHFieldRule(Env.getCtx(), Record_UU, trxName);
 		} else if (tableName.equalsIgnoreCase(MField_BH.Table_Name)) {
 			return new MField_BH(Env.getCtx(), Record_UU, trxName);
 		} else if (tableName.equalsIgnoreCase(MFieldGroup_BH.Table_Name)) {

@@ -56,83 +56,7 @@
 		GENERATE_SERIES(date($P{Begin Date}), date($P{End Date}), '1d')::date AS calendar
 	ORDER BY calendar
 ),
-	diagnosis_list AS (
-		SELECT DISTINCT
-			bh_value AS diagnosis
-		FROM
-			bh_concept_extra
-		WHERE
-			bh_value NOT IN
-			('NA', 'COVID-19 - suspected', 'COVID-19 - confirmed', 'Tonsillitis', 'Diarrhea with some dehydration',
-			 'Diarrhea with severe dehydration', 'Other Diseases Of Respiratory System', 'Sexual Assault', 'Kalaazar',
-			 'Fevers', 'Eye Infections', 'Dracunculiasis (Guinea Worm)', 'Neoplasms', 'Newly Diagnosed HIV',
-			 'Other Central Nervous System Conditions', 'Other Convulsive Disorders', 'Other Eye Conditions', 'Plague',
-			 'Diarrhea', 'Congenital Anomalies', 'Chromosomal Abnormalities (E.G Downs Syndrome; Edwards Syndrome Etc.)',
-			 'Cerebral Palsy', 'Autism')
-			AND LOWER(bh_key) = 'moh-705b-greaterthan5'
-	),
-	visit_diagnoses AS (
-		SELECT
-			v.bh_visit_id,
-			ev.bh_concept_id,
-			ev.bh_uncoded_diagnosis
-		FROM
-			bh_visit v
-				JOIN bh_encounter e
-				ON v.bh_visit_id = e.bh_visit_id
-				JOIN bh_encounter_diagnosis ev
-				ON e.bh_encounter_id = ev.bh_encounter_id
-		WHERE
-			v.bh_visit_id IN (
-				SELECT bh_visit_id FROM c_order WHERE docstatus IN ('CO', 'CL') AND ad_client_id = $P{AD_CLIENT_ID}
-			)
-			AND bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
-			AND COALESCE(bh_visittype, '') != 'Im'
-	),
-	diagnosis_count AS (
-		SELECT DISTINCT
-			ce.bh_value                AS diagnosis,
-			CAST(bh_visitdate AS date) AS calendar,
-			COUNT(pd.bh_concept_id)    AS noofdiagnosis
-		FROM
-			bh_visit v
-				JOIN visit_diagnoses pd
-				ON pd.bh_visit_id = v.bh_visit_id
-				JOIN bh_concept c
-				ON pd.bh_concept_id = c.bh_concept_id
-				JOIN (
-				SELECT
-					bh_concept_id,
-					bh_value
-				FROM
-					bh_concept_extra
-				WHERE
-					LOWER(bh_key) = 'moh-705b-greaterthan5'
-					AND isactive = 'Y'
-				GROUP BY bh_concept_id, bh_value
-			) ce
-				ON c.bh_concept_id = ce.bh_concept_id
-				JOIN c_bpartner bp
-				ON v.patient_id = bp.c_bpartner_id
-		WHERE
-			bp.bh_birthday IS NOT NULL
-			AND DATE_PART('year', AGE(bp.bh_birthday)) >= 5
-			AND bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
-		GROUP BY ce.bh_value, CAST(bh_visitdate AS DATE)
-		ORDER BY CAST(bh_visitdate AS date)
-	)
-SELECT
-	dl.diagnosis,
-	dali.calendar,
-	COALESCE(dc.noofdiagnosis, 0) AS noofdiagnosis
--- c.calendar
-FROM
-	diagnosis_list dl
-		CROSS JOIN date_limitter dali
-		LEFT JOIN diagnosis_count dc
-		ON dc.calendar = dali.calendar
-		AND dl.diagnosis = dc.diagnosis
-		JOIN (
+	diagnosis_list (diagnosis, "order") AS (
 		VALUES
 			('Diarrhea', 10),
 			('Tuberculosis', 20),
@@ -202,10 +126,70 @@ FROM
 			('Cutaneous leishmaniasis', 650),
 			('Suspected Anthrax', 660),
 			('All Other Diseases', 670)
-	) dlo (diagnosis, "order")
-		ON dl.diagnosis = dlo.diagnosis
+	),
+	visit_diagnoses AS (
+		SELECT
+			v.bh_visit_id,
+			ev.bh_concept_id,
+			ev.bh_uncoded_diagnosis
+		FROM
+			bh_visit v
+				JOIN bh_encounter e
+				ON v.bh_visit_id = e.bh_visit_id
+				JOIN bh_encounter_diagnosis ev
+				ON e.bh_encounter_id = ev.bh_encounter_id
+		WHERE
+			v.bh_visit_id IN (
+				SELECT bh_visit_id FROM c_order WHERE docstatus IN ('CO', 'CL') AND ad_client_id = $P{AD_CLIENT_ID}
+			)
+			AND bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
+			AND COALESCE(bh_visittype, '') != 'Im'
+	),
+	diagnosis_count AS (
+		SELECT DISTINCT
+			ce.bh_value                AS diagnosis,
+			CAST(bh_visitdate AS date) AS calendar,
+			COUNT(pd.bh_concept_id)    AS noofdiagnosis
+		FROM
+			bh_visit v
+				JOIN visit_diagnoses pd
+				ON pd.bh_visit_id = v.bh_visit_id
+				JOIN bh_concept c
+				ON pd.bh_concept_id = c.bh_concept_id
+				JOIN (
+				SELECT
+					bh_concept_id,
+					bh_value
+				FROM
+					bh_concept_extra
+				WHERE
+					LOWER(bh_key) = 'moh-705b-greaterthan5'
+					AND isactive = 'Y'
+				GROUP BY bh_concept_id, bh_value
+			) ce
+				ON c.bh_concept_id = ce.bh_concept_id
+				JOIN c_bpartner bp
+				ON v.patient_id = bp.c_bpartner_id
+		WHERE
+			bp.bh_birthday IS NOT NULL
+			AND DATE_PART('year', AGE(bp.bh_birthday)) >= 5
+			AND bh_visitdate BETWEEN $P{Begin Date} AND $P{End Date}
+		GROUP BY ce.bh_value, CAST(bh_visitdate AS DATE)
+		ORDER BY CAST(bh_visitdate AS date)
+	)
+SELECT
+	dl.diagnosis,
+	dali.calendar,
+	COALESCE(dc.noofdiagnosis, 0) AS noofdiagnosis
+-- c.calendar
+FROM
+	diagnosis_list dl
+		CROSS JOIN date_limitter dali
+		LEFT JOIN diagnosis_count dc
+		ON dc.calendar = dali.calendar
+		AND dl.diagnosis = dc.diagnosis
 ORDER BY
-	dlo."order", dali.calendar]]>
+	dl."order", dali.calendar]]>
 		</queryString>
 		<field name="diagnosis" class="java.lang.String">
 			<property name="com.jaspersoft.studio.field.label" value="diagnosis"/>

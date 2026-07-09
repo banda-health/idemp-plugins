@@ -472,10 +472,18 @@ public class GraphQLInputModelClassGenerator {
 		columnBuilder
 				.append("\t@JsonProperty(\"").append(columnName).append("\")\n")
 				.append("\tpublic void set").append(columnName).append("FromJson(").append(dataType).append(" ")
-				.append(columnName).append(") {\n\t\tif (get_ID() == 0) {\n")
-				.append("\t\t\tsuper.set").append(columnName).append("(").append(columnName)
-				.append(");\n")
-				.append("\t\t}\n\t}");
+				.append(columnName).append(") {\n");
+		if (!isUpdateable) {
+			columnBuilder.append("\t\tif (get_ID() == 0) {\n");
+		}
+		columnBuilder
+				.append(isUpdateable ? "\t\t" : "\t\t\t")
+				.append("super.set").append(columnName).append("(").append(columnName)
+				.append(");\n");
+		if (!isUpdateable) {
+			columnBuilder.append("\t\t}\n");
+		}
+		columnBuilder.append("\t}");
 		addImportClass(clazz);
 		//
 		return columnBuilder.toString();

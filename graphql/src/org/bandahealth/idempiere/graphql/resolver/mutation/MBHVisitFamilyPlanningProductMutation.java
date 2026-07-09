@@ -1,0 +1,2 @@
+package org.bandahealth.idempiere.graphql.resolver.mutation;
+public class MBHVisitFamilyPlanningProductMutation extends X_BH_Visit_Family_Planning_ProductMutation {}

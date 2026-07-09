@@ -266,6 +266,24 @@ mutation BH_VisitDelete($UUs: [String!]!) {
 	BH_VisitDelete(UUs: $UUs)
 }
 
+mutation BH_Visit_Family_PlanningSave($Entity: BH_Visit_Family_PlanningInput!) {
+	BH_Visit_Family_PlanningSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation BH_Visit_Family_Planning_ProductSave($Entity: BH_Visit_Family_Planning_ProductInput!) {
+	BH_Visit_Family_Planning_ProductSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation BH_Visit_Family_Planning_Larc_Removal_ReasonSave($Entity: BH_Visit_Family_Planning_Larc_Removal_ReasonInput!) {
+	BH_Visit_Family_Planning_Larc_Removal_ReasonSave(Entity: $Entity) {
+		UU
+	}
+}
+
 mutation BH_VisitProcess($UU: ID!, $DocumentAction: String!) {
 	BH_VisitProcess(UU: $UU, DocumentAction: $DocumentAction) {
 		UU

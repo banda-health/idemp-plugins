@@ -28,7 +28,7 @@ Create `migration/local_sql/postgresql/YYYYMMDDHHMM_GO-####.sql`.
 Sections (in order):
 
 1. `CREATE TABLE` + FK constraints
-2. `INSERT INTO ad_element` for custom columns
+2. `INSERT INTO ad_element` for custom columns (skip when element already exists — see below)
 3. `INSERT INTO ad_table` + `ad_sequence`
 4. `INSERT INTO ad_column` for every column (include standard audit columns)
 5. Optional: `ad_window`, `ad_tab`, `ad_field`, `ad_menu`, `ad_treenodemm`
@@ -38,6 +38,44 @@ Sections (in order):
 8. End with: `SELECT register_migration_script('FILENAME.sql') FROM dual;`
 
 Use new UUIDs for all `*_UU` columns. Use `MAX(id) + 1` subqueries for IDs.
+
+#### AD_Element (reuse existing elements)
+
+Do **not** insert an `ad_element` row when one already exists for the same
+`columnname` at `ad_client_id = 0` (e.g. `QtyEntered`, `Description`,
+`M_Product_ID`). Use `INSERT … SELECT … WHERE NOT EXISTS`:
+
+```sql
+INSERT INTO ad_element (...)
+SELECT (SELECT MAX(ad_element_id) + 1 FROM ad_element), 0, 0, 'Y', ..., 'BH_My_Column', ...
+WHERE NOT EXISTS (
+	SELECT 1 FROM ad_element WHERE columnname = 'BH_My_Column' AND ad_client_id = 0
+);
+```
+
+In `ad_column` inserts, resolve `ad_element_id` by **column name**, not UUID:
+
+```sql
+(SELECT ad_element_id FROM ad_element WHERE columnname = 'BH_My_Column' AND ad_client_id = 0 LIMIT 1)
+```
+
+#### AD_Client / AD_Org defaults (required)
+
+Every new table's `AD_Client_ID` and `AD_Org_ID` columns **must** use session
+defaults so GraphQL `*Input` PO saves get the correct tenant without Java
+workarounds:
+
+| Column | `defaultvalue` | `fkconstrainttype` |
+|--------|----------------|--------------------|
+| `AD_Client_ID` | `@#AD_Client_ID@` | `D` |
+| `AD_Org_ID` | `@#AD_Org_ID@` | `D` |
+
+Copy the Tenant/Organization `ad_column` rows from `202605221123_GO-3580.sql`.
+Use unique `fkconstraintname` values per table (not generic `ADClient_`).
+
+If a migration script was already applied before these defaults were added, run the
+idempotent `UPDATE ad_column SET defaultvalue = …` block manually against the
+database (same statements at the end of the migration file).
 
 #### GraphQL generator template (required)
 
@@ -150,6 +188,8 @@ Restart the iDempiere server in the dev container if needed.
 ## Checklist
 
 - [ ] Migration SQL with correct filename and `register_migration_script`
+- [ ] `ad_element` inserts use `WHERE NOT EXISTS`; `ad_column` references elements by `columnname`
+- [ ] `AD_Client_ID` / `AD_Org_ID` columns have `@#AD_Client_ID@` / `@#AD_Org_ID@` defaults
 - [ ] `I_*`, `X_*`, `M*` in base plugin
 - [ ] `BHModelFactory` — import + 4 method branches
 - [ ] GraphQL `X_*` artifacts + `M*` stubs

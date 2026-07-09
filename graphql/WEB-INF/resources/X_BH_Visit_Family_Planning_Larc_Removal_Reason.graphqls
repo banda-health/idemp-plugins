@@ -1,0 +1,50 @@
+# Generated Schema for BH_Visit_Family_Planning_Larc_Removal_Reason - DO NOT CHANGE
+#		@author Banda Health (generated) 
+#		@version Release 12 - $Id$
+extend type Query {
+	BH_Visit_Family_Planning_Larc_Removal_Reason(UU: String!): BH_Visit_Family_Planning_Larc_Removal_Reason
+	BH_Visit_Family_Planning_Larc_Removal_ReasonGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): BH_Visit_Family_Planning_Larc_Removal_ReasonConnection!
+}
+
+extend type Mutation {
+	BH_Visit_Family_Planning_Larc_Removal_ReasonSave(Entity: BH_Visit_Family_Planning_Larc_Removal_ReasonInput!): BH_Visit_Family_Planning_Larc_Removal_Reason!
+	BH_Visit_Family_Planning_Larc_Removal_ReasonSaveMany(Entities: [BH_Visit_Family_Planning_Larc_Removal_ReasonInput!]!): [BH_Visit_Family_Planning_Larc_Removal_Reason!]!
+	BH_Visit_Family_Planning_Larc_Removal_ReasonDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Visit_Family_Planning_Larc_Removal_ReasonConnection {
+	Results: [BH_Visit_Family_Planning_Larc_Removal_Reason!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Visit_Family_Planning_Larc_Removal_Reason {
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	BH_Larc_Removal_Reason: AD_Ref_List!
+	BH_Visit_Family_Planning: BH_Visit_Family_Planning!
+	UU: ID!
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: DateTime!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_Visit_Family_Planning_Larc_Removal_ReasonInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	BH_Larc_Removal_Reason: ForeignEntityInput
+	BH_Visit_Family_Planning: ForeignEntityInput
+	UU: ID
+	# Optional short description of the record
+	Description: String
+	# The record is active in the system
+	IsActive: Boolean
+}

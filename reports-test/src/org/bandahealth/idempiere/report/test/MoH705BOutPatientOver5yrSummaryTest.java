@@ -819,4 +819,107 @@ public class MoH705BOutPatientOver5yrSummaryTest extends ChuBoePopulateFactoryVO
 			assertTrue(rowToFind.isPresent(), "Year is on the report");
 		}
 	}
+
+	@IPopulateAnnotation.CanRun
+	public void officialLinesAppearWithoutTaggedConcepts() throws Exception {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		generateReport(valueObject);
+
+		// Official MoH 705B lines must render even when no concept is tagged with them
+		for (String diagnosis : new String[]{"Jiggers Infestation", "Malaria in Pregnancy",
+				"Fistula (birth related)", "Overweight (BMI>25)", "All Other Diseases"}) {
+			getRowIndexForDiagnosis(valueObject, diagnosis);
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void diarrheaRowAppearsOnReport() throws Exception {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		ensureDiagnosisOnMoh705List(valueObject, "Diarrhea");
+		generateReport(valueObject);
+
+		getRowIndexForDiagnosis(valueObject, "Diarrhea");
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void diagnosesAppearInMohOrder() throws Exception {
+		ChuBoePopulateVO valueObject = new ChuBoePopulateVO();
+		valueObject.prepareIt(getScenarioName(), true, get_TrxName());
+		assertThat("VO validation gives no errors", valueObject.getErrorMessage(), is(nullValue()));
+
+		ensureDiagnosisOnMoh705List(valueObject, "Tuberculosis");
+		ensureDiagnosisOnMoh705List(valueObject, "Cholera");
+		generateReport(valueObject);
+
+		int tuberculosisRow = getRowIndexForDiagnosis(valueObject, "Tuberculosis");
+		int choleraRow = getRowIndexForDiagnosis(valueObject, "Cholera");
+		assertTrue(tuberculosisRow < choleraRow,
+				"Tuberculosis (MoH line 2) appears before Cholera (MoH line 4) instead of alphabetically");
+	}
+
+	private void ensureDiagnosisOnMoh705List(ChuBoePopulateVO valueObject, String diagnosisName) throws Exception {
+		int currentClientId = Env.getAD_Client_ID(Env.getCtx());
+		try {
+			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, 0);
+			MBHConcept codedDiagnosis = new Query(valueObject.getContext(), MBHConcept.Table_Name,
+					MBHConcept.COLUMNNAME_BH_Display_Name + "=?", valueObject.getTransactionName())
+					.setParameters(diagnosisName).first();
+			if (codedDiagnosis == null) {
+				valueObject.setStepName("Create the " + diagnosisName + " coded diagnosis");
+				codedDiagnosis = new MBHConcept(valueObject.getContext(), 0, valueObject.getTransactionName());
+				codedDiagnosis.setBH_Display_Name(diagnosisName);
+				codedDiagnosis.setOcl_Uuid(diagnosisName);
+				codedDiagnosis.saveEx();
+				commitEx();
+			}
+
+			MBHConceptExtra extra = new Query(valueObject.getContext(), MBHConceptExtra.Table_Name,
+					MBHConceptExtra.COLUMNNAME_BH_Value + "=? AND " + MBHConceptExtra.COLUMNNAME_BH_Concept_ID + "=? AND "
+							+ MBHConceptExtra.COLUMNNAME_BH_Key + "=?",
+					valueObject.getTransactionName())
+					.setParameters(diagnosisName, codedDiagnosis.getBH_Concept_ID(), MOH705BGREATERTHAN5).first();
+			if (extra == null) {
+				extra = new MBHConceptExtra(valueObject.getContext(), 0, valueObject.getTransactionName());
+				extra.setBH_Key(MOH705BGREATERTHAN5);
+				extra.setBH_Value(diagnosisName);
+				extra.setBH_Concept_ID(codedDiagnosis.getBH_Concept_ID());
+				extra.saveEx();
+				commitEx();
+			}
+		} finally {
+			Env.setContext(valueObject.getContext(), Env.AD_CLIENT_ID, currentClientId);
+		}
+	}
+
+	private void generateReport(ChuBoePopulateVO valueObject) throws Exception {
+		valueObject.setStepName("Generate the report");
+		valueObject.setProcessUuid(reportUuid);
+		valueObject.setProcessRecordId(0);
+		valueObject.setProcessTableId(0);
+		valueObject.setProcessInformationParameters(
+				Arrays.asList(new ProcessInfoParameter("Begin Date", TimestampUtils.startOfMonth(), null, null, null),
+						new ProcessInfoParameter("End Date", TimestampUtils.endOfMonth(), null, null, null)));
+		valueObject.setReportType("xlsx");
+		ChuBoeCreateEntity.runReport(valueObject);
+		assertThat("Report was generated", valueObject.getErrorMessage(), is(nullValue()));
+	}
+
+	private int getRowIndexForDiagnosis(ChuBoePopulateVO valueObject, String diagnosisName) throws IOException {
+		FileInputStream file = new FileInputStream(valueObject.getReport());
+		try (Workbook workbook = new XSSFWorkbook(file)) {
+			Sheet sheet = workbook.getSheetAt(0);
+			Optional<Row> diagnosisRow = StreamSupport.stream(sheet.spliterator(), false).filter(
+					row -> StreamSupport.stream(row.spliterator(), false).anyMatch(
+							cell -> cell != null && cell.getCellType().equals(CellType.STRING) &&
+									cell.getStringCellValue().equals(diagnosisName))).findFirst();
+			assertTrue(diagnosisRow.isPresent(), "Found row for diagnosis " + diagnosisName);
+			return diagnosisRow.get().getRowNum();
+		}
+	}
 }
