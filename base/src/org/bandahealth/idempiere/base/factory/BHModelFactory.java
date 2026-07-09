@@ -25,6 +25,16 @@ import org.bandahealth.idempiere.base.model.MBHEncounterTypeWindow;
 import org.bandahealth.idempiere.base.model.MBHFeatureFlag;
 import org.bandahealth.idempiere.base.model.MBHFeatureFlagRule;
 import org.bandahealth.idempiere.base.model.MBHFieldRule;
+import org.bandahealth.idempiere.base.model.MBHEmployeeComponent;
+import org.bandahealth.idempiere.base.model.MBHPAYEBand;
+import org.bandahealth.idempiere.base.model.MBHPayrollAudit;
+import org.bandahealth.idempiere.base.model.MBHPayrollComponent;
+import org.bandahealth.idempiere.base.model.MBHPayrollFiling;
+import org.bandahealth.idempiere.base.model.MBHPayrollRun;
+import org.bandahealth.idempiere.base.model.MBHPayrollRunLine;
+import org.bandahealth.idempiere.base.model.MBHPayrollRunLineItem;
+import org.bandahealth.idempiere.base.model.MBHPayrollSettings;
+import org.bandahealth.idempiere.base.model.MHREmployee_BH;
 import org.bandahealth.idempiere.base.model.MBHGraphqlGeneratorTemplate;
 import org.bandahealth.idempiere.base.model.MBHObservation;
 import org.bandahealth.idempiere.base.model.MBHOclOriginatingSource;
@@ -240,6 +250,26 @@ public class BHModelFactory implements IModelFactory {
 			return MBHTag.class;
 		} else if (tableName.equalsIgnoreCase(MBHBPartnerTags.Table_Name)) {
 			return MBHBPartnerTags.class;
+		} else if (tableName.equalsIgnoreCase(MHREmployee_BH.Table_Name)) {
+			return MHREmployee_BH.class;
+		} else if (tableName.equalsIgnoreCase(MBHPayrollSettings.Table_Name)) {
+			return MBHPayrollSettings.class;
+		} else if (tableName.equalsIgnoreCase(MBHPayrollComponent.Table_Name)) {
+			return MBHPayrollComponent.class;
+		} else if (tableName.equalsIgnoreCase(MBHPAYEBand.Table_Name)) {
+			return MBHPAYEBand.class;
+		} else if (tableName.equalsIgnoreCase(MBHEmployeeComponent.Table_Name)) {
+			return MBHEmployeeComponent.class;
+		} else if (tableName.equalsIgnoreCase(MBHPayrollRun.Table_Name)) {
+			return MBHPayrollRun.class;
+		} else if (tableName.equalsIgnoreCase(MBHPayrollRunLine.Table_Name)) {
+			return MBHPayrollRunLine.class;
+		} else if (tableName.equalsIgnoreCase(MBHPayrollRunLineItem.Table_Name)) {
+			return MBHPayrollRunLineItem.class;
+		} else if (tableName.equalsIgnoreCase(MBHPayrollFiling.Table_Name)) {
+			return MBHPayrollFiling.class;
+		} else if (tableName.equalsIgnoreCase(MBHPayrollAudit.Table_Name)) {
+			return MBHPayrollAudit.class;
 		}
 
 		return null;
@@ -397,6 +427,26 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHTag(Env.getCtx(), Record_ID, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHBPartnerTags.Table_Name)) {
 			return new MBHBPartnerTags(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MHREmployee_BH.Table_Name)) {
+			return new MHREmployee_BH(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollSettings.Table_Name)) {
+			return new MBHPayrollSettings(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollComponent.Table_Name)) {
+			return new MBHPayrollComponent(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPAYEBand.Table_Name)) {
+			return new MBHPAYEBand(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHEmployeeComponent.Table_Name)) {
+			return new MBHEmployeeComponent(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollRun.Table_Name)) {
+			return new MBHPayrollRun(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollRunLine.Table_Name)) {
+			return new MBHPayrollRunLine(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollRunLineItem.Table_Name)) {
+			return new MBHPayrollRunLineItem(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollFiling.Table_Name)) {
+			return new MBHPayrollFiling(Env.getCtx(), Record_ID, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollAudit.Table_Name)) {
+			return new MBHPayrollAudit(Env.getCtx(), Record_ID, trxName);
 		}
 
 		return null;
@@ -558,6 +608,26 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHTag(Env.getCtx(), rs, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHBPartnerTags.Table_Name)) {
 			return new MBHBPartnerTags(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MHREmployee_BH.Table_Name)) {
+			return new MHREmployee_BH(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollSettings.Table_Name)) {
+			return new MBHPayrollSettings(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollComponent.Table_Name)) {
+			return new MBHPayrollComponent(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPAYEBand.Table_Name)) {
+			return new MBHPAYEBand(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHEmployeeComponent.Table_Name)) {
+			return new MBHEmployeeComponent(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollRun.Table_Name)) {
+			return new MBHPayrollRun(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollRunLine.Table_Name)) {
+			return new MBHPayrollRunLine(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollRunLineItem.Table_Name)) {
+			return new MBHPayrollRunLineItem(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollFiling.Table_Name)) {
+			return new MBHPayrollFiling(Env.getCtx(), rs, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollAudit.Table_Name)) {
+			return new MBHPayrollAudit(Env.getCtx(), rs, trxName);
 		}
 
 		return null;
@@ -701,6 +771,26 @@ public class BHModelFactory implements IModelFactory {
 			return new MBHTag(Env.getCtx(), Record_UU, trxName);
 		} else if (tableName.equalsIgnoreCase(MBHBPartnerTags.Table_Name)) {
 			return new MBHBPartnerTags(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MHREmployee_BH.Table_Name)) {
+			return new MHREmployee_BH(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollSettings.Table_Name)) {
+			return new MBHPayrollSettings(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollComponent.Table_Name)) {
+			return new MBHPayrollComponent(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPAYEBand.Table_Name)) {
+			return new MBHPAYEBand(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHEmployeeComponent.Table_Name)) {
+			return new MBHEmployeeComponent(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollRun.Table_Name)) {
+			return new MBHPayrollRun(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollRunLine.Table_Name)) {
+			return new MBHPayrollRunLine(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollRunLineItem.Table_Name)) {
+			return new MBHPayrollRunLineItem(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollFiling.Table_Name)) {
+			return new MBHPayrollFiling(Env.getCtx(), Record_UU, trxName);
+		} else if (tableName.equalsIgnoreCase(MBHPayrollAudit.Table_Name)) {
+			return new MBHPayrollAudit(Env.getCtx(), Record_UU, trxName);
 		}
 
 		return null;
