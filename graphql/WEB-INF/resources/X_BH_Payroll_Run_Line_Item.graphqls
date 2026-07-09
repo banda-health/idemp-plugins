@@ -1,0 +1,66 @@
+# Generated Schema for BH_Payroll_Run_Line_Item - DO NOT CHANGE
+#		@author Banda Health (generated)
+#		@version Release 12 - $Id$
+extend type Query {
+	BH_Payroll_Run_Line_Item(UU: String!): BH_Payroll_Run_Line_Item
+	BH_Payroll_Run_Line_ItemGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): BH_Payroll_Run_Line_ItemConnection!
+}
+
+extend type Mutation {
+	BH_Payroll_Run_Line_ItemSave(Entity: BH_Payroll_Run_Line_ItemInput!): BH_Payroll_Run_Line_Item!
+	BH_Payroll_Run_Line_ItemSaveMany(Entities: [BH_Payroll_Run_Line_ItemInput!]!): [BH_Payroll_Run_Line_Item!]!
+	BH_Payroll_Run_Line_ItemDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Payroll_Run_Line_ItemConnection {
+	Results: [BH_Payroll_Run_Line_Item!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Payroll_Run_Line_Item {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	BH_Category: String!
+	BH_EmployeeAmount: BigDecimal!
+	BH_EmployerAmount: BigDecimal!
+	BH_IsTaxDeductible: Boolean!
+	BH_Payroll_Run_Line: BH_Payroll_Run_Line!
+	UU: ID!
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: DateTime!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input BH_Payroll_Run_Line_ItemInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	BH_Category: String
+	BH_EmployeeAmount: BigDecimal
+	BH_EmployerAmount: BigDecimal
+	BH_IsTaxDeductible: Boolean
+	BH_Payroll_Run_Line: ForeignEntityInput
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

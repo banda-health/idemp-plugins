@@ -1,0 +1,56 @@
+# Generated Schema for BH_Payroll_Audit - DO NOT CHANGE
+#		@author Banda Health (generated)
+#		@version Release 12 - $Id$
+extend type Query {
+	BH_Payroll_Audit(UU: String!): BH_Payroll_Audit
+	BH_Payroll_AuditGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): BH_Payroll_AuditConnection!
+}
+
+extend type Mutation {
+	BH_Payroll_AuditSave(Entity: BH_Payroll_AuditInput!): BH_Payroll_Audit!
+	BH_Payroll_AuditSaveMany(Entities: [BH_Payroll_AuditInput!]!): [BH_Payroll_Audit!]!
+	BH_Payroll_AuditDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Payroll_AuditConnection {
+	Results: [BH_Payroll_Audit!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Payroll_Audit {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	# Responsibility Role
+	AD_Role: AD_Role
+	BH_ActionType: String!
+	BH_Detail: String
+	UU: ID!
+	BH_Payroll_Run: BH_Payroll_Run
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
+	HR_Employee: HR_Employee
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: DateTime!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_Payroll_AuditInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	# Responsibility Role
+	AD_Role: ForeignEntityInput
+	BH_ActionType: String
+	BH_Detail: String
+	UU: ID
+	BH_Payroll_Run: ForeignEntityInput
+	HR_Employee: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

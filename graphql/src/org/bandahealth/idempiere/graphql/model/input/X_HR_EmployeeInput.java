@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MHREmployee_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MActivity;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.eevolution.model.X_HR_Department;
-import org.eevolution.model.X_HR_Employee;
 import org.eevolution.model.X_HR_Job;
 import org.eevolution.model.X_HR_Payroll;
 
@@ -22,7 +22,7 @@ import java.sql.ResultSet;
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public class X_HR_EmployeeInput extends X_HR_Employee implements I_HR_EmployeeInput {
+public class X_HR_EmployeeInput extends MHREmployee_BH implements I_HR_EmployeeInput {
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mC_Activity;

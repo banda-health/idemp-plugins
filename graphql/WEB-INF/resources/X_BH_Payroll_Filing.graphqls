@@ -1,0 +1,60 @@
+# Generated Schema for BH_Payroll_Filing - DO NOT CHANGE
+#		@author Banda Health (generated)
+#		@version Release 12 - $Id$
+extend type Query {
+	BH_Payroll_Filing(UU: String!): BH_Payroll_Filing
+	BH_Payroll_FilingGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): BH_Payroll_FilingConnection!
+}
+
+extend type Mutation {
+	BH_Payroll_FilingSave(Entity: BH_Payroll_FilingInput!): BH_Payroll_Filing!
+	BH_Payroll_FilingSaveMany(Entities: [BH_Payroll_FilingInput!]!): [BH_Payroll_Filing!]!
+	BH_Payroll_FilingDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Payroll_FilingConnection {
+	Results: [BH_Payroll_Filing!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Payroll_Filing {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	BH_EmployeeAmount: BigDecimal!
+	BH_EmployerAmount: BigDecimal!
+	BH_FilingType: String!
+	BH_IsPaid: Boolean!
+	BH_PaidDate: Date
+	BH_PaymentReference: String
+	UU: ID!
+	BH_Payroll_Run: BH_Payroll_Run!
+	BH_TotalAmount: BigDecimal!
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: DateTime!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_Payroll_FilingInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	BH_EmployeeAmount: BigDecimal
+	BH_EmployerAmount: BigDecimal
+	BH_FilingType: String
+	BH_IsPaid: Boolean
+	BH_PaidDate: Date
+	BH_PaymentReference: String
+	UU: ID
+	BH_Payroll_Run: ForeignEntityInput
+	BH_TotalAmount: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+}

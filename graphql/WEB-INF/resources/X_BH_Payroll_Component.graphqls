@@ -1,0 +1,84 @@
+# Generated Schema for BH_Payroll_Component - DO NOT CHANGE
+#		@author Banda Health (generated)
+#		@version Release 12 - $Id$
+extend type Query {
+	BH_Payroll_Component(UU: String!): BH_Payroll_Component
+	BH_Payroll_ComponentGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): BH_Payroll_ComponentConnection!
+}
+
+extend type Mutation {
+	BH_Payroll_ComponentSave(Entity: BH_Payroll_ComponentInput!): BH_Payroll_Component!
+	BH_Payroll_ComponentSaveMany(Entities: [BH_Payroll_ComponentInput!]!): [BH_Payroll_Component!]!
+	BH_Payroll_ComponentDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Payroll_ComponentConnection {
+	Results: [BH_Payroll_Component!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Payroll_Component {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	BH_CalcMethod: String!
+	BH_Cap: BigDecimal
+	BH_Category: String!
+	BH_EmployerRate: BigDecimal
+	BH_FilingDueDay: Int
+	BH_Floor: BigDecimal
+	BH_IsStatutory: Boolean!
+	BH_IsTaxDeductible: Boolean!
+	UU: ID!
+	BH_Rate: BigDecimal
+	BH_TaxDeductibleCap: BigDecimal
+	BH_Tier1_Limit: BigDecimal
+	BH_Tier2_Limit: BigDecimal
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: DateTime!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Valid from including this date (first day)
+	ValidFrom: Date!
+	# Search key for the record in the format required - must be unique
+	Value: String!
+}
+
+input BH_Payroll_ComponentInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	BH_CalcMethod: String
+	BH_Cap: BigDecimal
+	BH_Category: String
+	BH_EmployerRate: BigDecimal
+	BH_FilingDueDay: Int
+	BH_Floor: BigDecimal
+	BH_IsStatutory: Boolean
+	BH_IsTaxDeductible: Boolean
+	UU: ID
+	BH_Rate: BigDecimal
+	BH_TaxDeductibleCap: BigDecimal
+	BH_Tier1_Limit: BigDecimal
+	BH_Tier2_Limit: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Search key for the record in the format required - must be unique
+	Value: String
+}

@@ -5,6 +5,7 @@ import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MHREmployee_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_PrintFormatDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
@@ -25,7 +26,6 @@ import org.compiere.model.X_AD_PrintFormat;
 import org.compiere.model.X_AD_Workflow;
 import org.dataloader.DataLoader;
 import org.eevolution.model.X_HR_Department;
-import org.eevolution.model.X_HR_Employee;
 import org.eevolution.model.X_HR_Job;
 import org.eevolution.model.X_HR_Payroll;
 import org.eevolution.model.X_HR_Period;
@@ -222,11 +222,11 @@ public class X_HR_ProcessResolver extends POResolver<X_HR_Process> implements Gr
 	 *
 	 * @return Payroll Employee
 	 */
-	public CompletableFuture<X_HR_Employee> HR_Employee(X_HR_Process entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MHREmployee_BH> HR_Employee(X_HR_Process entity, DataFetchingEnvironment environment) {
 		if (entity.getHR_Employee_ID() < 1) {
 			return null;
 		}
-		DataLoader<Integer, X_HR_Employee> dataLoader =
+		DataLoader<Integer, MHREmployee_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_HR_EmployeeDataLoader.DATALOADER_HR_Employee_BY_ID);
 		return dataLoader.load(entity.getHR_Employee_ID());
 	}

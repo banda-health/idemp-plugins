@@ -22,6 +22,14 @@ type HR_Employee {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
+	BH_BankAccount: String
+	BH_BankBranch: String
+	BH_BankName: String
+	BH_BasicSalary: BigDecimal!
+	BH_HouseAllowance: BigDecimal!
+	BH_KRA_PIN: String
+	BH_SHIF_Number: String
+	BH_TransportAllowance: BigDecimal!
 	# Business Activity
 	C_Activity: C_Activity
 	# Identifies a Business Partner
@@ -59,6 +67,14 @@ type HR_Employee {
 input HR_EmployeeInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
+	BH_BankAccount: String
+	BH_BankBranch: String
+	BH_BankName: String
+	BH_BasicSalary: BigDecimal
+	BH_HouseAllowance: BigDecimal
+	BH_KRA_PIN: String
+	BH_SHIF_Number: String
+	BH_TransportAllowance: BigDecimal
 	# Business Activity
 	C_Activity: ForeignEntityInput
 	# Identifies a Business Partner

@@ -1,0 +1,3 @@
+extend type BH_Payroll_Run_Line {
+	BH_Payroll_Run_Line_Items: [BH_Payroll_Run_Line_Item!]
+}

@@ -1,0 +1,4 @@
+extend type BH_Payroll_Run {
+	BH_Payroll_Filings: [BH_Payroll_Filing!]
+	BH_Payroll_Run_Lines: [BH_Payroll_Run_Line!]
+}

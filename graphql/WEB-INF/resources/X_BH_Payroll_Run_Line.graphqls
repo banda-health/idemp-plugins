@@ -1,0 +1,76 @@
+# Generated Schema for BH_Payroll_Run_Line - DO NOT CHANGE
+#		@author Banda Health (generated)
+#		@version Release 12 - $Id$
+extend type Query {
+	BH_Payroll_Run_Line(UU: String!): BH_Payroll_Run_Line
+	BH_Payroll_Run_LineGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): BH_Payroll_Run_LineConnection!
+}
+
+extend type Mutation {
+	BH_Payroll_Run_LineSave(Entity: BH_Payroll_Run_LineInput!): BH_Payroll_Run_Line!
+	BH_Payroll_Run_LineSaveMany(Entities: [BH_Payroll_Run_LineInput!]!): [BH_Payroll_Run_Line!]!
+	BH_Payroll_Run_LineDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Payroll_Run_LineConnection {
+	Results: [BH_Payroll_Run_Line!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Payroll_Run_Line {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	BH_BasicSalary: BigDecimal!
+	BH_CostToEmployer: BigDecimal!
+	BH_EmployeeName: String
+	BH_GrossPay: BigDecimal!
+	BH_HouseAllowance: BigDecimal!
+	BH_KRA_PIN: String
+	BH_NetPay: BigDecimal!
+	BH_NSSF_Number: String
+	BH_PAYE_Amount: BigDecimal!
+	BH_Payroll_Run: BH_Payroll_Run!
+	UU: ID!
+	BH_PayslipNumber: String
+	BH_SHIF_Number: String
+	BH_TaxablePay: BigDecimal!
+	BH_TotalDeductions: BigDecimal!
+	BH_TransportAllowance: BigDecimal!
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
+	HR_Employee: HR_Employee!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: DateTime!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_Payroll_Run_LineInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	BH_BasicSalary: BigDecimal
+	BH_CostToEmployer: BigDecimal
+	BH_EmployeeName: String
+	BH_GrossPay: BigDecimal
+	BH_HouseAllowance: BigDecimal
+	BH_KRA_PIN: String
+	BH_NetPay: BigDecimal
+	BH_NSSF_Number: String
+	BH_PAYE_Amount: BigDecimal
+	BH_Payroll_Run: ForeignEntityInput
+	UU: ID
+	BH_PayslipNumber: String
+	BH_SHIF_Number: String
+	BH_TaxablePay: BigDecimal
+	BH_TotalDeductions: BigDecimal
+	BH_TransportAllowance: BigDecimal
+	HR_Employee: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+}

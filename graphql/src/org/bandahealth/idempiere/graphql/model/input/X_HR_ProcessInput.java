@@ -6,6 +6,7 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
 import org.bandahealth.idempiere.base.model.MCharge_BH;
 import org.bandahealth.idempiere.base.model.MDocType_BH;
+import org.bandahealth.idempiere.base.model.MHREmployee_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.resolver.model.X_HR_ProcessResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
@@ -16,7 +17,6 @@ import org.compiere.model.X_AD_PrintFormat;
 import org.compiere.model.X_AD_Workflow;
 import org.compiere.util.Env;
 import org.eevolution.model.X_HR_Department;
-import org.eevolution.model.X_HR_Employee;
 import org.eevolution.model.X_HR_Job;
 import org.eevolution.model.X_HR_Payroll;
 import org.eevolution.model.X_HR_Period;
@@ -484,7 +484,7 @@ public class X_HR_ProcessInput extends X_HR_Process implements I_HR_ProcessInput
 		this.mHR_Employee = HR_Employee;
 		if (HR_Employee != null) {
 			// Since an entity was passed, make sure it's in the DB
-			X_HR_Employee foreignEntity;
+			MHREmployee_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Employee", "HR_Employee_UU=?", get_TrxName())
 							.setParameters(HR_Employee.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {

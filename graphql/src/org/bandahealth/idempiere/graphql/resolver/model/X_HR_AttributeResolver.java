@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MHREmployee_BH;
 import org.bandahealth.idempiere.base.model.MRefList_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_RuleDataLoader;
@@ -20,7 +21,6 @@ import org.dataloader.DataLoader;
 import org.eevolution.model.X_HR_Attribute;
 import org.eevolution.model.X_HR_Concept;
 import org.eevolution.model.X_HR_Department;
-import org.eevolution.model.X_HR_Employee;
 import org.eevolution.model.X_HR_Job;
 import org.eevolution.model.X_HR_Payroll;
 
@@ -135,11 +135,11 @@ public class X_HR_AttributeResolver extends POResolver<X_HR_Attribute> implement
 	 *
 	 * @return Payroll Employee
 	 */
-	public CompletableFuture<X_HR_Employee> HR_Employee(X_HR_Attribute entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MHREmployee_BH> HR_Employee(X_HR_Attribute entity, DataFetchingEnvironment environment) {
 		if (entity.getHR_Employee_ID() < 1) {
 			return null;
 		}
-		DataLoader<Integer, X_HR_Employee> dataLoader =
+		DataLoader<Integer, MHREmployee_BH> dataLoader =
 				environment.getDataLoaderRegistry().getDataLoader(X_HR_EmployeeDataLoader.DATALOADER_HR_Employee_BY_ID);
 		return dataLoader.load(entity.getHR_Employee_ID());
 	}
