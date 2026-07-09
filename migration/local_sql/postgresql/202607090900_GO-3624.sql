@@ -3799,3 +3799,87 @@ WHERE
 	);
 
 SELECT update_sequences();
+
+-- ============================================================================
+-- GraphQL template registration + statutory component catalogue (Task 4)
+-- ============================================================================
+
+-- Register the nine BH_ payroll tables for GraphQL generation (idempotent; HR_Employee's
+-- GraphQL stack is already generated and wired — phase 2 hand-adds its new BH_ fields).
+UPDATE bh_graphqlgeneratortemplate
+SET
+	tablename = REGEXP_REPLACE(
+		tablename,
+		'''BH_Feature_Flag_Rule''',
+		'''BH_Feature_Flag_Rule'',''BH_Payroll_Settings'',''BH_Payroll_Component'',''BH_PAYE_Band'',''BH_Employee_Component'',''BH_Payroll_Run'',''BH_Payroll_Run_Line'',''BH_Payroll_Run_Line_Item'',''BH_Payroll_Filing'',''BH_Payroll_Audit''',
+		'i'
+	)
+WHERE
+	bh_graphqlgeneratortemplate_uu = '0b9c9d6a-6e59-4ba4-995a-6762c9effe03'
+	AND tablename NOT ILIKE '%BH_Payroll_Run%';
+
+-- HR_Employee.HR_Department_ID / HR_Job_ID are mandatory — a constraint inherited from core
+-- HR_Employee, not a feature we expose. Every clinic gets a 'Standard' default of each (house
+-- convention for placeholder defaults). Idempotent by (client, name); clients created later
+-- are handled by the phase-2 employee save.
+INSERT INTO hr_department (hr_department_id, hr_department_uu, ad_client_id, ad_org_id, isactive,
+	created, createdby, updated, updatedby, name)
+SELECT (SELECT COALESCE(MAX(hr_department_id), 1000000) FROM hr_department) + ROW_NUMBER() OVER (ORDER BY c.ad_client_id),
+	uuid_generate_v4(), c.ad_client_id, 0, 'Y', getDate(), 100, getDate(), 100, 'Standard'
+FROM ad_client c
+WHERE c.ad_client_id > 0 AND c.isactive = 'Y'
+	AND NOT EXISTS (SELECT 1 FROM hr_department d WHERE d.ad_client_id = c.ad_client_id AND d.name = 'Standard');
+
+INSERT INTO hr_job (hr_job_id, hr_job_uu, ad_client_id, ad_org_id, isactive,
+	created, createdby, updated, updatedby, name)
+SELECT (SELECT COALESCE(MAX(hr_job_id), 1000000) FROM hr_job) + ROW_NUMBER() OVER (ORDER BY c.ad_client_id),
+	uuid_generate_v4(), c.ad_client_id, 0, 'Y', getDate(), 100, getDate(), 100, 'Standard'
+FROM ad_client c
+WHERE c.ad_client_id > 0 AND c.isactive = 'Y'
+	AND NOT EXISTS (SELECT 1 FROM hr_job j WHERE j.ad_client_id = c.ad_client_id AND j.name = 'Standard');
+
+-- System component catalogue (AD_Client_ID = 0). Codes are stable machine keys (column: Value).
+-- A new statutory levy later = one more row here or in a follow-up seed migration — no DDL.
+-- Deductibility per TLAA 2024 (verified against a real 2026 payslip): NSSF/SHIF/HLEVY/PENSION
+-- reduce taxable income (pension capped at 30,000/month); SACCO and LOAN do not.
+-- BH_FilingDueDay = day of the following month the remittance is due (compliance banner).
+INSERT INTO bh_payroll_component (ad_client_id, ad_org_id, bh_payroll_component_id, bh_payroll_component_uu,
+	value, name, bh_category, bh_calcmethod, bh_rate, bh_floor, bh_cap, bh_tier1_limit, bh_tier2_limit,
+	bh_employerrate, bh_istaxdeductible, bh_taxdeductiblecap, bh_isstatutory, bh_filingdueday, seqno, validfrom,
+	createdby, updatedby)
+SELECT 0, 0, (SELECT COALESCE(MAX(bh_payroll_component_id), 1000000) FROM bh_payroll_component) + c.seq,
+	c.uu, c.value, c.name, c.cat, c.method, c.rate, c.flr, c.cap, c.t1, c.t2, c.emprate,
+	c.taxded, c.taxdedcap, c.stat, c.dueday, c.seq * 10, c.validfrom::timestamp, 100, 100
+FROM (VALUES
+	-- statutory, effective 2024-07-01 (SHIF live; Housing Levy in force; NSSF Year 3)
+	(1,  'efc0adcc-3b5c-4890-ae3a-a3bd485f97d2', 'NSSF',            'NSSF',                    'STAT_DED',         'TIERED',           6::numeric,    NULL::numeric, NULL::numeric, 8000::numeric, 72000::numeric, 6::numeric,    'Y', NULL::numeric, 'Y', 9::numeric,    '2024-07-01'),
+	(2,  '2a636948-36a9-41df-b60e-6c9433762e96', 'SHIF',            'SHIF',                    'STAT_DED',         'PERCENT_OF_GROSS', 2.75,          300,           NULL,          NULL,          NULL,           NULL,          'Y', NULL,          'Y', 9,             '2024-07-01'),
+	(3,  'df088005-19e8-4ce0-b727-8ee04e0b7e52', 'HLEVY',           'Housing Levy',            'STAT_DED',         'PERCENT_OF_GROSS', 1.5,           NULL,          NULL,          NULL,          NULL,           1.5,           'Y', NULL,          'Y', 9,             '2024-07-01'),
+	(4,  '4a1486cc-e4bb-4467-80c5-92a44ccb9fb2', 'NITA',            'NITA Levy',               'EMPLOYER_CONTRIB', 'FIXED',            50,            NULL,          NULL,          NULL,          NULL,           NULL,          'N', NULL,          'Y', 9,             '2024-07-01'),
+	(5,  'a804f404-80e3-450e-9e89-d1cc510fae78', 'PERSONAL_RELIEF', 'Monthly Personal Relief', 'RELIEF',           'FIXED',            2400,          NULL,          NULL,          NULL,          NULL,           NULL,          'N', NULL,          'N', NULL::numeric, '2024-07-01'),
+	(6,  'ee37c7c7-32b6-4cbb-81d3-5df19945d202', 'PAYE',            'PAYE (income tax)',       'STAT_DED',         'BANDS',            NULL,          NULL,          NULL,          NULL,          NULL,           NULL,          'N', NULL,          'Y', 9,             '2024-07-01'),
+	-- NSSF Year 4 (official notice, effective 2026-02-01): only the tier limits change
+	(7,  '64b35a88-8fac-4918-b773-718f56ad372e', 'NSSF',            'NSSF',                    'STAT_DED',         'TIERED',           6,             NULL,          NULL,          9000,          108000,         6,             'Y', NULL,          'Y', 9,             '2026-02-01'),
+	-- voluntary templates (amounts come from BH_Employee_Component assignments)
+	(8,  '55a5b024-7b63-4bc8-891c-ac82de4320f1', 'SACCO',           'Sacco',                   'VOL_DED',          'EMPLOYEE_AMOUNT',  NULL,          NULL,          NULL,          NULL,          NULL,           NULL,          'N', NULL,          'N', NULL,          '2024-07-01'),
+	(9,  '227a6562-a3bd-4304-9c76-182e73c08ae1', 'PENSION',         'Voluntary Pension',       'VOL_DED',          'EMPLOYEE_AMOUNT',  NULL,          NULL,          NULL,          NULL,          NULL,           NULL,          'Y', 30000,         'N', NULL,          '2024-07-01'),
+	(10, '744795cf-6169-4136-af38-f770e08480a6', 'LOAN',            'Loan Repayment',          'VOL_DED',          'EMPLOYEE_AMOUNT',  NULL,          NULL,          NULL,          NULL,          NULL,           NULL,          'N', NULL,          'N', NULL,          '2024-07-01')
+) AS c(seq, uu, value, name, cat, method, rate, flr, cap, t1, t2, emprate, taxded, taxdedcap, stat, dueday, validfrom)
+WHERE NOT EXISTS (SELECT 1 FROM bh_payroll_component x WHERE x.bh_payroll_component_uu = c.uu);
+
+-- PAYE bands (10/25/30/32.5/35; NULL upper limit = top band), children of the PAYE component
+INSERT INTO bh_paye_band (ad_client_id, ad_org_id, bh_paye_band_id, bh_paye_band_uu, bh_payroll_component_id,
+	seqno, bh_upperlimit, bh_rate, createdby, updatedby)
+SELECT 0, 0, (SELECT COALESCE(MAX(bh_paye_band_id), 1000000) FROM bh_paye_band) + b.seq, b.uu,
+	(SELECT bh_payroll_component_id FROM bh_payroll_component WHERE ad_client_id = 0 AND value = 'PAYE'),
+	b.seq * 10, b.upperlimit, b.rate, 100, 100
+FROM (VALUES
+	(1, 'f6367849-98b7-4a8d-8893-7067eac8635b', 24000::numeric,  10::numeric),
+	(2, 'a51f2962-d0df-4762-97ff-15fde615a3fe', 32333::numeric,  25::numeric),
+	(3, '34451131-d3d3-47c3-babd-04cb7b53ed23', 500000::numeric, 30::numeric),
+	(4, 'c032c413-88a7-4180-926f-ea5540c4cace', 800000::numeric, 32.5::numeric),
+	(5, '0993361e-c52b-4d86-ad1b-8922fdc27cbe', NULL::numeric,   35::numeric)
+) AS b(seq, uu, upperlimit, rate)
+WHERE NOT EXISTS (SELECT 1 FROM bh_paye_band WHERE bh_paye_band_uu = b.uu);
+
+SELECT register_migration_script('202607090900_GO-3624.sql') FROM dual;
