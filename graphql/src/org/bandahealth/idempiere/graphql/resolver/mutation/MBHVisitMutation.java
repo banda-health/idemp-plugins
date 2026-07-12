@@ -12,6 +12,8 @@ import org.bandahealth.idempiere.base.model.MOrder_BH;
 import org.bandahealth.idempiere.base.model.MPayment_BH;
 import org.bandahealth.idempiere.base.model.MProcess_BH;
 import org.bandahealth.idempiere.graphql.context.BandaGraphQLContext;
+import org.bandahealth.idempiere.graphql.model.input.I_BH_VisitInput;
+import org.bandahealth.idempiere.graphql.queue.QueueEventBroadcaster;
 import org.bandahealth.idempiere.graphql.repository.Repository;
 import org.bandahealth.idempiere.graphql.utils.DocumentUtil;
 import org.compiere.model.MDocType;
@@ -37,6 +39,35 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class MBHVisitMutation extends X_BH_VisitMutation {
+	/**
+	 * On top of the generated save, detect a real process-stage transition (checked before the save
+	 * happens, since is_ValueChanged's baseline resets afterward) to broadcast a queue-arrival event
+	 * for real-time notifications, and to derive BH_IsReturningFromLab: set when the visit arrives at
+	 * the clinician queue directly from lab/imaging, cleared the next time it leaves the clinician
+	 * queue again. get_ValueOld is used (not just is_ValueChanged) because we need the actual prior
+	 * stage, not just whether it changed - same before-save timing constraint applies.
+	 */
+	@Override
+	public MBHVisit BH_VisitSave(I_BH_VisitInput Entity, DataFetchingEnvironment environment) {
+		MBHVisit entity = (MBHVisit) Entity;
+		boolean processStageChanged = entity.is_ValueChanged(MBHVisit.COLUMNNAME_BH_Process_Stage);
+		if (processStageChanged) {
+			String oldStage = (String) entity.get_ValueOld(MBHVisit.COLUMNNAME_BH_Process_Stage);
+			String newStage = entity.getBH_Process_Stage();
+			if (MBHVisit.BH_PROCESS_STAGE_LabImaging.equals(oldStage)
+					&& MBHVisit.BH_PROCESS_STAGE_ClinicianDentist.equals(newStage)) {
+				entity.setBH_IsReturningFromLab(true);
+			} else if (MBHVisit.BH_PROCESS_STAGE_ClinicianDentist.equals(oldStage)) {
+				entity.setBH_IsReturningFromLab(false);
+			}
+		}
+		MBHVisit savedVisit = super.BH_VisitSave(Entity, environment);
+		if (processStageChanged && savedVisit != null) {
+			QueueEventBroadcaster.getInstance().broadcastVisitQueued(BandaGraphQLContext.getCtx(environment), savedVisit);
+		}
+		return savedVisit;
+	}
+
 	public MBHVisit BH_VisitProcess(String UU, String DocumentAction, DataFetchingEnvironment environment)
 			throws SQLException {
 		if (!DocumentUtil.isDocActionValidForUser(BandaGraphQLContext.getCtx(environment),
