@@ -168,6 +168,50 @@ public class X_BH_Visit extends PO implements I_BH_Visit, I_Persistent
 		return false;
 	}
 
+	/** Set Emergency.
+		@param BH_IsEmergency Emergency
+	*/
+	public void setBH_IsEmergency (boolean BH_IsEmergency)
+	{
+		set_Value (COLUMNNAME_BH_IsEmergency, Boolean.valueOf(BH_IsEmergency));
+	}
+
+	/** Get Emergency.
+		@return Emergency	  */
+	public boolean isBH_IsEmergency()
+	{
+		Object oo = get_Value(COLUMNNAME_BH_IsEmergency);
+		if (oo != null)
+		{
+			 if (oo instanceof Boolean)
+				 return ((Boolean)oo).booleanValue();
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
+	/** Set Returning From Lab.
+		@param BH_IsReturningFromLab Returning From Lab
+	*/
+	public void setBH_IsReturningFromLab (boolean BH_IsReturningFromLab)
+	{
+		set_Value (COLUMNNAME_BH_IsReturningFromLab, Boolean.valueOf(BH_IsReturningFromLab));
+	}
+
+	/** Get Returning From Lab.
+		@return Returning From Lab	  */
+	public boolean isBH_IsReturningFromLab()
+	{
+		Object oo = get_Value(COLUMNNAME_BH_IsReturningFromLab);
+		if (oo != null)
+		{
+			 if (oo instanceof Boolean)
+				 return ((Boolean)oo).booleanValue();
+			return "Y".equals(oo);
+		}
+		return false;
+	}
+
 	/** Cashier / Registration = tocashier */
 	public static final String BH_PROCESS_STAGE_CashierRegistration = "tocashier";
 	/** Clinician / Dentist = toclinician */

@@ -24,6 +24,8 @@ type BH_Visit {
 	AD_Org: AD_Org!
 	# BH_Clinician_User_ID
 	BH_Clinician_User: AD_User
+	BH_IsEmergency: Boolean!
+	BH_IsReturningFromLab: Boolean!
 	BH_NewVisit: Boolean!
 	# Drop down field in visits for users to define the process stage
 	BH_Process_Stage: AD_Ref_List
@@ -60,6 +62,7 @@ input BH_VisitInput {
 	AD_Org: ForeignEntityInput
 	# BH_Clinician_User_ID
 	BH_Clinician_User: ForeignEntityInput
+	BH_IsEmergency: Boolean
 	BH_NewVisit: Boolean
 	# Drop down field in visits for users to define the process stage
 	BH_Process_Stage: ForeignEntityInput

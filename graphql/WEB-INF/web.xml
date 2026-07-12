@@ -40,9 +40,23 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
+	<servlet>
+		<servlet-name>QueueEventsServlet</servlet-name>
+		<display-name>Queue Events SSE Servlet</display-name>
+		<servlet-class>
+			org.bandahealth.idempiere.graphql.QueueEventsEndpoint
+		</servlet-class>
+		<async-supported>true</async-supported>
+	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>GraphQLServlet</servlet-name>
 		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>QueueEventsServlet</servlet-name>
+		<url-pattern>/queue-events/*</url-pattern>
 	</servlet-mapping>
 
 	<session-config>

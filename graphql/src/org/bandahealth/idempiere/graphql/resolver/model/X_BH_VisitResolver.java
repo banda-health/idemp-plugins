@@ -46,6 +46,14 @@ public class X_BH_VisitResolver extends POResolver<MBHVisit> implements GraphQLR
 		return entity.isBH_NewVisit();
 	}
 
+	public Boolean BH_IsEmergency(MBHVisit entity, DataFetchingEnvironment environment) {
+		return entity.isBH_IsEmergency();
+	}
+
+	public Boolean BH_IsReturningFromLab(MBHVisit entity, DataFetchingEnvironment environment) {
+		return entity.isBH_IsReturningFromLab();
+	}
+
 	public static Map<String, String> BH_PROCESS_STAGE_UUIDS_BY_VALUE = new HashMap<>() {
 		{
 			put("toclinician", "e74d5f99-fd01-4d54-ab35-7a630c43f064"); // Clinician / Dentist

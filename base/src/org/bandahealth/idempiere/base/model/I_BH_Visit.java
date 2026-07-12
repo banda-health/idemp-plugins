@@ -88,6 +88,24 @@ public interface I_BH_Visit
 	/** Get New Visit	  */
 	public boolean isBH_NewVisit();
 
+    /** Column name BH_IsEmergency */
+    public static final String COLUMNNAME_BH_IsEmergency = "BH_IsEmergency";
+
+	/** Set Emergency	  */
+	public void setBH_IsEmergency (boolean BH_IsEmergency);
+
+	/** Get Emergency	  */
+	public boolean isBH_IsEmergency();
+
+    /** Column name BH_IsReturningFromLab */
+    public static final String COLUMNNAME_BH_IsReturningFromLab = "BH_IsReturningFromLab";
+
+	/** Set Returning From Lab	  */
+	public void setBH_IsReturningFromLab (boolean BH_IsReturningFromLab);
+
+	/** Get Returning From Lab	  */
+	public boolean isBH_IsReturningFromLab();
+
     /** Column name BH_Process_Stage */
     public static final String COLUMNNAME_BH_Process_Stage = "BH_Process_Stage";
 
