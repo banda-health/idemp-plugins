@@ -270,6 +270,11 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating default business partners failed"));
 			}
 
+			if (!bandaSetup.createStandardHRDepartmentAndJob()) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating standard HR department and job failed"));
+			}
+
 			if (!bandaSetup.updateProcessorRunSchedules()) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Moving processors to overnight schedules failed"));

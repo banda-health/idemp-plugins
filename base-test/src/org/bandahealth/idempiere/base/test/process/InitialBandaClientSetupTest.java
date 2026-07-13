@@ -37,6 +37,8 @@ import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.CLogMgt;
 import org.compiere.util.Env;
+import org.eevolution.model.X_HR_Department;
+import org.eevolution.model.X_HR_Job;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -204,6 +206,19 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							.list();
 			assertThat("Only one locator is created", locators.size(), is(1));
 			assertTrue(locators.get(0).isDefault(), "The locator is default");
+
+			// Assert the Standard HR department & job exist (HR_Employee's mandatory parents; the
+			// payroll UI looks them up by name, so a client without them cannot add employees)
+			int standardDepartments = new Query(valueObject.getContext(), X_HR_Department.Table_Name,
+					X_HR_Department.COLUMNNAME_AD_Client_ID + "=? AND " + X_HR_Department.COLUMNNAME_Name + "=?",
+					valueObject.getTransactionName()).setParameters(client.get_ID(), "Standard").setOnlyActiveRecords(true)
+					.count();
+			assertEquals(1, standardDepartments, "The Standard HR department was created");
+			int standardJobs = new Query(valueObject.getContext(), X_HR_Job.Table_Name,
+					X_HR_Job.COLUMNNAME_AD_Client_ID + "=? AND " + X_HR_Job.COLUMNNAME_Name + "=?",
+					valueObject.getTransactionName()).setParameters(client.get_ID(), "Standard").setOnlyActiveRecords(true)
+					.count();
+			assertEquals(1, standardJobs, "The Standard HR job was created");
 
 			// Assert attribute sets created
 			List<MAttributeSet_BH> configurationClientAttributeSets =

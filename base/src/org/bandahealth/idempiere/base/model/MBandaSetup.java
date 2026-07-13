@@ -54,6 +54,8 @@ import org.compiere.util.CacheMgt;
 import org.compiere.util.Env;
 import org.compiere.util.Msg;
 import org.compiere.util.Trx;
+import org.eevolution.model.X_HR_Department;
+import org.eevolution.model.X_HR_Job;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -1337,6 +1339,34 @@ public class MBandaSetup {
 		processInfo.setAD_PInstance_ID(instance.get_ID());
 		result = process.processIt(processInfo, null);
 		return result;
+	}
+
+	/**
+	 * Every client gets a 'Standard' HR department and job — HR_Employee's mandatory parents
+	 * (a constraint inherited from core, not a feature we expose). Mirrors the GO-3624
+	 * migration seed for pre-existing clients; the payroll UI looks these rows up by name.
+	 */
+	public boolean createStandardHRDepartmentAndJob() {
+		X_HR_Department department = new X_HR_Department(context, 0, getTransactionName());
+		department.setAD_Org_ID(0);
+		department.setName(DEFAULT_IDEMPIERE_ENTITY_NAME);
+		if (!department.save()) {
+			String errorMessage = "Standard HR Department NOT inserted";
+			log.log(Level.SEVERE, errorMessage);
+			info.append(errorMessage);
+			return false;
+		}
+
+		X_HR_Job job = new X_HR_Job(context, 0, getTransactionName());
+		job.setAD_Org_ID(0);
+		job.setName(DEFAULT_IDEMPIERE_ENTITY_NAME);
+		if (!job.save()) {
+			String errorMessage = "Standard HR Job NOT inserted";
+			log.log(Level.SEVERE, errorMessage);
+			info.append(errorMessage);
+			return false;
+		}
+		return true;
 	}
 
 	public boolean createProductAttributeSets() {

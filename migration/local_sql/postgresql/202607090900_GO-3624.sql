@@ -3821,7 +3821,7 @@ WHERE
 -- HR_Employee.HR_Department_ID / HR_Job_ID are mandatory — a constraint inherited from core
 -- HR_Employee, not a feature we expose. Every clinic gets a 'Standard' default of each (house
 -- convention for placeholder defaults). Idempotent by (client, name); clients created later
--- are handled by the phase-2 employee save.
+-- get theirs from InitialBandaClientSetup (MBandaSetup.createStandardHRDepartmentAndJob).
 INSERT INTO hr_department (hr_department_id, hr_department_uu, ad_client_id, ad_org_id, isactive,
 	created, createdby, updated, updatedby, name)
 SELECT (SELECT COALESCE(MAX(hr_department_id), 1000000) FROM hr_department) + ROW_NUMBER() OVER (ORDER BY c.ad_client_id),
