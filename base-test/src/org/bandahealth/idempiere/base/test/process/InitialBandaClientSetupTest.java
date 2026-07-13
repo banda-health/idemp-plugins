@@ -24,6 +24,7 @@ import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MClient;
 import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MDiscountSchemaLine;
+import org.compiere.model.MDocType;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
@@ -219,6 +220,27 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 					valueObject.getTransactionName()).setParameters(client.get_ID(), "Standard").setOnlyActiveRecords(true)
 					.count();
 			assertEquals(1, standardJobs, "The Standard HR job was created");
+
+			// Assert the Payroll Run doc type & its doc-action access were cloned for this client
+			// (DocBaseType 'BPR' is not part of core's fixed doc type list, so a client provisioned
+			// after the GO-3624 migration would otherwise get no Payroll Run doc type at all, and
+			// MBandaSetup.handleDocumentActionAccess would silently map no doc-action access for it)
+			int payrollRunDocTypes = new Query(valueObject.getContext(), MDocType.Table_Name,
+					MDocType.COLUMNNAME_AD_Client_ID + "=? AND " + MDocType.COLUMNNAME_DocBaseType + "=?",
+					valueObject.getTransactionName()).setParameters(client.get_ID(), "BPR").setOnlyActiveRecords(true)
+					.count();
+			assertEquals(1, payrollRunDocTypes, "Exactly one Payroll Run doc type was created for the client");
+			addAssertionSQL(
+					"SELECT " +
+							"'Payroll Run doc-action access was mapped for the client' AS name, " +
+							"(" +
+							"	SELECT COUNT(*) > 0 " +
+							"	FROM ad_document_action_access a " +
+							"		JOIN c_doctype d ON d.c_doctype_id = a.c_doctype_id " +
+							"	WHERE d.ad_client_id = " + client.get_ID() +
+							"		AND d.docbasetype = 'BPR'" +
+							") AS result"
+			);
 
 			// Assert attribute sets created
 			List<MAttributeSet_BH> configurationClientAttributeSets =

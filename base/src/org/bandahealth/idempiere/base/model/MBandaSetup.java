@@ -20,6 +20,7 @@ import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MDiscountSchemaLine;
 import org.compiere.model.MDocType;
 import org.compiere.model.MElementValue;
+import org.compiere.model.MGLCategory;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
 import org.compiere.model.MPInstance;
@@ -108,6 +109,9 @@ public class MBandaSetup {
 	 * User = U
 	 */
 	public static final String DB_USERTYPE_User = "U";
+	/* DocBaseType 'BPR' -- the GO-3624 migration's new value in the standard Document BaseType
+	 * list (AD_Reference_ID 183), used by BH_Payroll_Run's DocAction lifecycle (Task 5) */
+	public static final String DOCBASETYPE_PayrollRun = "BPR";
 	private final Trx transaction = Trx.get(Trx.createTrxName("Setup"), true);
 	private final Properties context;
 	private final String language;
@@ -1362,6 +1366,62 @@ public class MBandaSetup {
 		job.setName(DEFAULT_IDEMPIERE_ENTITY_NAME);
 		if (!job.save()) {
 			String errorMessage = "Standard HR Job NOT inserted";
+			log.log(Level.SEVERE, errorMessage);
+			info.append(errorMessage);
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Every client gets a 'Payroll Run' C_DocType (DocBaseType 'BPR', the GO-3624 migration's
+	 * new value in the standard Document BaseType list). Core's own DocumentTypeVerify (wired
+	 * into MSetup.createAccounting, which runs during super.doIt() before this class ever
+	 * starts) already auto-creates a doc type for any DocBaseType ref-list value the client is
+	 * missing -- but it names the row after the AD_Ref_List value's own Name ('Banda Payroll
+	 * Run'), not the client-0 template C_DocType's Name ('Payroll Run') the GO-3624 migration
+	 * seeded. handleDocumentActionAccess maps System -> client doc types BY NAME, so that
+	 * mismatch means it silently finds no match (orElse(0)) and Clinic Admin/Accounting never
+	 * get Payroll Run doc-action access. So: adopt whatever DocumentTypeVerify already created
+	 * (rather than inserting a second BPR row) and align it with the client-0 template; if for
+	 * any reason it doesn't exist yet, create it fresh.
+	 */
+	public boolean createPayrollRunDocType() {
+		PO.setCrossTenantSafe();
+		MDocType systemPayrollRunDocType = new Query(context, MDocType.Table_Name,
+				MDocType.COLUMNNAME_AD_Client_ID + "=? AND " + MDocType.COLUMNNAME_DocBaseType + "=?",
+				getTransactionName()).setParameters(MClient_BH.CLIENTID_SYSTEM, DOCBASETYPE_PayrollRun)
+				.setOnlyActiveRecords(true).first();
+		PO.clearCrossTenantSafe();
+		if (systemPayrollRunDocType == null) {
+			String errorMessage = "System Payroll Run doc type NOT found";
+			log.log(Level.SEVERE, errorMessage);
+			info.append(errorMessage);
+			return false;
+		}
+
+		MGLCategory clientDefaultGLCategory = new Query(context, MGLCategory.Table_Name,
+				MGLCategory.COLUMNNAME_AD_Client_ID + "=?", getTransactionName()).setParameters(getAD_Client_ID())
+				.setOnlyActiveRecords(true).setOrderBy(MGLCategory.COLUMNNAME_GL_Category_ID).first();
+		if (clientDefaultGLCategory == null) {
+			String errorMessage = "Client GL Category NOT found";
+			log.log(Level.SEVERE, errorMessage);
+			info.append(errorMessage);
+			return false;
+		}
+
+		MDocType clientPayrollRunDocType = new Query(context, MDocType.Table_Name,
+				MDocType.COLUMNNAME_AD_Client_ID + "=? AND " + MDocType.COLUMNNAME_DocBaseType + "=?",
+				getTransactionName()).setParameters(getAD_Client_ID(), DOCBASETYPE_PayrollRun)
+				.setOnlyActiveRecords(true).first();
+		if (clientPayrollRunDocType == null) {
+			clientPayrollRunDocType = new MDocType(context, 0, getTransactionName());
+		}
+		PO.copyValues(systemPayrollRunDocType, clientPayrollRunDocType);
+		clientPayrollRunDocType.setAD_Org_ID(0);
+		clientPayrollRunDocType.setGL_Category_ID(clientDefaultGLCategory.getGL_Category_ID());
+		if (!clientPayrollRunDocType.save()) {
+			String errorMessage = "Payroll Run doc type NOT inserted";
 			log.log(Level.SEVERE, errorMessage);
 			info.append(errorMessage);
 			return false;

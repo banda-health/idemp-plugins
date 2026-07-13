@@ -227,6 +227,11 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			}
 			addLog(bandaSetup.getThenResetInfo());
 
+			if (!bandaSetup.createPayrollRunDocType()) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating payroll run doc type failed"));
+			}
+
 			List<MUser_BH> usersToAddRolesTo = new ArrayList<>();
 			MUser_BH clientAdminUser = new Query(getCtx(), MUser.Table_Name,
 					MUser_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MUser_BH.COLUMNNAME_Name + "=?", get_TrxName())
