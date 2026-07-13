@@ -221,24 +221,37 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 					.count();
 			assertEquals(1, standardJobs, "The Standard HR job was created");
 
-			// Assert the Payroll Run doc type & its doc-action access were cloned for this client
-			// (DocBaseType 'BPR' is not part of core's fixed doc type list, so a client provisioned
-			// after the GO-3624 migration would otherwise get no Payroll Run doc type at all, and
-			// MBandaSetup.handleDocumentActionAccess would silently map no doc-action access for it)
-			int payrollRunDocTypes = new Query(valueObject.getContext(), MDocType.Table_Name,
+			// Assert the Payroll Run doc type & its doc-action access were cloned for this client.
+			// Core's DocumentTypeVerify already auto-creates *a* BPR doc type for any new client
+			// (completeness check for missing DocBaseType ref-list values), so merely counting rows
+			// doesn't distinguish MBandaSetup.createPayrollRunDocType() actually running: assert the
+			// exact Name -- DocumentTypeVerify names it after the AD_Ref_List value ('Banda Payroll
+			// Run'), not the client-0 template's Name ('Payroll Run') that
+			// handleDocumentActionAccess's System->client name-matching depends on.
+			MDocType clientPayrollRunDocType = new Query(valueObject.getContext(), MDocType.Table_Name,
 					MDocType.COLUMNNAME_AD_Client_ID + "=? AND " + MDocType.COLUMNNAME_DocBaseType + "=?",
 					valueObject.getTransactionName()).setParameters(client.get_ID(), "BPR").setOnlyActiveRecords(true)
-					.count();
-			assertEquals(1, payrollRunDocTypes, "Exactly one Payroll Run doc type was created for the client");
+					.first();
+			assertNotNull(clientPayrollRunDocType, "A Payroll Run doc type was created for the client");
+			assertEquals("Payroll Run", clientPayrollRunDocType.getName(),
+					"The client's Payroll Run doc type name matches the client-0 template "
+							+ "(not the DocBaseType ref-list value's own name)");
+			// Likewise, core's generic non-manual-role grant already puts access rows on whatever
+			// doc type DocumentTypeVerify creates -- but only for the client's built-in Admin role.
+			// Assert access specifically for the Clinic Admin/Accounting roles handleDocumentActionAccess
+			// is responsible for (those roles are created IsManual=true, so core's generic grant skips
+			// them entirely): 2 actions (Complete, Re-activate) x 2 roles = 4.
 			addAssertionSQL(
 					"SELECT " +
-							"'Payroll Run doc-action access was mapped for the client' AS name, " +
+							"'Payroll Run doc-action access was mapped for Clinic Admin/Accounting roles' AS name, " +
 							"(" +
-							"	SELECT COUNT(*) > 0 " +
+							"	SELECT COUNT(*) = 4 " +
 							"	FROM ad_document_action_access a " +
 							"		JOIN c_doctype d ON d.c_doctype_id = a.c_doctype_id " +
+							"		JOIN ad_role r ON r.ad_role_id = a.ad_role_id " +
 							"	WHERE d.ad_client_id = " + client.get_ID() +
 							"		AND d.docbasetype = 'BPR'" +
+							"		AND (r.name LIKE '%Clinic Admin' OR r.name LIKE '%Accounting')" +
 							") AS result"
 			);
 
