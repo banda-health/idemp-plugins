@@ -7,6 +7,7 @@ import org.bandahealth.idempiere.base.test.modelevent.InOutModelEventTest;
 import org.bandahealth.idempiere.base.test.modelevent.InvoiceModelEventTest;
 import org.bandahealth.idempiere.base.test.modelevent.UserModelEventTest;
 import org.bandahealth.idempiere.base.test.payroll.PayrollCalculatorTest;
+import org.bandahealth.idempiere.base.test.payroll.PayrollComponentResolutionTest;
 import org.bandahealth.idempiere.base.test.process.CleanExpiredStockProcessTest;
 import org.bandahealth.idempiere.base.test.process.ImportBusinessPartnersProcessTest;
 import org.bandahealth.idempiere.base.test.process.ImportProductsProcessTest;
@@ -38,6 +39,7 @@ public class BandaBaseTestFactory implements IChuBoePopulateFactory {
 
 		// Payroll
 		tests.add(new PayrollCalculatorTest());
+		tests.add(new PayrollComponentResolutionTest());
 
 		// Generic
 		tests.add(new OrderTest());
