@@ -981,3 +981,48 @@ mutation SignInWithClients($Credentials: AuthenticationInput!) {
 		}
 	}
 }
+
+mutation HR_DepartmentSave($Entity: HR_DepartmentInput!) {
+	HR_DepartmentSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation HR_JobSave($Entity: HR_JobInput!) {
+	HR_JobSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation HR_EmployeeSave($Entity: HR_EmployeeInput!) {
+	HR_EmployeeSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation BH_Payroll_RunDraft($BH_PayrollMonth: Int!, $BH_PayrollYear: Int!) {
+	BH_Payroll_RunDraft(BH_PayrollMonth: $BH_PayrollMonth, BH_PayrollYear: $BH_PayrollYear) {
+		UU
+		DocStatus {
+			Value
+		}
+		BH_Payroll_Run_Lines {
+			UU
+			BH_NetPay
+		}
+	}
+}
+
+mutation BH_Payroll_RunProcess($UU: ID!, $DocumentAction: String!) {
+	BH_Payroll_RunProcess(UU: $UU, DocumentAction: $DocumentAction) {
+		UU
+		DocStatus {
+			Value
+		}
+		BH_Payroll_Filings {
+			UU
+			BH_FilingType
+			BH_TotalAmount
+		}
+	}
+}

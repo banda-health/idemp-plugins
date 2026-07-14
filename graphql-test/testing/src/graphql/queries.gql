@@ -967,3 +967,48 @@ query AD_SystemGet($Size: Int) {
 	}
 }
 
+
+query BH_Payroll_Run($UU: String!) {
+	BH_Payroll_Run(UU: $UU) {
+		UU
+		DocStatus {
+			Value
+		}
+		BH_Payroll_Run_Lines {
+			UU
+			BH_NetPay
+		}
+		BH_Payroll_Filings {
+			UU
+			BH_FilingType
+		}
+	}
+}
+
+query BH_PayrollPreview(
+	$BH_BasicSalary: BigDecimal!
+	$BH_HouseAllowance: BigDecimal!
+	$BH_TransportAllowance: BigDecimal!
+	$HR_Employee_UU: ID
+) {
+	BH_PayrollPreview(
+		BH_BasicSalary: $BH_BasicSalary
+		BH_HouseAllowance: $BH_HouseAllowance
+		BH_TransportAllowance: $BH_TransportAllowance
+		HR_Employee_UU: $HR_Employee_UU
+	) {
+		BH_GrossPay
+		BH_TaxablePay
+		BH_PAYE_Amount
+		BH_TotalDeductions
+		BH_NetPay
+		BH_CostToEmployer
+		Items {
+			Value
+			Name
+			BH_Category
+			BH_EmployeeAmount
+			BH_EmployerAmount
+		}
+	}
+}

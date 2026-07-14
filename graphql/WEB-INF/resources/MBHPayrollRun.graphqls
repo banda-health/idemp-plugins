@@ -2,3 +2,34 @@ extend type BH_Payroll_Run {
 	BH_Payroll_Filings: [BH_Payroll_Filing!]
 	BH_Payroll_Run_Lines: [BH_Payroll_Run_Line!]
 }
+
+extend type Mutation {
+	# Create the month's draft (or refresh the existing draft's lines). Errors if the period is locked.
+	BH_Payroll_RunDraft(BH_PayrollMonth: Int!, BH_PayrollYear: Int!): BH_Payroll_Run
+	# CO = Finalize & Lock, RE = Unlock. Access via AD_Document_Action_Access (DocBaseType BPR).
+	BH_Payroll_RunProcess(UU: ID!, DocumentAction: String!): BH_Payroll_Run
+}
+
+extend type Query {
+	# Stateless net-pay preview from the resolved catalogue as of today. No rows written.
+	BH_PayrollPreview(BH_BasicSalary: BigDecimal!, BH_HouseAllowance: BigDecimal!,
+		BH_TransportAllowance: BigDecimal!, HR_Employee_UU: ID): BH_PayrollPreviewResult
+}
+
+type BH_PayrollPreviewResult {
+	BH_GrossPay: BigDecimal
+	BH_TaxablePay: BigDecimal
+	BH_PAYE_Amount: BigDecimal
+	BH_TotalDeductions: BigDecimal
+	BH_NetPay: BigDecimal
+	BH_CostToEmployer: BigDecimal
+	Items: [BH_PayrollPreviewItem!]
+}
+
+type BH_PayrollPreviewItem {
+	Value: String
+	Name: String
+	BH_Category: String
+	BH_EmployeeAmount: BigDecimal
+	BH_EmployerAmount: BigDecimal
+}

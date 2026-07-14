@@ -225,6 +225,12 @@ public class MBHPayrollRun extends X_BH_Payroll_Run implements DocAction {
 	 */
 	@Override
 	public boolean reActivateIt() {
+		// Only a completed run can be unlocked; guard so RE on a draft errors instead of writing a
+		// spurious PERIOD_UNLOCK audit (GO-3624 Task 4 review decision).
+		if (!DocAction.STATUS_Completed.equals(getDocStatus())) {
+			m_processMsg = "Only a completed payroll run can be unlocked";
+			return false;
+		}
 		int thisPeriod = getBH_PayrollYear() * 100 + getBH_PayrollMonth();
 		int latestPeriod = DB.getSQLValueEx(get_TrxName(),
 				"SELECT COALESCE(MAX(BH_PayrollYear*100+BH_PayrollMonth),0) FROM BH_Payroll_Run "
