@@ -92,6 +92,9 @@ public class MBHPayrollRun extends X_BH_Payroll_Run {
 			line.setBH_CostToEmployer(breakdown.costToEmployer);
 			line.saveEx();
 
+			// breakdown.items is already in render order (calculator sorts components by seqNo,
+			// PAYE appended last); mirror that order onto SeqNo (10-step, house convention).
+			int itemSequence = 0;
 			for (PayrollLineItem item : breakdown.items) {
 				MBHPayrollRunLineItem lineItem = new MBHPayrollRunLineItem(getCtx(), 0, get_TrxName());
 				lineItem.setBH_Payroll_Run_Line_ID(line.get_ID());
@@ -101,6 +104,8 @@ public class MBHPayrollRun extends X_BH_Payroll_Run {
 				lineItem.setBH_IsTaxDeductible(item.taxDeductible);
 				lineItem.setBH_EmployeeAmount(item.employeeAmount);
 				lineItem.setBH_EmployerAmount(item.employerAmount);
+				itemSequence += 10;
+				lineItem.setSeqNo(itemSequence);
 				lineItem.saveEx();
 			}
 		}

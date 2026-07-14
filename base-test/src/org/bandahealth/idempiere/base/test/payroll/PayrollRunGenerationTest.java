@@ -19,6 +19,7 @@ import org.eevolution.model.X_HR_Job;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +29,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.comparesEqualTo;
+import static org.hamcrest.Matchers.greaterThan;
 
 public class PayrollRunGenerationTest extends ChuBoePopulateFactoryVO {
 
@@ -101,6 +103,25 @@ public class PayrollRunGenerationTest extends ChuBoePopulateFactoryVO {
 			// folds it into r.payeAmount (the relief-after-band-tax step) and never adds it to
 			// r.items, so it does not become a line item (verified in PayrollCalculator source).
 			assertThat("NSSF+SHIF+HLEVY+NITA+PAYE items", itemCount, is(5));
+
+			// SeqNo must preserve the calculator's render order (components sorted by seqNo,
+			// PAYE appended last) — a consumer ordering payslip lines by SeqNo must not see
+			// DB-arbitrary tiebreak order. The effective NSSF row as-of 2026-07-31 is the
+			// Year-4 override (migration seq=7 -> seqno=70), which sorts AFTER SHIF(20)/
+			// HLEVY(30)/NITA(40) — confirmed against the actual seeded catalogue, not assumed.
+			List<MBHPayrollRunLineItem> orderedItems = new Query(Env.getCtx(), MBHPayrollRunLineItem.Table_Name,
+					"BH_Payroll_Run_Line_ID=?", get_TrxName()).setParameters(line.get_ID())
+					.setOrderBy(MBHPayrollRunLineItem.COLUMNNAME_SeqNo).list();
+			List<String> orderedCodes = orderedItems.stream().map(MBHPayrollRunLineItem::getValue)
+					.collect(Collectors.toList());
+			assertThat("items ordered by SeqNo follow calculator render order", orderedCodes,
+					is(Arrays.asList("SHIF", "HLEVY", "NITA", "NSSF", "PAYE")));
+			int previousSeqNo = 0;
+			for (MBHPayrollRunLineItem orderedItem : orderedItems) {
+				assertThat("SeqNo is non-zero and strictly increasing", orderedItem.getSeqNo(),
+						greaterThan(previousSeqNo));
+				previousSeqNo = orderedItem.getSeqNo();
+			}
 
 			assertThat("regeneration is idempotent", run.generateLines(catalogue), is(1));
 			int itemCountAfterRegeneration = new Query(Env.getCtx(), MBHPayrollRunLineItem.Table_Name,
