@@ -1,9 +1,9 @@
-package org.bandahealth.idempiere.base.test.payroll;
+package org.bandahealth.idempiere.base.test;
 
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
 import org.bandahealth.idempiere.base.model.MBHPayrollComponent;
-import org.bandahealth.idempiere.base.payroll.PayrollComponent;
+import org.bandahealth.idempiere.base.model.PayrollComponent;
 import org.compiere.util.Env;
 
 import java.math.BigDecimal;

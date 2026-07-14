@@ -1,6 +1,5 @@
 package org.bandahealth.idempiere.base.model;
 
-import org.bandahealth.idempiere.base.payroll.PayrollAssignment;
 import org.compiere.model.Query;
 
 import java.sql.ResultSet;

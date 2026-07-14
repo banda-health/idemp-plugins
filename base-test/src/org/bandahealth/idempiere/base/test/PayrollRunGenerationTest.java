@@ -1,4 +1,4 @@
-package org.bandahealth.idempiere.base.test.payroll;
+package org.bandahealth.idempiere.base.test;
 
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
@@ -7,9 +7,9 @@ import org.bandahealth.idempiere.base.model.MBHPayrollRun;
 import org.bandahealth.idempiere.base.model.MBHPayrollRunLine;
 import org.bandahealth.idempiere.base.model.MBHPayrollRunLineItem;
 import org.bandahealth.idempiere.base.model.MHREmployee_BH;
-import org.bandahealth.idempiere.base.payroll.ComponentSnapshotJson;
-import org.bandahealth.idempiere.base.payroll.PayeBand;
-import org.bandahealth.idempiere.base.payroll.PayrollComponent;
+import org.bandahealth.idempiere.base.model.ComponentSnapshotJson;
+import org.bandahealth.idempiere.base.model.PayeBand;
+import org.bandahealth.idempiere.base.model.PayrollComponent;
 import org.compiere.model.MBPartner;
 import org.compiere.model.Query;
 import org.compiere.util.DB;

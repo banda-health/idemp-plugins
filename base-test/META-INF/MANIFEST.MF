@@ -15,7 +15,6 @@ Import-Package: com.chuboe.test.assertion,
  org.adempiere.base,
  org.adempiere.exceptions,
  org.bandahealth.idempiere.base.model,
- org.bandahealth.idempiere.base.payroll,
  org.bandahealth.idempiere.base.process,
  org.bandahealth.idempiere.base.utils,
  org.compiere

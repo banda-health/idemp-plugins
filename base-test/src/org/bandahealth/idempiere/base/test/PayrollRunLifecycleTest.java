@@ -1,4 +1,4 @@
-package org.bandahealth.idempiere.base.test.payroll;
+package org.bandahealth.idempiere.base.test;
 
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.IPopulateAnnotation;

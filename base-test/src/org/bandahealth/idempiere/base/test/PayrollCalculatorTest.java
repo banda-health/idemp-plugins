@@ -1,13 +1,13 @@
-package org.bandahealth.idempiere.base.test.payroll;
+package org.bandahealth.idempiere.base.test;
 
 import com.chuboe.test.populate.ChuBoePopulateFactoryVO;
 import com.chuboe.test.populate.IPopulateAnnotation;
-import org.bandahealth.idempiere.base.payroll.PayeBand;
-import org.bandahealth.idempiere.base.payroll.PayrollAssignment;
-import org.bandahealth.idempiere.base.payroll.PayrollBreakdown;
-import org.bandahealth.idempiere.base.payroll.PayrollCalculator;
-import org.bandahealth.idempiere.base.payroll.PayrollComponent;
-import org.bandahealth.idempiere.base.payroll.PayrollEarnings;
+import org.bandahealth.idempiere.base.model.PayeBand;
+import org.bandahealth.idempiere.base.model.PayrollAssignment;
+import org.bandahealth.idempiere.base.model.PayrollBreakdown;
+import org.bandahealth.idempiere.base.model.PayrollCalculator;
+import org.bandahealth.idempiere.base.model.PayrollComponent;
+import org.bandahealth.idempiere.base.model.PayrollEarnings;
 
 import java.math.BigDecimal;
 import java.util.Arrays;

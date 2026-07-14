@@ -1,12 +1,5 @@
 package org.bandahealth.idempiere.base.model;
 
-import org.bandahealth.idempiere.base.payroll.ComponentSnapshotJson;
-import org.bandahealth.idempiere.base.payroll.PayrollAssignment;
-import org.bandahealth.idempiere.base.payroll.PayrollBreakdown;
-import org.bandahealth.idempiere.base.payroll.PayrollCalculator;
-import org.bandahealth.idempiere.base.payroll.PayrollComponent;
-import org.bandahealth.idempiere.base.payroll.PayrollEarnings;
-import org.bandahealth.idempiere.base.payroll.PayrollLineItem;
 import org.compiere.model.Query;
 import org.compiere.process.DocAction;
 import org.compiere.util.DB;

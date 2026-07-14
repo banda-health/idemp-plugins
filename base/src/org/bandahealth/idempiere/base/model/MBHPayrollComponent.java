@@ -1,7 +1,5 @@
 package org.bandahealth.idempiere.base.model;
 
-import org.bandahealth.idempiere.base.payroll.PayeBand;
-import org.bandahealth.idempiere.base.payroll.PayrollComponent;
 import org.compiere.model.Query;
 
 import java.math.BigDecimal;

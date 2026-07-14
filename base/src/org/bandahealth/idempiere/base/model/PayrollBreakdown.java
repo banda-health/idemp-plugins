@@ -1,4 +1,4 @@
-package org.bandahealth.idempiere.base.payroll;
+package org.bandahealth.idempiere.base.model;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
