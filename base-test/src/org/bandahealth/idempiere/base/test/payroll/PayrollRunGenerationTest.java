@@ -104,18 +104,19 @@ public class PayrollRunGenerationTest extends ChuBoePopulateFactoryVO {
 			// r.items, so it does not become a line item (verified in PayrollCalculator source).
 			assertThat("NSSF+SHIF+HLEVY+NITA+PAYE items", itemCount, is(5));
 
-			// SeqNo must preserve the calculator's render order (components sorted by seqNo,
+			// SeqNo must preserve the catalogue's canonical order (components sorted by seqNo,
 			// PAYE appended last) — a consumer ordering payslip lines by SeqNo must not see
 			// DB-arbitrary tiebreak order. The effective NSSF row as-of 2026-07-31 is the
-			// Year-4 override (migration seq=7 -> seqno=70), which sorts AFTER SHIF(20)/
-			// HLEVY(30)/NITA(40) — confirmed against the actual seeded catalogue, not assumed.
+			// Year-4 regime row (migration seq=7), which the seed pins to seqno=10 (NSSF's
+			// canonical first-of-the-statutory-deductions position) rather than the VALUES
+			// ordinal 70, so NSSF sorts first, ahead of SHIF/HLEVY/NITA.
 			List<MBHPayrollRunLineItem> orderedItems = new Query(Env.getCtx(), MBHPayrollRunLineItem.Table_Name,
 					"BH_Payroll_Run_Line_ID=?", get_TrxName()).setParameters(line.get_ID())
 					.setOrderBy(MBHPayrollRunLineItem.COLUMNNAME_SeqNo).list();
 			List<String> orderedCodes = orderedItems.stream().map(MBHPayrollRunLineItem::getValue)
 					.collect(Collectors.toList());
-			assertThat("items ordered by SeqNo follow calculator render order", orderedCodes,
-					is(Arrays.asList("SHIF", "HLEVY", "NITA", "NSSF", "PAYE")));
+			assertThat("items ordered by SeqNo follow catalogue canonical order", orderedCodes,
+					is(Arrays.asList("NSSF", "SHIF", "HLEVY", "NITA", "PAYE")));
 			int previousSeqNo = 0;
 			for (MBHPayrollRunLineItem orderedItem : orderedItems) {
 				assertThat("SeqNo is non-zero and strictly increasing", orderedItem.getSeqNo(),

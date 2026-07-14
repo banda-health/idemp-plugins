@@ -3849,22 +3849,28 @@ INSERT INTO bh_payroll_component (ad_client_id, ad_org_id, bh_payroll_component_
 	createdby, updatedby)
 SELECT 0, 0, (SELECT COALESCE(MAX(bh_payroll_component_id), 1000000) FROM bh_payroll_component) + c.seq,
 	c.uu, c.value, c.name, c.cat, c.method, c.rate, c.flr, c.cap, c.t1, c.t2, c.emprate,
-	c.taxded, c.taxdedcap, c.stat, c.dueday, c.seq * 10, c.validfrom::timestamp, 100, 100
+	c.taxded, c.taxdedcap, c.stat, c.dueday, c.seqno, c.validfrom::timestamp, 100, 100
 FROM (VALUES
 	-- statutory, effective 2024-07-01 (SHIF live; Housing Levy in force; NSSF Year 3)
-	(1,  'efc0adcc-3b5c-4890-ae3a-a3bd485f97d2', 'NSSF',            'NSSF',                    'STAT_DED',         'TIERED',           6::numeric,    NULL::numeric, NULL::numeric, 8000::numeric, 72000::numeric, 6::numeric,    'Y', NULL::numeric, 'Y', 9::numeric,    '2024-07-01'),
-	(2,  '2a636948-36a9-41df-b60e-6c9433762e96', 'SHIF',            'SHIF',                    'STAT_DED',         'PERCENT_OF_GROSS', 2.75,          300,           NULL,          NULL,          NULL,           NULL,          'Y', NULL,          'Y', 9,             '2024-07-01'),
-	(3,  'df088005-19e8-4ce0-b727-8ee04e0b7e52', 'HLEVY',           'Housing Levy',            'STAT_DED',         'PERCENT_OF_GROSS', 1.5,           NULL,          NULL,          NULL,          NULL,           1.5,           'Y', NULL,          'Y', 9,             '2024-07-01'),
-	(4,  '4a1486cc-e4bb-4467-80c5-92a44ccb9fb2', 'NITA',            'NITA Levy',               'EMPLOYER_CONTRIB', 'FIXED',            50,            NULL,          NULL,          NULL,          NULL,           NULL,          'N', NULL,          'Y', 9,             '2024-07-01'),
-	(5,  'a804f404-80e3-450e-9e89-d1cc510fae78', 'PERSONAL_RELIEF', 'Monthly Personal Relief', 'RELIEF',           'FIXED',            2400,          NULL,          NULL,          NULL,          NULL,           NULL,          'N', NULL,          'N', NULL::numeric, '2024-07-01'),
-	(6,  'ee37c7c7-32b6-4cbb-81d3-5df19945d202', 'PAYE',            'PAYE (income tax)',       'STAT_DED',         'BANDS',            NULL,          NULL,          NULL,          NULL,          NULL,           NULL,          'N', NULL,          'Y', 9,             '2024-07-01'),
-	-- NSSF Year 4 (official notice, effective 2026-02-01): only the tier limits change
-	(7,  '64b35a88-8fac-4918-b773-718f56ad372e', 'NSSF',            'NSSF',                    'STAT_DED',         'TIERED',           6,             NULL,          NULL,          9000,          108000,         6,             'Y', NULL,          'Y', 9,             '2026-02-01'),
+	-- seqno is the catalogue's display/render order, NOT the VALUES ordinal (seq): a regime
+	-- row that supersedes an earlier row (e.g. NSSF Year 4 below) must keep the superseded
+	-- row's catalogue position, so seqno is given explicitly per row.
+	(1,  'efc0adcc-3b5c-4890-ae3a-a3bd485f97d2', 'NSSF',            'NSSF',                    'STAT_DED',         'TIERED',           6::numeric,    NULL::numeric, NULL::numeric, 8000::numeric, 72000::numeric, 6::numeric,    'Y', NULL::numeric, 'Y', 9::numeric,    10, '2024-07-01'),
+	(2,  '2a636948-36a9-41df-b60e-6c9433762e96', 'SHIF',            'SHIF',                    'STAT_DED',         'PERCENT_OF_GROSS', 2.75,          300,           NULL,          NULL,          NULL,           NULL,          'Y', NULL,          'Y', 9,             20, '2024-07-01'),
+	(3,  'df088005-19e8-4ce0-b727-8ee04e0b7e52', 'HLEVY',           'Housing Levy',            'STAT_DED',         'PERCENT_OF_GROSS', 1.5,           NULL,          NULL,          NULL,          NULL,           1.5,           'Y', NULL,          'Y', 9,             30, '2024-07-01'),
+	(4,  '4a1486cc-e4bb-4467-80c5-92a44ccb9fb2', 'NITA',            'NITA Levy',               'EMPLOYER_CONTRIB', 'FIXED',            50,            NULL,          NULL,          NULL,          NULL,           NULL,          'N', NULL,          'Y', 9,             40, '2024-07-01'),
+	(5,  'a804f404-80e3-450e-9e89-d1cc510fae78', 'PERSONAL_RELIEF', 'Monthly Personal Relief', 'RELIEF',           'FIXED',            2400,          NULL,          NULL,          NULL,          NULL,           NULL,          'N', NULL,          'N', NULL::numeric, 50, '2024-07-01'),
+	(6,  'ee37c7c7-32b6-4cbb-81d3-5df19945d202', 'PAYE',            'PAYE (income tax)',       'STAT_DED',         'BANDS',            NULL,          NULL,          NULL,          NULL,          NULL,           NULL,          'N', NULL,          'Y', 9,             60, '2024-07-01'),
+	-- NSSF Year 4 (official notice, effective 2026-02-01): only the tier limits change.
+	-- seqno=10 (not 70): this row supersedes row 1 and must keep NSSF's canonical first-of
+	-- the-statutory-deductions position in the resolved catalogue, payslip items, and the
+	-- Settings UI — regardless of where it sits in this VALUES list.
+	(7,  '64b35a88-8fac-4918-b773-718f56ad372e', 'NSSF',            'NSSF',                    'STAT_DED',         'TIERED',           6,             NULL,          NULL,          9000,          108000,         6,             'Y', NULL,          'Y', 9,             10, '2026-02-01'),
 	-- voluntary templates (amounts come from BH_Employee_Component assignments)
-	(8,  '55a5b024-7b63-4bc8-891c-ac82de4320f1', 'SACCO',           'Sacco',                   'VOL_DED',          'EMPLOYEE_AMOUNT',  NULL,          NULL,          NULL,          NULL,          NULL,           NULL,          'N', NULL,          'N', NULL,          '2024-07-01'),
-	(9,  '227a6562-a3bd-4304-9c76-182e73c08ae1', 'PENSION',         'Voluntary Pension',       'VOL_DED',          'EMPLOYEE_AMOUNT',  NULL,          NULL,          NULL,          NULL,          NULL,           NULL,          'Y', 30000,         'N', NULL,          '2024-07-01'),
-	(10, '744795cf-6169-4136-af38-f770e08480a6', 'LOAN',            'Loan Repayment',          'VOL_DED',          'EMPLOYEE_AMOUNT',  NULL,          NULL,          NULL,          NULL,          NULL,           NULL,          'N', NULL,          'N', NULL,          '2024-07-01')
-) AS c(seq, uu, value, name, cat, method, rate, flr, cap, t1, t2, emprate, taxded, taxdedcap, stat, dueday, validfrom)
+	(8,  '55a5b024-7b63-4bc8-891c-ac82de4320f1', 'SACCO',           'Sacco',                   'VOL_DED',          'EMPLOYEE_AMOUNT',  NULL,          NULL,          NULL,          NULL,          NULL,           NULL,          'N', NULL,          'N', NULL,          80, '2024-07-01'),
+	(9,  '227a6562-a3bd-4304-9c76-182e73c08ae1', 'PENSION',         'Voluntary Pension',       'VOL_DED',          'EMPLOYEE_AMOUNT',  NULL,          NULL,          NULL,          NULL,          NULL,           NULL,          'Y', 30000,         'N', NULL,          90, '2024-07-01'),
+	(10, '744795cf-6169-4136-af38-f770e08480a6', 'LOAN',            'Loan Repayment',          'VOL_DED',          'EMPLOYEE_AMOUNT',  NULL,          NULL,          NULL,          NULL,          NULL,           NULL,          'N', NULL,          'N', NULL,          100, '2024-07-01')
+) AS c(seq, uu, value, name, cat, method, rate, flr, cap, t1, t2, emprate, taxded, taxdedcap, stat, dueday, seqno, validfrom)
 WHERE NOT EXISTS (SELECT 1 FROM bh_payroll_component x WHERE x.bh_payroll_component_uu = c.uu);
 
 -- PAYE bands (10/25/30/32.5/35; NULL upper limit = top band), children of the PAYE component
