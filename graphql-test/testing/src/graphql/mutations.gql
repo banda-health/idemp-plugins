@@ -1024,5 +1024,9 @@ mutation BH_Payroll_RunProcess($UU: ID!, $DocumentAction: String!) {
 			BH_FilingType
 			BH_TotalAmount
 		}
+		BH_Payroll_Run_Lines {
+			UU
+			BH_NetPay
+		}
 	}
 }

@@ -151,6 +151,14 @@ public class MBHPayrollRun extends X_BH_Payroll_Run implements DocAction {
 	 */
 	@Override
 	public String completeIt() {
+		// Guard against a double-CO before any I/O: without this, generateLines() below deletes every
+		// line via direct SQL (bypassing PO write-protection), then dies re-inserting them because the
+		// still-Processed run locks MBHPayrollRunLine#beforeSave — a misleading error, and only the
+		// caller's transaction rollback saves the data. Mirrors the reActivateIt guard below.
+		if (DocAction.STATUS_Completed.equals(getDocStatus())) {
+			m_processMsg = "Payroll run is already completed";
+			return DocAction.STATUS_Invalid;
+		}
 		List<MBHPayrollComponent> catalogue = MBHPayrollComponent.getEffectiveAll(getCtx(),
 				getAD_Client_ID(), getPeriodEnd(), get_TrxName());
 		generateLines(catalogue);

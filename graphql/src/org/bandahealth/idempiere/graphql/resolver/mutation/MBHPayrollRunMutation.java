@@ -27,6 +27,11 @@ public class MBHPayrollRunMutation extends X_BH_Payroll_RunMutation {
 	public MBHPayrollRun BH_Payroll_RunDraft(int BH_PayrollMonth, int BH_PayrollYear,
 			DataFetchingEnvironment environment) {
 		Properties ctx = BandaGraphQLContext.getCtx(environment);
+		// Drafting is the precursor to completing (CO); gate it on the same access so a role without
+		// CO on payroll runs (e.g. Cashier) can't create a draft and read every employee's salaries.
+		if (!DocumentUtil.isDocActionValidForUser(ctx, DOCBASETYPE_PayrollRun, DocAction.ACTION_Complete)) {
+			throw new AdempiereException("Unauthorized");
+		}
 		int clientId = Env.getAD_Client_ID(ctx);
 		Trx transaction = Trx.get(Trx.createTrxName("PayrollRunDraft"), true);
 		try {

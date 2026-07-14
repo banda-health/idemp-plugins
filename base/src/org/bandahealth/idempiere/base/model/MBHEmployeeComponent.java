@@ -49,6 +49,9 @@ public class MBHEmployeeComponent extends X_BH_Employee_Component {
 						+ COLUMNNAME_ValidTo + " IS NULL OR " + COLUMNNAME_ValidTo + ">=?)", trxName)
 				.setParameters(hrEmployeeId, periodEnd, periodStart)
 				.setOnlyActiveRecords(true)
+				// The calculator is last-wins per code (see the loop below); order oldest-to-newest so
+				// overlapping same-code windows resolve deterministically instead of DB-arbitrary.
+				.setOrderBy(COLUMNNAME_ValidFrom)
 				.list();
 		List<PayrollAssignment> resolved = new ArrayList<>();
 		for (MBHEmployeeComponent assignment : assignments) {
