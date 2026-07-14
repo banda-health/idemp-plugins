@@ -85,15 +85,25 @@ test('clinic admin role has correct access', async () => {
 			[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
 		};
 
-	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
-		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
-		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Void);
+	Object.entries(documentStatusActionMap).forEach(
+		([documentBaseTypeValue, statusActionMapForASpecificDocumentBaseType]) => {
+			// BH_Payroll_Run (BPR, GO-3624) is a deliberate two-state document: DR --CO--> CO --RE--> DR.
+			// MBHPayrollRun#voidIt() always returns false and no Void access was granted for it, so it
+			// can't follow the Void-must-be-present expectations every DocumentEngine-native base type
+			// follows below. Its real, narrower access is asserted separately after this loop.
+			if (documentBaseTypeValue === documentBaseType.PayrollRun) {
+				return;
+			}
 
-		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Complete);
-		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Void);
+			expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
+			expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Void);
 
-		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
-	});
+			expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Complete);
+			expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Void);
+
+			expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
+		},
+	);
 
 	expect(
 		documentStatusActionMap[documentBaseType.PurchaseOrder].CO.some(
@@ -103,6 +113,10 @@ test('clinic admin role has correct access', async () => {
 				action === documentAction.ReverseCorrect,
 		),
 	).toBeTruthy();
+
+	// BH_Payroll_Run (BPR): Clinic Admin is granted only Complete (from Drafted) — no Void, ever.
+	expect(documentStatusActionMap[documentBaseType.PayrollRun].DR).toEqual([documentAction.Complete]);
+	expect(documentStatusActionMap[documentBaseType.PayrollRun].DR).not.toContain(documentAction.Void);
 });
 
 test('cashier/registration basic role has correct access', async () => {

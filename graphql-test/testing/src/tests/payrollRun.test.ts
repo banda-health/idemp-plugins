@@ -66,13 +66,19 @@ test('payroll run drafts, previews net pay, then locks and unlocks', async () =>
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	await valueObject.login();
 
+	// This test locks (and re-locks) the month it drafts, so a fixed month/year would collide with a
+	// prior run on a DB that isn't reset between runs (e.g. re-running this spec without restarting the
+	// stack). Derive a month/year that's effectively unique per run instead.
+	const payrollYear = 2200 + (Date.now() % 700);
+	const payrollMonth = (Date.now() % 12) + 1;
+
 	await createEmployee(valueObject, { basic: 45000, house: 12000, transport: 6000 });
 
 	// Draft the month — creates the run and generates one line per active employee.
 	const draft = (
 		await mutate(valueObject)({
 			mutation: Bh_Payroll_RunDraftDocument,
-			variables: { BH_PayrollMonth: 7, BH_PayrollYear: 2026 },
+			variables: { BH_PayrollMonth: payrollMonth, BH_PayrollYear: payrollYear },
 		})
 	).data!.BH_Payroll_RunDraft;
 	const runUuid = draft!.UU;
@@ -116,7 +122,7 @@ test('payroll run drafts, previews net pay, then locks and unlocks', async () =>
 	await expect(
 		mutate(valueObject)({
 			mutation: Bh_Payroll_RunDraftDocument,
-			variables: { BH_PayrollMonth: 7, BH_PayrollYear: 2026 },
+			variables: { BH_PayrollMonth: payrollMonth, BH_PayrollYear: payrollYear },
 		}),
 	).rejects.toThrow(/locked/);
 });
