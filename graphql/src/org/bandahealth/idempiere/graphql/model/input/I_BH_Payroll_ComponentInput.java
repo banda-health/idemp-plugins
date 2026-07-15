@@ -18,6 +18,34 @@ public interface I_BH_Payroll_ComponentInput extends I_BH_Payroll_Component {
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
+	 * Set Calculation Method.
+	 *
+	 * @param BH_CalcMethod Calculation Method
+	 */
+	void setBH_CalcMethodInput(ForeignEntityInput BH_CalcMethod);
+
+	/**
+	 * Get Calculation Method.
+	 *
+	 * @return Calculation Method
+	 */
+	ForeignEntityInput BH_CalcMethod();
+
+	/**
+	 * Set Category.
+	 *
+	 * @param BH_Category Category
+	 */
+	void setBH_CategoryInput(ForeignEntityInput BH_Category);
+
+	/**
+	 * Get Category.
+	 *
+	 * @return Category
+	 */
+	ForeignEntityInput BH_Category();
+
+	/**
 	 * Get Organization.
 	 *
 	 * @return Organizational entity within tenant

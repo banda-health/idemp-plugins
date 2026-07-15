@@ -22,9 +22,9 @@ type BH_Payroll_Component {
 	AD_Client: AD_Client!
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
-	BH_CalcMethod: String!
+	BH_CalcMethod: AD_Ref_List!
 	BH_Cap: BigDecimal
-	BH_Category: String!
+	BH_Category: AD_Ref_List!
 	BH_EmployerRate: BigDecimal
 	BH_FilingDueDay: Int
 	BH_Floor: BigDecimal
@@ -58,9 +58,9 @@ type BH_Payroll_Component {
 input BH_Payroll_ComponentInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
-	BH_CalcMethod: String
+	BH_CalcMethod: ForeignEntityInput
 	BH_Cap: BigDecimal
-	BH_Category: String
+	BH_Category: ForeignEntityInput
 	BH_EmployerRate: BigDecimal
 	BH_FilingDueDay: Int
 	BH_Floor: BigDecimal

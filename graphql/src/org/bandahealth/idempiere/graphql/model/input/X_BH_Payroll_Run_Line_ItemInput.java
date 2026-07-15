@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHPayrollRunLine;
 import org.bandahealth.idempiere.base.model.MBHPayrollRunLineItem;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_BH_Payroll_ComponentResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -21,6 +23,7 @@ import java.sql.ResultSet;
 public class X_BH_Payroll_Run_Line_ItemInput extends MBHPayrollRunLineItem implements I_BH_Payroll_Run_Line_ItemInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mBH_Category;
 	private ForeignEntityInput mBH_Payroll_Run_Line;
 
 	/**
@@ -70,6 +73,46 @@ public class X_BH_Payroll_Run_Line_ItemInput extends MBHPayrollRunLineItem imple
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+
+	/**
+	 * Set Category. Line items share the component category list (see
+	 * X_BH_Payroll_ComponentResolver#BH_CATEGORY_UUIDS_BY_VALUE).
+	 *
+	 * @param BH_Category Category
+	 */
+	@JsonProperty("BH_Category")
+	public void setBH_CategoryInput(ForeignEntityInput BH_Category) {
+		this.mBH_Category = BH_Category;
+		if (BH_Category != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_BH_Payroll_ComponentResolver.BH_CATEGORY_UUIDS_BY_VALUE.containsValue(BH_Category.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BH_Category.getUU() +
+						" is not in the list defined for the BH_Category column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(BH_Category.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setBH_Category(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + BH_Category.getUU());
+			}
+		} else {
+			this.setBH_Category(null);
+		}
+	}
+
+	/**
+	 * Get Category.
+	 *
+	 * @return Category
+	 */
+	@JsonProperty("BH_Category")
+	public ForeignEntityInput BH_Category() {
+		return mBH_Category;
 	}
 
 	/**

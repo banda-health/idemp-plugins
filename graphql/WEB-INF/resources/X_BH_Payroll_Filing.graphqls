@@ -24,7 +24,7 @@ type BH_Payroll_Filing {
 	AD_Org: AD_Org!
 	BH_EmployeeAmount: BigDecimal!
 	BH_EmployerAmount: BigDecimal!
-	BH_FilingType: String!
+	BH_FilingType: AD_Ref_List!
 	BH_IsPaid: Boolean!
 	BH_PaidDate: Date
 	BH_PaymentReference: String
@@ -48,7 +48,7 @@ input BH_Payroll_FilingInput {
 	AD_Org: ForeignEntityInput
 	BH_EmployeeAmount: BigDecimal
 	BH_EmployerAmount: BigDecimal
-	BH_FilingType: String
+	BH_FilingType: ForeignEntityInput
 	BH_IsPaid: Boolean
 	BH_PaidDate: Date
 	BH_PaymentReference: String

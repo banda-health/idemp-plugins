@@ -33,6 +33,14 @@ public class MBHPayrollFiling extends X_BH_Payroll_Filing {
 
 	@Override
 	protected boolean beforeSave(boolean newRecord) {
+		// Filing types are dictionary-owned; this also catches a statutory catalogue component
+		// whose Value drifted from the filing-type list (core PO does not validate lists on save).
+		if ((newRecord || is_ValueChanged(COLUMNNAME_BH_FilingType))
+				&& !MReference_BH.isListValue(MReference_BH.PAYROLL_FILING_TYPE_AD_REFERENCE_UU,
+						getBH_FilingType(), get_TrxName())) {
+			log.saveError("Error", "Unknown payroll filing type: " + getBH_FilingType());
+			return false;
+		}
 		if (!isRunLocked()) {
 			return true;
 		}

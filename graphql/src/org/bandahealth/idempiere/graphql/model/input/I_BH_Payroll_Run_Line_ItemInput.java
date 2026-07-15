@@ -18,6 +18,20 @@ public interface I_BH_Payroll_Run_Line_ItemInput extends I_BH_Payroll_Run_Line_I
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
+	 * Set Category.
+	 *
+	 * @param BH_Category Category
+	 */
+	void setBH_CategoryInput(ForeignEntityInput BH_Category);
+
+	/**
+	 * Get Category.
+	 *
+	 * @return Category
+	 */
+	ForeignEntityInput BH_Category();
+
+	/**
 	 * Get Organization.
 	 *
 	 * @return Organizational entity within tenant

@@ -1021,7 +1021,9 @@ mutation BH_Payroll_RunProcess($UU: ID!, $DocumentAction: String!) {
 		}
 		BH_Payroll_Filings {
 			UU
-			BH_FilingType
+			BH_FilingType {
+				Value
+			}
 			BH_TotalAmount
 		}
 		BH_Payroll_Run_Lines {
@@ -1039,5 +1041,17 @@ mutation BH_Payroll_AuditSave($Entity: BH_Payroll_AuditInput!) {
 			Name
 		}
 		BH_Detail
+	}
+}
+
+mutation BH_Payroll_ComponentSave($Entity: BH_Payroll_ComponentInput!) {
+	BH_Payroll_ComponentSave(Entity: $Entity) {
+		UU
+		BH_Category {
+			Value
+		}
+		BH_CalcMethod {
+			Value
+		}
 	}
 }

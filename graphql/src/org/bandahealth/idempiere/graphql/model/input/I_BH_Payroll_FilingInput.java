@@ -18,6 +18,20 @@ public interface I_BH_Payroll_FilingInput extends I_BH_Payroll_Filing {
 	void setAD_OrgInput(ForeignEntityInput AD_Org);
 
 	/**
+	 * Set Filing Type.
+	 *
+	 * @param BH_FilingType Filing Type
+	 */
+	void setBH_FilingTypeInput(ForeignEntityInput BH_FilingType);
+
+	/**
+	 * Get Filing Type.
+	 *
+	 * @return Filing Type
+	 */
+	ForeignEntityInput BH_FilingType();
+
+	/**
 	 * Get Organization.
 	 *
 	 * @return Organizational entity within tenant

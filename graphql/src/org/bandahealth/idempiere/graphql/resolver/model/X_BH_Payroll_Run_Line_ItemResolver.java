@@ -4,7 +4,10 @@ import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBHPayrollRunLine;
 import org.bandahealth.idempiere.base.model.MBHPayrollRunLineItem;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.dataloader.impl.X_AD_Ref_ListDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_BH_Payroll_Run_LineDataLoader;
+import org.bandahealth.idempiere.graphql.utils.StringUtil;
 import org.dataloader.DataLoader;
 
 import java.util.concurrent.CompletableFuture;
@@ -17,6 +20,21 @@ import java.util.concurrent.CompletableFuture;
  */
 public class X_BH_Payroll_Run_Line_ItemResolver extends POResolver<MBHPayrollRunLineItem> implements GraphQLResolver<MBHPayrollRunLineItem> {
 
+
+	/**
+	 * Get Category. Line items share the component category list — the UUID map lives on
+	 * {@link X_BH_Payroll_ComponentResolver#BH_CATEGORY_UUIDS_BY_VALUE}.
+	 *
+	 * @return Category
+	 */
+	public CompletableFuture<MRefList_BH> BH_Category(MBHPayrollRunLineItem entity, DataFetchingEnvironment environment) {
+		if (StringUtil.isNullOrEmpty(entity.getBH_Category())) {
+			return null;
+		}
+		DataLoader<String, MRefList_BH> dataLoader =
+				environment.getDataLoaderRegistry().getDataLoader(X_AD_Ref_ListDataLoader.DATALOADER_AD_Ref_List_BY_UUID);
+		return dataLoader.load(X_BH_Payroll_ComponentResolver.BH_CATEGORY_UUIDS_BY_VALUE.get(entity.getBH_Category()));
+	}
 
 	public Boolean BH_IsTaxDeductible(MBHPayrollRunLineItem entity, DataFetchingEnvironment environment) {
 		return entity.isBH_IsTaxDeductible();

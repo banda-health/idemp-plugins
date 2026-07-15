@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHPayrollFiling;
 import org.bandahealth.idempiere.base.model.MBHPayrollRun;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_BH_Payroll_FilingResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -21,6 +23,7 @@ import java.sql.ResultSet;
 public class X_BH_Payroll_FilingInput extends MBHPayrollFiling implements I_BH_Payroll_FilingInput {
 
 	private ForeignEntityInput mAD_Org;
+	private ForeignEntityInput mBH_FilingType;
 	private ForeignEntityInput mBH_Payroll_Run;
 
 	/**
@@ -70,6 +73,45 @@ public class X_BH_Payroll_FilingInput extends MBHPayrollFiling implements I_BH_P
 	@JsonProperty("AD_Org")
 	public ForeignEntityInput AD_Org() {
 		return mAD_Org;
+	}
+
+	/**
+	 * Set Filing Type.
+	 *
+	 * @param BH_FilingType Filing Type
+	 */
+	@JsonProperty("BH_FilingType")
+	public void setBH_FilingTypeInput(ForeignEntityInput BH_FilingType) {
+		this.mBH_FilingType = BH_FilingType;
+		if (BH_FilingType != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_BH_Payroll_FilingResolver.BH_FILINGTYPE_UUIDS_BY_VALUE.containsValue(BH_FilingType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BH_FilingType.getUU() +
+						" is not in the list defined for the BH_FilingType column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(BH_FilingType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setBH_FilingType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + BH_FilingType.getUU());
+			}
+		} else {
+			this.setBH_FilingType(null);
+		}
+	}
+
+	/**
+	 * Get Filing Type.
+	 *
+	 * @return Filing Type
+	 */
+	@JsonProperty("BH_FilingType")
+	public ForeignEntityInput BH_FilingType() {
+		return mBH_FilingType;
 	}
 
 	/**

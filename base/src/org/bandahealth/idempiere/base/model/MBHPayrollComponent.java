@@ -33,6 +33,25 @@ public class MBHPayrollComponent extends X_BH_Payroll_Component {
 		super(ctx, rs, trxName);
 	}
 
+	@Override
+	protected boolean beforeSave(boolean newRecord) {
+		// The frontend edits components through the generated save mutation — enforce the
+		// dictionary vocabularies here (core PO does not validate list membership on save).
+		if ((newRecord || is_ValueChanged(COLUMNNAME_BH_Category))
+				&& !MReference_BH.isListValue(MReference_BH.PAYROLL_COMPONENT_CATEGORY_AD_REFERENCE_UU,
+						getBH_Category(), get_TrxName())) {
+			log.saveError("Error", "Unknown payroll component category: " + getBH_Category());
+			return false;
+		}
+		if ((newRecord || is_ValueChanged(COLUMNNAME_BH_CalcMethod))
+				&& !MReference_BH.isListValue(MReference_BH.PAYROLL_CALC_METHOD_AD_REFERENCE_UU,
+						getBH_CalcMethod(), get_TrxName())) {
+			log.saveError("Error", "Unknown payroll calculation method: " + getBH_CalcMethod());
+			return false;
+		}
+		return true;
+	}
+
 	/**
 	 * The catalogue in force for a clinic at a point in time, resolved per code (Value):
 	 * the clinic row beats the System row, and among a code's candidates the latest

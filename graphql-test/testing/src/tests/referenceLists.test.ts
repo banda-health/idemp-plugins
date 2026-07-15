@@ -81,6 +81,35 @@ test('payroll audit action vocabulary is dictionary-owned', async () => {
 	}
 });
 
+test('payroll component vocabularies are dictionary-owned', async () => {
+	globalThis.__VALUE_OBJECT__.login();
+
+	const listValues = async (referenceUu: string) =>
+		(
+			await query(globalThis.__VALUE_OBJECT__)({
+				query: Ad_Ref_ListGetDocument,
+				variables: {
+					Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUu }, isactive: true }),
+				},
+			})
+		).data.AD_Ref_ListGet.Results.map((entry) => entry.Value);
+
+	const categories = await listValues(referenceUuid.PAYROLL_COMPONENT_CATEGORIES);
+	for (const value of ['EARNING', 'EMPLOYER_CONTRIB', 'RELIEF', 'STAT_DED', 'VOL_DED']) {
+		expect(categories).toContain(value);
+	}
+
+	const calcMethods = await listValues(referenceUuid.PAYROLL_CALC_METHODS);
+	for (const value of ['BANDS', 'EMPLOYEE_AMOUNT', 'FIXED', 'PERCENT_OF_GROSS', 'TIERED']) {
+		expect(calcMethods).toContain(value);
+	}
+
+	const filingTypes = await listValues(referenceUuid.PAYROLL_FILING_TYPES);
+	for (const value of ['PAYE', 'NSSF', 'SHIF', 'HLEVY', 'NITA']) {
+		expect(filingTypes).toContain(value);
+	}
+});
+
 test('document action access is correct for admins', async () => {
 	await globalThis.__VALUE_OBJECT__.login();
 	const documentStatusActionMap = JSON.parse(

@@ -2,6 +2,7 @@ import {
 	Ad_Ref_ListGetDocument,
 	Bh_PayrollPreviewDocument,
 	Bh_Payroll_AuditSaveDocument,
+	Bh_Payroll_ComponentSaveDocument,
 	Bh_Payroll_RunDraftDocument,
 	Bh_Payroll_RunProcessDocument,
 	Hr_DepartmentSaveDocument,
@@ -208,6 +209,68 @@ test('payroll audit accepts only dictionary-listed action types', async () => {
 				Entity: {
 					BH_ActionType: { UU: '00000000-0000-0000-0000-000000000000' },
 					BH_Detail: 'must never save',
+				},
+			},
+		}),
+	).rejects.toThrow(/not in the list/);
+});
+
+test('payroll component vocabulary travels as reference-list UUs', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	const listRows = async (referenceUu: string) =>
+		(
+			await query(valueObject)({
+				query: Ad_Ref_ListGetDocument,
+				variables: {
+					Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUu }, isactive: true }),
+				},
+			})
+		).data.AD_Ref_ListGet.Results;
+
+	const volDed = (await listRows(referenceUuid.PAYROLL_COMPONENT_CATEGORIES)).find(
+		(row) => row.Value === 'VOL_DED',
+	);
+	const fixed = (await listRows(referenceUuid.PAYROLL_CALC_METHODS)).find((row) => row.Value === 'FIXED');
+	expect(volDed).not.toBeUndefined();
+	expect(fixed).not.toBeUndefined();
+
+	// ValidFrom 9999 keeps the probe out of every clinic's effective catalogue.
+	const saved = (
+		await mutate(valueObject)({
+			mutation: Bh_Payroll_ComponentSaveDocument,
+			variables: {
+				Entity: {
+					Value: 'VOCAB' + valueObject.random,
+					Name: 'Vocabulary probe ' + valueObject.random,
+					BH_Category: { UU: volDed!.UU },
+					BH_CalcMethod: { UU: fixed!.UU },
+					ValidFrom: formatApiDate(new Date('9999-01-01')),
+					SeqNo: 990,
+					BH_IsTaxDeductible: false,
+					BH_IsStatutory: false,
+				},
+			},
+		})
+	).data!.BH_Payroll_ComponentSave;
+	expect(saved.BH_Category.Value).toBe('VOL_DED');
+	expect(saved.BH_CalcMethod.Value).toBe('FIXED');
+
+	// A UU outside the category list must be rejected by the input mapper.
+	await expect(
+		mutate(valueObject)({
+			mutation: Bh_Payroll_ComponentSaveDocument,
+			variables: {
+				Entity: {
+					Value: 'VOCABX' + valueObject.random,
+					Name: 'Vocabulary reject ' + valueObject.random,
+					BH_Category: { UU: '00000000-0000-0000-0000-000000000000' },
+					BH_CalcMethod: { UU: fixed!.UU },
+					ValidFrom: formatApiDate(new Date('9999-01-01')),
+					SeqNo: 991,
+					BH_IsTaxDeductible: false,
+					BH_IsStatutory: false,
 				},
 			},
 		}),
