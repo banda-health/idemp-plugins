@@ -53,7 +53,11 @@ public class MBHPayrollRunMutation extends X_BH_Payroll_RunMutation {
 			}
 			List<MBHPayrollComponent> catalogue = MBHPayrollComponent.getEffectiveAll(ctx, clientId,
 					run.getPeriodEnd(), transaction.getTrxName());
-			run.generateLines(catalogue);
+			// Refuse an empty draft; the rollback below discards the just-created run (and, on a
+			// redraft, restores the previous lines).
+			if (run.generateLines(catalogue) == 0) {
+				throw new AdempiereException("No active employees for this period");
+			}
 			run.saveEx();
 			if (!transaction.commit(true)) {
 				throw new AdempiereException("Could not commit payroll run draft transaction");

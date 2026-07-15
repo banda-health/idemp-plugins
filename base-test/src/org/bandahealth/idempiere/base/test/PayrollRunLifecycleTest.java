@@ -158,6 +158,33 @@ public class PayrollRunLifecycleTest extends ChuBoePopulateFactoryVO {
 		}
 	}
 
+	@IPopulateAnnotation.CanRun
+	public void completeWithZeroActiveEmployeesIsRefused() throws Exception {
+		int clientId = Env.getAD_Client_ID(Env.getCtx());
+		int activeEmployees = new Query(Env.getCtx(), MHREmployee_BH.Table_Name,
+				"AD_Client_ID=?", get_TrxName()).setParameters(clientId).setOnlyActiveRecords(true).count();
+		assertThat("precondition: client has no active employees", activeEmployees, is(0));
+
+		MBHPayrollRun run = new MBHPayrollRun(Env.getCtx(), 0, get_TrxName());
+		run.setBH_PayrollMonth(5);
+		run.setBH_PayrollYear(2026);
+		run.saveEx();
+		try {
+			assertThat("complete refused", run.processIt(DocAction.ACTION_Complete), is(false));
+			assertThat("message names the cause", run.getProcessMsg(),
+					containsString("No active employees"));
+			assertThat("still a draft", run.getDocStatus(), is(DocAction.STATUS_Drafted));
+			assertThat("not processed", run.isProcessed(), is(false));
+			assertThat("no filings created", new Query(Env.getCtx(), MBHPayrollFiling.Table_Name,
+					"BH_Payroll_Run_ID=?", get_TrxName()).setParameters(run.get_ID()).count(), is(0));
+			assertThat("no lock audit written", new Query(Env.getCtx(), MBHPayrollAudit.Table_Name,
+					"BH_Payroll_Run_ID=? AND BH_ActionType=?", get_TrxName())
+					.setParameters(run.get_ID(), "PERIOD_LOCK").count(), is(0));
+		} finally {
+			cleanupRun(run);
+		}
+	}
+
 	private void cleanupRun(MBHPayrollRun run) {
 		DB.executeUpdateEx("DELETE FROM BH_Payroll_Filing WHERE BH_Payroll_Run_ID=?",
 				new Object[]{run.get_ID()}, get_TrxName());

@@ -164,6 +164,20 @@ test('re-activating a fresh draft errors instead of writing an audit', async () 
 	).rejects.toBeTruthy();
 });
 
+test('drafting a payroll run with zero active employees errors', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	// 1900-01 predates every employee StartDate this file (or any prior run against a reused DB)
+	// creates, so the period resolves zero active employees regardless of test order.
+	await expect(
+		mutate(valueObject)({
+			mutation: Bh_Payroll_RunDraftDocument,
+			variables: { BH_PayrollMonth: 1, BH_PayrollYear: 1900 },
+		}),
+	).rejects.toThrow(/No active employees/);
+});
+
 test('drafting a payroll run rejects a role without payroll access', async () => {
 	const valueObject = globalThis.__VALUE_OBJECT__;
 	// Cashier/Registration Basic has no CO access on the BPR doc type (see Task 6 role-denial smoke);

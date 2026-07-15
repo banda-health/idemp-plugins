@@ -121,10 +121,14 @@ public class MBHPayrollRun extends X_BH_Payroll_Run implements DocAction {
 	public boolean processIt(String action) throws Exception {
 		m_processMsg = null;
 		if (DocAction.ACTION_Complete.equals(action)) {
-			String status = completeIt();
-			setDocStatus(status);
-			setDocAction(DocAction.ACTION_ReActivate);
-			return DocAction.STATUS_Completed.equals(status);
+			// Two-state document: a refused complete stays DR/CO (STATUS_Invalid is not in the
+			// payroll doc-status list), mirroring the guarded RE branch below.
+			if (DocAction.STATUS_Completed.equals(completeIt())) {
+				setDocStatus(DocAction.STATUS_Completed);
+				setDocAction(DocAction.ACTION_ReActivate);
+				return true;
+			}
+			return false;
 		}
 		if (DocAction.ACTION_ReActivate.equals(action)) {
 			boolean ok = reActivateIt();
@@ -154,7 +158,12 @@ public class MBHPayrollRun extends X_BH_Payroll_Run implements DocAction {
 		}
 		List<MBHPayrollComponent> catalogue = MBHPayrollComponent.getEffectiveAll(getCtx(),
 				getAD_Client_ID(), getPeriodEnd(), get_TrxName());
-		generateLines(catalogue);
+		// An empty period must not lock: it would stamp zero-amount statutory filings and a
+		// PERIOD_LOCK audit for a month with no payroll. Callers roll back on non-Completed.
+		if (generateLines(catalogue) == 0) {
+			m_processMsg = "No active employees for this period";
+			return DocAction.STATUS_Invalid;
+		}
 
 		List<PayrollComponent> specs = catalogue.stream()
 				.map(component -> component.toSpec(get_TrxName())).collect(Collectors.toList());
