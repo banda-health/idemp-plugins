@@ -1,5 +1,7 @@
 import {
+	Ad_Ref_ListGetDocument,
 	Bh_PayrollPreviewDocument,
+	Bh_Payroll_AuditSaveDocument,
 	Bh_Payroll_RunDraftDocument,
 	Bh_Payroll_RunProcessDocument,
 	Hr_DepartmentSaveDocument,
@@ -7,6 +9,7 @@ import {
 	Hr_JobSaveDocument,
 } from '../__generated__/graphql';
 import { mutate, query } from '../api';
+import { referenceUuid } from '../models';
 import { RoleName } from '../types/roleName';
 import { createBusinessPartner, formatApiDate } from '../utils';
 
@@ -162,6 +165,53 @@ test('re-activating a fresh draft errors instead of writing an audit', async () 
 			variables: { UU: draft!.UU, DocumentAction: 'RE' },
 		}),
 	).rejects.toBeTruthy();
+});
+
+test('payroll audit accepts only dictionary-listed action types', async () => {
+	const valueObject = globalThis.__VALUE_OBJECT__;
+	await valueObject.login();
+
+	// Action types travel as reference-list UUs; resolve EMPLOYEE_ADD from the dictionary the way
+	// the frontend does (AD_Ref_ListGet filtered on the audit-action reference).
+	const auditActions = (
+		await query(valueObject)({
+			query: Ad_Ref_ListGetDocument,
+			variables: {
+				Filter: JSON.stringify({
+					ad_reference: { ad_reference_uu: referenceUuid.PAYROLL_AUDIT_ACTIONS },
+					isactive: true,
+				}),
+			},
+		})
+	).data.AD_Ref_ListGet.Results;
+	const employeeAdd = auditActions.find((action) => action.Value === 'EMPLOYEE_ADD');
+	expect(employeeAdd).not.toBeUndefined();
+
+	const saved = (
+		await mutate(valueObject)({
+			mutation: Bh_Payroll_AuditSaveDocument,
+			variables: {
+				Entity: {
+					BH_ActionType: { UU: employeeAdd!.UU },
+					BH_Detail: 'jest vocabulary smoke',
+				},
+			},
+		})
+	).data!.BH_Payroll_AuditSave;
+	expect(saved.BH_ActionType.Value).toBe('EMPLOYEE_ADD');
+
+	// A UU outside the audit-action list must be rejected by the input mapper.
+	await expect(
+		mutate(valueObject)({
+			mutation: Bh_Payroll_AuditSaveDocument,
+			variables: {
+				Entity: {
+					BH_ActionType: { UU: '00000000-0000-0000-0000-000000000000' },
+					BH_Detail: 'must never save',
+				},
+			},
+		}),
+	).rejects.toThrow(/not in the list/);
 });
 
 test('drafting a payroll run with zero active employees errors', async () => {

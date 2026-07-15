@@ -10,6 +10,7 @@ public class MReference_BH extends MReference {
 	public static final String NON_PATIENT_PAYER_AD_REFERENCE_UU = "b313a870-0826-4c1d-a9af-f9ec990b4375";
 	public static final String PAYER_INFORMATION_FIELD_DATA_TYPE_AD_REFERENCE_UU = "15b3f5d7-205a-4d91-84c0" +
 			"-5e38ec36b6c6";
+	public static final String PAYROLL_AUDIT_ACTION_AD_REFERENCE_UU = "585d06a8-a4b5-4fd6-8991-55a11653c15d";
 	public static final String TENDER_TYPE_AD_REFERENCE_UU = "9d124599-d720-436b-a609-011bcf2eff8e";
 	public static final String REPORT_TENDER_TYPE_AD_REFERENCE_UU = "7eca6283-86b9-4dff-9c40-786162a8be7a";
 	public static final String STOCK_UPDATE_REASONS_AD_REFERENCE_UU = "dcdc79d7-8e55-428f-a8a5-e7a6f562404f";

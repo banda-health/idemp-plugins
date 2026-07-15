@@ -39,6 +39,20 @@ public interface I_BH_Payroll_AuditInput extends I_BH_Payroll_Audit {
 	ForeignEntityInput AD_Role();
 
 	/**
+	 * Set Action Type.
+	 *
+	 * @param BH_ActionType Action Type
+	 */
+	void setBH_ActionTypeInput(ForeignEntityInput BH_ActionType);
+
+	/**
+	 * Get Action Type.
+	 *
+	 * @return Action Type
+	 */
+	ForeignEntityInput BH_ActionType();
+
+	/**
 	 * Set Payroll Run.
 	 *
 	 * @param BH_Payroll_Run Payroll Run

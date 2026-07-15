@@ -171,7 +171,7 @@ public class MBHPayrollRun extends X_BH_Payroll_Run implements DocAction {
 
 		assignPayslipNumbers();
 		createFilings(catalogue);
-		writeAudit("PERIOD_LOCK");
+		writeAudit(MBHPayrollAudit.BH_ACTIONTYPE_PeriodLock);
 
 		setProcessed(true);
 		setDocStatus(DocAction.STATUS_Completed);
@@ -258,7 +258,7 @@ public class MBHPayrollRun extends X_BH_Payroll_Run implements DocAction {
 		}
 		DB.executeUpdateEx("DELETE FROM BH_Payroll_Filing WHERE BH_Payroll_Run_ID=?",
 				new Object[]{get_ID()}, get_TrxName());
-		writeAudit("PERIOD_UNLOCK");
+		writeAudit(MBHPayrollAudit.BH_ACTIONTYPE_PeriodUnlock);
 		setProcessed(false);
 		setDocStatus(DocAction.STATUS_Drafted);
 		return true;

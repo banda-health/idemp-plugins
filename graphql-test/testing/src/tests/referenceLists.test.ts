@@ -49,6 +49,38 @@ test('tender type names to be correct', async () => {
 	// Not sure about 'Direct Debit' & 'Debit Card' - should those show up?
 });
 
+test('payroll audit action vocabulary is dictionary-owned', async () => {
+	globalThis.__VALUE_OBJECT__.login();
+
+	const auditActions = (
+		await query(globalThis.__VALUE_OBJECT__)({
+			query: Ad_Ref_ListGetDocument,
+			variables: {
+				Filter: JSON.stringify({
+					ad_reference: { ad_reference_uu: referenceUuid.PAYROLL_AUDIT_ACTIONS },
+					isactive: true,
+				}),
+			},
+		})
+	).data.AD_Ref_ListGet.Results;
+
+	const values = auditActions.map((action) => action.Value);
+	for (const value of [
+		'PERIOD_LOCK',
+		'PERIOD_UNLOCK',
+		'COMPONENT_CHANGE',
+		'EMPLOYEE_ADD',
+		'EMPLOYEE_EDIT',
+		'EMPLOYEE_DEACTIVATE',
+		'EMPLOYEE_REACTIVATE',
+		'FILING_PAID',
+		'FILING_REVERSED',
+		'SETTINGS_CHANGE',
+	]) {
+		expect(values).toContain(value);
+	}
+});
+
 test('document action access is correct for admins', async () => {
 	await globalThis.__VALUE_OBJECT__.login();
 	const documentStatusActionMap = JSON.parse(

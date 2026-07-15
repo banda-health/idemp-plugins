@@ -24,7 +24,7 @@ type BH_Payroll_Audit {
 	AD_Org: AD_Org!
 	# Responsibility Role
 	AD_Role: AD_Role
-	BH_ActionType: String!
+	BH_ActionType: AD_Ref_List!
 	BH_Detail: String
 	UU: ID!
 	BH_Payroll_Run: BH_Payroll_Run
@@ -46,7 +46,7 @@ input BH_Payroll_AuditInput {
 	AD_Org: ForeignEntityInput
 	# Responsibility Role
 	AD_Role: ForeignEntityInput
-	BH_ActionType: String
+	BH_ActionType: ForeignEntityInput
 	BH_Detail: String
 	UU: ID
 	BH_Payroll_Run: ForeignEntityInput

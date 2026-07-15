@@ -37,6 +37,7 @@ public class BandaBaseTestFactory implements IChuBoePopulateFactory {
 
 		// Payroll
 		tests.add(new PayrollAssignmentResolutionTest());
+		tests.add(new PayrollAuditActionTest());
 		tests.add(new PayrollCalculatorTest());
 		tests.add(new PayrollComponentResolutionTest());
 		tests.add(new PayrollRunGenerationTest());

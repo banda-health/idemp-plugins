@@ -1030,3 +1030,14 @@ mutation BH_Payroll_RunProcess($UU: ID!, $DocumentAction: String!) {
 		}
 	}
 }
+
+mutation BH_Payroll_AuditSave($Entity: BH_Payroll_AuditInput!) {
+	BH_Payroll_AuditSave(Entity: $Entity) {
+		UU
+		BH_ActionType {
+			Value
+			Name
+		}
+		BH_Detail
+	}
+}

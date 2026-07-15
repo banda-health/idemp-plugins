@@ -111,6 +111,26 @@ public class X_BH_Payroll_Audit extends PO implements I_BH_Payroll_Audit, I_Pers
 		return ii.intValue();
 	}
 
+	/** Period locked = PERIOD_LOCK */
+	public static final String BH_ACTIONTYPE_PeriodLock = "PERIOD_LOCK";
+	/** Period unlocked = PERIOD_UNLOCK */
+	public static final String BH_ACTIONTYPE_PeriodUnlock = "PERIOD_UNLOCK";
+	/** Component changed = COMPONENT_CHANGE */
+	public static final String BH_ACTIONTYPE_ComponentChange = "COMPONENT_CHANGE";
+	/** Employee added = EMPLOYEE_ADD */
+	public static final String BH_ACTIONTYPE_EmployeeAdd = "EMPLOYEE_ADD";
+	/** Employee edited = EMPLOYEE_EDIT */
+	public static final String BH_ACTIONTYPE_EmployeeEdit = "EMPLOYEE_EDIT";
+	/** Employee deactivated = EMPLOYEE_DEACTIVATE */
+	public static final String BH_ACTIONTYPE_EmployeeDeactivate = "EMPLOYEE_DEACTIVATE";
+	/** Employee reactivated = EMPLOYEE_REACTIVATE */
+	public static final String BH_ACTIONTYPE_EmployeeReactivate = "EMPLOYEE_REACTIVATE";
+	/** Filing paid = FILING_PAID */
+	public static final String BH_ACTIONTYPE_FilingPaid = "FILING_PAID";
+	/** Filing payment reversed = FILING_REVERSED */
+	public static final String BH_ACTIONTYPE_FilingReversed = "FILING_REVERSED";
+	/** Settings changed = SETTINGS_CHANGE */
+	public static final String BH_ACTIONTYPE_SettingsChange = "SETTINGS_CHANGE";
 	/** Set Action Type.
 		@param BH_ActionType Action Type
 	*/

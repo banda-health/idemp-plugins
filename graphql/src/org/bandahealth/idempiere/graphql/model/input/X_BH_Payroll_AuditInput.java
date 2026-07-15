@@ -6,6 +6,8 @@ import org.adempiere.exceptions.AdempiereException;
 import org.bandahealth.idempiere.base.model.MBHPayrollAudit;
 import org.bandahealth.idempiere.base.model.MBHPayrollRun;
 import org.bandahealth.idempiere.base.model.MHREmployee_BH;
+import org.bandahealth.idempiere.base.model.MRefList_BH;
+import org.bandahealth.idempiere.graphql.resolver.model.X_BH_Payroll_AuditResolver;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
@@ -24,6 +26,7 @@ public class X_BH_Payroll_AuditInput extends MBHPayrollAudit implements I_BH_Pay
 
 	private ForeignEntityInput mAD_Org;
 	private ForeignEntityInput mAD_Role;
+	private ForeignEntityInput mBH_ActionType;
 	private ForeignEntityInput mBH_Payroll_Run;
 	private ForeignEntityInput mHR_Employee;
 
@@ -108,6 +111,45 @@ public class X_BH_Payroll_AuditInput extends MBHPayrollAudit implements I_BH_Pay
 	@JsonProperty("AD_Role")
 	public ForeignEntityInput AD_Role() {
 		return mAD_Role;
+	}
+
+	/**
+	 * Set Action Type.
+	 *
+	 * @param BH_ActionType Action Type
+	 */
+	@JsonProperty("BH_ActionType")
+	public void setBH_ActionTypeInput(ForeignEntityInput BH_ActionType) {
+		this.mBH_ActionType = BH_ActionType;
+		if (BH_ActionType != null) {
+			// Since an entity was passed, make sure it's in the list of acceptable values
+			if (!X_BH_Payroll_AuditResolver.BH_ACTIONTYPE_UUIDS_BY_VALUE.containsValue(BH_ActionType.getUU())) {
+				throw new AdempiereException("The reference list UU of " + BH_ActionType.getUU() +
+						" is not in the list defined for the BH_ActionType column");
+			}
+			// Now make sure it's in the DB
+			MRefList_BH foreignEntity;
+			if ((foreignEntity =
+					new Query(getCtx(), MRefList_BH.Table_Name, MRefList_BH.COLUMNNAME_AD_Ref_List_UU + "=?", get_TrxName())
+							.setParameters(BH_ActionType.getUU()).first()) != null && foreignEntity.get_ID() >= 0) {
+				this.setBH_ActionType(foreignEntity.getValue());
+			} else {
+				throw new AdempiereException(
+						"Could not find entity in table " + MRefList_BH.Table_Name + " with UU " + BH_ActionType.getUU());
+			}
+		} else {
+			this.setBH_ActionType(null);
+		}
+	}
+
+	/**
+	 * Get Action Type.
+	 *
+	 * @return Action Type
+	 */
+	@JsonProperty("BH_ActionType")
+	public ForeignEntityInput BH_ActionType() {
+		return mBH_ActionType;
 	}
 
 	/**
