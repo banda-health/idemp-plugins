@@ -1055,3 +1055,16 @@ mutation BH_Payroll_ComponentSave($Entity: BH_Payroll_ComponentInput!) {
 		}
 	}
 }
+
+mutation BH_Payroll_SettingsSave($Entity: BH_Payroll_SettingsInput!) {
+	BH_Payroll_SettingsSave(Entity: $Entity) {
+		UU
+		BH_PayDay
+		BH_PayrollMonth
+		BH_PayrollYear
+	}
+}
+
+mutation BH_Payroll_SettingsDelete($UUs: [String!]!) {
+	BH_Payroll_SettingsDelete(UUs: $UUs)
+}

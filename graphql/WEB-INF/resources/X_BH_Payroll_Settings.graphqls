@@ -23,6 +23,8 @@ type BH_Payroll_Settings {
 	# Organizational entity within tenant
 	AD_Org: AD_Org!
 	BH_PayDay: Int
+	BH_PayrollMonth: Int
+	BH_PayrollYear: Int
 	UU: ID!
 	# Date this record was created
 	Created: DateTime!
@@ -42,6 +44,8 @@ input BH_Payroll_SettingsInput {
 	# Organizational entity within tenant
 	AD_Org: ForeignEntityInput
 	BH_PayDay: Int
+	BH_PayrollMonth: Int
+	BH_PayrollYear: Int
 	UU: ID
 	# The record is active in the system
 	IsActive: Boolean

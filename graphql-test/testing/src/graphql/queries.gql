@@ -994,3 +994,14 @@ query BH_PayrollPreview(
 		}
 	}
 }
+
+query BH_Payroll_SettingsGet($Filter: String) {
+	BH_Payroll_SettingsGet(Filter: $Filter) {
+		Results {
+			UU
+			BH_PayDay
+			BH_PayrollMonth
+			BH_PayrollYear
+		}
+	}
+}
