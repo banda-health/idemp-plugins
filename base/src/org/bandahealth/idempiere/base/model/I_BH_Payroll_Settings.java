@@ -69,6 +69,24 @@ public interface I_BH_Payroll_Settings
 	/** Get Pay Day.	  */
 	public int getBH_PayDay();
 
+    /** Column name BH_PayrollMonth */
+    public static final String COLUMNNAME_BH_PayrollMonth = "BH_PayrollMonth";
+
+	/** Set Payroll Month.	  */
+	public void setBH_PayrollMonth (int BH_PayrollMonth);
+
+	/** Get Payroll Month.	  */
+	public int getBH_PayrollMonth();
+
+    /** Column name BH_PayrollYear */
+    public static final String COLUMNNAME_BH_PayrollYear = "BH_PayrollYear";
+
+	/** Set Payroll Year.	  */
+	public void setBH_PayrollYear (int BH_PayrollYear);
+
+	/** Get Payroll Year.	  */
+	public int getBH_PayrollYear();
+
     /** Column name BH_Payroll_Settings_ID */
     public static final String COLUMNNAME_BH_Payroll_Settings_ID = "BH_Payroll_Settings_ID";
 

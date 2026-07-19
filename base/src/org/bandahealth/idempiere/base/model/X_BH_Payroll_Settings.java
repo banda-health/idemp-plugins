@@ -35,7 +35,7 @@ public class X_BH_Payroll_Settings extends PO implements I_BH_Payroll_Settings, 
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 20260709L;
+	private static final long serialVersionUID = 20260719L;
 
     /** Standard Constructor */
     public X_BH_Payroll_Settings (Properties ctx, int BH_Payroll_Settings_ID, String trxName)
@@ -102,6 +102,42 @@ public class X_BH_Payroll_Settings extends PO implements I_BH_Payroll_Settings, 
 	public int getBH_PayDay()
 	{
 		Integer ii = (Integer)get_Value(COLUMNNAME_BH_PayDay);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set Payroll Month.
+		@param BH_PayrollMonth Payroll Month
+	*/
+	public void setBH_PayrollMonth (int BH_PayrollMonth)
+	{
+		set_Value (COLUMNNAME_BH_PayrollMonth, Integer.valueOf(BH_PayrollMonth));
+	}
+
+	/** Get Payroll Month.
+		@return Payroll Month	  */
+	public int getBH_PayrollMonth()
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_PayrollMonth);
+		if (ii == null)
+			 return 0;
+		return ii.intValue();
+	}
+
+	/** Set Payroll Year.
+		@param BH_PayrollYear Payroll Year
+	*/
+	public void setBH_PayrollYear (int BH_PayrollYear)
+	{
+		set_Value (COLUMNNAME_BH_PayrollYear, Integer.valueOf(BH_PayrollYear));
+	}
+
+	/** Get Payroll Year.
+		@return Payroll Year	  */
+	public int getBH_PayrollYear()
+	{
+		Integer ii = (Integer)get_Value(COLUMNNAME_BH_PayrollYear);
 		if (ii == null)
 			 return 0;
 		return ii.intValue();
