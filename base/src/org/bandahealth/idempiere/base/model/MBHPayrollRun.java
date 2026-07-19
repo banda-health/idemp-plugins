@@ -172,10 +172,35 @@ public class MBHPayrollRun extends X_BH_Payroll_Run implements DocAction {
 		assignPayslipNumbers();
 		createFilings(catalogue);
 		writeAudit(MBHPayrollAudit.BH_ACTIONTYPE_PeriodLock);
+		advanceSettingsPeriod();
 
 		setProcessed(true);
 		setDocStatus(DocAction.STATUS_Completed);
 		return DocAction.STATUS_Completed;
+	}
+
+	/**
+	 * Move the client's "current payroll period" to the month after this run — but only when the
+	 * settings period equals this run's period exactly. Re-locking an older, previously unlocked
+	 * month while settings already point ahead must not advance again; a null/absent settings
+	 * period means the clinic hasn't opted into period tracking, so it stays untouched. (A null
+	 * settings month reads as 0, which never equals a run month 1-12.) Runs on the run's own trx
+	 * so the advance commits or rolls back with the completion.
+	 */
+	private void advanceSettingsPeriod() {
+		MBHPayrollSettings settings = MBHPayrollSettings.getByClientId(getCtx(), getAD_Client_ID(),
+				get_TrxName());
+		if (settings == null || settings.getBH_PayrollMonth() != getBH_PayrollMonth()
+				|| settings.getBH_PayrollYear() != getBH_PayrollYear()) {
+			return;
+		}
+		if (getBH_PayrollMonth() == 12) {
+			settings.setBH_PayrollMonth(1);
+			settings.setBH_PayrollYear(getBH_PayrollYear() + 1);
+		} else {
+			settings.setBH_PayrollMonth(getBH_PayrollMonth() + 1);
+		}
+		settings.saveEx();
 	}
 
 	/** Payslip numbers PS-&lt;year&gt;&lt;month 2d&gt;-&lt;seq 3d&gt; in line (creation) order. */
