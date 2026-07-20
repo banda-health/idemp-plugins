@@ -281,6 +281,65 @@ public class PayrollRunLifecycleTest extends ChuBoePopulateFactoryVO {
 	}
 
 	@IPopulateAnnotation.CanRun
+	public void completeStampsPayDateFromSettingsPayDay() throws Exception {
+		MHREmployee_BH employee = createEmployeeFixture();
+		MBHPayrollSettings settings = new MBHPayrollSettings(Env.getCtx(), 0, get_TrxName());
+		settings.setBH_PayDay(28);
+		settings.saveEx();
+		MBHPayrollRun run = null;
+		try {
+			run = completeRun(6, 2026);
+			assertThat("pay date is the pay day within the run's period month",
+					run.getBH_PayDate(), is(ts("2026-06-28")));
+		} finally {
+			if (run != null) {
+				teardownRun(run);
+			}
+			settings.deleteEx(true);
+			deleteEmployeeFixture(employee);
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void completeClampsPayDayToShortMonth() throws Exception {
+		MHREmployee_BH employee = createEmployeeFixture();
+		MBHPayrollSettings settings = new MBHPayrollSettings(Env.getCtx(), 0, get_TrxName());
+		settings.setBH_PayDay(31);
+		settings.saveEx();
+		MBHPayrollRun run = null;
+		try {
+			run = completeRun(2, 2026);
+			assertThat("pay day 31 clamps to the last day of February",
+					run.getBH_PayDate(), is(ts("2026-02-28")));
+		} finally {
+			if (run != null) {
+				teardownRun(run);
+			}
+			settings.deleteEx(true);
+			deleteEmployeeFixture(employee);
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
+	public void completeWithoutPayDayFallsBackToMonthEnd() throws Exception {
+		MHREmployee_BH employee = createEmployeeFixture();
+		int clientId = Env.getAD_Client_ID(Env.getCtx());
+		assertThat("precondition: no settings row",
+				MBHPayrollSettings.getByClientId(Env.getCtx(), clientId, get_TrxName()), is(nullValue()));
+		MBHPayrollRun run = null;
+		try {
+			run = completeRun(3, 2026);
+			assertThat("no pay day configured falls back to the last day of the period month",
+					run.getBH_PayDate(), is(ts("2026-03-31")));
+		} finally {
+			if (run != null) {
+				teardownRun(run);
+			}
+			deleteEmployeeFixture(employee);
+		}
+	}
+
+	@IPopulateAnnotation.CanRun
 	public void completeWithoutSettingsRowStillLocks() throws Exception {
 		MHREmployee_BH employee = createEmployeeFixture();
 		int clientId = Env.getAD_Client_ID(Env.getCtx());

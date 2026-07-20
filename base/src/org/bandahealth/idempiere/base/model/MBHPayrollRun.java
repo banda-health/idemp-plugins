@@ -172,7 +172,11 @@ public class MBHPayrollRun extends X_BH_Payroll_Run implements DocAction {
 		assignPayslipNumbers();
 		createFilings(catalogue);
 		writeAudit(MBHPayrollAudit.BH_ACTIONTYPE_PeriodLock);
-		advanceSettingsPeriod();
+
+		MBHPayrollSettings settings = MBHPayrollSettings.getByClientId(getCtx(), getAD_Client_ID(),
+				get_TrxName());
+		setBH_PayDate(resolvePayDate(settings));
+		advanceSettingsPeriod(settings);
 
 		setProcessed(true);
 		setDocStatus(DocAction.STATUS_Completed);
@@ -185,11 +189,10 @@ public class MBHPayrollRun extends X_BH_Payroll_Run implements DocAction {
 	 * month while settings already point ahead must not advance again; a null/absent settings
 	 * period means the clinic hasn't opted into period tracking, so it stays untouched. (A null
 	 * settings month reads as 0, which never equals a run month 1-12.) Runs on the run's own trx
-	 * so the advance commits or rolls back with the completion.
+	 * so the advance commits or rolls back with the completion. Takes the already-loaded settings
+	 * so completion reads the client's settings row once.
 	 */
-	private void advanceSettingsPeriod() {
-		MBHPayrollSettings settings = MBHPayrollSettings.getByClientId(getCtx(), getAD_Client_ID(),
-				get_TrxName());
+	private void advanceSettingsPeriod(MBHPayrollSettings settings) {
 		if (settings == null || settings.getBH_PayrollMonth() != getBH_PayrollMonth()
 				|| settings.getBH_PayrollYear() != getBH_PayrollYear()) {
 			return;
@@ -201,6 +204,21 @@ public class MBHPayrollRun extends X_BH_Payroll_Run implements DocAction {
 			settings.setBH_PayrollMonth(getBH_PayrollMonth() + 1);
 		}
 		settings.saveEx();
+	}
+
+	/**
+	 * The run's pay date: the configured pay day ({@code BH_Payroll_Settings.BH_PayDay}, a day of the
+	 * month) landing inside this run's own period month, clamped to that month's length. When no pay
+	 * day is configured (no settings row, or day 0), fall back to the last day of the period month.
+	 * Mirrors the frontend pay-day/month-end convention so the History page and payslips show a real
+	 * date instead of a blank.
+	 */
+	private Timestamp resolvePayDate(MBHPayrollSettings settings) {
+		LocalDate periodMonth = LocalDate.of(getBH_PayrollYear(), getBH_PayrollMonth(), 1);
+		int payDay = settings != null ? settings.getBH_PayDay() : 0;
+		int dayOfMonth = payDay >= 1 ? Math.min(payDay, periodMonth.lengthOfMonth())
+				: periodMonth.lengthOfMonth();
+		return Timestamp.valueOf(periodMonth.withDayOfMonth(dayOfMonth).atStartOfDay());
 	}
 
 	/** Payslip numbers PS-&lt;year&gt;&lt;month 2d&gt;-&lt;seq 3d&gt; in line (creation) order. */
