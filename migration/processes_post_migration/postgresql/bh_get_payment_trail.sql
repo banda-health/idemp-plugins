@@ -26,7 +26,15 @@ WITH visit_payments AS (
 		SUM(payamt) AS payamt
 	FROM
 		c_bpartner bp
-			JOIN bh_get_visit_payments(bp.ad_client_id, '-infinity'::timestamp, 'infinity'::timestamp) gvp
+			JOIN bh_get_visit_payments(
+				bp.ad_client_id,
+				'-infinity'::timestamp,
+				'infinity'::timestamp,
+				COALESCE(
+					(SELECT ARRAY_AGG(v.bh_visit_id) FROM bh_visit v WHERE v.patient_id = bp.c_bpartner_id),
+					ARRAY []::numeric[]
+				)
+			) gvp
 				ON gvp.patient_id = bp.c_bpartner_id
 	WHERE
 		bp.c_bpartner_uu = _c_bpartner_uu

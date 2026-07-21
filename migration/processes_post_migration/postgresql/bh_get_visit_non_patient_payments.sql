@@ -1,7 +1,9 @@
 DROP FUNCTION IF EXISTS bh_get_visit_non_patient_payments(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE);
+DROP FUNCTION IF EXISTS bh_get_visit_non_patient_payments(numeric, timestamp WITHOUT TIME ZONE, timestamp WITHOUT TIME ZONE, numeric[]);
 CREATE FUNCTION bh_get_visit_non_patient_payments(ad_client_id numeric,
                                                   begin_date timestamp WITHOUT TIME ZONE DEFAULT '-infinity'::timestamp WITHOUT TIME ZONE,
-                                                  end_date timestamp WITHOUT TIME ZONE DEFAULT 'infinity'::timestamp WITHOUT TIME ZONE)
+                                                  end_date timestamp WITHOUT TIME ZONE DEFAULT 'infinity'::timestamp WITHOUT TIME ZONE,
+                                                  bh_visit_ids numeric[] DEFAULT NULL)
 	RETURNS TABLE
 	        (
 		        bh_visit_id         numeric,
@@ -33,6 +35,8 @@ SELECT
 	bpspir.name        AS Relationship
 FROM
 	bh_visit v
+		LEFT JOIN UNNEST($4) AS vid(bh_visit_id)
+		ON vid.bh_visit_id = v.bh_visit_id
 		JOIN c_invoice i
 		ON v.bh_visit_id = i.bh_visit_id AND i.docstatus NOT IN ('VO', 'RE', 'RA')
 		JOIN c_bpartner bp
@@ -98,6 +102,7 @@ FROM
 WHERE
 	v.ad_client_id = $1
 	AND v.bh_visitdate BETWEEN $2 AND $3
+	AND ($4 IS NULL OR vid.bh_visit_id IS NOT NULL)
 	AND bpg.bh_subtype IN ('I', 'D')
 UNION ALL
 -- Get waivers
@@ -114,6 +119,8 @@ SELECT
 	NULL    AS Relationship
 FROM
 	bh_visit v
+		LEFT JOIN UNNEST($4) AS vid(bh_visit_id)
+		ON vid.bh_visit_id = v.bh_visit_id
 		JOIN c_invoice i
 		ON v.bh_visit_id = i.bh_visit_id AND i.docstatus NOT IN ('VO', 'RA', 'RE')
 		JOIN c_invoiceline il
@@ -126,5 +133,6 @@ FROM
 		ON r.ad_reference_uu = 'b313a870-0826-4c1d-a9af-f9ec990b4375' AND r.ad_reference_id = rl.ad_reference_id
 WHERE
 	v.ad_client_id = $1
-	AND v.bh_visitdate BETWEEN $2 AND $3;
+	AND v.bh_visitdate BETWEEN $2 AND $3
+	AND ($4 IS NULL OR vid.bh_visit_id IS NOT NULL);
 $$;

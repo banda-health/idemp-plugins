@@ -167,9 +167,12 @@ SELECT
     -p.linenetamt AS line_amount,
     c.iso_code AS currency,
     CASE WHEN i.c_bpartner_id = $P{Payer_ID} THEN 1 ELSE 0 END AS is_main_payer
-FROM visit v
-    JOIN bh_get_visit_non_patient_payments(v.ad_client_id, '-infinity'::timestamp, 'infinity'::timestamp) p
-    ON v.bh_visit_id = p.bh_visit_id
+FROM bh_get_visit_non_patient_payments(
+        (SELECT ad_client_id FROM visit),
+        '-infinity'::timestamp,
+        'infinity'::timestamp,
+        ARRAY[(SELECT bh_visit_id FROM visit)]
+    ) p
     JOIN c_invoice i
     ON i.c_invoice_id = p.c_invoice_id
     LEFT JOIN c_currency c
@@ -261,9 +264,12 @@ SELECT
     -p.linenetamt AS line_amount,
     c.iso_code AS currency,
     0 AS is_patient_payment
-FROM visit v
-    JOIN bh_get_visit_non_patient_payments(v.ad_client_id, '-infinity'::timestamp, 'infinity'::timestamp) p
-    ON v.bh_visit_id = p.bh_visit_id
+FROM bh_get_visit_non_patient_payments(
+        (SELECT ad_client_id FROM visit),
+        '-infinity'::timestamp,
+        'infinity'::timestamp,
+        ARRAY[(SELECT bh_visit_id FROM visit)]
+    ) p
     JOIN c_invoice i
     ON i.c_invoice_id = p.c_invoice_id
     LEFT JOIN c_currency c
@@ -275,9 +281,12 @@ SELECT
     SUM(p.payamt) AS line_amount,
     c.iso_code AS currency,
     1 AS is_patient_payment
-FROM visit v
-    JOIN bh_get_visit_payments(v.ad_client_id, '-infinity'::timestamp, 'infinity'::timestamp) p
-    ON v.bh_visit_id = p.bh_visit_id
+FROM bh_get_visit_payments(
+        (SELECT ad_client_id FROM visit),
+        '-infinity'::timestamp,
+        'infinity'::timestamp,
+        ARRAY[(SELECT bh_visit_id FROM visit)]
+    ) p
     LEFT JOIN c_payment pa
     ON pa.c_payment_id = p.c_payment_id
     LEFT JOIN c_currency c

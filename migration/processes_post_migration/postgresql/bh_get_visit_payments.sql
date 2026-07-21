@@ -1,6 +1,8 @@
 DROP FUNCTION IF EXISTS bh_get_visit_payments(NUMERIC, TIMESTAMP WITHOUT TIME ZONE, TIMESTAMP WITHOUT TIME ZONE);
+DROP FUNCTION IF EXISTS bh_get_visit_payments(NUMERIC, TIMESTAMP WITHOUT TIME ZONE, TIMESTAMP WITHOUT TIME ZONE, NUMERIC[]);
 CREATE FUNCTION bh_get_visit_payments(ad_client_id numeric, begin_date timestamp WITHOUT TIME ZONE,
-                                      end_date timestamp WITHOUT TIME ZONE)
+                                      end_date timestamp WITHOUT TIME ZONE,
+                                      bh_visit_ids numeric[] DEFAULT NULL)
 	RETURNS TABLE
 	        (
 		        bh_visit_id       numeric,
@@ -51,6 +53,8 @@ FROM
 	c_payment p
 		JOIN bh_visit v
 			ON p.bh_visit_id = v.bh_visit_id AND v.bh_visitdate BETWEEN begin_date AND end_date
+		LEFT JOIN UNNEST($4) AS vid(bh_visit_id)
+			ON vid.bh_visit_id = p.bh_visit_id
 		JOIN c_allocationline al
 			ON p.c_payment_id = al.c_payment_id
 		JOIN c_allocationhdr ah
@@ -67,6 +71,7 @@ FROM
 			ON rl.value = p.tendertype and rl.ad_reference_id = 214
 WHERE
 	p.ad_client_id = $1
+	AND ($4 IS NULL OR vid.bh_visit_id IS NOT NULL)
 	AND p.docstatus NOT IN ('RE', 'VO')
 	AND p.c_payment_id NOT IN (
 		SELECT
