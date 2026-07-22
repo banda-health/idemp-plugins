@@ -1,0 +1,54 @@
+# Generated Schema for BH_Payroll_Settings - DO NOT CHANGE
+#		@author Banda Health (generated)
+#		@version Release 12 - $Id$
+extend type Query {
+	BH_Payroll_Settings(UU: String!): BH_Payroll_Settings
+	BH_Payroll_SettingsGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): BH_Payroll_SettingsConnection!
+}
+
+extend type Mutation {
+	BH_Payroll_SettingsSave(Entity: BH_Payroll_SettingsInput!): BH_Payroll_Settings!
+	BH_Payroll_SettingsSaveMany(Entities: [BH_Payroll_SettingsInput!]!): [BH_Payroll_Settings!]!
+	BH_Payroll_SettingsDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Payroll_SettingsConnection {
+	Results: [BH_Payroll_Settings!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Payroll_Settings {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	BH_PayDay: Int
+	BH_PayrollMonth: Int
+	BH_PayrollYear: Int
+	UU: ID!
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Alphanumeric identifier of the entity
+	Name: String
+	# Date this record was updated
+	Updated: DateTime!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_Payroll_SettingsInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	BH_PayDay: Int
+	BH_PayrollMonth: Int
+	BH_PayrollYear: Int
+	UU: ID
+	# The record is active in the system
+	IsActive: Boolean
+	# Alphanumeric identifier of the entity
+	Name: String
+}

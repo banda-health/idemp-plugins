@@ -1,6 +1,6 @@
 package org.bandahealth.idempiere.graphql.dataloader.impl;
 
-import org.eevolution.model.X_HR_Employee;
+import org.bandahealth.idempiere.base.model.MHREmployee_BH;
 
 /**
  * Data Loader for HR_Employee - DO NOT CHANGE
@@ -8,13 +8,13 @@ import org.eevolution.model.X_HR_Employee;
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public class X_HR_EmployeeDataLoader extends PODataLoader<X_HR_Employee> {
+public class X_HR_EmployeeDataLoader extends PODataLoader<MHREmployee_BH> {
 	public static String DATALOADER_HR_Employee_BY_ID = "HR_EmployeeByIdDataLoader";
 	public static String DATALOADER_HR_Employee_BY_UUID = "HR_EmployeeByUuidDataLoader";
 
 	@Override
 	protected String getTableName() {
-		return X_HR_Employee.Table_Name;
+		return MHREmployee_BH.Table_Name;
 	}
 
 	@Override

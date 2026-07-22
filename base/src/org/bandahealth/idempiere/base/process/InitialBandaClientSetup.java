@@ -227,6 +227,11 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			}
 			addLog(bandaSetup.getThenResetInfo());
 
+			if (!bandaSetup.createPayrollRunDocType()) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating payroll run doc type failed"));
+			}
+
 			List<MUser_BH> usersToAddRolesTo = new ArrayList<>();
 			MUser_BH clientAdminUser = new Query(getCtx(), MUser.Table_Name,
 					MUser_BH.COLUMNNAME_AD_Client_ID + "=? AND " + MUser_BH.COLUMNNAME_Name + "=?", get_TrxName())
@@ -268,6 +273,11 @@ public class InitialBandaClientSetup extends InitialClientSetup {
 			if (!bandaSetup.createDefaultBusinessPartners()) {
 				rollback(bandaSetup);
 				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating default business partners failed"));
+			}
+
+			if (!bandaSetup.createStandardHRDepartmentAndJob()) {
+				rollback(bandaSetup);
+				throw new AdempiereException(Msg.getMsg(Env.getCtx(), "Creating standard HR department and job failed"));
 			}
 
 			if (!bandaSetup.updateProcessorRunSchedules()) {

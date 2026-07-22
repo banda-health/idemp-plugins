@@ -24,6 +24,7 @@ import org.compiere.model.MBPartnerLocation;
 import org.compiere.model.MClient;
 import org.compiere.model.MDiscountSchema;
 import org.compiere.model.MDiscountSchemaLine;
+import org.compiere.model.MDocType;
 import org.compiere.model.MElementValue;
 import org.compiere.model.MLocator;
 import org.compiere.model.MOrg;
@@ -37,6 +38,8 @@ import org.compiere.model.Query;
 import org.compiere.process.ProcessInfoParameter;
 import org.compiere.util.CLogMgt;
 import org.compiere.util.Env;
+import org.eevolution.model.X_HR_Department;
+import org.eevolution.model.X_HR_Job;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -204,6 +207,53 @@ public class InitialBandaClientSetupTest extends ChuBoePopulateFactoryVO {
 							.list();
 			assertThat("Only one locator is created", locators.size(), is(1));
 			assertTrue(locators.get(0).isDefault(), "The locator is default");
+
+			// Assert the Standard HR department & job exist (HR_Employee's mandatory parents; the
+			// payroll UI looks them up by name, so a client without them cannot add employees)
+			int standardDepartments = new Query(valueObject.getContext(), X_HR_Department.Table_Name,
+					X_HR_Department.COLUMNNAME_AD_Client_ID + "=? AND " + X_HR_Department.COLUMNNAME_Name + "=?",
+					valueObject.getTransactionName()).setParameters(client.get_ID(), "Standard").setOnlyActiveRecords(true)
+					.count();
+			assertEquals(1, standardDepartments, "The Standard HR department was created");
+			int standardJobs = new Query(valueObject.getContext(), X_HR_Job.Table_Name,
+					X_HR_Job.COLUMNNAME_AD_Client_ID + "=? AND " + X_HR_Job.COLUMNNAME_Name + "=?",
+					valueObject.getTransactionName()).setParameters(client.get_ID(), "Standard").setOnlyActiveRecords(true)
+					.count();
+			assertEquals(1, standardJobs, "The Standard HR job was created");
+
+			// Assert the Payroll Run doc type & its doc-action access were cloned for this client.
+			// Core's DocumentTypeVerify already auto-creates *a* BPR doc type for any new client
+			// (completeness check for missing DocBaseType ref-list values), so merely counting rows
+			// doesn't distinguish MBandaSetup.createPayrollRunDocType() actually running: assert the
+			// exact Name -- DocumentTypeVerify names it after the AD_Ref_List value ('Banda Payroll
+			// Run'), not the client-0 template's Name ('Payroll Run') that
+			// handleDocumentActionAccess's System->client name-matching depends on.
+			MDocType clientPayrollRunDocType = new Query(valueObject.getContext(), MDocType.Table_Name,
+					MDocType.COLUMNNAME_AD_Client_ID + "=? AND " + MDocType.COLUMNNAME_DocBaseType + "=?",
+					valueObject.getTransactionName()).setParameters(client.get_ID(), "BPR").setOnlyActiveRecords(true)
+					.first();
+			assertNotNull(clientPayrollRunDocType, "A Payroll Run doc type was created for the client");
+			assertEquals("Payroll Run", clientPayrollRunDocType.getName(),
+					"The client's Payroll Run doc type name matches the client-0 template "
+							+ "(not the DocBaseType ref-list value's own name)");
+			// Likewise, core's generic non-manual-role grant already puts access rows on whatever
+			// doc type DocumentTypeVerify creates -- but only for the client's built-in Admin role.
+			// Assert access specifically for the Clinic Admin/Accounting roles handleDocumentActionAccess
+			// is responsible for (those roles are created IsManual=true, so core's generic grant skips
+			// them entirely): 2 actions (Complete, Re-activate) x 2 roles = 4.
+			addAssertionSQL(
+					"SELECT " +
+							"'Payroll Run doc-action access was mapped for Clinic Admin/Accounting roles' AS name, " +
+							"(" +
+							"	SELECT COUNT(*) = 4 " +
+							"	FROM ad_document_action_access a " +
+							"		JOIN c_doctype d ON d.c_doctype_id = a.c_doctype_id " +
+							"		JOIN ad_role r ON r.ad_role_id = a.ad_role_id " +
+							"	WHERE d.ad_client_id = " + client.get_ID() +
+							"		AND d.docbasetype = 'BPR'" +
+							"		AND (r.name LIKE '%Clinic Admin' OR r.name LIKE '%Accounting')" +
+							") AS result"
+			);
 
 			// Assert attribute sets created
 			List<MAttributeSet_BH> configurationClientAttributeSets =

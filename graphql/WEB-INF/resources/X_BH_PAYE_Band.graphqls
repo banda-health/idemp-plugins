@@ -1,0 +1,54 @@
+# Generated Schema for BH_PAYE_Band - DO NOT CHANGE
+#		@author Banda Health (generated)
+#		@version Release 12 - $Id$
+extend type Query {
+	BH_PAYE_Band(UU: String!): BH_PAYE_Band
+	BH_PAYE_BandGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): BH_PAYE_BandConnection!
+}
+
+extend type Mutation {
+	BH_PAYE_BandSave(Entity: BH_PAYE_BandInput!): BH_PAYE_Band!
+	BH_PAYE_BandSaveMany(Entities: [BH_PAYE_BandInput!]!): [BH_PAYE_Band!]!
+	BH_PAYE_BandDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_PAYE_BandConnection {
+	Results: [BH_PAYE_Band!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_PAYE_Band {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	UU: ID!
+	BH_Payroll_Component: BH_Payroll_Component!
+	BH_Rate: BigDecimal!
+	BH_UpperLimit: BigDecimal
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int!
+	# Date this record was updated
+	Updated: DateTime!
+	# User who updated this records
+	UpdatedBy: AD_User!
+}
+
+input BH_PAYE_BandInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	UU: ID
+	BH_Payroll_Component: ForeignEntityInput
+	BH_Rate: BigDecimal
+	BH_UpperLimit: BigDecimal
+	# The record is active in the system
+	IsActive: Boolean
+	# Method of ordering records; lowest number comes first
+	SeqNo: Int
+}

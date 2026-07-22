@@ -1,0 +1,58 @@
+# Generated Schema for BH_Employee_Component - DO NOT CHANGE
+#		@author Banda Health (generated)
+#		@version Release 12 - $Id$
+extend type Query {
+	BH_Employee_Component(UU: String!): BH_Employee_Component
+	BH_Employee_ComponentGet(Page: Int, Size: Int, Sort: String, Filter: String, Where: String, Parameters: [Object!]): BH_Employee_ComponentConnection!
+}
+
+extend type Mutation {
+	BH_Employee_ComponentSave(Entity: BH_Employee_ComponentInput!): BH_Employee_Component!
+	BH_Employee_ComponentSaveMany(Entities: [BH_Employee_ComponentInput!]!): [BH_Employee_Component!]!
+	BH_Employee_ComponentDelete(UUs: [String!]!): Boolean!
+}
+
+type BH_Employee_ComponentConnection {
+	Results: [BH_Employee_Component!]!
+	PagingInfo: PagingInfo!
+}
+
+type BH_Employee_Component {
+	# Tenant for this installation.
+	AD_Client: AD_Client!
+	# Organizational entity within tenant
+	AD_Org: AD_Org!
+	BH_Amount: BigDecimal!
+	UU: ID!
+	BH_Payroll_Component: BH_Payroll_Component!
+	# Date this record was created
+	Created: DateTime!
+	# User who created this records
+	CreatedBy: AD_User!
+	HR_Employee: HR_Employee!
+	# The record is active in the system
+	IsActive: Boolean!
+	# Date this record was updated
+	Updated: DateTime!
+	# User who updated this records
+	UpdatedBy: AD_User!
+	# Valid from including this date (first day)
+	ValidFrom: Date!
+	# Valid to including this date (last day)
+	ValidTo: Date
+}
+
+input BH_Employee_ComponentInput {
+	# Organizational entity within tenant
+	AD_Org: ForeignEntityInput
+	BH_Amount: BigDecimal
+	UU: ID
+	BH_Payroll_Component: ForeignEntityInput
+	HR_Employee: ForeignEntityInput
+	# The record is active in the system
+	IsActive: Boolean
+	# Valid from including this date (first day)
+	ValidFrom: Date
+	# Valid to including this date (last day)
+	ValidTo: Date
+}

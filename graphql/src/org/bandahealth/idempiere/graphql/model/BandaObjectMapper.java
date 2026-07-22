@@ -311,6 +311,7 @@ public class BandaObjectMapper {
 							addMapping(I_BH_ConceptInput.class, MBHConceptInput.class);
 							addMapping(I_BH_DefaultIncludedRoleInput.class, MBHDefaultIncludedRoleInput.class);
 							addMapping(I_BH_Default_DocAction_AccessInput.class, MBHDefaultDocActionAccessInput.class);
+							addMapping(I_BH_Employee_ComponentInput.class, MBHEmployeeComponentInput.class);
 							addMapping(I_BH_EncounterInput.class, MBHEncounterInput.class);
 							addMapping(I_BH_Encounter_DiagnosisInput.class, MBHEncounterDiagnosisInput.class);
 							addMapping(I_BH_Encounter_DiagnosticInput.class, MBHEncounterDiagnosticInput.class);
@@ -321,12 +322,20 @@ public class BandaObjectMapper {
 							addMapping(I_BH_I_Product_QuantityInput.class, X_BH_I_Product_QuantityInput.class);
 							addMapping(I_BH_ObservationInput.class, MBHObservationInput.class);
 							addMapping(I_BH_Ocl_Originating_SourceInput.class, MBHOclOriginatingSourceInput.class);
+							addMapping(I_BH_PAYE_BandInput.class, MBHPAYEBandInput.class);
 							addMapping(I_BH_Payer_Info_FldInput.class, MBHPayerInfoFldInput.class);
 							addMapping(I_BH_Payer_Info_Fld_SugInput.class, MBHPayerInfoFldSugInput.class);
 							addMapping(I_BH_Payer_Info_Fld_ValInput.class, MBHPayerInfoFldValInput.class);
 							addMapping(I_BH_Payer_Info_Fld_Val_SugInput.class, MBHPayerInfoFldValSugInput.class);
 							addMapping(I_BH_PaymentRefInput.class, MBHPaymentRefInput.class);
 							addMapping(I_BH_PaymentRef_BankAcctInput.class, MBHPaymentRefBankAccountInput.class);
+							addMapping(I_BH_Payroll_AuditInput.class, MBHPayrollAuditInput.class);
+							addMapping(I_BH_Payroll_ComponentInput.class, MBHPayrollComponentInput.class);
+							addMapping(I_BH_Payroll_FilingInput.class, MBHPayrollFilingInput.class);
+							addMapping(I_BH_Payroll_RunInput.class, MBHPayrollRunInput.class);
+							addMapping(I_BH_Payroll_Run_LineInput.class, MBHPayrollRunLineInput.class);
+							addMapping(I_BH_Payroll_Run_Line_ItemInput.class, MBHPayrollRunLineItemInput.class);
+							addMapping(I_BH_Payroll_SettingsInput.class, MBHPayrollSettingsInput.class);
 							addMapping(I_BH_Product_CategoryDefaultInput.class, MBHProductCategoryDefaultInput.class);
 							addMapping(I_BH_Product_IncludedInput.class, MBHProductIncludedInput.class);
 							addMapping(I_BH_TagInput.class, MBHTagInput.class);

@@ -1,0 +1,3 @@
+extend type BH_Payroll_Component {
+	BH_PAYE_Bands: [BH_PAYE_Band!]
+}

@@ -61,7 +61,7 @@ touch tests-to-execute.txt
 find ./src -type f -regex '.*\/__tests__\/.*\.[jt]sx\?' | sed 's/\.\///' >>tests-to-execute.txt
 find ./src -type f -regex '.*\/\?.*\(spec\|test\)\.[tj]sx\?' | sed 's/\.\///' >>tests-to-execute.txt
 
-[ -f "full-test-results.txt" ] && full-test-results.txt
+[ -f "full-test-results.txt" ] && rm full-test-results.txt
 touch full-test-results.txt
 export NODE_OPTIONS="--experimental-vm-modules --no-warnings"
 

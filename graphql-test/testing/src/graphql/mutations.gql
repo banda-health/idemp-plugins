@@ -981,3 +981,90 @@ mutation SignInWithClients($Credentials: AuthenticationInput!) {
 		}
 	}
 }
+
+mutation HR_DepartmentSave($Entity: HR_DepartmentInput!) {
+	HR_DepartmentSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation HR_JobSave($Entity: HR_JobInput!) {
+	HR_JobSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation HR_EmployeeSave($Entity: HR_EmployeeInput!) {
+	HR_EmployeeSave(Entity: $Entity) {
+		UU
+	}
+}
+
+mutation BH_Payroll_RunDraft($BH_PayrollMonth: Int!, $BH_PayrollYear: Int!) {
+	BH_Payroll_RunDraft(BH_PayrollMonth: $BH_PayrollMonth, BH_PayrollYear: $BH_PayrollYear) {
+		UU
+		DocStatus {
+			Value
+		}
+		BH_Payroll_Run_Lines {
+			UU
+			BH_NetPay
+		}
+	}
+}
+
+mutation BH_Payroll_RunProcess($UU: ID!, $DocumentAction: String!) {
+	BH_Payroll_RunProcess(UU: $UU, DocumentAction: $DocumentAction) {
+		UU
+		DocStatus {
+			Value
+		}
+		BH_Payroll_Filings {
+			UU
+			BH_FilingType {
+				Value
+			}
+			BH_TotalAmount
+		}
+		BH_Payroll_Run_Lines {
+			UU
+			BH_NetPay
+		}
+	}
+}
+
+mutation BH_Payroll_AuditSave($Entity: BH_Payroll_AuditInput!) {
+	BH_Payroll_AuditSave(Entity: $Entity) {
+		UU
+		BH_ActionType {
+			Value
+			Name
+		}
+		BH_Detail
+	}
+}
+
+mutation BH_Payroll_ComponentSave($Entity: BH_Payroll_ComponentInput!) {
+	BH_Payroll_ComponentSave(Entity: $Entity) {
+		UU
+		BH_Category {
+			Value
+		}
+		BH_CalcMethod {
+			Value
+		}
+	}
+}
+
+mutation BH_Payroll_SettingsSave($Entity: BH_Payroll_SettingsInput!) {
+	BH_Payroll_SettingsSave(Entity: $Entity) {
+		UU
+		BH_PayDay
+		BH_PayrollMonth
+		BH_PayrollYear
+	}
+}
+
+mutation BH_Payroll_SettingsDelete($UUs: [String!]!) {
+	BH_Payroll_SettingsDelete(UUs: $UUs)
+}

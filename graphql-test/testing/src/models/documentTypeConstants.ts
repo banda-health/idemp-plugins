@@ -27,6 +27,7 @@ export const documentBaseType = {
 	ManufacturingOrder: 'MOP',
 	QualityOrder: 'MQO',
 	Payroll: 'HRP',
+	PayrollRun: 'BPR',
 	DistributionOrder: 'DOO',
 	ManufacturingCostCollector: 'MCC',
 	FixedAssetsAddition: 'FAA',

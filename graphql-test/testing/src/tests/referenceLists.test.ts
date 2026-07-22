@@ -49,6 +49,67 @@ test('tender type names to be correct', async () => {
 	// Not sure about 'Direct Debit' & 'Debit Card' - should those show up?
 });
 
+test('payroll audit action vocabulary is dictionary-owned', async () => {
+	globalThis.__VALUE_OBJECT__.login();
+
+	const auditActions = (
+		await query(globalThis.__VALUE_OBJECT__)({
+			query: Ad_Ref_ListGetDocument,
+			variables: {
+				Filter: JSON.stringify({
+					ad_reference: { ad_reference_uu: referenceUuid.PAYROLL_AUDIT_ACTIONS },
+					isactive: true,
+				}),
+			},
+		})
+	).data.AD_Ref_ListGet.Results;
+
+	const values = auditActions.map((action) => action.Value);
+	for (const value of [
+		'PERIOD_LOCK',
+		'PERIOD_UNLOCK',
+		'COMPONENT_CHANGE',
+		'EMPLOYEE_ADD',
+		'EMPLOYEE_EDIT',
+		'EMPLOYEE_DEACTIVATE',
+		'EMPLOYEE_REACTIVATE',
+		'FILING_PAID',
+		'FILING_REVERSED',
+		'SETTINGS_CHANGE',
+	]) {
+		expect(values).toContain(value);
+	}
+});
+
+test('payroll component vocabularies are dictionary-owned', async () => {
+	globalThis.__VALUE_OBJECT__.login();
+
+	const listValues = async (referenceUu: string) =>
+		(
+			await query(globalThis.__VALUE_OBJECT__)({
+				query: Ad_Ref_ListGetDocument,
+				variables: {
+					Filter: JSON.stringify({ ad_reference: { ad_reference_uu: referenceUu }, isactive: true }),
+				},
+			})
+		).data.AD_Ref_ListGet.Results.map((entry) => entry.Value);
+
+	const categories = await listValues(referenceUuid.PAYROLL_COMPONENT_CATEGORIES);
+	for (const value of ['EARNING', 'EMPLOYER_CONTRIB', 'RELIEF', 'STAT_DED', 'VOL_DED']) {
+		expect(categories).toContain(value);
+	}
+
+	const calcMethods = await listValues(referenceUuid.PAYROLL_CALC_METHODS);
+	for (const value of ['BANDS', 'EMPLOYEE_AMOUNT', 'FIXED', 'PERCENT_OF_GROSS', 'TIERED']) {
+		expect(calcMethods).toContain(value);
+	}
+
+	const filingTypes = await listValues(referenceUuid.PAYROLL_FILING_TYPES);
+	for (const value of ['PAYE', 'NSSF', 'SHIF', 'HLEVY', 'NITA']) {
+		expect(filingTypes).toContain(value);
+	}
+});
+
 test('document action access is correct for admins', async () => {
 	await globalThis.__VALUE_OBJECT__.login();
 	const documentStatusActionMap = JSON.parse(
@@ -85,15 +146,25 @@ test('clinic admin role has correct access', async () => {
 			[documentType in DocumentBaseType]: { [documentStatus in DocumentStatus]: DocumentAction[] };
 		};
 
-	Object.values(documentStatusActionMap).forEach((statusActionMapForASpecificDocumentBaseType) => {
-		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
-		expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Void);
+	Object.entries(documentStatusActionMap).forEach(
+		([documentBaseTypeValue, statusActionMapForASpecificDocumentBaseType]) => {
+			// BH_Payroll_Run (BPR, GO-3624) is a deliberate two-state document: DR --CO--> CO --RE--> DR.
+			// MBHPayrollRun#voidIt() always returns false and no Void access was granted for it, so it
+			// can't follow the Void-must-be-present expectations every DocumentEngine-native base type
+			// follows below. Its real, narrower access is asserted separately after this loop.
+			if (documentBaseTypeValue === documentBaseType.PayrollRun) {
+				return;
+			}
 
-		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Complete);
-		expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Void);
+			expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Complete);
+			expect(statusActionMapForASpecificDocumentBaseType.DR).toContain(documentAction.Void);
 
-		expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
-	});
+			expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Complete);
+			expect(statusActionMapForASpecificDocumentBaseType.IP).toContain(documentAction.Void);
+
+			expect(statusActionMapForASpecificDocumentBaseType.CO).not.toContain(documentAction.Close);
+		},
+	);
 
 	expect(
 		documentStatusActionMap[documentBaseType.PurchaseOrder].CO.some(
@@ -103,6 +174,10 @@ test('clinic admin role has correct access', async () => {
 				action === documentAction.ReverseCorrect,
 		),
 	).toBeTruthy();
+
+	// BH_Payroll_Run (BPR): Clinic Admin is granted only Complete (from Drafted) — no Void, ever.
+	expect(documentStatusActionMap[documentBaseType.PayrollRun].DR).toEqual([documentAction.Complete]);
+	expect(documentStatusActionMap[documentBaseType.PayrollRun].DR).not.toContain(documentAction.Void);
 });
 
 test('cashier/registration basic role has correct access', async () => {

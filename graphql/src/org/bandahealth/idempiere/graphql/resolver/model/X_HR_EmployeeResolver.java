@@ -3,6 +3,7 @@ package org.bandahealth.idempiere.graphql.resolver.model;
 import graphql.kickstart.tools.GraphQLResolver;
 import graphql.schema.DataFetchingEnvironment;
 import org.bandahealth.idempiere.base.model.MBPartner_BH;
+import org.bandahealth.idempiere.base.model.MHREmployee_BH;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_ActivityDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_C_BPartnerDataLoader;
 import org.bandahealth.idempiere.graphql.dataloader.impl.X_HR_DepartmentDataLoader;
@@ -11,7 +12,6 @@ import org.bandahealth.idempiere.graphql.dataloader.impl.X_HR_PayrollDataLoader;
 import org.compiere.model.MActivity;
 import org.dataloader.DataLoader;
 import org.eevolution.model.X_HR_Department;
-import org.eevolution.model.X_HR_Employee;
 import org.eevolution.model.X_HR_Job;
 import org.eevolution.model.X_HR_Payroll;
 
@@ -23,7 +23,7 @@ import java.util.concurrent.CompletableFuture;
  * @author Banda Health (generated)
  * @version Release 12 - $Id$
  */
-public class X_HR_EmployeeResolver extends POResolver<X_HR_Employee> implements GraphQLResolver<X_HR_Employee> {
+public class X_HR_EmployeeResolver extends POResolver<MHREmployee_BH> implements GraphQLResolver<MHREmployee_BH> {
 
 
 
@@ -32,7 +32,7 @@ public class X_HR_EmployeeResolver extends POResolver<X_HR_Employee> implements 
 	 *
 	 * @return Business Activity
 	 */
-	public CompletableFuture<MActivity> C_Activity(X_HR_Employee entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MActivity> C_Activity(MHREmployee_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getC_Activity_ID() < 1) {
 			return null;
 		}
@@ -47,7 +47,7 @@ public class X_HR_EmployeeResolver extends POResolver<X_HR_Employee> implements 
 	 *
 	 * @return Identifies a Business Partner
 	 */
-	public CompletableFuture<MBPartner_BH> C_BPartner(X_HR_Employee entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<MBPartner_BH> C_BPartner(MHREmployee_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getC_BPartner_ID() < 1) {
 			return null;
 		}
@@ -62,7 +62,7 @@ public class X_HR_EmployeeResolver extends POResolver<X_HR_Employee> implements 
 	 *
 	 * @return Payroll Department
 	 */
-	public CompletableFuture<X_HR_Department> HR_Department(X_HR_Employee entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_HR_Department> HR_Department(MHREmployee_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getHR_Department_ID() < 1) {
 			return null;
 		}
@@ -77,7 +77,7 @@ public class X_HR_EmployeeResolver extends POResolver<X_HR_Employee> implements 
 	 *
 	 * @return Payroll Job
 	 */
-	public CompletableFuture<X_HR_Job> HR_Job(X_HR_Employee entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_HR_Job> HR_Job(MHREmployee_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getHR_Job_ID() < 1) {
 			return null;
 		}
@@ -92,7 +92,7 @@ public class X_HR_EmployeeResolver extends POResolver<X_HR_Employee> implements 
 	 *
 	 * @return Payroll
 	 */
-	public CompletableFuture<X_HR_Payroll> HR_Payroll(X_HR_Employee entity, DataFetchingEnvironment environment) {
+	public CompletableFuture<X_HR_Payroll> HR_Payroll(MHREmployee_BH entity, DataFetchingEnvironment environment) {
 		if (entity.getHR_Payroll_ID() < 1) {
 			return null;
 		}

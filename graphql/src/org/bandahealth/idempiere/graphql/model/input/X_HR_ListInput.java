@@ -3,12 +3,12 @@ package org.bandahealth.idempiere.graphql.model.input;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.adempiere.exceptions.AdempiereException;
+import org.bandahealth.idempiere.base.model.MHREmployee_BH;
 import org.bandahealth.idempiere.graphql.utils.ModelUtil;
 import org.compiere.model.MOrg;
 import org.compiere.model.Query;
 import org.compiere.util.Env;
 import org.eevolution.model.X_HR_Department;
-import org.eevolution.model.X_HR_Employee;
 import org.eevolution.model.X_HR_List;
 import org.eevolution.model.X_HR_ListType;
 import org.eevolution.model.X_HR_Payroll;
@@ -122,7 +122,7 @@ public class X_HR_ListInput extends X_HR_List implements I_HR_ListInput {
 		this.mHR_Employee = HR_Employee;
 		if (HR_Employee != null) {
 			// Since an entity was passed, make sure it's in the DB
-			X_HR_Employee foreignEntity;
+			MHREmployee_BH foreignEntity;
 			if ((foreignEntity =
 					new Query(getCtx(), "HR_Employee", "HR_Employee_UU=?", get_TrxName())
 							.setParameters(HR_Employee.getUU()).first()) != null && foreignEntity.get_ID() >= 1) {
